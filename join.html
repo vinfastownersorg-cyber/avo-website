@@ -317,19 +317,68 @@
     <script src="js/main.js"></script>
     <script>
         // Form submission handler
-        document.getElementById('membershipForm').addEventListener('submit', function(e) {
+        document.getElementById('membershipForm').addEventListener('submit', async function(e) {
             e.preventDefault();
 
-            // Show success message
-            alert('Thank you for joining AVO! We will send a confirmation email to ' + document.getElementById('email').value + ' within 24 hours.');
+            // Get form values
+            const formData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                location: document.getElementById('location').value,
+                vehicle: document.getElementById('vehicle').value,
+                vehicleYear: document.getElementById('vehicleYear').value,
+                vehicleColor: document.getElementById('vehicleColor').value,
+                newsletter: document.getElementById('newsletter').checked,
+                interests: Array.from(document.querySelectorAll('input[name="interests"]:checked'))
+                    .map(cb => cb.value).join(', ')
+            };
 
-            // Reset form
-            this.reset();
+            // Build Discord embed message
+            const discordPayload = {
+                content: '🆕 **New AVO Membership Signup**',
+                embeds: [{
+                    color: 0x00539C, // VinFast blue
+                    fields: [
+                        { name: '👤 Name', value: formData.name, inline: true },
+                        { name: '📧 Email', value: formData.email, inline: true },
+                        { name: '📍 Location', value: formData.location || 'Not provided', inline: true },
+                        { name: '🚗 Vehicle', value: `${formData.vehicle} (${formData.vehicleYear})`, inline: true },
+                        { name: '🎨 Color', value: formData.vehicleColor || 'Not specified', inline: true },
+                        { name: '📬 Newsletter', value: formData.newsletter ? '✅ Yes' : '❌ No', inline: true },
+                        { name: '🤝 Interests', value: formData.interests || 'None selected', inline: false }
+                    ],
+                    timestamp: new Date().toISOString(),
+                    footer: { text: 'AVO Membership Form' }
+                }]
+            };
 
-            // Redirect to home
-            setTimeout(function() {
-                window.location.href = 'index.html';
-            }, 2000);
+            // Send to Discord webhook
+            try {
+                const response = await fetch('https://discord.com/api/webhooks/1437665226014199868/URTf_d_QHRGHb3i7IXyj-UaejQT0DR7UXOo62hbRRKd1vEL6VM16d2y5Dn0zc65S6LFb', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(discordPayload)
+                });
+
+                if (response.ok) {
+                    // Show success message
+                    alert('Thank you for joining AVO! Your membership request has been submitted. We will contact you at ' + formData.email + ' within 24 hours.');
+
+                    // Reset form
+                    this.reset();
+
+                    // Redirect to home
+                    setTimeout(function() {
+                        window.location.href = 'index.html';
+                    }, 2000);
+                } else {
+                    throw new Error('Failed to submit');
+                }
+            } catch (error) {
+                alert('There was an error submitting your membership request. Please try again or contact us directly on Discord: https://discord.gg/WRVqmKuFFA');
+            }
         });
     </script>
 </body>
