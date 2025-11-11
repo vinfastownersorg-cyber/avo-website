@@ -135,7 +135,7 @@
                 <h3>
                     <span lang="en">🎯 Advocacy</span>
                     <span lang="fr">🎯 Défense</span>
-                </h3>
+                </button>
                 <p lang="en">Collective voice representing owner interests to VinFast leadership and stakeholders</p>
                 <p lang="fr">Voix collective représentant les intérêts des propriétaires auprès de VinFast</p>
             </div>
@@ -144,7 +144,7 @@
                 <h3>
                     <span lang="en">🏛️ Governance</span>
                     <span lang="fr">🏛️ Gouvernance</span>
-                </h3>
+                </button>
                 <p lang="en">Transparent board governance with member voting and published meeting minutes</p>
                 <p lang="fr">Gouvernance transparente avec vote des membres et procès-verbaux publiés</p>
             </div>
@@ -153,7 +153,7 @@
                 <h3>
                     <span lang="en">🤝 Community</span>
                     <span lang="fr">🤝 Communauté</span>
-                </h3>
+                </button>
                 <p lang="en">Connecting owners through events, platforms, and shared experiences</p>
                 <p lang="fr">Connecter les propriétaires par des événements et expériences partagées</p>
             </div>
@@ -174,7 +174,7 @@
                     <h3>
                         <span lang="en">Board Minutes</span>
                         <span lang="fr">Procès-Verbaux</span>
-                    </h3>
+                    </button>
                     <p lang="en">Access published meeting minutes and board decisions</p>
                     <p lang="fr">Accéder aux procès-verbaux et décisions du conseil</p>
                     <a href="#" class="btn btn-small btn-outline">
@@ -188,7 +188,7 @@
                     <h3>
                         <span lang="en">Member Voting</span>
                         <span lang="fr">Vote des Membres</span>
-                    </h3>
+                    </button>
                     <p lang="en">Participate in important decisions and elections</p>
                     <p lang="fr">Participer aux décisions importantes et élections</p>
                     <a href="#" class="btn btn-small btn-outline">
@@ -202,7 +202,7 @@
                     <h3>
                         <span lang="en">Board Members</span>
                         <span lang="fr">Membres du Conseil</span>
-                    </h3>
+                    </button>
                     <p lang="en">Meet your elected board representatives</p>
                     <p lang="fr">Rencontrez vos représentants élus</p>
                     <a href="board.html" class="btn btn-small btn-outline">
@@ -216,7 +216,7 @@
                     <h3>
                         <span lang="en">Bylaws & Docs</span>
                         <span lang="fr">Règlements</span>
-                    </h3>
+                    </button>
                     <p lang="en">Review organizational bylaws and governance documents</p>
                     <p lang="fr">Consulter les règlements et documents de gouvernance</p>
                     <a href="documents.html" class="btn btn-small btn-outline">
@@ -253,7 +253,7 @@
                         <h3>
                             <span lang="en">Board Meeting (Virtual)</span>
                             <span lang="fr">Réunion du Conseil (Virtuelle)</span>
-                        </h3>
+                        </button>
                         <p class="event-info">
                             <span class="event-time">7:00 PM EST</span>
                             <span class="event-location">
@@ -284,7 +284,7 @@
                         <h3>
                             <span lang="en">SoCal Meetup</span>
                             <span lang="fr">Rencontre SoCal</span>
-                        </h3>
+                        </button>
                         <p class="event-info">
                             <span class="event-time">10:00 AM PST</span>
                             <span class="event-location">Los Angeles, CA</span>
@@ -312,7 +312,7 @@
                         <h3>
                             <span lang="en">Annual General Meeting</span>
                             <span lang="fr">Assemblée Générale Annuelle</span>
-                        </h3>
+                        </button>
                         <p class="event-info">
                             <span class="event-time">6:00 PM EST</span>
                             <span class="event-location">
@@ -355,7 +355,7 @@
         <div class="platform-grid">
             <div class="platform">
                 <div class="platform-icon">💬</div>
-                <h3>Discord</h3>
+                <h3>Discord</button>
                 <div class="platform-number">500+</div>
                 <p lang="en">Real-time chat & support</p>
                 <p lang="fr">Chat et support en temps réel</p>
@@ -367,7 +367,7 @@
 
             <div class="platform">
                 <div class="platform-icon">👥</div>
-                <h3>VFFS Facebook</h3>
+                <h3>VFFS Facebook</button>
                 <div class="platform-number">7,000+</div>
                 <p lang="en">Largest owner community</p>
                 <p lang="fr">Plus grande communauté</p>
@@ -379,7 +379,7 @@
 
             <div class="platform">
                 <div class="platform-icon">💭</div>
-                <h3>VinFastTalk.com</h3>
+                <h3>VinFastTalk.com</button>
                 <div class="platform-number">1,000+</div>
                 <p lang="en">Forum discussions</p>
                 <p lang="fr">Discussions forum</p>
@@ -402,13 +402,15 @@
             <span lang="fr">Répertoire complet des ressources VinFast, communautés et canaux officiels</span>
         </p>
 
-        <!-- Open Letters & Surveys -->
-        <div class="resource-category">
-            <h3 class="category-title">
-                <span lang="en">💚 Open Letters & Surveys</span>
-                <span lang="fr">💚 Lettres Ouvertes & Sondages</span>
-            </h3>
-            <div class="resources-list">
+        <div class="resources-container">
+            <!-- Open Letters & Surveys -->
+            <div class="resource-category">
+                <button class="category-toggle" onclick="toggleCategory(this)">
+                    <span class="toggle-icon">▼</span>
+                    <span lang="en">💚 Open Letters & Surveys</span>
+                    <span lang="fr">💚 Lettres Ouvertes & Sondages</span>
+                </button>
+                <div class="resources-list">
                 <div class="resource-item">
                     <a href="https://bit.ly/vinfastletter" target="_blank" rel="noopener noreferrer">
                         <span lang="en">AVO's Open Letter to VinFast</span>
@@ -436,13 +438,14 @@
             </div>
         </div>
 
-        <!-- Official VinFast - US -->
-        <div class="resource-category">
-            <h3 class="category-title">
-                <span lang="en">🇺🇸 Official VinFast United States</span>
-                <span lang="fr">🇺🇸 VinFast États-Unis Officiel</span>
-            </h3>
-            <div class="resources-list">
+            <!-- Official VinFast - US -->
+            <div class="resource-category">
+                <button class="category-toggle" onclick="toggleCategory(this)">
+                    <span class="toggle-icon">▼</span>
+                    <span lang="en">🇺🇸 Official VinFast United States</span>
+                    <span lang="fr">🇺🇸 VinFast États-Unis Officiel</span>
+                </button>
+                <div class="resources-list">
                 <div class="resource-item">
                     <a href="https://vinfastauto.us/" target="_blank" rel="noopener noreferrer">
                         <span lang="en">VinFast USA Website</span>
@@ -528,10 +531,10 @@
 
         <!-- Official VinFast - Canada -->
         <div class="resource-category">
-            <h3 class="category-title">
+            <button class="category-toggle" onclick="toggleCategory(this)"><span class="toggle-icon">▼</span>
                 <span lang="en">🇨🇦 Official VinFast Canada</span>
                 <span lang="fr">🇨🇦 VinFast Canada Officiel</span>
-            </h3>
+            </button>
             <div class="resources-list">
                 <div class="resource-item">
                     <a href="https://vinfastauto.ca/en" target="_blank" rel="noopener noreferrer">
@@ -610,10 +613,10 @@
 
         <!-- Official VinFast - Global -->
         <div class="resource-category">
-            <h3 class="category-title">
+            <button class="category-toggle" onclick="toggleCategory(this)"><span class="toggle-icon">▼</span>
                 <span lang="en">🌍 Official VinFast Global</span>
                 <span lang="fr">🌍 VinFast Global Officiel</span>
-            </h3>
+            </button>
             <div class="resources-list">
                 <div class="resource-item">
                     <a href="https://vinfast.com/" target="_blank" rel="noopener noreferrer">
@@ -660,10 +663,10 @@
 
         <!-- Owner Communities - Forums -->
         <div class="resource-category">
-            <h3 class="category-title">
+            <button class="category-toggle" onclick="toggleCategory(this)"><span class="toggle-icon">▼</span>
                 <span lang="en">👫 Owner Forums & Communities</span>
                 <span lang="fr">👫 Forums & Communautés Propriétaires</span>
-            </h3>
+            </button>
             <div class="resources-list">
                 <div class="resource-item">
                     <a href="https://www.vinfasttalk.com/" target="_blank" rel="noopener noreferrer">
@@ -686,10 +689,10 @@
 
         <!-- Owner Communities - Facebook Groups -->
         <div class="resource-category">
-            <h3 class="category-title">
+            <button class="category-toggle" onclick="toggleCategory(this)"><span class="toggle-icon">▼</span>
                 <span lang="en">👥 Facebook Owner Groups</span>
                 <span lang="fr">👥 Groupes Facebook Propriétaires</span>
-            </h3>
+            </button>
             <div class="resources-list">
                 <div class="resource-item">
                     <a href="https://www.facebook.com/groups/1948970065435256/" target="_blank" rel="noopener noreferrer">
@@ -760,10 +763,10 @@
 
         <!-- YouTube Content Creators -->
         <div class="resource-category">
-            <h3 class="category-title">
+            <button class="category-toggle" onclick="toggleCategory(this)"><span class="toggle-icon">▼</span>
                 <span lang="en">▶️ YouTube Owner Channels</span>
                 <span lang="fr">▶️ Chaînes YouTube Propriétaires</span>
-            </h3>
+            </button>
             <div class="resources-list">
                 <div class="resource-item">
                     <a href="https://www.youtube.com/@nataliely73" target="_blank" rel="noopener noreferrer">
@@ -794,10 +797,10 @@
 
         <!-- Ship Tracking -->
         <div class="resource-category">
-            <h3 class="category-title">
+            <button class="category-toggle" onclick="toggleCategory(this)"><span class="toggle-icon">▼</span>
                 <span lang="en">🚢 Vehicle Shipment Tracking</span>
                 <span lang="fr">🚢 Suivi des Expéditions</span>
-            </h3>
+            </button>
             <div class="resources-list">
                 <div class="resource-item">
                     <a href="https://www.vesselfinder.com/?mmsi=352001162" target="_blank" rel="noopener noreferrer">
@@ -828,10 +831,10 @@
 
         <!-- Merchandise -->
         <div class="resource-category">
-            <h3 class="category-title">
+            <button class="category-toggle" onclick="toggleCategory(this)"><span class="toggle-icon">▼</span>
                 <span lang="en">🛍️ Merchandise & Gear</span>
                 <span lang="fr">🛍️ Marchandise & Équipement</span>
-            </h3>
+            </button>
             <div class="resources-list">
                 <div class="resource-item">
                     <a href="https://www.bonfire.com/store/association-of-vinfast-owners/" target="_blank" rel="noopener noreferrer">
@@ -842,6 +845,8 @@
                     <p class="item-description" lang="fr">Boutique officielle avec vêtements et accessoires de marque AVO.</p>
                 </div>
             </div>
+        </div>
+
         </div>
 
         <p class="attribution">

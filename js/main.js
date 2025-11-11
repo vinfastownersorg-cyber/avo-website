@@ -69,3 +69,22 @@ function setLang(lang) {
     event.target.classList.add('active');
     localStorage.setItem('vinfast-lang', lang);
 }
+
+// Resource category toggle function
+function toggleCategory(button) {
+    const category = button.parentElement;
+    const resourcesList = category.querySelector('.resources-list');
+    const toggleIcon = button.querySelector('.toggle-icon');
+
+    // Toggle collapsed state
+    category.classList.toggle('collapsed');
+
+    // Update icon
+    if (category.classList.contains('collapsed')) {
+        toggleIcon.textContent = '▶';
+        resourcesList.style.maxHeight = '0';
+    } else {
+        toggleIcon.textContent = '▼';
+        resourcesList.style.maxHeight = resourcesList.scrollHeight + 'px';
+    }
+}
