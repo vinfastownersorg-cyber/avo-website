@@ -142,9 +142,22 @@ jobs:
                               # Keep the main part, source is in entry.source
                               clean_title = clean_title.rsplit(' - ', 1)[0].strip()
 
-                          # Get article URL - Bing News provides direct links
+                          # Get article URL and resolve Bing redirect
                           article_url = entry.link
-                          print(f"   🔗 Direct URL: {article_url[:80]}...")
+
+                          # Bing News uses apiclick.aspx redirects - follow them
+                          if 'bing.com/news/apiclick' in article_url:
+                              try:
+                                  print(f"   🔗 Resolving Bing redirect...")
+                                  response = requests.head(article_url, allow_redirects=True, timeout=10,
+                                                          headers={'User-Agent': 'Mozilla/5.0'})
+                                  if response.url and response.url != article_url:
+                                      article_url = response.url
+                                      print(f"   ✅ Direct URL: {article_url[:80]}...")
+                                  else:
+                                      print(f"   ⚠️  Could not resolve, using Bing link")
+                              except Exception as e:
+                                  print(f"   ⚠️  Redirect error: {e}")
 
                           news_articles.append({
                               'title': clean_title,
