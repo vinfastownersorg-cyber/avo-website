@@ -154,14 +154,16 @@ GitHub Actions run automated tasks daily:
 - **Stock Prices Bot**: Posts VinFast (VFS) and VinGroup (VIC) stock prices to Discord at 4 PM EST weekdays
   - Smart market calendar detection (skips holidays)
   - Real-time data from Yahoo Finance
+  - **EV Sector Comparison**: Tesla, Rivian, Lucid, BYD, NIO
   - Posts to #news-and-stocks Discord channel
 - **VinFast News Bot**: Posts top 5 VinFast news articles to Discord at 7 PM EST daily
-  - Aggregates from Google News RSS
+  - Aggregates from Bing News RSS with direct article links
   - Prioritizes North America news with keyword scoring
   - Smart duplicate detection (60% title similarity)
+  - Blocks financial spam content (newser.com, etc.)
   - Posts to #news-and-stocks Discord channel
 
-See `.github/workflows/` for implementation details.
+See `.github/workflows/` and `docs/bots/` for implementation details.
 
 ## 🔒 Security & Privacy Guidelines
 
@@ -251,25 +253,33 @@ vinfastowners-website/
 │   ├── workflows/
 │   │   ├── daily-stock-prices.yml    # Daily stock price bot (Discord)
 │   │   ├── daily-vinfast-news.yml    # Daily news aggregation bot (Discord)
+│   │   ├── youtube-monitor.yml       # YouTube channel monitor bot
 │   │   └── pr-checks.yml             # Automated checks for PRs
 │   ├── ISSUE_TEMPLATE/               # Bug tracker templates
 │   ├── pull_request_template.md      # PR template
+│   ├── LABELS.md                     # GitHub labels guide
 │   ├── CODEOWNERS                    # Auto reviewer assignment
 │   └── labeler.yml                   # Auto-labeling config
-├── SIMPLE_WORKFLOW.md                 # Daily workflow guide (START HERE!)
-├── GIT_QUICK_REFERENCE.md            # Git command cheat sheet
-├── HOW_GIT_PREVENTS_OVERWRITES.md    # How git keeps work safe
-├── CONTRIBUTING.md                    # Full contribution guide
-├── CLAUDE_CODE_GUIDE.md              # Guide for using AI assistants
-├── CLAUDE_SESSION_GUIDE.md           # Session reference for AI
-├── STOCK_PRICE_BOT_SETUP.md          # Stock bot documentation
-├── STOCK_BOT_QUICK_SETUP.md          # Quick stock bot setup
-├── VINFAST_NEWS_BOT_SETUP.md         # News bot documentation
-├── OPTION1_SETUP_INSTRUCTIONS.md     # Setup guide for maintainers
-├── COLLABORATION_SETUP_COMPLETE.md   # Collaboration overview
+├── docs/                              # Documentation
+│   ├── bots/                          # Bot setup guides
+│   │   ├── STOCK_PRICE_BOT_SETUP.md  # Full stock bot guide
+│   │   ├── STOCK_BOT_QUICK_SETUP.md  # Quick 5-min setup
+│   │   ├── VINFAST_NEWS_BOT_SETUP.md # News bot guide
+│   │   ├── YOUTUBE_MONITOR_SETUP.md  # YouTube monitor guide
+│   │   └── HOW_TO_ADD_YOUTUBE_CHANNELS.md
+│   ├── git/                           # Git workflow guides
+│   │   ├── SIMPLE_WORKFLOW.md        # Daily workflow (START HERE!)
+│   │   ├── GIT_QUICK_REFERENCE.md    # Git command cheat sheet
+│   │   └── HOW_GIT_PREVENTS_OVERWRITES.md
+│   ├── setup/                         # Setup guides
+│   │   ├── OPTION1_SETUP_INSTRUCTIONS.md
+│   │   └── CONTRIBUTING.md           # Full contribution guide
+│   └── claude/                        # AI assistant guides
+│       ├── CLAUDE_CODE_GUIDE.md      # Guide for using AI assistants
+│       └── CLAUDE_SESSION_GUIDE.md   # Session reference for AI
+├── README.md                          # This file (project overview)
 ├── VEHICLE_COLORS_GUIDE.md           # VinFast color implementation guide
 ├── IMAGES_GUIDE.md                   # How to add background images
-├── README.md                          # This file
 ├── DEPLOYMENT_GUIDE.md               # Deployment instructions
 ├── .claude/
 │   └── guide.md                      # Auto-detected by Claude Code
