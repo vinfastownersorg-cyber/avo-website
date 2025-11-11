@@ -68,6 +68,15 @@ jobs:
               "VinGroup (VIC)": "VIC.VN"
           }
 
+          # EV sector comparison tickers (competitors)
+          ev_competitors = {
+              "Tesla": "TSLA",
+              "Rivian": "RIVN",
+              "Lucid": "LCID",
+              "BYD": "BYDDF",
+              "NIO": "NIO"
+          }
+
           # Get current date
           today_str = datetime.now().strftime("%B %d, %Y")
 
@@ -123,6 +132,34 @@ jobs:
               except Exception as e:
                   errors.append(f"{name} ({ticker}): {str(e)}")
                   print(f"❌ {name}: Error - {str(e)}")
+
+          # Fetch EV competitor data for comparison
+          competitor_data = {}
+          for name, ticker in ev_competitors.items():
+              try:
+                  stock = yf.Ticker(ticker)
+                  hist = stock.history(period="5d")
+
+                  if len(hist) > 0:
+                      current_price = hist['Close'].iloc[-1]
+
+                      # Calculate change if we have previous day data
+                      if len(hist) > 1:
+                          prev_price = hist['Close'].iloc[-2]
+                          change_pct = ((current_price - prev_price) / prev_price) * 100
+                      else:
+                          change_pct = 0
+
+                      competitor_data[name] = {
+                          'ticker': ticker,
+                          'price': current_price,
+                          'change_pct': change_pct
+                      }
+
+                      print(f"✅ {name}: ${current_price:.2f}")
+              except Exception as e:
+                  print(f"⚠️  {name}: Could not fetch - {str(e)}")
+                  # Don't add to errors list, just skip silently for competitors
 
           # Only post if we have fresh data
           if not data_is_fresh and stock_data:
@@ -194,6 +231,36 @@ jobs:
                   },
                   "timestamp": datetime.utcnow().isoformat()
               }
+
+              # Add EV sector comparison field if we have competitor data
+              if competitor_data:
+                  competitor_text = ""
+                  for name, data in competitor_data.items():
+                      change_pct = data['change_pct']
+                      ticker = data['ticker']
+                      price = data['price']
+
+                      # Emoji based on change
+                      if change_pct > 0:
+                          emoji = "🟢"
+                          sign = "+"
+                      elif change_pct < 0:
+                          emoji = "🔴"
+                          sign = ""
+                      else:
+                          emoji = "⚪"
+                          sign = ""
+
+                      competitor_text += f"{emoji} **{name}** (`{ticker}`): ${price:.2f} ({sign}{change_pct:.2f}%)\n"
+
+                  embed["fields"] = [
+                      {
+                          "name": "🚗 EV Sector Comparison",
+                          "value": competitor_text.strip(),
+                          "inline": False
+                      }
+                  ]
+
               embeds.append(embed)
 
           # Add error embed if there are errors
