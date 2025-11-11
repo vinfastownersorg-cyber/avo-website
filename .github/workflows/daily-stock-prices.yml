@@ -1,0 +1,179 @@
+name: Daily Stock Prices - VinFast & VinGroup
+
+on:
+  schedule:
+    # Runs at 9:00 PM UTC (4:00 PM EST, 1:00 PM PST) on weekdays
+    # After US market close (4:00 PM EST)
+    - cron: '0 21 * * 1-5'
+  workflow_dispatch: # Allows manual trigger for testing
+
+jobs:
+  post-stock-prices:
+    name: Fetch and Post Stock Prices
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install requests yfinance
+
+      - name: Fetch stock prices and post to Discord
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_STOCK_WEBHOOK_URL }}
+        run: |
+          python3 << 'EOF'
+          import requests
+          import yfinance as yf
+          import os
+          from datetime import datetime
+          import sys
+
+          # Get Discord webhook URL from environment
+          webhook_url = os.environ.get('DISCORD_WEBHOOK_URL')
+
+          if not webhook_url:
+              print("ERROR: DISCORD_WEBHOOK_URL secret not set")
+              sys.exit(1)
+
+          # Stock tickers
+          # VFS: VinFast Auto Ltd (NASDAQ)
+          # VIC.VN: Vingroup JSC (Vietnam Stock Exchange)
+          tickers = {
+              "VinFast Auto (VFS)": "VFS",
+              "VinGroup (VIC)": "VIC.VN"
+          }
+
+          # Get current date
+          today = datetime.now().strftime("%B %d, %Y")
+
+          # Fetch stock data
+          stock_data = {}
+          errors = []
+
+          for name, ticker in tickers.items():
+              try:
+                  stock = yf.Ticker(ticker)
+                  hist = stock.history(period="2d")  # Get last 2 days for comparison
+
+                  if len(hist) > 0:
+                      current_price = hist['Close'].iloc[-1]
+
+                      # Calculate change if we have previous day data
+                      if len(hist) > 1:
+                          prev_price = hist['Close'].iloc[-2]
+                          change = current_price - prev_price
+                          change_pct = (change / prev_price) * 100
+                      else:
+                          change = 0
+                          change_pct = 0
+
+                      stock_data[name] = {
+                          'ticker': ticker,
+                          'price': current_price,
+                          'change': change,
+                          'change_pct': change_pct,
+                          'currency': 'USD' if ticker == 'VFS' else 'VND'
+                      }
+                  else:
+                      errors.append(f"{name} ({ticker}): No data available")
+              except Exception as e:
+                  errors.append(f"{name} ({ticker}): {str(e)}")
+
+          # Build Discord embed message
+          embeds = []
+
+          # Main embed
+          if stock_data:
+              description = f"📈 **Daily Closing Prices - {today}**\n\n"
+
+              for name, data in stock_data.items():
+                  price = data['price']
+                  change = data['change']
+                  change_pct = data['change_pct']
+                  currency = data['currency']
+                  ticker = data['ticker']
+
+                  # Format price based on currency
+                  if currency == 'USD':
+                      price_str = f"${price:.2f}"
+                      change_str = f"${abs(change):.2f}"
+                  else:
+                      price_str = f"{price:,.0f} ₫"
+                      change_str = f"{abs(change):,.0f} ₫"
+
+                  # Determine emoji and color based on change
+                  if change > 0:
+                      emoji = "🟢"
+                      sign = "+"
+                      color = 0x00FF00  # Green
+                  elif change < 0:
+                      emoji = "🔴"
+                      sign = "-"
+                      color = 0xFF0000  # Red
+                  else:
+                      emoji = "⚪"
+                      sign = ""
+                      color = 0x808080  # Gray
+
+                  description += f"{emoji} **{name}** (`{ticker}`)\n"
+                  description += f"   Price: **{price_str}**\n"
+                  description += f"   Change: {sign}{change_str} ({sign}{abs(change_pct):.2f}%)\n\n"
+
+              embed = {
+                  "title": "📊 VinFast & VinGroup Stock Update",
+                  "description": description,
+                  "color": 0x00539C,  # VinFast blue
+                  "footer": {
+                      "text": "Data from Yahoo Finance | Automated by VinFastOwners.org"
+                  },
+                  "timestamp": datetime.utcnow().isoformat()
+              }
+              embeds.append(embed)
+
+          # Add error embed if there are errors
+          if errors:
+              error_description = "⚠️ **Errors fetching data:**\n\n"
+              for error in errors:
+                  error_description += f"• {error}\n"
+
+              error_embed = {
+                  "title": "Stock Data Errors",
+                  "description": error_description,
+                  "color": 0xFFA500  # Orange
+              }
+              embeds.append(error_embed)
+
+          # Post to Discord
+          if embeds:
+              payload = {
+                  "username": "Stock Bot",
+                  "avatar_url": "https://raw.githubusercontent.com/vinfastownersorg-cyber/avo-website/main/images/icons/avo-logo.png",
+                  "embeds": embeds
+              }
+
+              response = requests.post(webhook_url, json=payload)
+
+              if response.status_code == 204:
+                  print("✅ Successfully posted stock prices to Discord")
+              else:
+                  print(f"❌ Failed to post to Discord: {response.status_code}")
+                  print(response.text)
+                  sys.exit(1)
+          else:
+              print("❌ No stock data to post")
+              sys.exit(1)
+
+          EOF
+
+      - name: Log completion
+        if: always()
+        run: |
+          echo "Stock price workflow completed at $(date)"
