@@ -23,7 +23,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install requests yfinance
+          pip install requests yfinance pandas-market-calendars
 
       - name: Fetch stock prices and post to Discord
         env:
@@ -33,8 +33,9 @@ jobs:
           import requests
           import yfinance as yf
           import os
-          from datetime import datetime
+          from datetime import datetime, timedelta
           import sys
+          import pandas_market_calendars as mcal
 
           # Get Discord webhook URL from environment
           webhook_url = os.environ.get('DISCORD_WEBHOOK_URL')
@@ -42,6 +43,22 @@ jobs:
           if not webhook_url:
               print("ERROR: DISCORD_WEBHOOK_URL secret not set")
               sys.exit(1)
+
+          # Check if US market is open today
+          try:
+              nasdaq = mcal.get_calendar('NASDAQ')
+              today = datetime.now().date()
+              schedule = nasdaq.schedule(start_date=today, end_date=today)
+
+              if schedule.empty:
+                  print(f"⏸️  US market closed today ({today.strftime('%B %d, %Y')})")
+                  print("Skipping post - no fresh data available")
+                  sys.exit(0)  # Exit gracefully, not an error
+              else:
+                  print(f"✅ US market open today ({today.strftime('%B %d, %Y')})")
+          except Exception as e:
+              print(f"⚠️  Could not check market status: {e}")
+              print("Proceeding with data fetch anyway...")
 
           # Stock tickers
           # VFS: VinFast Auto Ltd (NASDAQ)
@@ -52,19 +69,33 @@ jobs:
           }
 
           # Get current date
-          today = datetime.now().strftime("%B %d, %Y")
+          today_str = datetime.now().strftime("%B %d, %Y")
 
           # Fetch stock data
           stock_data = {}
           errors = []
+          data_is_fresh = False
 
           for name, ticker in tickers.items():
               try:
                   stock = yf.Ticker(ticker)
-                  hist = stock.history(period="2d")  # Get last 2 days for comparison
+                  hist = stock.history(period="5d")  # Get last 5 days for comparison
 
                   if len(hist) > 0:
+                      # Get the most recent data
+                      latest_date = hist.index[-1].date()
                       current_price = hist['Close'].iloc[-1]
+
+                      # Check if data is from today or yesterday (for Vietnam timezone)
+                      today = datetime.now().date()
+                      yesterday = today - timedelta(days=1)
+
+                      # Consider data fresh if it's from today or yesterday
+                      # (Vietnam is ahead in timezone, might show yesterday's date)
+                      is_recent = latest_date >= yesterday
+
+                      if is_recent:
+                          data_is_fresh = True
 
                       # Calculate change if we have previous day data
                       if len(hist) > 1:
@@ -80,19 +111,38 @@ jobs:
                           'price': current_price,
                           'change': change,
                           'change_pct': change_pct,
-                          'currency': 'USD' if ticker == 'VFS' else 'VND'
+                          'currency': 'USD' if ticker == 'VFS' else 'VND',
+                          'date': latest_date,
+                          'is_recent': is_recent
                       }
+
+                      print(f"✅ {name}: ${current_price:.2f} (data from {latest_date})")
                   else:
                       errors.append(f"{name} ({ticker}): No data available")
+                      print(f"❌ {name}: No data available")
               except Exception as e:
                   errors.append(f"{name} ({ticker}): {str(e)}")
+                  print(f"❌ {name}: Error - {str(e)}")
+
+          # Only post if we have fresh data
+          if not data_is_fresh and stock_data:
+              print(f"⏸️  All data is stale (not from today). Skipping post.")
+              print("This is normal on market holidays.")
+              sys.exit(0)  # Exit gracefully
 
           # Build Discord embed message
           embeds = []
 
           # Main embed
           if stock_data:
-              description = f"📈 **Daily Closing Prices - {today}**\n\n"
+              # Check if any data is stale
+              stale_data = any(not data['is_recent'] for data in stock_data.values())
+
+              if stale_data:
+                  description = f"📈 **Latest Available Prices - {today_str}**\n"
+                  description += f"⚠️ *Market may be closed - showing last trading day*\n\n"
+              else:
+                  description = f"📈 **Daily Closing Prices - {today_str}**\n\n"
 
               for name, data in stock_data.items():
                   price = data['price']
@@ -100,6 +150,7 @@ jobs:
                   change_pct = data['change_pct']
                   currency = data['currency']
                   ticker = data['ticker']
+                  data_date = data['date']
 
                   # Format price based on currency
                   if currency == 'USD':
@@ -125,7 +176,14 @@ jobs:
 
                   description += f"{emoji} **{name}** (`{ticker}`)\n"
                   description += f"   Price: **{price_str}**\n"
-                  description += f"   Change: {sign}{change_str} ({sign}{abs(change_pct):.2f}%)\n\n"
+                  description += f"   Change: {sign}{change_str} ({sign}{abs(change_pct):.2f}%)\n"
+
+                  # Show data date if not today
+                  today = datetime.now().date()
+                  if data_date != today:
+                      description += f"   📅 Data from: {data_date.strftime('%b %d, %Y')}\n"
+
+                  description += "\n"
 
               embed = {
                   "title": "📊 VinFast & VinGroup Stock Update",
