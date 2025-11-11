@@ -204,7 +204,7 @@ jobs:
               unique_articles,
               key=lambda x: (x['relevance'], x['published']),
               reverse=True
-          )[:5]  # Top 5 most relevant and recent
+          )[:3]  # Top 3 most relevant and recent
 
           print(f"📊 Total unique articles: {len(unique_articles)}")
           print(f"📊 Posting top {len(sorted_articles)} articles (North America priority)")
