@@ -71,13 +71,46 @@ jobs:
                           title = entry.title.lower()
                           summary = entry.summary.lower() if hasattr(entry, 'summary') else ''
 
-                          # Calculate relevance score
+                          # STRICT FILTER: Must have "vinfast" prominently in title or first 200 chars of summary
+                          # This prevents articles that just have VinFast mentioned in passing
+                          vinfast_in_title = 'vinfast' in title
+                          vinfast_in_early_summary = 'vinfast' in summary[:200] if summary else False
+
+                          # Skip if VinFast is not prominently featured
+                          if not (vinfast_in_title or vinfast_in_early_summary):
+                              print(f"   ⏭️  Skipping (VinFast not prominent): {entry.title[:60]}...")
+                              continue
+
+                          # Additional exclusion filters for common false positives
+                          exclusion_keywords = [
+                              'rivian', 'tesla', 'lucid', 'nio', 'xpeng', 'byd only',
+                              'general motors', 'ford motor', 'volkswagen group',
+                              'ev stocks', 'ev market', 'ev sector', 'chinese evs'
+                          ]
+
+                          # Check if article is primarily about other EVs/companies
+                          is_excluded = False
+                          for exclude_word in exclusion_keywords:
+                              # If exclusion keyword appears in title but VinFast doesn't, skip it
+                              if exclude_word in title and 'vinfast' not in title:
+                                  print(f"   ⏭️  Skipping (about {exclude_word}): {entry.title[:60]}...")
+                                  is_excluded = True
+                                  break
+
+                          if is_excluded:
+                              continue
+
+                          # Calculate relevance score (for North America priority)
                           relevance = 0
                           for keyword in na_keywords:
                               if keyword in title:
                                   relevance += 3  # Title matches worth more
                               if keyword in summary:
                                   relevance += 1
+
+                          # Boost relevance if VinFast is in title
+                          if vinfast_in_title:
+                              relevance += 5
 
                           # Clean title - remove source suffix
                           clean_title = entry.title
@@ -94,7 +127,9 @@ jobs:
                               'summary': entry.summary if hasattr(entry, 'summary') else '',
                               'relevance': relevance
                           })
-                  except:
+                          print(f"   ✅ Included: {clean_title[:60]}... (relevance: {relevance})")
+                  except Exception as e:
+                      print(f"   ⚠️  Error processing entry: {e}")
                       continue
 
               print(f"✅ Found {len(news_articles)} recent articles from Google News")
