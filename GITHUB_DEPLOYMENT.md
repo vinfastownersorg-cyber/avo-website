@@ -21,7 +21,7 @@ GitHub will show you commands. Run these in your terminal:
 
 ```bash
 # Navigate to website folder
-cd /Users/michaelbivens/Vinfast/vinfastowners-website
+cd ~/path/to/vinfastowners-website
 
 # Add GitHub as remote (replace YOUR_USERNAME with your GitHub username)
 git remote add origin https://github.com/YOUR_USERNAME/avo-website.git

@@ -301,7 +301,7 @@ This site focuses on **governance & community**, not:
 
 ```bash
 # Create ZIP
-cd /Users/michaelbivens/Vinfast
+cd ~/path/to/project
 zip -r avo-website.zip vinfastowners-website/
 
 # Send to team member with:

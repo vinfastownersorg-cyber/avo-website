@@ -264,7 +264,7 @@ If not automatic:
 
 ### Method 1: Zip File
 ```bash
-cd /Users/michaelbivens/Vinfast
+cd ~/path/to/project
 zip -r vinfastowners-website.zip vinfastowners-website/
 # Send via email, Dropbox, Google Drive, etc.
 ```
@@ -363,7 +363,7 @@ git push
 
 ### Create ZIP for transfer:
 ```bash
-cd /Users/michaelbivens/Vinfast
+cd ~/path/to/project
 zip -r vinfastowners-website.zip vinfastowners-website/
 ```
 

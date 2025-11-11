@@ -109,7 +109,7 @@ vinfastowners-website/
 
 ### Create ZIP File
 ```bash
-cd /Users/michaelbivens/Vinfast
+cd ~/path/to/project
 zip -r vinfastowners-website.zip vinfastowners-website/
 ```
 

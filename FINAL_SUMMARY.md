@@ -172,7 +172,7 @@ This site supports a future membership model:
 
 ### Create Package
 ```bash
-cd /Users/michaelbivens/Vinfast
+cd ~/path/to/project
 zip -r vinfastowners-website.zip vinfastowners-website/
 ```
 
