@@ -100,15 +100,28 @@ jobs:
                           if is_excluded:
                               continue
 
-                          # Block known SEO spam domains (check this first, before other filters)
-                          spam_sources = ['newseer.com']
+                          # Block known SEO spam domains and garbage content patterns
+                          spam_sources = ['newser.com', 'newser']
+
+                          # Garbage title patterns (financial spam)
+                          garbage_patterns = [
+                              'equity warrant', 'technical indicators', 'price floor',
+                              'momentum shifts', 'forecast', 'time series', 'drawdowns',
+                              'statistical tools', 'reversal', 'sector etf'
+                          ]
 
                           source_name = entry.source.title.lower() if hasattr(entry, 'source') else ''
                           article_url = entry.link.lower()
 
                           # Skip any article from spam sources
                           if any(spam_domain in article_url or spam_domain in source_name for spam_domain in spam_sources):
-                              print(f"   ⏭️  Skipping (spam source): {entry.title[:60]}...")
+                              print(f"   ⏭️  Skipping (spam source - {source_name}): {entry.title[:60]}...")
+                              continue
+
+                          # Skip garbage financial content by title patterns
+                          is_garbage = any(pattern in title for pattern in garbage_patterns)
+                          if is_garbage:
+                              print(f"   ⏭️  Skipping (financial spam): {entry.title[:60]}...")
                               continue
 
                           # Calculate relevance score (for North America priority)
