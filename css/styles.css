@@ -1454,3 +1454,246 @@ footer {
         padding: 1.5rem;
     }
 }
+
+/* Bylaws Page */
+.bylaws-page {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.document-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 3px solid var(--vf-vinfast-blue);
+}
+
+.document-header h1 {
+    font-size: 2.5rem;
+    color: var(--dark);
+    margin-bottom: 1rem;
+}
+
+.bylaws-content {
+    line-height: 1.8;
+}
+
+.bylaws-article {
+    margin-bottom: 4rem;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid var(--light);
+}
+
+.bylaws-article:last-child {
+    border-bottom: none;
+}
+
+.bylaws-article h2 {
+    color: var(--vf-vinfast-blue);
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--vf-vinfast-blue);
+}
+
+.bylaws-section {
+    margin-bottom: 2.5rem;
+}
+
+.bylaws-section h3 {
+    color: var(--dark);
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.bylaws-section p {
+    margin-bottom: 1rem;
+    color: var(--urban);
+}
+
+.bylaws-section ul {
+    margin-left: 2rem;
+    margin-bottom: 1rem;
+}
+
+.bylaws-section li {
+    margin-bottom: 0.75rem;
+    color: var(--urban);
+}
+
+.bylaws-toc {
+    background: var(--light);
+    padding: 2rem;
+    border-radius: 12px;
+    margin: 4rem 0;
+}
+
+.bylaws-toc h3 {
+    color: var(--dark);
+    margin-bottom: 1rem;
+}
+
+.bylaws-toc ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.bylaws-toc li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+.bylaws-toc li:last-child {
+    border-bottom: none;
+}
+
+/* Privacy Policy Page */
+.privacy-content {
+    max-width: 900px;
+    margin: 0 auto;
+    line-height: 1.8;
+}
+
+.privacy-section {
+    margin-bottom: 3rem;
+}
+
+.privacy-section h2 {
+    color: var(--vf-vinfast-blue);
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid var(--vf-vinfast-blue);
+}
+
+.privacy-section h3 {
+    color: var(--dark);
+    font-size: 1.3rem;
+    margin: 1.5rem 0 1rem;
+    font-weight: 600;
+}
+
+.privacy-section p {
+    margin-bottom: 1rem;
+    color: var(--urban);
+}
+
+.privacy-section ul {
+    margin-left: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.privacy-section li {
+    margin-bottom: 0.75rem;
+    color: var(--urban);
+}
+
+.contact-info {
+    background: var(--light);
+    padding: 2rem;
+    border-radius: 12px;
+    margin: 2rem 0;
+}
+
+.contact-info p {
+    margin-bottom: 0.5rem;
+}
+
+.contact-info a {
+    color: var(--vf-vinfast-blue);
+    text-decoration: none;
+}
+
+.contact-info a:hover {
+    text-decoration: underline;
+}
+
+/* Issue Reporting Page */
+.issue-types-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin: 3rem 0;
+}
+
+.issue-type-card {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.07);
+    transition: all 0.3s;
+    cursor: pointer;
+    border-top: 4px solid var(--vf-vinfast-blue);
+}
+
+.issue-type-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.issue-type-card:nth-child(1) {
+    border-top-color: var(--vf-crimson-red);
+}
+
+.issue-type-card:nth-child(2) {
+    border-top-color: var(--vf-vinfast-blue);
+}
+
+.issue-type-card:nth-child(3) {
+    border-top-color: var(--vf-sunset-orange);
+}
+
+.issue-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+}
+
+.issue-type-card h3 {
+    color: var(--dark);
+    font-size: 1.4rem;
+    margin-bottom: 0.75rem;
+}
+
+.issue-type-card p {
+    color: var(--urban);
+    opacity: 0.85;
+}
+
+.notice-box {
+    background: #FFF3CD;
+    border-left: 5px solid #FFC107;
+    padding: 1.5rem;
+    margin: 2rem 0;
+    border-radius: 8px;
+}
+
+.notice-box h3 {
+    color: #856404;
+    margin-bottom: 1rem;
+}
+
+.notice-box p {
+    color: #856404;
+}
+
+.notice-box a {
+    color: #856404;
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .issue-types-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .bylaws-article h2 {
+        font-size: 1.6rem;
+    }
+
+    .document-header h1 {
+        font-size: 2rem;
+    }
+}

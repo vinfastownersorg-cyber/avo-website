@@ -323,7 +323,109 @@ zip -r avo-website.zip vinfastowners-website/
 - [ ] Test live site
 - [ ] Announce to community!
 
+## 📋 Board Summary - Outstanding Decisions & Missing Items
+
+### ✅ Completed Website Features
+
+**Governance Documents (All on-site, no downloads)**
+- ✅ Complete bylaws (Articles I-X) viewable at `/bylaws.html`
+- ✅ Meeting minutes template with example content at `/meeting-minutes.html`
+- ✅ Privacy policy with full EN/FR translations at `/privacy.html`
+- ✅ Bug reporting system at `/report-issue.html`
+- ✅ All documents display-only (no DOCX downloads per board requirement)
+
+**Website Infrastructure**
+- ✅ GitHub Pages deployment configured
+- ✅ All footers updated with privacy policy and support links
+- ✅ Bilingual EN/FR throughout all new pages
+- ✅ Mobile-responsive design for all governance pages
+
+### 🔄 Outstanding Board Decisions
+
+**1. Domain DNS Configuration**
+- **Status**: Waiting on domain administrator
+- **Action Required**: Configure DNS to point vinfastowners.org to GitHub Pages
+- **Current URL**: https://vinfastownersorg-cyber.github.io/avo-website/
+- **GitHub Pages Settings**: Configured and active
+
+**2. Board Member Information**
+- **Status**: Placeholder profiles in place
+- **Action Required**: Update `board.html` with:
+  - Real board member names and titles
+  - Board member photos
+  - Bios and vehicle information
+  - Contact information
+
+**3. Real Meeting Minutes**
+- **Status**: Template created with example content
+- **Action Required**: Secretary to populate `/documents/meeting-minutes.txt` with actual board minutes
+- **Format**: Plain text file that displays on `/meeting-minutes.html`
+- **Publishing**: Within 7 days of each board meeting per bylaws
+
+**4. Member-Only Authentication**
+- **Status**: Bug reporting currently public with member disclaimer
+- **Future Consideration**: Implement proper member authentication system
+- **Options**: Auth0, Firebase, or custom solution
+- **Timeline**: Phase 4 (3-6 months)
+
+**5. GitHub Issues for Bug Tracking**
+- **Status**: Link to GitHub Issues included on report-issue.html
+- **Action Required**: Configure GitHub repository issues
+- **Purpose**: Public transparency for bug reports and feature requests
+- **Current**: Simple form with alert (upgradable to GitHub API)
+
+### ⚠️ Not Yet Ready / In Development
+
+**Articles of Incorporation**
+- Status shown as "Coming Soon" on documents.html
+- Legal incorporation documents pending
+
+**Financial Reports**
+- Status shown as "Coming 2026" on documents.html
+- Annual financial statements per bylaws
+
+**Code of Conduct & Additional Policies**
+- Shown as "In Development" on documents.html
+- Privacy policy complete; other policies pending
+
+### 📝 Next Steps for Board
+
+**Immediate (This Week)**
+1. Review all website content for accuracy
+2. Provide real board member information
+3. Configure domain DNS (or delegate to appropriate person)
+4. Test website thoroughly with language toggle
+
+**Short-term (1-2 Weeks)**
+1. Publish first real board meeting minutes
+2. Set up GitHub Issues for bug tracking
+3. Announce website to membership via Discord/Facebook
+
+**Medium-term (1-3 Months)**
+1. Complete Articles of Incorporation
+2. Develop Code of Conduct
+3. Consider member authentication system
+4. Plan first member vote/survey
+
+### 🎯 Key Decisions Made
+
+✅ **No downloadable documents** - All governance materials viewable on-site only
+✅ **Bilingual approach** - Full EN/FR translations throughout
+✅ **Open bug reporting** - Public with member disclaimer until authentication implemented
+✅ **GitHub Pages hosting** - Free, reliable, version-controlled
+✅ **Privacy-first** - Comprehensive privacy policy in place
+
+---
+
 ## Version
+
+**v5.0** - Complete Governance Implementation
+- Complete bylaws (Articles I-X) on-site
+- Meeting minutes display page
+- Privacy policy and bug reporting
+- All documents display-only (no downloads)
+- Updated footers with support links
+- Ready for DNS configuration
 
 **v4.0** - AVO Governance & Events Focus
 - Rebranded to AVO

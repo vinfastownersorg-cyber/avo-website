@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report an Issue - AVO</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Language Toggle -->
+    <div class="lang-toggle">
+        <button onclick="setLang('en')" class="active">EN</button>
+        <button onclick="setLang('fr')">FR</button>
+    </div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">
+                <img src="images/icons/avo-logo.png" alt="AVO Logo" class="logo-img">
+                <div class="logo-text-container">
+                    <span class="logo-text">AVO</span>
+                    <span class="logo-subtitle">
+                        <span lang="en">North America</span>
+                        <span lang="fr">Amérique du Nord</span>
+                    </span>
+                </div>
+            </div>
+            <div class="nav-links">
+                <a href="index.html">
+                    <span lang="en">Home</span>
+                    <span lang="fr">Accueil</span>
+                </a>
+                <a href="index.html#about">
+                    <span lang="en">About</span>
+                    <span lang="fr">À Propos</span>
+                </a>
+                <a href="index.html#governance">
+                    <span lang="en">Governance</span>
+                    <span lang="fr">Gouvernance</span>
+                </a>
+                <a href="index.html#events">
+                    <span lang="en">Events</span>
+                    <span lang="fr">Événements</span>
+                </a>
+                <a href="index.html#community">
+                    <span lang="en">Community</span>
+                    <span lang="fr">Communauté</span>
+                </a>
+                <a href="index.html#membership">
+                    <span lang="en">Join</span>
+                    <span lang="fr">Adhérer</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Report Issue Section -->
+    <section class="content-section" style="padding-top: 2rem;">
+        <h2>
+            <span lang="en">Report an Issue</span>
+            <span lang="fr">Signaler un Problème</span>
+        </h2>
+        <p class="section-intro" lang="en">
+            Help us improve the AVO website and member experience by reporting bugs, issues, or suggesting new features.
+        </p>
+        <p class="section-intro" lang="fr">
+            Aidez-nous à améliorer le site Web AVO et l'expérience des membres en signalant des bugs, problèmes ou en suggérant de nouvelles fonctionnalités.
+        </p>
+
+        <!-- Member Notice -->
+        <div class="notice-box" style="background: #FFF3CD; border-left: 5px solid #FFC107; padding: 1.5rem; margin: 2rem 0; border-radius: 8px;">
+            <h3 style="color: #856404; margin-bottom: 1rem;">
+                <span lang="en">⚠️ Members Only</span>
+                <span lang="fr">⚠️ Membres Seulement</span>
+            </h3>
+            <p style="color: #856404;" lang="en">
+                This issue reporting system is for AVO members only. If you're not yet a member, please <a href="join.html" style="color: #856404; text-decoration: underline;">join AVO first</a> or visit our <a href="https://discord.gg/puQqaEZFAQ" target="_blank" style="color: #856404; text-decoration: underline;">Discord</a> to participate in the community.
+            </p>
+            <p style="color: #856404;" lang="fr">
+                Ce système de signalement de problèmes est réservé aux membres d'AVO. Si vous n'êtes pas encore membre, veuillez d'abord <a href="join.html" style="color: #856404; text-decoration: underline;">rejoindre AVO</a> ou visiter notre <a href="https://discord.gg/puQqaEZFAQ" target="_blank" style="color: #856404; text-decoration: underline;">Discord</a> pour participer à la communauté.
+            </p>
+        </div>
+
+        <!-- Issue Type Selection -->
+        <div class="issue-types-grid">
+            <div class="issue-type-card" onclick="showIssueForm('bug')">
+                <div class="issue-icon">🐛</div>
+                <h3 lang="en">Report a Bug</h3>
+                <h3 lang="fr">Signaler un Bug</h3>
+                <p lang="en">Something not working correctly on the website?</p>
+                <p lang="fr">Quelque chose ne fonctionne pas correctement sur le site Web?</p>
+            </div>
+
+            <div class="issue-type-card" onclick="showIssueForm('feature')">
+                <div class="issue-icon">💡</div>
+                <h3 lang="en">Request a Feature</h3>
+                <h3 lang="fr">Demander une Fonctionnalité</h3>
+                <p lang="en">Have an idea to improve AVO?</p>
+                <p lang="fr">Avez-vous une idée pour améliorer AVO?</p>
+            </div>
+
+            <div class="issue-type-card" onclick="window.open('https://discord.gg/puQqaEZFAQ', '_blank')">
+                <div class="issue-icon">💬</div>
+                <h3 lang="en">General Feedback</h3>
+                <h3 lang="fr">Commentaires Généraux</h3>
+                <p lang="en">Share your thoughts on Discord</p>
+                <p lang="fr">Partagez vos réflexions sur Discord</p>
+            </div>
+        </div>
+
+        <!-- Issue Report Form (Hidden initially) -->
+        <div id="issueFormContainer" class="membership-form-container" style="display: none;">
+            <form class="membership-form" id="issueForm">
+                <h3 id="formTitle" lang="en">Report an Issue</h3>
+
+                <div class="form-group">
+                    <label for="issueType">
+                        <span lang="en">Issue Type *</span>
+                        <span lang="fr">Type de Problème *</span>
+                    </label>
+                    <select id="issueType" name="issueType" required>
+                        <option value="bug"><span lang="en">Bug / Problem</span><span lang="fr">Bug / Problème</span></option>
+                        <option value="feature"><span lang="en">Feature Request</span><span lang="fr">Demande de Fonctionnalité</span></option>
+                        <option value="improvement"><span lang="en">Improvement Suggestion</span><span lang="fr">Suggestion d'Amélioration</span></option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="issueTitle">
+                        <span lang="en">Issue Title *</span>
+                        <span lang="fr">Titre du Problème *</span>
+                    </label>
+                    <input type="text" id="issueTitle" name="issueTitle" placeholder="Brief description of the issue" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="issueDescription">
+                        <span lang="en">Detailed Description *</span>
+                        <span lang="fr">Description Détaillée *</span>
+                    </label>
+                    <textarea id="issueDescription" name="issueDescription" rows="6" placeholder="Please provide as much detail as possible. For bugs: What happened? What did you expect? Steps to reproduce?" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="issueURL">
+                        <span lang="en">Page URL (if applicable)</span>
+                        <span lang="fr">URL de la Page (si applicable)</span>
+                    </label>
+                    <input type="url" id="issueURL" name="issueURL" placeholder="https://vinfastowners.org/page-name">
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="reporterName">
+                            <span lang="en">Your Name *</span>
+                            <span lang="fr">Votre Nom *</span>
+                        </label>
+                        <input type="text" id="reporterName" name="reporterName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="reporterEmail">
+                            <span lang="en">Your Email *</span>
+                            <span lang="fr">Votre Email *</span>
+                        </label>
+                        <input type="email" id="reporterEmail" name="reporterEmail" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="browserInfo">
+                        <span lang="en">Browser & Device (Optional)</span>
+                        <span lang="fr">Navigateur et Appareil (Optionnel)</span>
+                    </label>
+                    <input type="text" id="browserInfo" name="browserInfo" placeholder="e.g., Chrome on iPhone 14, Safari on Mac">
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn btn-outline" onclick="hideIssueForm()">
+                        <span lang="en">Cancel</span>
+                        <span lang="fr">Annuler</span>
+                    </button>
+                    <button type="submit" class="btn btn-large">
+                        <span lang="en">Submit Issue</span>
+                        <span lang="fr">Soumettre le Problème</span>
+                    </button>
+                </div>
+
+                <p class="form-note" lang="en">
+                    Your issue will be reviewed by the AVO technical team. We'll follow up via email if we need more information.
+                </p>
+                <p class="form-note" lang="fr">
+                    Votre problème sera examiné par l'équipe technique d'AVO. Nous vous contacterons par e-mail si nous avons besoin de plus d'informations.
+                </p>
+            </form>
+        </div>
+
+        <!-- View Existing Issues -->
+        <div class="card" style="margin-top: 4rem; text-align: center;">
+            <h3>
+                <span lang="en">View Existing Issues & Requests</span>
+                <span lang="fr">Voir les Problèmes et Demandes Existants</span>
+            </h3>
+            <p lang="en">
+                Check if your issue has already been reported or see what features are being worked on.
+            </p>
+            <p lang="fr">
+                Vérifiez si votre problème a déjà été signalé ou consultez les fonctionnalités en cours de développement.
+            </p>
+            <div style="margin-top: 1.5rem;">
+                <a href="https://github.com/vinfastownersorg-cyber/avo-website/issues" class="btn btn-small" target="_blank">
+                    <span lang="en">📋 View All Issues on GitHub</span>
+                    <span lang="fr">📋 Voir Tous les Problèmes sur GitHub</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="text-center" style="margin-top: 3rem;">
+            <a href="index.html" class="btn btn-outline">
+                <span lang="en">← Back to Home</span>
+                <span lang="fr">← Retour à l'Accueil</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>AVO</h4>
+                <p lang="en">Association of VinFast Owners<br>North America</p>
+                <p lang="fr">Association des Propriétaires VinFast<br>Amérique du Nord</p>
+            </div>
+            <div class="footer-section">
+                <h4>
+                    <span lang="en">Support</span>
+                    <span lang="fr">Support</span>
+                </h4>
+                <ul class="footer-links">
+                    <li><a href="report-issue.html"><span lang="en">Report Issue</span><span lang="fr">Signaler un Problème</span></a></li>
+                    <li><a href="https://discord.gg/puQqaEZFAQ" target="_blank">Discord Support</a></li>
+                    <li><a href="privacy.html"><span lang="en">Privacy</span><span lang="fr">Confidentialité</span></a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>
+                    <span lang="en">Community</span>
+                    <span lang="fr">Communauté</span>
+                </h4>
+                <ul class="footer-links">
+                    <li><a href="https://discord.gg/puQqaEZFAQ" target="_blank">Discord</a></li>
+                    <li><a href="https://www.facebook.com/share/g/17dH6oZRA4/" target="_blank">Facebook</a></li>
+                    <li><a href="https://vinfasttalk.com" target="_blank">VinFastTalk</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p lang="en">&copy; 2025 Association of VinFast Owners North America. Independent owner organization, not affiliated with VinFast Auto.</p>
+            <p lang="fr">&copy; 2025 Association des Propriétaires VinFast Amérique du Nord. Organisation indépendante, non affiliée à VinFast Auto.</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        function showIssueForm(type) {
+            document.getElementById('issueFormContainer').style.display = 'block';
+            document.getElementById('issueType').value = type;
+
+            if (type === 'bug') {
+                document.getElementById('formTitle').innerHTML = '<span lang="en">Report a Bug</span><span lang="fr">Signaler un Bug</span>';
+            } else if (type === 'feature') {
+                document.getElementById('formTitle').innerHTML = '<span lang="en">Request a Feature</span><span lang="fr">Demander une Fonctionnalité</span>';
+            }
+
+            // Scroll to form
+            document.getElementById('issueFormContainer').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function hideIssueForm() {
+            document.getElementById('issueFormContainer').style.display = 'none';
+            document.getElementById('issueForm').reset();
+        }
+
+        document.getElementById('issueForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const issueData = {
+                type: document.getElementById('issueType').value,
+                title: document.getElementById('issueTitle').value,
+                description: document.getElementById('issueDescription').value,
+                url: document.getElementById('issueURL').value,
+                name: document.getElementById('reporterName').value,
+                email: document.getElementById('reporterEmail').value,
+                browser: document.getElementById('browserInfo').value
+            };
+
+            // For now, show alert. Later can integrate with GitHub API or email
+            alert('Thank you for your report! The AVO technical team will review it shortly. You will receive a confirmation email at ' + issueData.email);
+
+            // Reset and hide form
+            hideIssueForm();
+
+            // Scroll back to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>

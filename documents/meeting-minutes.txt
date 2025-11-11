@@ -1,0 +1,355 @@
+ASSOCIATION OF VINFAST OWNERS (AVO)
+BOARD OF DIRECTORS MEETING MINUTES
+
+==================================================
+MEETING DATE: July 12, 2025
+TIME: 8:30 AM PST / 11:30 AM EST
+LOCATION: Discord Voice Channel
+FACILITATOR: [Board Chair Name]
+NOTE TAKER: [Secretary Name]
+==================================================
+
+ATTENDEES:
+✓ [Chair Name] - President
+✓ [Vice Chair Name] - Vice President
+✓ [Secretary Name] - Secretary
+✓ [Treasurer Name] - Treasurer
+✓ [Director Name] - Director at Large
+
+ABSENT:
+- None
+
+GUESTS:
+- None
+
+==================================================
+1. CALL TO ORDER
+==================================================
+
+The meeting was called to order at 8:32 AM PST by [Chair Name].
+
+Quorum confirmed: 5/5 board members present.
+
+==================================================
+2. APPROVAL OF PREVIOUS MEETING MINUTES
+==================================================
+
+Motion: Approve minutes from June 15, 2025 board meeting
+Link to previous minutes: [URL or file location]
+
+Discussion: No corrections or amendments proposed.
+
+VOTE:
+- In favor: 5
+- Against: 0
+- Abstain: 0
+
+RESULT: Motion PASSED unanimously.
+
+==================================================
+3. OFFICER UPDATES
+==================================================
+
+PRESIDENT (Chair):
+- Welcomed board and reviewed agenda
+- Provided update on VinFast corporate outreach efforts
+- Discussed upcoming member growth initiatives
+
+VICE PRESIDENT:
+- Regional meetup planning in Southern California (September target)
+- Coordinating with local VinFast owners for venue selection
+
+TREASURER:
+- Current balance: $[AMOUNT]
+- Membership dues collected: [NUMBER] members at $[AMOUNT] each
+- Pending expenses: Website hosting ($15/year), AVO stickers ($200 estimated)
+- Financial report will be shared in Discord #board-finance channel
+
+SECRETARY:
+- Meeting minutes from last session published
+- Member communications sent via Discord and email
+- Maintaining board documentation and governance records
+
+DIRECTOR AT-LARGE:
+- Tech platform updates (Discord moderation, website improvements)
+- Member engagement metrics: [NUMBER] active Discord members
+- Planning virtual Q&A session for new members
+
+==================================================
+4. FOLLOW-UP ON OPEN ITEMS
+==================================================
+
+ITEM 4.1: AVO Bylaws Finalization
+Submitted by: [Secretary Name]
+Background: Board to review and vote on final bylaws version
+
+Discussion:
+- Legal review completed by [volunteer attorney name]
+- Minor edits to Article III (Board composition) incorporated
+- Clarifications added to membership classes
+
+VOTE TO APPROVE BYLAWS:
+- In favor: 5
+- Against: 0
+- Abstain: 0
+
+RESULT: Bylaws APPROVED. Secretary will publish final version to website.
+
+ACTION ITEMS:
+- [Secretary]: Post approved bylaws to vinfastowners.org/documents
+- [Secretary]: Create PDF version for archival
+- [Chair]: Announce bylaws approval to membership
+
+---
+
+ITEM 4.2: VinFast Corporate Communication Letter
+Submitted by: [Chair Name]
+Background: Draft open letter to VinFast leadership addressing member concerns
+
+Discussion:
+- Letter focuses on firmware updates, service communication, product roadmap transparency
+- Emphasizes collaborative approach, not adversarial
+- Will collect member signatures via Discord and email
+- Target: 200+ signatures before sending
+
+VOTE TO APPROVE LETTER:
+- In favor: 4
+- Against: 0
+- Abstain: 1 (conflict of interest - works with VinFast vendor)
+
+RESULT: Letter APPROVED.
+
+ACTION ITEMS:
+- [Chair]: Finalize letter text and prepare signature collection form
+- [Vice President]: Create Discord announcement and pinned message
+- [Director]: Set up Cognito Forms for signature collection
+- Target send date: July 26, 2025
+
+---
+
+ITEM 4.3: Website Launch (vinfastowners.org)
+Submitted by: [Director Name]
+Background: Website is ready for public launch
+
+Discussion:
+- All pages completed: Home, Board, Documents, Join, Bylaws
+- Content reviewed and approved
+- Membership form functional
+- GitHub Pages hosting confirmed
+- DNS pending from domain administrator
+
+VOTE TO LAUNCH WEBSITE:
+- In favor: 5
+- Against: 0
+- Abstain: 0
+
+RESULT: Website launch APPROVED.
+
+ACTION ITEMS:
+- [Director]: Coordinate DNS setup with domain administrator
+- [Director]: Test all pages and forms before announcement
+- [Chair]: Draft website launch announcement for Discord and Facebook
+- Launch target: July 15, 2025
+
+==================================================
+5. NEW AGENDA ITEMS
+==================================================
+
+ITEM 5.1: Membership Stickers and Merch
+Submitted by: [Treasurer Name]
+Background: Members requesting AVO branded stickers and merchandise
+
+Discussion:
+- Initial sticker design provided by member volunteer
+- Estimated cost: $200 for 500 stickers ($0.40 each)
+- Free distribution to first 100 members, then $2 each (covers cost + shipping)
+- Future merch: T-shirts, hats, license plate frames (Phase 2)
+
+VOTE TO APPROVE STICKER ORDER:
+- In favor: 5
+- Against: 0
+- Abstain: 0
+
+RESULT: Sticker order APPROVED up to $250 budget.
+
+ACTION ITEMS:
+- [Treasurer]: Obtain quotes from StickerMule, Sticker App, PrintRunner
+- [Treasurer]: Place order after board approval of final design
+- [Secretary]: Create sticker request form for members
+- Target delivery: August 15, 2025
+
+---
+
+ITEM 5.2: Regional Meetup Planning
+Submitted by: [Vice President]
+Background: Plan first official AVO regional meetup
+
+Discussion:
+- Proposed location: Southern California (highest member concentration)
+- Potential venues: Park, VinFast dealership, member's property
+- Activities: Vehicle showcase, Q&A, group photo, test drives
+- Target attendance: 20-30 members
+- Date: September 14, 2025 (Saturday)
+
+VOTE TO APPROVE REGIONAL MEETUP:
+- In favor: 5
+- Against: 0
+- Abstain: 0
+
+RESULT: Meetup planning APPROVED.
+
+ACTION ITEMS:
+- [Vice President]: Scout 3 potential venues and report back
+- [Vice President]: Create event registration form
+- [Director]: Design event graphics for social media
+- [Chair]: Reach out to VinFast for potential sponsorship/support
+- Planning deadline: August 1, 2025
+
+---
+
+ITEM 5.3: RepairWise Service Feedback Loop
+Submitted by: [Board Member]
+Background: Members experiencing frustration with RepairWise service coordination
+
+Discussion:
+- Members report circular referrals between VinFast and RepairWise
+- No clear escalation path for unresolved service issues
+- Proposal: Create member issue tracking system and escalation protocol
+- AVO could serve as intermediary for persistent problems
+- Similar issue in Canada with NAPA NexDrive
+
+Board Discussion:
+- Important member pain point to address
+- Could strengthen value proposition of AVO membership
+- Need to maintain constructive relationship with VinFast and service partners
+- Focus on systemic improvements, not individual complaints
+
+DECISION: Create Service Advocacy Committee to develop escalation protocol
+
+ACTION ITEMS:
+- [Chair]: Recruit 2-3 members for Service Advocacy Committee
+- Committee: Develop issue tracking template and escalation workflow
+- Committee: Report findings at next board meeting (October)
+- Timeline: 90 days to develop initial protocol
+
+==================================================
+6. MEMBER PROPOSALS AND FEEDBACK
+==================================================
+
+Proposal submitted via board@vinfastowners.org:
+
+PROPOSAL: Create Technical Wiki for Common Issues
+From: [Member Name]
+Content: Request to create a member-maintained wiki documenting common vehicle issues, solutions, and modifications
+
+Board Discussion:
+- Great idea, aligns with education mission
+- Could reduce support burden on VinFast and RepairWise
+- Legal consideration: disclaimer needed (not official VinFast guidance)
+- Platform options: GitHub Wiki, Notion, Discord channels
+
+DECISION: Defer to next meeting. Director to research platform options and present recommendations.
+
+ACTION ITEM:
+- [Director]: Research wiki platforms and present options at next meeting
+
+==================================================
+7. VOTING AND POLLS
+==================================================
+
+All votes conducted via voice vote during live Discord Stage.
+
+Summary of votes this meeting:
+1. Approve previous minutes: PASSED (5-0-0)
+2. Approve bylaws: PASSED (5-0-0)
+3. Approve VinFast letter: PASSED (4-0-1)
+4. Approve website launch: PASSED (5-0-0)
+5. Approve sticker order: PASSED (5-0-0)
+6. Approve regional meetup: PASSED (5-0-0)
+
+==================================================
+8. ACTION ITEMS SUMMARY
+==================================================
+
+| TASK                                  | ASSIGNED TO     | DUE DATE   |
+|---------------------------------------|-----------------|------------|
+| Publish approved bylaws               | Secretary       | Jul 15     |
+| Finalize VinFast letter               | Chair           | Jul 19     |
+| Set up signature collection           | Director        | Jul 20     |
+| Coordinate DNS setup                  | Director        | Jul 14     |
+| Test website before launch            | Director        | Jul 14     |
+| Draft website launch announcement     | Chair           | Jul 15     |
+| Obtain sticker quotes                 | Treasurer       | Jul 20     |
+| Create sticker request form           | Secretary       | Jul 25     |
+| Scout meetup venues                   | Vice President  | Aug 1      |
+| Create event registration form        | Vice President  | Aug 5      |
+| Design event graphics                 | Director        | Aug 1      |
+| Reach out to VinFast re: meetup       | Chair           | Jul 25     |
+| Recruit Service Committee members     | Chair           | Aug 15     |
+| Research wiki platform options        | Director        | Oct 1      |
+
+==================================================
+9. NEXT MEETING
+==================================================
+
+Next Regular Board Meeting: October 17, 2025
+Time: 8:30 AM PST / 11:30 AM EST
+Location: Discord Voice Channel
+Format: Live (with async voting option for urgent items between meetings)
+
+Tentative Agenda Items:
+- Service Advocacy Committee report
+- Wiki platform recommendation
+- Regional meetup debrief
+- Q4 budget planning
+- Board elections timeline (January 2026)
+
+==================================================
+10. ADJOURNMENT
+==================================================
+
+Motion to adjourn: [Board Member Name]
+Second: [Board Member Name]
+
+Meeting adjourned at 10:05 AM PST.
+
+Minutes prepared by: [Secretary Name]
+Date: July 12, 2025
+
+Approved by Board: [Pending next meeting]
+
+==================================================
+
+ATTACHMENTS:
+- AVO Bylaws (Final Version)
+- VinFast Corporate Letter (Draft)
+- Treasurer's Financial Report Q2 2025
+- Sticker Design Mockups
+- Regional Meetup Proposal
+
+DISTRIBUTION:
+- All Board Members
+- Posted to: vinfastowners.org/documents
+- Announced in: Discord #announcements
+- Archived in: Google Drive > AVO Board > Meeting Minutes
+
+==================================================
+END OF MINUTES
+==================================================
+
+
+-----------------------------------------------------------
+INSTRUCTIONS FOR UPDATING THIS TEMPLATE:
+-----------------------------------------------------------
+
+1. Replace [BRACKETED ITEMS] with actual names, dates, and details
+2. Add/remove agenda items as needed for each meeting
+3. Keep the format consistent for easy reading
+4. Include specific vote counts (in favor, against, abstain)
+5. List all action items with assigned person and deadline
+6. Attach relevant documents referenced in minutes
+7. Publish within 7 days of meeting to vinfastowners.org
+8. Archive previous minutes before replacing this file
+
+This template follows Robert's Rules of Order (simplified)
+and maintains transparency for AVO membership.
