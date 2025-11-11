@@ -6,6 +6,20 @@ body:
   - type: markdown
     attributes:
       value: |
+        **⚠️ IMPORTANT DISCLAIMER**
+
+        This tracker is for **community advocacy and documentation only**. AVO is an independent owner organization and is **NOT affiliated with VinFast Auto**.
+
+        **You MUST report this issue to the appropriate party directly:**
+        - **VinFast Customer Support:** 1-888-689-3278 or [vinfastauto.us/support](https://vinfastauto.us/support)
+        - **RepairWise:** Contact your local RepairWise service center
+        - **NAPA NexDrive (Canada):** Contact your local NAPA NexDrive location
+        - **VinFast Dealership:** Contact your dealership directly
+
+        **Limitation of Liability:** AVO accepts no responsibility or ownership for issues reported here. This tracker is provided as-is for community benefit. AVO does not guarantee issue resolution, response times, or any specific outcomes.
+
+        ---
+
         Thanks for reporting a service issue! This helps AVO track systemic problems and advocate for better service experiences.
 
   - type: dropdown

@@ -6,6 +6,19 @@ body:
   - type: markdown
     attributes:
       value: |
+        **⚠️ IMPORTANT DISCLAIMER**
+
+        This tracker is for **community advocacy and documentation only**. AVO is an independent owner organization and is **NOT affiliated with VinFast Auto**.
+
+        **You MUST report this issue to VinFast directly:**
+        - **VinFast Customer Support:** 1-888-689-3278 or [vinfastauto.us/support](https://vinfastauto.us/support)
+        - **Safety Issues:** Contact NHTSA at 1-888-327-4236 or [nhtsa.gov](https://www.nhtsa.gov/report-a-safety-problem)
+        - **Service Centers:** RepairWise, NAPA NexDrive, or your VinFast dealership
+
+        **Limitation of Liability:** AVO accepts no responsibility or ownership for issues reported here. This tracker is provided as-is for community benefit. AVO does not guarantee issue resolution, response times, or any specific outcomes.
+
+        ---
+
         Thanks for reporting a vehicle issue! This helps the AVO community and our advocacy efforts with VinFast.
 
         **Privacy Note:** Don't share your full VIN publicly. Last 4 digits only if needed.

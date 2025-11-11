@@ -6,7 +6,15 @@ body:
   - type: markdown
     attributes:
       value: |
-        **⚠️ Board Review Required**
+        **⚠️ IMPORTANT DISCLAIMER**
+
+        This tracker is for **community advocacy and documentation only**. AVO is an independent owner organization and is **NOT affiliated with VinFast Auto**.
+
+        **Limitation of Liability:** AVO accepts no responsibility or ownership for escalation requests. The AVO board will review requests on a volunteer basis but does not guarantee escalation, response times, or any specific outcomes. AVO is not liable for any damages, delays, or issues that may result from escalation or lack thereof.
+
+        ---
+
+        **Board Review Required**
 
         This template is for requesting the AVO board to escalate issues to VinFast Corporate leadership.
 

@@ -6,6 +6,17 @@ body:
   - type: markdown
     attributes:
       value: |
+        **⚠️ IMPORTANT DISCLAIMER**
+
+        This tracker is for **community advocacy and documentation only**. AVO is an independent owner organization and is **NOT affiliated with VinFast Auto**.
+
+        **Feature requests posted here are for community discussion and advocacy.** To request features directly from VinFast:
+        - **VinFast Customer Support:** 1-888-689-3278 or [vinfastauto.us/support](https://vinfastauto.us/support)
+
+        **Limitation of Liability:** AVO accepts no responsibility or ownership for feature requests. This tracker is provided as-is for community benefit. AVO does not guarantee that any feature will be implemented or that VinFast will respond to requests.
+
+        ---
+
         Thanks for suggesting a feature! Help us understand what you'd like to see.
 
   - type: dropdown
