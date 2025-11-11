@@ -76,15 +76,16 @@ function toggleCategory(button) {
     const resourcesList = category.querySelector('.resources-list');
     const toggleIcon = button.querySelector('.toggle-icon');
 
-    // Toggle collapsed state
-    category.classList.toggle('collapsed');
+    // Toggle expanded state
+    category.classList.toggle('expanded');
 
-    // Update icon
-    if (category.classList.contains('collapsed')) {
+    // Update icon and max-height
+    if (category.classList.contains('expanded')) {
+        toggleIcon.textContent = '▼';
+        // Set to scrollHeight to animate properly
+        resourcesList.style.maxHeight = resourcesList.scrollHeight + 'px';
+    } else {
         toggleIcon.textContent = '▶';
         resourcesList.style.maxHeight = '0';
-    } else {
-        toggleIcon.textContent = '▼';
-        resourcesList.style.maxHeight = resourcesList.scrollHeight + 'px';
     }
 }

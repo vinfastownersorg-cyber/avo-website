@@ -631,15 +631,16 @@ h2 {
     background: linear-gradient(135deg, var(--vf-vinfast-blue), var(--electric));
     color: white;
     border: none;
-    padding: 1.25rem 1.5rem;
-    font-size: 1.2rem;
+    padding: 1.5rem 2rem;
+    font-size: 1.4rem;
     font-weight: 600;
     text-align: left;
     cursor: pointer;
     display: flex;
     align-items: center;
-    gap: 0.75rem;
+    gap: 1rem;
     transition: background 0.3s;
+    font-family: inherit;
 }
 
 .category-toggle:hover {
@@ -651,10 +652,10 @@ h2 {
 }
 
 .toggle-icon {
-    font-size: 1rem;
+    font-size: 1.2rem;
     transition: transform 0.3s;
     display: inline-block;
-    min-width: 1rem;
+    min-width: 1.2rem;
 }
 
 .resource-category.collapsed .toggle-icon {
@@ -662,17 +663,16 @@ h2 {
 }
 
 .resources-list {
-    max-height: 2000px;
+    max-height: 0;
     overflow: hidden;
     transition: max-height 0.4s ease-in-out;
-    padding: 1.5rem;
+    padding: 0 1.5rem;
     background: linear-gradient(to bottom, #fafafa, white);
 }
 
-.resource-category.collapsed .resources-list {
-    max-height: 0;
-    padding-top: 0;
-    padding-bottom: 0;
+.resource-category.expanded .resources-list {
+    max-height: 5000px;
+    padding: 1.5rem;
 }
 
 .resource-item {
@@ -728,11 +728,19 @@ h2 {
 /* Mobile responsive adjustments for resources */
 @media (max-width: 768px) {
     .category-toggle {
+        font-size: 1.1rem;
+        padding: 1.25rem 1.5rem;
+    }
+
+    .toggle-icon {
         font-size: 1rem;
-        padding: 1rem;
     }
 
     .resources-list {
+        padding: 1rem;
+    }
+
+    .resource-category.expanded .resources-list {
         padding: 1rem;
     }
 
