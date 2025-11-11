@@ -321,16 +321,18 @@
             e.preventDefault();
 
             // Get form values
+            const firstName = document.getElementById('firstName')?.value || '';
+            const lastName = document.getElementById('lastName')?.value || '';
+            const city = document.getElementById('city')?.value || '';
+            const state = document.getElementById('state')?.value || '';
+
             const formData = {
-                name: document.getElementById('name').value,
+                name: `${firstName} ${lastName}`.trim(),
                 email: document.getElementById('email').value,
-                location: document.getElementById('location').value,
-                vehicle: document.getElementById('vehicle').value,
-                vehicleYear: document.getElementById('vehicleYear').value,
-                vehicleColor: document.getElementById('vehicleColor').value,
-                newsletter: document.getElementById('newsletter').checked,
-                interests: Array.from(document.querySelectorAll('input[name="interests"]:checked'))
-                    .map(cb => cb.value).join(', ')
+                location: city && state ? `${city}, ${state}` : (city || state || 'Not provided'),
+                vehicle: document.getElementById('vehicle')?.value || 'Not specified',
+                vehicleColor: document.getElementById('vehicleColor')?.value || 'Not specified',
+                interests: document.getElementById('interests')?.value || 'Not specified'
             };
 
             // Build Discord embed message
@@ -339,13 +341,12 @@
                 embeds: [{
                     color: 0x00539C, // VinFast blue
                     fields: [
-                        { name: '👤 Name', value: formData.name, inline: true },
+                        { name: '👤 Name', value: formData.name || 'Not provided', inline: true },
                         { name: '📧 Email', value: formData.email, inline: true },
-                        { name: '📍 Location', value: formData.location || 'Not provided', inline: true },
-                        { name: '🚗 Vehicle', value: `${formData.vehicle} (${formData.vehicleYear})`, inline: true },
-                        { name: '🎨 Color', value: formData.vehicleColor || 'Not specified', inline: true },
-                        { name: '📬 Newsletter', value: formData.newsletter ? '✅ Yes' : '❌ No', inline: true },
-                        { name: '🤝 Interests', value: formData.interests || 'None selected', inline: false }
+                        { name: '📍 Location', value: formData.location, inline: true },
+                        { name: '🚗 Vehicle', value: formData.vehicle, inline: true },
+                        { name: '🎨 Color', value: formData.vehicleColor, inline: true },
+                        { name: '🤝 Interests', value: formData.interests, inline: false }
                     ],
                     timestamp: new Date().toISOString(),
                     footer: { text: 'AVO Membership Form' }
