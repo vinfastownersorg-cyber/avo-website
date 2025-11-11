@@ -100,6 +100,35 @@ jobs:
                           if is_excluded:
                               continue
 
+                          # Filter out garbage financial/stock analysis content
+                          garbage_patterns = [
+                              'equity warrant', 'technical indicators', 'price floor',
+                              'etf performance', 'correlation', 'forecast', 'time series',
+                              'stock analysis', 'warrant trends', 'equity analysis'
+                          ]
+
+                          # Block known SEO spam domains
+                          spam_sources = ['newseer.com', 'stockanalysis.com', 'seekingalpha.com/article']
+
+                          source_name = entry.source.title.lower() if hasattr(entry, 'source') else ''
+                          article_url = entry.link.lower()
+
+                          # Check if it's from a spam source
+                          if any(spam_domain in article_url or spam_domain in source_name for spam_domain in spam_sources):
+                              print(f"   ⏭️  Skipping (spam source): {entry.title[:60]}...")
+                              continue
+
+                          # Check if it's garbage financial content
+                          is_garbage = False
+                          for pattern in garbage_patterns:
+                              if pattern in title or pattern in summary.lower():
+                                  print(f"   ⏭️  Skipping (financial spam - {pattern}): {entry.title[:60]}...")
+                                  is_garbage = True
+                                  break
+
+                          if is_garbage:
+                              continue
+
                           # Calculate relevance score (for North America priority)
                           relevance = 0
                           for keyword in na_keywords:
