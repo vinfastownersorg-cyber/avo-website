@@ -159,11 +159,27 @@ jobs:
                               except Exception as e:
                                   print(f"   ⚠️  Redirect error: {e}")
 
+                          # Extract source from the actual article URL domain
+                          source_name = entry.source.title if hasattr(entry, 'source') else 'Bing News'
+
+                          # Try to get cleaner source name from resolved URL
+                          if article_url and 'bing.com' not in article_url:
+                              try:
+                                  from urllib.parse import urlparse
+                                  domain = urlparse(article_url).netloc
+                                  # Clean up domain (remove www., extract main name)
+                                  domain = domain.replace('www.', '')
+                                  # Capitalize first letter
+                                  if domain:
+                                      source_name = domain.split('.')[0].capitalize()
+                              except:
+                                  pass  # Keep RSS source name if URL parsing fails
+
                           news_articles.append({
                               'title': clean_title,
                               'original_title': entry.title,
                               'link': article_url,
-                              'source': entry.source.title if hasattr(entry, 'source') else 'Google News',
+                              'source': source_name,
                               'published': published,
                               'summary': entry.summary if hasattr(entry, 'summary') else '',
                               'relevance': relevance
