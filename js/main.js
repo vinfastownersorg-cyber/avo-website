@@ -100,3 +100,26 @@ function toggleCategory(button) {
         console.log('Expanded to:', fullHeight + 'px');
     }
 }
+
+// Email obfuscation/de-obfuscation
+// Decodes ROT13 encoded emails to prevent scraping
+function deobfuscateEmail(element) {
+    const encoded = element.getAttribute('data-email');
+    if (!encoded) return;
+
+    // ROT13 decode
+    const decoded = encoded.replace(/[a-zA-Z]/g, function(c) {
+        return String.fromCharCode(
+            (c <= 'Z' ? 90 : 122) >= (c = c.charCodeAt(0) + 13) ? c : c - 26
+        );
+    });
+
+    // Create clickable mailto link
+    element.innerHTML = `<a href="mailto:${decoded}">${decoded}</a>`;
+}
+
+// Initialize email deobfuscation on page load
+document.addEventListener('DOMContentLoaded', function() {
+    // Deobfuscate all emails marked with data-email attribute
+    document.querySelectorAll('[data-email]').forEach(deobfuscateEmail);
+});
