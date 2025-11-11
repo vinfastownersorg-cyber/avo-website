@@ -48,12 +48,12 @@ jobs:
           # News sources
           news_articles = []
 
-          # Source 1: Google News RSS for VinFast - North America focus
+          # Source 1: Bing News RSS for VinFast - provides direct article links
           try:
-              print("📰 Checking Google News (North America)...")
-              # Focus on US news with VinFast + North America keywords
-              google_news_url = "https://news.google.com/rss/search?q=VinFast+when:1d&hl=en-US&gl=US&ceid=US:en"
-              feed = feedparser.parse(google_news_url)
+              print("📰 Checking Bing News...")
+              # Bing News RSS provides direct links (no redirects)
+              bing_news_url = "https://www.bing.com/news/search?q=VinFast&format=rss"
+              feed = feedparser.parse(bing_news_url)
 
               # Get articles from last 24 hours
               cutoff_time = datetime.now() - timedelta(days=1)
@@ -142,24 +142,9 @@ jobs:
                               # Keep the main part, source is in entry.source
                               clean_title = clean_title.rsplit(' - ', 1)[0].strip()
 
-                          # Get article URL - use Google News bypass service
+                          # Get article URL - Bing News provides direct links
                           article_url = entry.link
-
-                          # If it's a Google News URL, use a redirect bypass service
-                          # This helps members who can't access Google services
-                          if 'news.google.com' in article_url:
-                              # Try the 12ft.io service which bypasses redirects
-                              # This provides a clean direct link
-                              try:
-                                  # Extract the article ID from Google News URL
-                                  import re
-                                  # Google News URLs contain encoded article data
-                                  # Use 12ft.io to bypass and get clean article
-                                  bypass_url = f"https://12ft.io/{article_url}"
-                                  article_url = bypass_url
-                                  print(f"   🔓 Using bypass service for: {clean_title[:50]}...")
-                              except Exception as e:
-                                  print(f"   ⚠️  Using original Google URL: {e}")
+                          print(f"   🔗 Direct URL: {article_url[:80]}...")
 
                           news_articles.append({
                               'title': clean_title,
@@ -175,9 +160,9 @@ jobs:
                       print(f"   ⚠️  Error processing entry: {e}")
                       continue
 
-              print(f"✅ Found {len(news_articles)} recent articles from Google News")
+              print(f"✅ Found {len(news_articles)} recent articles from Bing News")
           except Exception as e:
-              print(f"⚠️  Error fetching Google News: {e}")
+              print(f"⚠️  Error fetching Bing News: {e}")
 
           # Source 2: Check VinFast official news (if available)
           try:
@@ -278,7 +263,7 @@ jobs:
                   "description": description,
                   "color": 0x00539C,  # VinFast blue
                   "footer": {
-                      "text": "News from Google News | Automated by VinFastOwners.org"
+                      "text": "News from Bing News | Automated by VinFastOwners.org"
                   },
                   "timestamp": datetime.utcnow().isoformat()
               }
@@ -290,7 +275,7 @@ jobs:
                       "value": (
                           "• [VinFast Newsroom](https://vinfastauto.us/newsroom)\n"
                           "• [VinFastTalk.com](https://vinfasttalk.com)\n"
-                          "• [Google News Search](https://news.google.com/search?q=VinFast)"
+                          "• [Bing News Search](https://www.bing.com/news/search?q=VinFast)"
                       ),
                       "inline": False
                   }
@@ -327,7 +312,7 @@ jobs:
                   ),
                   "color": 0x808080,  # Gray
                   "footer": {
-                      "text": "News from Google News | Automated by VinFastOwners.org"
+                      "text": "News from Bing News | Automated by VinFastOwners.org"
                   },
                   "timestamp": datetime.utcnow().isoformat(),
                   "fields": [
