@@ -148,16 +148,17 @@ jobs:
                               # Google News URLs redirect, follow them to get real URL
                               if 'news.google.com' in article_url:
                                   print(f"   🔗 Resolving redirect for: {clean_title[:50]}...")
-                                  response = requests.head(article_url, allow_redirects=True, timeout=5)
+                                  # Use GET with allow_redirects to follow the chain
+                                  response = requests.get(article_url, allow_redirects=True, timeout=10,
+                                                         headers={'User-Agent': 'Mozilla/5.0'})
                                   direct_url = response.url
 
-                                  # Verify the direct URL is accessible
-                                  verify_response = requests.head(direct_url, timeout=5)
-                                  if verify_response.status_code < 400:
+                                  # Only use direct URL if it's not still a Google URL
+                                  if 'google.com' not in direct_url and direct_url != article_url:
                                       article_url = direct_url
                                       print(f"   ✅ Direct URL: {direct_url[:80]}...")
                                   else:
-                                      print(f"   ⚠️  Direct URL not accessible ({verify_response.status_code}), using Google redirect")
+                                      print(f"   ⚠️  Could not resolve past Google, using Google link")
                           except Exception as e:
                               print(f"   ⚠️  Could not resolve redirect: {e}, using original URL")
 
