@@ -632,7 +632,7 @@ h2 {
     color: white;
     border: none;
     padding: 1.5rem 2rem;
-    font-size: 1.4rem;
+    font-size: 1.4rem !important;
     font-weight: 600;
     text-align: left;
     cursor: pointer;
@@ -641,6 +641,10 @@ h2 {
     gap: 1rem;
     transition: background 0.3s;
     font-family: inherit;
+}
+
+.category-toggle span {
+    font-size: 1.4rem !important;
 }
 
 .category-toggle:hover {
@@ -728,12 +732,16 @@ h2 {
 /* Mobile responsive adjustments for resources */
 @media (max-width: 768px) {
     .category-toggle {
-        font-size: 1.1rem;
+        font-size: 1.1rem !important;
         padding: 1.25rem 1.5rem;
     }
 
+    .category-toggle span {
+        font-size: 1.1rem !important;
+    }
+
     .toggle-icon {
-        font-size: 1rem;
+        font-size: 1rem !important;
     }
 
     .resources-list {

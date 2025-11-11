@@ -72,20 +72,31 @@ function setLang(lang) {
 
 // Resource category toggle function
 function toggleCategory(button) {
+    console.log('Toggle clicked!'); // Debug
+
     const category = button.parentElement;
     const resourcesList = category.querySelector('.resources-list');
     const toggleIcon = button.querySelector('.toggle-icon');
 
-    // Toggle expanded state
-    category.classList.toggle('expanded');
+    console.log('Category:', category);
+    console.log('Resources list:', resourcesList);
 
-    // Update icon and max-height
-    if (category.classList.contains('expanded')) {
-        toggleIcon.textContent = '▼';
-        // Set to scrollHeight to animate properly
-        resourcesList.style.maxHeight = resourcesList.scrollHeight + 'px';
-    } else {
+    // Toggle expanded state
+    const isExpanded = category.classList.contains('expanded');
+
+    if (isExpanded) {
+        // Collapse
+        category.classList.remove('expanded');
         toggleIcon.textContent = '▶';
         resourcesList.style.maxHeight = '0';
+        console.log('Collapsed');
+    } else {
+        // Expand
+        category.classList.add('expanded');
+        toggleIcon.textContent = '▼';
+        // Calculate and set the full height
+        const fullHeight = resourcesList.scrollHeight;
+        resourcesList.style.maxHeight = fullHeight + 'px';
+        console.log('Expanded to:', fullHeight + 'px');
     }
 }
