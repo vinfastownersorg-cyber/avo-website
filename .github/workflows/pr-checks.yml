@@ -1,0 +1,245 @@
+name: Pull Request Checks
+
+on:
+  pull_request:
+    branches:
+      - main
+    types: [opened, synchronize, reopened]
+
+jobs:
+  validate-html:
+    name: Validate HTML Files
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: HTML5 Validator
+        uses: Cyb3r-Jak3/html5validator-action@v7.2.0
+        with:
+          root: .
+          css: true
+          format: text
+        continue-on-error: true
+
+  check-links:
+    name: Check for Broken Links
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Link Checker
+        uses: lycheeverse/lychee-action@v1.9.3
+        with:
+          args: --verbose --no-progress './**/*.html' './**/*.md'
+          fail: false
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
+  security-scan:
+    name: Security and Sensitive Data Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: TruffleHog Secrets Scan
+        uses: trufflesecurity/trufflehog@main
+        with:
+          path: ./
+          base: ${{ github.event.repository.default_branch }}
+          head: HEAD
+        continue-on-error: true
+
+      - name: Check for sensitive patterns
+        run: |
+          echo "Checking for common sensitive data patterns..."
+
+          # Check for API keys
+          if grep -r "api[_-]key\s*=\s*['\"][^'\"]*['\"]" --include="*.html" --include="*.js" --include="*.css" .; then
+            echo "⚠️ Warning: Possible API key found"
+          fi
+
+          # Check for email addresses that shouldn't be committed
+          if grep -r "@gmail\.com\|@yahoo\.com\|@hotmail\.com" --include="*.html" --include="*.js" --exclude-dir=node_modules .; then
+            echo "⚠️ Warning: Personal email addresses found (check if intentional)"
+          fi
+
+          # Check for tokens
+          if grep -r "token\s*=\s*['\"][^'\"]*['\"]" --include="*.html" --include="*.js" --include="*.css" .; then
+            echo "⚠️ Warning: Possible token found"
+          fi
+
+          # Check for passwords
+          if grep -r "password\s*=\s*['\"][^'\"]*['\"]" --include="*.html" --include="*.js" --include="*.css" .; then
+            echo "⚠️ Warning: Possible password found"
+          fi
+
+          echo "✅ Security scan complete"
+        continue-on-error: true
+
+  file-size-check:
+    name: Check File Sizes
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Check for large files
+        run: |
+          echo "Checking for files larger than 5MB..."
+          large_files=$(find . -type f -size +5M -not -path "./.git/*" -not -path "./node_modules/*")
+
+          if [ -n "$large_files" ]; then
+            echo "⚠️ Warning: Large files detected:"
+            echo "$large_files" | while read file; do
+              size=$(du -h "$file" | cut -f1)
+              echo "  - $file ($size)"
+            done
+            echo ""
+            echo "Consider optimizing these files before committing."
+          else
+            echo "✅ No files larger than 5MB"
+          fi
+        continue-on-error: true
+
+  image-optimization-check:
+    name: Check Image Optimization
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Check image sizes
+        run: |
+          echo "Checking for large images..."
+          large_images=$(find . -type f \( -name "*.jpg" -o -name "*.jpeg" -o -name "*.png" -o -name "*.gif" \) -size +1M -not -path "./.git/*" -not -path "./node_modules/*")
+
+          if [ -n "$large_images" ]; then
+            echo "⚠️ Warning: Large images detected (>1MB):"
+            echo "$large_images" | while read file; do
+              size=$(du -h "$file" | cut -f1)
+              echo "  - $file ($size)"
+            done
+            echo ""
+            echo "Consider compressing these images using tools like:"
+            echo "  - TinyPNG (https://tinypng.com/)"
+            echo "  - ImageOptim (https://imageoptim.com/)"
+            echo "  - Squoosh (https://squoosh.app/)"
+          else
+            echo "✅ All images are under 1MB"
+          fi
+        continue-on-error: true
+
+  bilingual-check:
+    name: Check Bilingual Content
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Check for lang attributes
+        run: |
+          echo "Checking bilingual content consistency..."
+
+          html_files=$(find . -name "*.html" -not -path "./.git/*" -not -path "./node_modules/*")
+
+          for file in $html_files; do
+            en_count=$(grep -o 'lang="en"' "$file" | wc -l || true)
+            fr_count=$(grep -o 'lang="fr"' "$file" | wc -l || true)
+
+            if [ "$en_count" -gt 0 ] || [ "$fr_count" -gt 0 ]; then
+              if [ "$en_count" -ne "$fr_count" ]; then
+                echo "⚠️ Warning: $file has unbalanced lang attributes"
+                echo "   English (lang=\"en\"): $en_count"
+                echo "   French (lang=\"fr\"): $fr_count"
+              fi
+            fi
+          done
+
+          echo "✅ Bilingual content check complete"
+        continue-on-error: true
+
+  pr-labeler:
+    name: Auto-label PR
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Label PR based on files changed
+        uses: actions/labeler@v5
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+        continue-on-error: true
+
+  comment-results:
+    name: Comment Check Results
+    runs-on: ubuntu-latest
+    needs: [validate-html, check-links, security-scan, file-size-check, image-optimization-check, bilingual-check]
+    if: always()
+    permissions:
+      pull-requests: write
+
+    steps:
+      - name: Comment on PR
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            });
+
+            const botComment = comments.find(comment =>
+              comment.user.type === 'Bot' &&
+              comment.body.includes('Automated PR Checks')
+            );
+
+            const body = `## 🤖 Automated PR Checks
+
+            Thank you for your contribution! Here's a summary of automated checks:
+
+            | Check | Status |
+            |-------|--------|
+            | HTML Validation | ${{ needs.validate-html.result == 'success' ? '✅' : '⚠️' }} |
+            | Link Checker | ${{ needs.check-links.result == 'success' ? '✅' : '⚠️' }} |
+            | Security Scan | ${{ needs.security-scan.result == 'success' ? '✅' : '⚠️' }} |
+            | File Size Check | ${{ needs.file-size-check.result == 'success' ? '✅' : '⚠️' }} |
+            | Image Optimization | ${{ needs.image-optimization-check.result == 'success' ? '✅' : '⚠️' }} |
+            | Bilingual Content | ${{ needs.bilingual-check.result == 'success' ? '✅' : '⚠️' }} |
+
+            **Note:** Some warnings are informational and don't block merging. Review the detailed logs for more information.
+
+            ---
+            *See [CONTRIBUTING.md](../blob/main/CONTRIBUTING.md) for collaboration guidelines.*`;
+
+            if (botComment) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: botComment.id,
+                body: body
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body: body
+              });
+            }

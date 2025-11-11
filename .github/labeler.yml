@@ -1,0 +1,53 @@
+# Automatically label PRs based on files changed
+
+'documentation':
+  - '**/*.md'
+  - 'docs/**/*'
+
+'html':
+  - '**/*.html'
+
+'css':
+  - '**/*.css'
+  - 'styles/**/*'
+
+'javascript':
+  - '**/*.js'
+  - 'scripts/**/*'
+
+'images':
+  - '**/*.png'
+  - '**/*.jpg'
+  - '**/*.jpeg'
+  - '**/*.gif'
+  - '**/*.svg'
+  - '**/*.webp'
+
+'documents':
+  - 'documents/**/*'
+  - '**/*.pdf'
+  - '**/*.txt'
+
+'configuration':
+  - '.github/**/*'
+  - '*.yml'
+  - '*.yaml'
+  - '*.json'
+  - '*.config.*'
+
+'privacy':
+  - 'privacy.html'
+  - '**/privacy*'
+
+'governance':
+  - 'board.html'
+  - 'documents.html'
+  - 'documents/**/*'
+
+'membership':
+  - 'join.html'
+  - '**/membership*'
+
+'discord-integration':
+  - '**/*discord*'
+  - '**/*webhook*'
