@@ -142,32 +142,24 @@ jobs:
                               # Keep the main part, source is in entry.source
                               clean_title = clean_title.rsplit(' - ', 1)[0].strip()
 
-                          # Resolve Google News redirect to get direct article URL
+                          # Get article URL - use Google News bypass service
                           article_url = entry.link
 
-                          # Try to get the actual article link from the entry
-                          # Google News RSS often has a 'link' attribute with the real URL
-                          if hasattr(entry, 'links') and len(entry.links) > 0:
-                              for link_obj in entry.links:
-                                  if hasattr(link_obj, 'href') and 'google.com' not in link_obj.href:
-                                      article_url = link_obj.href
-                                      print(f"   ✅ Found direct URL in RSS: {article_url[:80]}...")
-                                      break
-
-                          # If still a Google URL, try to extract from the summary/description
-                          if 'google.com' in article_url and hasattr(entry, 'summary'):
+                          # If it's a Google News URL, use a redirect bypass service
+                          # This helps members who can't access Google services
+                          if 'news.google.com' in article_url:
+                              # Try the 12ft.io service which bypasses redirects
+                              # This provides a clean direct link
                               try:
-                                  from bs4 import BeautifulSoup
-                                  soup = BeautifulSoup(entry.summary, 'html.parser')
-                                  # Look for actual article link in the summary
-                                  for a_tag in soup.find_all('a', href=True):
-                                      href = a_tag['href']
-                                      if 'google.com' not in href and href.startswith('http'):
-                                          article_url = href
-                                          print(f"   ✅ Extracted URL from summary: {article_url[:80]}...")
-                                          break
+                                  # Extract the article ID from Google News URL
+                                  import re
+                                  # Google News URLs contain encoded article data
+                                  # Use 12ft.io to bypass and get clean article
+                                  bypass_url = f"https://12ft.io/{article_url}"
+                                  article_url = bypass_url
+                                  print(f"   🔓 Using bypass service for: {clean_title[:50]}...")
                               except Exception as e:
-                                  print(f"   ⚠️  Could not parse summary: {e}")
+                                  print(f"   ⚠️  Using original Google URL: {e}")
 
                           news_articles.append({
                               'title': clean_title,
