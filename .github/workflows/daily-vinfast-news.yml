@@ -144,23 +144,30 @@ jobs:
 
                           # Resolve Google News redirect to get direct article URL
                           article_url = entry.link
-                          try:
-                              # Google News URLs redirect, follow them to get real URL
-                              if 'news.google.com' in article_url:
-                                  print(f"   🔗 Resolving redirect for: {clean_title[:50]}...")
-                                  # Use GET with allow_redirects to follow the chain
-                                  response = requests.get(article_url, allow_redirects=True, timeout=10,
-                                                         headers={'User-Agent': 'Mozilla/5.0'})
-                                  direct_url = response.url
 
-                                  # Only use direct URL if it's not still a Google URL
-                                  if 'google.com' not in direct_url and direct_url != article_url:
-                                      article_url = direct_url
-                                      print(f"   ✅ Direct URL: {direct_url[:80]}...")
-                                  else:
-                                      print(f"   ⚠️  Could not resolve past Google, using Google link")
-                          except Exception as e:
-                              print(f"   ⚠️  Could not resolve redirect: {e}, using original URL")
+                          # Try to get the actual article link from the entry
+                          # Google News RSS often has a 'link' attribute with the real URL
+                          if hasattr(entry, 'links') and len(entry.links) > 0:
+                              for link_obj in entry.links:
+                                  if hasattr(link_obj, 'href') and 'google.com' not in link_obj.href:
+                                      article_url = link_obj.href
+                                      print(f"   ✅ Found direct URL in RSS: {article_url[:80]}...")
+                                      break
+
+                          # If still a Google URL, try to extract from the summary/description
+                          if 'google.com' in article_url and hasattr(entry, 'summary'):
+                              try:
+                                  from bs4 import BeautifulSoup
+                                  soup = BeautifulSoup(entry.summary, 'html.parser')
+                                  # Look for actual article link in the summary
+                                  for a_tag in soup.find_all('a', href=True):
+                                      href = a_tag['href']
+                                      if 'google.com' not in href and href.startswith('http'):
+                                          article_url = href
+                                          print(f"   ✅ Extracted URL from summary: {article_url[:80]}...")
+                                          break
+                              except Exception as e:
+                                  print(f"   ⚠️  Could not parse summary: {e}")
 
                           news_articles.append({
                               'title': clean_title,
