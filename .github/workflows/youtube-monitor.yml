@@ -159,8 +159,8 @@ jobs:
           # To find channel IDs: Go to YouTube channel -> View Page Source -> Search for "channelId"
           # Or use: https://www.youtube.com/@USERNAME -> click "About" -> Share -> Copy channel ID
           PRIORITY_OWNER_CHANNELS = {
-              'Supernamm': 'CHANNEL_ID_HERE',  # TODO: Add @supernamm channel ID
-              'Natalie Ly': 'CHANNEL_ID_HERE',  # TODO: Add Natalie Ly's channel ID
+              'Natalie Ly': 'UCVt-MpNUSwjHDS9RZ0lf2EA',  # @nataliely73
+              'SuperNamn': 'UCnKUxnVWMXVx1IUYZ3IhQcQ',  # @SuperNamn
               # Add more priority VinFast owners here
           }
 
