@@ -1,0 +1,122 @@
+name: 📱 VinFast App Issue
+description: Report a problem with the VinFast mobile app
+title: "[APP] "
+labels: ["app-issue", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting an app issue! This helps us track problems and advocate for improvements.
+
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Platform
+      description: What device are you using?
+      options:
+        - iPhone (iOS)
+        - Android
+        - Both
+    validations:
+      required: true
+
+  - type: input
+    id: app-version
+    attributes:
+      label: App Version
+      description: Check Settings in the app for version number
+      placeholder: "e.g., 2.1.5"
+    validations:
+      required: true
+
+  - type: input
+    id: device-model
+    attributes:
+      label: Device Model & OS Version
+      description: What phone/tablet and OS version?
+      placeholder: "e.g., iPhone 14 Pro, iOS 17.2"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: issue-category
+    attributes:
+      label: Issue Category
+      description: What type of app problem?
+      options:
+        - App crashes
+        - Cannot connect to vehicle
+        - Remote climate not working
+        - Remote lock/unlock issues
+        - Charging status incorrect
+        - Location/tracking issues
+        - Login/authentication problems
+        - Notifications not working
+        - UI/display issues
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: What's happening?
+      description: Describe the app problem in detail
+      placeholder: "Example: When I try to start climate control remotely, the app shows 'Command sent' but nothing happens. The climate never turns on."
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to Reproduce
+      description: How can we reproduce this issue?
+      placeholder: |
+        1. Open VinFast app
+        2. Tap Climate Control
+        3. Set temperature and tap Start
+        4. App says success but climate doesn't start
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behavior
+      description: What should happen instead?
+      placeholder: "Example: Climate control should start and vehicle should begin heating/cooling"
+
+  - type: dropdown
+    id: frequency
+    attributes:
+      label: How often does this happen?
+      options:
+        - Every time
+        - Most of the time
+        - Sometimes
+        - Rarely
+        - Only happened once
+
+  - type: textarea
+    id: workarounds
+    attributes:
+      label: Workarounds
+      description: Have you found any workarounds?
+      placeholder: "Example: Restarting the app sometimes helps, but only works 50% of the time"
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots or Screen Recording
+      description: If possible, attach screenshots or describe what you see
+      placeholder: "Drag and drop images here"
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Code of Conduct
+      options:
+        - label: I've searched existing issues and this is not a duplicate
+          required: true
+        - label: This information is accurate to the best of my knowledge
+          required: true

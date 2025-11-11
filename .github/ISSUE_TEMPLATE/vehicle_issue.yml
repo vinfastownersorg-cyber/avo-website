@@ -1,0 +1,143 @@
+name: 🚗 Vehicle Issue
+description: Report a problem with your VinFast vehicle (hardware, software, performance)
+title: "[VEHICLE] "
+labels: ["vehicle-issue", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting a vehicle issue! This helps the AVO community and our advocacy efforts with VinFast.
+
+        **Privacy Note:** Don't share your full VIN publicly. Last 4 digits only if needed.
+
+  - type: dropdown
+    id: vehicle-model
+    attributes:
+      label: Vehicle Model
+      description: Which VinFast model are you driving?
+      options:
+        - VF8 City Edition
+        - VF8 Plus
+        - VF8 Eco
+        - VF9 Eco
+        - VF9 Plus
+        - VF6
+        - VF5
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: model-year
+    attributes:
+      label: Model Year
+      description: What year is your vehicle?
+      placeholder: "e.g., 2024"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: issue-category
+    attributes:
+      label: Issue Category
+      description: What type of problem is this?
+      options:
+        - Charging / Battery
+        - Infotainment / Screen
+        - ADAS (Driver Assistance)
+        - Motor / Drivetrain
+        - Climate Control
+        - Connectivity / App Integration
+        - Lights / Electrical
+        - Suspension / Handling
+        - Other Hardware
+        - Software / Firmware
+    validations:
+      required: true
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity
+      description: How serious is this issue?
+      options:
+        - Critical (Safety concern or vehicle inoperable)
+        - Major (Significant feature not working)
+        - Minor (Annoying but vehicle still usable)
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: What's happening?
+      description: Describe the problem in detail
+      placeholder: "Example: When charging at home (Level 2), the battery stops at 79% and won't charge further. Happens every time for the past week."
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What should happen instead?
+      description: What's the expected or normal behavior?
+      placeholder: "Example: Battery should charge to 100% (or my set limit of 80%)"
+    validations:
+      required: true
+
+  - type: textarea
+    id: when-started
+    attributes:
+      label: When did this start?
+      description: When did you first notice this issue?
+      placeholder: "Example: Started after firmware update 1.5.2 last week"
+
+  - type: textarea
+    id: workarounds
+    attributes:
+      label: Workarounds tried
+      description: What have you tried to fix this? (reboot, settings changes, etc.)
+      placeholder: "Example: Tried rebooting infotainment, unplugging charger, different outlets"
+
+  - type: textarea
+    id: service-contact
+    attributes:
+      label: VinFast/Service Center Contact
+      description: Have you reported this to VinFast or your service center? What did they say?
+      placeholder: "Example: Called RepairWise, they said it's a known issue with no ETA for fix"
+
+  - type: input
+    id: software-version
+    attributes:
+      label: Software/Firmware Version
+      description: Check Settings → About → Software Version
+      placeholder: "e.g., 1.5.2"
+
+  - type: dropdown
+    id: happens
+    attributes:
+      label: How often does this happen?
+      options:
+        - Every time
+        - Most of the time
+        - Sometimes
+        - Rarely
+        - Only happened once
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional Information
+      description: Anything else we should know? Screenshots/photos welcome!
+      placeholder: "Drag and drop images here, or paste screenshots"
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Code of Conduct
+      description: By submitting this issue, you agree to follow our community guidelines
+      options:
+        - label: I've searched existing issues and this is not a duplicate
+          required: true
+        - label: This information is accurate to the best of my knowledge
+          required: true

@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 💬 General Questions - Discord
+    url: https://discord.gg/puQqaEZFAQ
+    about: For quick questions or community discussion, join our Discord server
+  - name: 📧 Contact Board Directly
+    url: mailto:board@vinfastowners.org
+    about: Email the AVO board for sensitive or private matters

@@ -1,0 +1,139 @@
+name: 🚨 Escalation Request to VinFast Corporate
+description: Request AVO board to escalate an issue to VinFast leadership
+title: "[ESCALATION] "
+labels: ["escalation", "board-review"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **⚠️ Board Review Required**
+
+        This template is for requesting the AVO board to escalate issues to VinFast Corporate leadership.
+
+        The board will review escalation requests and determine if they meet criteria for corporate engagement.
+
+  - type: dropdown
+    id: issue-type
+    attributes:
+      label: What type of issue needs escalation?
+      options:
+        - Unresolved service/repair issue
+        - Safety concern
+        - Widespread vehicle defect
+        - Systemic service provider problem
+        - Lack of communication from VinFast
+        - Promised feature not delivered
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: summary
+    attributes:
+      label: Issue Summary
+      description: Brief summary of the issue
+      placeholder: "Example: RepairWise refuses to service VF8 brake issues across multiple locations"
+    validations:
+      required: true
+
+  - type: textarea
+    id: details
+    attributes:
+      label: Detailed Description
+      description: Provide complete details about the issue
+      placeholder: |
+        Include:
+        - What happened
+        - When it started
+        - Who you've contacted
+        - What responses you've received
+        - Current status
+    validations:
+      required: true
+
+  - type: input
+    id: affected-count
+    attributes:
+      label: How many owners are affected?
+      description: To your knowledge, how many AVO members have this issue?
+      placeholder: "e.g., 5+ owners on Discord reported same problem"
+
+  - type: textarea
+    id: resolution-attempts
+    attributes:
+      label: Resolution Attempts
+      description: What have you tried to resolve this?
+      placeholder: |
+        Example:
+        - Called VinFast Customer Service 3 times
+        - Emailed regional service manager
+        - Contacted RepairWise corporate
+        - Posted in Discord - 8 other owners have same issue
+    validations:
+      required: true
+
+  - type: dropdown
+    id: urgency
+    attributes:
+      label: Urgency
+      description: How urgent is this issue?
+      options:
+        - Critical - Safety issue or vehicle inoperable
+        - High - Significant impact on daily use
+        - Medium - Important but manageable
+        - Low - Can wait but needs attention
+    validations:
+      required: true
+
+  - type: textarea
+    id: desired-outcome
+    attributes:
+      label: Desired Outcome
+      description: What resolution are you seeking from VinFast?
+      placeholder: "Example: VinFast should require RepairWise to service brake issues, or provide alternative service solution"
+    validations:
+      required: true
+
+  - type: textarea
+    id: supporting-evidence
+    attributes:
+      label: Supporting Evidence
+      description: Links to related issues, screenshots, documentation
+      placeholder: |
+        - GitHub Issue #123 (related)
+        - Discord thread: https://discord.com/...
+        - Email screenshots
+        - Service records
+
+  - type: input
+    id: contact-info
+    attributes:
+      label: Your Contact Info (Private)
+      description: How should the board contact you? (Email or Discord username)
+      placeholder: "yourname@email.com or @DiscordUsername"
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Escalation Agreement
+      options:
+        - label: I have attempted to resolve this through normal channels first
+          required: true
+        - label: I agree to work with the AVO board on this escalation
+          required: true
+        - label: I understand escalation is not guaranteed and will be reviewed by the board
+          required: true
+        - label: This information is accurate to the best of my knowledge
+          required: true
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        **What happens next:**
+        1. Board reviews your escalation request
+        2. Board may contact you for additional information
+        3. If approved, issue is added to VinFast corporate communications
+        4. You'll be notified of outcomes

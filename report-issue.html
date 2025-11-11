@@ -62,14 +62,14 @@
     <!-- Report Issue Section -->
     <section class="content-section" style="padding-top: 2rem;">
         <h2>
-            <span lang="en">Report an Issue</span>
-            <span lang="fr">Signaler un Problème</span>
+            <span lang="en">Report a VinFast Issue</span>
+            <span lang="fr">Signaler un Problème VinFast</span>
         </h2>
         <p class="section-intro" lang="en">
-            Help us improve the AVO website and member experience by reporting bugs, issues, or suggesting new features.
+            Help the AVO community by reporting VinFast vehicle issues, app problems, service center experiences, or suggesting improvements. Your reports help us advocate for better products and services.
         </p>
         <p class="section-intro" lang="fr">
-            Aidez-nous à améliorer le site Web AVO et l'expérience des membres en signalant des bugs, problèmes ou en suggérant de nouvelles fonctionnalités.
+            Aidez la communauté AVO en signalant des problèmes de véhicules VinFast, des problèmes d'application, des expériences de centre de service ou en suggérant des améliorations.
         </p>
 
         <!-- Member Notice -->
@@ -88,115 +88,119 @@
 
         <!-- Issue Type Selection -->
         <div class="issue-types-grid">
-            <div class="issue-type-card" onclick="showIssueForm('bug')">
-                <div class="issue-icon">🐛</div>
-                <h3 lang="en">Report a Bug</h3>
-                <h3 lang="fr">Signaler un Bug</h3>
-                <p lang="en">Something not working correctly on the website?</p>
-                <p lang="fr">Quelque chose ne fonctionne pas correctement sur le site Web?</p>
+            <div class="issue-type-card" onclick="window.open('https://github.com/vinfastownersorg-cyber/avo-website/issues/new/choose', '_blank')">
+                <div class="issue-icon">🚗</div>
+                <h3 lang="en">Vehicle Issue</h3>
+                <h3 lang="fr">Problème de Véhicule</h3>
+                <p lang="en">Charging, infotainment, ADAS, motor, or other vehicle problems</p>
+                <p lang="fr">Charge, infodivertissement, ADAS, moteur ou autres problèmes de véhicule</p>
             </div>
 
-            <div class="issue-type-card" onclick="showIssueForm('feature')">
+            <div class="issue-type-card" onclick="window.open('https://github.com/vinfastownersorg-cyber/avo-website/issues/new/choose', '_blank')">
+                <div class="issue-icon">📱</div>
+                <h3 lang="en">App Issue</h3>
+                <h3 lang="fr">Problème d'Application</h3>
+                <p lang="en">VinFast mobile app not working correctly</p>
+                <p lang="fr">L'application mobile VinFast ne fonctionne pas correctement</p>
+            </div>
+
+            <div class="issue-type-card" onclick="window.open('https://github.com/vinfastownersorg-cyber/avo-website/issues/new/choose', '_blank')">
+                <div class="issue-icon">🔧</div>
+                <h3 lang="en">Service Issue</h3>
+                <h3 lang="fr">Problème de Service</h3>
+                <p lang="en">RepairWise, NAPA NexDrive, or dealership service problems</p>
+                <p lang="fr">Problèmes de service RepairWise, NAPA NexDrive ou concessionnaire</p>
+            </div>
+
+            <div class="issue-type-card" onclick="window.open('https://github.com/vinfastownersorg-cyber/avo-website/issues/new/choose', '_blank')">
                 <div class="issue-icon">💡</div>
-                <h3 lang="en">Request a Feature</h3>
-                <h3 lang="fr">Demander une Fonctionnalité</h3>
-                <p lang="en">Have an idea to improve AVO?</p>
-                <p lang="fr">Avez-vous une idée pour améliorer AVO?</p>
+                <h3 lang="en">Feature Request</h3>
+                <h3 lang="fr">Demande de Fonctionnalité</h3>
+                <p lang="en">Suggest improvements to vehicles, app, or AVO website</p>
+                <p lang="fr">Suggérer des améliorations aux véhicules, à l'application ou au site AVO</p>
+            </div>
+
+            <div class="issue-type-card" onclick="window.open('https://github.com/vinfastownersorg-cyber/avo-website/issues/new/choose', '_blank')">
+                <div class="issue-icon">🚨</div>
+                <h3 lang="en">Request Escalation</h3>
+                <h3 lang="fr">Demande d'Escalade</h3>
+                <p lang="en">Ask AVO board to escalate issue to VinFast Corporate</p>
+                <p lang="fr">Demander au conseil d'AVO d'escalader le problème</p>
             </div>
 
             <div class="issue-type-card" onclick="window.open('https://discord.gg/puQqaEZFAQ', '_blank')">
                 <div class="issue-icon">💬</div>
-                <h3 lang="en">General Feedback</h3>
-                <h3 lang="fr">Commentaires Généraux</h3>
-                <p lang="en">Share your thoughts on Discord</p>
-                <p lang="fr">Partagez vos réflexions sur Discord</p>
+                <h3 lang="en">Quick Question</h3>
+                <h3 lang="fr">Question Rapide</h3>
+                <p lang="en">Ask the community on Discord for quick help</p>
+                <p lang="fr">Demandez à la communauté sur Discord</p>
             </div>
         </div>
 
-        <!-- Issue Report Form (Hidden initially) -->
-        <div id="issueFormContainer" class="membership-form-container" style="display: none;">
-            <form class="membership-form" id="issueForm">
-                <h3 id="formTitle" lang="en">Report an Issue</h3>
+        <!-- How to Report Section -->
+        <div class="card" style="margin-top: 3rem;">
+            <h3>
+                <span lang="en">📝 How to Report an Issue</span>
+                <span lang="fr">📝 Comment Signaler un Problème</span>
+            </h3>
 
-                <div class="form-group">
-                    <label for="issueType">
-                        <span lang="en">Issue Type *</span>
-                        <span lang="fr">Type de Problème *</span>
-                    </label>
-                    <select id="issueType" name="issueType" required>
-                        <option value="bug"><span lang="en">Bug / Problem</span><span lang="fr">Bug / Problème</span></option>
-                        <option value="feature"><span lang="en">Feature Request</span><span lang="fr">Demande de Fonctionnalité</span></option>
-                        <option value="improvement"><span lang="en">Improvement Suggestion</span><span lang="fr">Suggestion d'Amélioration</span></option>
-                    </select>
-                </div>
+            <p lang="en">
+                We use GitHub Issues for transparent, public tracking of VinFast vehicle, app, and service problems. This helps the entire AVO community see what issues exist, vote on them, and track resolution progress.
+            </p>
+            <p lang="fr">
+                Nous utilisons GitHub Issues pour un suivi transparent et public des problèmes de véhicules, d'applications et de services VinFast.
+            </p>
 
-                <div class="form-group">
-                    <label for="issueTitle">
-                        <span lang="en">Issue Title *</span>
-                        <span lang="fr">Titre du Problème *</span>
-                    </label>
-                    <input type="text" id="issueTitle" name="issueTitle" placeholder="Brief description of the issue" required>
-                </div>
+            <div style="margin: 2rem 0;">
+                <h4 lang="en">✅ Why GitHub?</h4>
+                <h4 lang="fr">✅ Pourquoi GitHub?</h4>
+                <ul>
+                    <li lang="en"><strong>Public & Transparent</strong> - Everyone can see all reported issues</li>
+                    <li lang="fr"><strong>Public et Transparent</strong> - Tout le monde peut voir tous les problèmes signalés</li>
+                    <li lang="en"><strong>Search Before Posting</strong> - See if others have the same problem</li>
+                    <li lang="fr"><strong>Rechercher Avant de Publier</strong> - Voir si d'autres ont le même problème</li>
+                    <li lang="en"><strong>Vote with Reactions</strong> - 👍 issues you also experience</li>
+                    <li lang="fr"><strong>Voter avec des Réactions</strong> - 👍 sur les problèmes que vous rencontrez aussi</li>
+                    <li lang="en"><strong>Track Progress</strong> - See when issues are escalated or resolved</li>
+                    <li lang="fr"><strong>Suivre les Progrès</strong> - Voir quand les problèmes sont escaladés ou résolus</li>
+                    <li lang="en"><strong>Help the Community</strong> - Your report helps other owners</li>
+                    <li lang="fr"><strong>Aider la Communauté</strong> - Votre rapport aide d'autres propriétaires</li>
+                </ul>
+            </div>
 
-                <div class="form-group">
-                    <label for="issueDescription">
-                        <span lang="en">Detailed Description *</span>
-                        <span lang="fr">Description Détaillée *</span>
-                    </label>
-                    <textarea id="issueDescription" name="issueDescription" rows="6" placeholder="Please provide as much detail as possible. For bugs: What happened? What did you expect? Steps to reproduce?" required></textarea>
-                </div>
-
-                <div class="form-group">
-                    <label for="issueURL">
-                        <span lang="en">Page URL (if applicable)</span>
-                        <span lang="fr">URL de la Page (si applicable)</span>
-                    </label>
-                    <input type="url" id="issueURL" name="issueURL" placeholder="https://vinfastowners.org/page-name">
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="reporterName">
-                            <span lang="en">Your Name *</span>
-                            <span lang="fr">Votre Nom *</span>
-                        </label>
-                        <input type="text" id="reporterName" name="reporterName" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="reporterEmail">
-                            <span lang="en">Your Email *</span>
-                            <span lang="fr">Votre Email *</span>
-                        </label>
-                        <input type="email" id="reporterEmail" name="reporterEmail" required>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="browserInfo">
-                        <span lang="en">Browser & Device (Optional)</span>
-                        <span lang="fr">Navigateur et Appareil (Optionnel)</span>
-                    </label>
-                    <input type="text" id="browserInfo" name="browserInfo" placeholder="e.g., Chrome on iPhone 14, Safari on Mac">
-                </div>
-
-                <div class="form-actions">
-                    <button type="button" class="btn btn-outline" onclick="hideIssueForm()">
-                        <span lang="en">Cancel</span>
-                        <span lang="fr">Annuler</span>
-                    </button>
-                    <button type="submit" class="btn btn-large">
-                        <span lang="en">Submit Issue</span>
-                        <span lang="fr">Soumettre le Problème</span>
-                    </button>
-                </div>
-
-                <p class="form-note" lang="en">
-                    Your issue will be reviewed by the AVO technical team. We'll follow up via email if we need more information.
+            <div style="margin: 2rem 0;">
+                <h4 lang="en">🆕 No GitHub Account? No Problem!</h4>
+                <h4 lang="fr">🆕 Pas de Compte GitHub? Pas de Problème!</h4>
+                <p lang="en">
+                    Creating a free GitHub account takes 2 minutes:
                 </p>
-                <p class="form-note" lang="fr">
-                    Votre problème sera examiné par l'équipe technique d'AVO. Nous vous contacterons par e-mail si nous avons besoin de plus d'informations.
+                <p lang="fr">
+                    Créer un compte GitHub gratuit prend 2 minutes:
                 </p>
-            </form>
+                <ol>
+                    <li lang="en">Go to <a href="https://github.com/signup" target="_blank">github.com/signup</a></li>
+                    <li lang="fr">Allez sur <a href="https://github.com/signup" target="_blank">github.com/signup</a></li>
+                    <li lang="en">Enter your email (can use any email address)</li>
+                    <li lang="fr">Entrez votre email (vous pouvez utiliser n'importe quelle adresse email)</li>
+                    <li lang="en">Create a password and username</li>
+                    <li lang="fr">Créez un mot de passe et un nom d'utilisateur</li>
+                    <li lang="en">Verify your email</li>
+                    <li lang="fr">Vérifiez votre email</li>
+                    <li lang="en">Done! Click any button above to start reporting</li>
+                    <li lang="fr">Terminé! Cliquez sur n'importe quel bouton ci-dessus pour commencer à signaler</li>
+                </ol>
+            </div>
+
+            <div style="margin: 2rem 0;">
+                <h4 lang="en">📋 What to Expect</h4>
+                <h4 lang="fr">📋 À Quoi S'Attendre</h4>
+                <p lang="en">
+                    When you click a button above, you'll see a <strong>simple form</strong> asking for details about your issue. Just fill it out - we've made it easy! The AVO board reviews all issues and escalates important ones to VinFast Corporate.
+                </p>
+                <p lang="fr">
+                    Lorsque vous cliquez sur un bouton ci-dessus, vous verrez un <strong>formulaire simple</strong> demandant des détails sur votre problème.
+                </p>
+            </div>
         </div>
 
         <!-- View Existing Issues -->
@@ -265,48 +269,5 @@
     </footer>
 
     <script src="js/main.js"></script>
-    <script>
-        function showIssueForm(type) {
-            document.getElementById('issueFormContainer').style.display = 'block';
-            document.getElementById('issueType').value = type;
-
-            if (type === 'bug') {
-                document.getElementById('formTitle').innerHTML = '<span lang="en">Report a Bug</span><span lang="fr">Signaler un Bug</span>';
-            } else if (type === 'feature') {
-                document.getElementById('formTitle').innerHTML = '<span lang="en">Request a Feature</span><span lang="fr">Demander une Fonctionnalité</span>';
-            }
-
-            // Scroll to form
-            document.getElementById('issueFormContainer').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        function hideIssueForm() {
-            document.getElementById('issueFormContainer').style.display = 'none';
-            document.getElementById('issueForm').reset();
-        }
-
-        document.getElementById('issueForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-
-            const issueData = {
-                type: document.getElementById('issueType').value,
-                title: document.getElementById('issueTitle').value,
-                description: document.getElementById('issueDescription').value,
-                url: document.getElementById('issueURL').value,
-                name: document.getElementById('reporterName').value,
-                email: document.getElementById('reporterEmail').value,
-                browser: document.getElementById('browserInfo').value
-            };
-
-            // For now, show alert. Later can integrate with GitHub API or email
-            alert('Thank you for your report! The AVO technical team will review it shortly. You will receive a confirmation email at ' + issueData.email);
-
-            // Reset and hide form
-            hideIssueForm();
-
-            // Scroll back to top
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-    </script>
 </body>
 </html>

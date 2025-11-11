@@ -1,0 +1,125 @@
+name: 🔧 Service Center / RepairWise Issue
+description: Report problems with service centers, RepairWise, or NAPA NexDrive (Canada)
+title: "[SERVICE] "
+labels: ["service-issue", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting a service issue! This helps AVO track systemic problems and advocate for better service experiences.
+
+  - type: dropdown
+    id: service-type
+    attributes:
+      label: Service Provider
+      description: Who are you having issues with?
+      options:
+        - RepairWise (USA)
+        - NAPA NexDrive (Canada)
+        - VinFast Dealership
+        - Independent Shop
+        - VinFast Customer Service
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: location
+    attributes:
+      label: Location
+      description: City and State/Province
+      placeholder: "e.g., Los Angeles, CA"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: issue-category
+    attributes:
+      label: Issue Type
+      description: What type of service problem?
+      options:
+        - Cannot schedule appointment
+        - Appointment cancelled/rescheduled
+        - Long wait times (parts or service)
+        - Poor communication
+        - Incorrect diagnosis/repair
+        - Billing/payment issues
+        - Circular referrals (sent between VinFast and service provider)
+        - No response to calls/emails
+        - Service center refuses service
+        - Parts unavailable/backorder
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened?
+      description: Describe the service issue in detail
+      placeholder: |
+        Example: Called RepairWise to schedule brake service. They said to call VinFast. VinFast said to call RepairWise. Been trying for 2 weeks with no appointment scheduled.
+    validations:
+      required: true
+
+  - type: textarea
+    id: timeline
+    attributes:
+      label: Timeline
+      description: When did this start? How long has it been ongoing?
+      placeholder: "Example: Issue started 3 weeks ago. Made 5 phone calls, sent 2 emails. Still unresolved."
+
+  - type: textarea
+    id: vehicle-status
+    attributes:
+      label: Current Vehicle Status
+      description: Is your vehicle drivable? Is this urgent?
+      placeholder: "Example: Vehicle is drivable but brakes are making noise. Not urgent but needs attention."
+
+  - type: textarea
+    id: communication
+    attributes:
+      label: Communication Attempts
+      description: Who have you contacted and what were you told?
+      placeholder: |
+        - RepairWise: Called 3 times, told to call VinFast
+        - VinFast Customer Service: Said it's RepairWise's responsibility
+        - Dealership: No response to emails
+
+  - type: dropdown
+    id: escalation
+    attributes:
+      label: Should AVO escalate this?
+      description: Do you want the AVO board to escalate this issue to VinFast Corporate?
+      options:
+        - No, just documenting for the community
+        - Yes, please escalate
+        - Not sure
+    validations:
+      required: true
+
+  - type: textarea
+    id: resolution
+    attributes:
+      label: Desired Resolution
+      description: What outcome are you looking for?
+      placeholder: "Example: Just want to schedule my brake service appointment"
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional Information
+      description: Anything else we should know?
+      placeholder: "Reference numbers, email screenshots, etc."
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Code of Conduct
+      options:
+        - label: I've searched existing issues and this is not a duplicate
+          required: true
+        - label: This information is accurate to the best of my knowledge
+          required: true
+        - label: I understand this is public and will not share sensitive personal information
+          required: true
