@@ -1,0 +1,287 @@
+name: Daily VinFast News Updates
+
+on:
+  schedule:
+    # Runs at 12:00 AM UTC (7:00 PM EST / 4:00 PM PST)
+    - cron: '0 0 * * *'
+  workflow_dispatch: # Allows manual trigger for testing
+
+jobs:
+  post-news:
+    name: Fetch and Post VinFast News
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install requests feedparser beautifulsoup4
+
+      - name: Fetch VinFast news and post to Discord
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_STOCK_WEBHOOK_URL }}
+        run: |
+          python3 << 'EOF'
+          import requests
+          import feedparser
+          import os
+          from datetime import datetime, timedelta
+          import sys
+          from urllib.parse import quote
+
+          # Get Discord webhook URL from environment
+          webhook_url = os.environ.get('DISCORD_WEBHOOK_URL')
+
+          if not webhook_url:
+              print("ERROR: DISCORD_WEBHOOK_URL secret not set")
+              sys.exit(1)
+
+          print("🔍 Fetching VinFast news from multiple sources...")
+
+          # News sources
+          news_articles = []
+
+          # Source 1: Google News RSS for VinFast - North America focus
+          try:
+              print("📰 Checking Google News (North America)...")
+              # Focus on US news with VinFast + North America keywords
+              google_news_url = "https://news.google.com/rss/search?q=VinFast+when:1d&hl=en-US&gl=US&ceid=US:en"
+              feed = feedparser.parse(google_news_url)
+
+              # Get articles from last 24 hours
+              cutoff_time = datetime.now() - timedelta(days=1)
+
+              # Priority keywords for North America
+              na_keywords = ['us', 'usa', 'united states', 'america', 'california', 'north carolina',
+                            'texas', 'canada', 'dealership', 'delivery', 'recall', 'safety',
+                            'nhtsa', 'epa', 'nasdaq', 'stock']
+
+              for entry in feed.entries[:20]:  # Check top 20
+                  try:
+                      published = datetime(*entry.published_parsed[:6])
+
+                      if published > cutoff_time:
+                          title = entry.title.lower()
+                          summary = entry.summary.lower() if hasattr(entry, 'summary') else ''
+
+                          # Calculate relevance score
+                          relevance = 0
+                          for keyword in na_keywords:
+                              if keyword in title:
+                                  relevance += 3  # Title matches worth more
+                              if keyword in summary:
+                                  relevance += 1
+
+                          # Clean title - remove source suffix
+                          clean_title = entry.title
+                          if ' - ' in clean_title:
+                              # Keep the main part, source is in entry.source
+                              clean_title = clean_title.rsplit(' - ', 1)[0].strip()
+
+                          news_articles.append({
+                              'title': clean_title,
+                              'original_title': entry.title,
+                              'link': entry.link,
+                              'source': entry.source.title if hasattr(entry, 'source') else 'Google News',
+                              'published': published,
+                              'summary': entry.summary if hasattr(entry, 'summary') else '',
+                              'relevance': relevance
+                          })
+                  except:
+                      continue
+
+              print(f"✅ Found {len(news_articles)} recent articles from Google News")
+          except Exception as e:
+              print(f"⚠️  Error fetching Google News: {e}")
+
+          # Source 2: Check VinFast official news (if available)
+          try:
+              print("📰 Checking VinFast official website...")
+              # Note: VinFast doesn't have an RSS feed, but we check the main news page
+              vf_response = requests.get('https://vinfastauto.us/newsroom', timeout=10)
+              if vf_response.status_code == 200:
+                  print("✅ VinFast newsroom accessible")
+              # We'd need to parse HTML here for actual articles
+              # For now, just verify site is accessible
+          except Exception as e:
+              print(f"⚠️  VinFast newsroom check: {e}")
+
+          # Smart duplicate detection - check title similarity
+          def title_similarity(title1, title2):
+              """Check if two titles are talking about the same story"""
+              # Normalize titles
+              t1 = title1.lower().strip()
+              t2 = title2.lower().strip()
+
+              # Remove common words
+              stop_words = {'the', 'a', 'an', 'and', 'or', 'but', 'in', 'on', 'at', 'to', 'for',
+                          'of', 'with', 'by', 'from', 'as', 'is', 'was', 'are', 'were', 'be',
+                          'has', 'have', 'had', 'will', 'can', 'could', 'should'}
+
+              words1 = set(word for word in t1.split() if word not in stop_words and len(word) > 3)
+              words2 = set(word for word in t2.split() if word not in stop_words and len(word) > 3)
+
+              if not words1 or not words2:
+                  return 0
+
+              # Calculate overlap
+              overlap = len(words1 & words2) / max(len(words1), len(words2))
+              return overlap
+
+          # Remove duplicates using smart similarity detection
+          unique_articles = []
+          seen_titles = []
+
+          for article in news_articles:
+              is_duplicate = False
+
+              for seen_title in seen_titles:
+                  similarity = title_similarity(article['title'], seen_title)
+                  if similarity > 0.6:  # 60% similar = duplicate
+                      is_duplicate = True
+                      print(f"   🔄 Skipping duplicate: {article['title'][:50]}...")
+                      break
+
+              if not is_duplicate:
+                  unique_articles.append(article)
+                  seen_titles.append(article['title'])
+
+          # Sort by relevance first (North America priority), then by date
+          sorted_articles = sorted(
+              unique_articles,
+              key=lambda x: (x['relevance'], x['published']),
+              reverse=True
+          )[:5]  # Top 5 most relevant and recent
+
+          print(f"📊 Total unique articles: {len(unique_articles)}")
+          print(f"📊 Posting top {len(sorted_articles)} articles (North America priority)")
+
+          # Build Discord embed
+          if sorted_articles:
+              today = datetime.now().strftime("%B %d, %Y")
+
+              # Main embed with articles
+              description = f"📰 **Latest VinFast News - {today}**\n\n"
+              description += f"*Top stories from the last 24 hours*\n\n"
+
+              for i, article in enumerate(sorted_articles, 1):
+                  title = article['title']
+                  # Remove source name from title if present
+                  if ' - ' in title:
+                      title = title.split(' - ')[0].strip()
+
+                  # Truncate title if too long
+                  if len(title) > 100:
+                      title = title[:97] + "..."
+
+                  source = article['source']
+                  link = article['link']
+                  time_ago = datetime.now() - article['published']
+
+                  if time_ago.seconds < 3600:
+                      time_str = f"{time_ago.seconds // 60}m ago"
+                  elif time_ago.seconds < 86400:
+                      time_str = f"{time_ago.seconds // 3600}h ago"
+                  else:
+                      time_str = f"{time_ago.days}d ago"
+
+                  description += f"**{i}.** [{title}]({link})\n"
+                  description += f"    📍 {source} • 🕒 {time_str}\n\n"
+
+              embed = {
+                  "title": "🚗 VinFast Daily News Roundup",
+                  "description": description,
+                  "color": 0x00539C,  # VinFast blue
+                  "footer": {
+                      "text": "News from Google News | Automated by VinFastOwners.org"
+                  },
+                  "timestamp": datetime.utcnow().isoformat()
+              }
+
+              # Add helpful links field
+              embed["fields"] = [
+                  {
+                      "name": "📰 More News Sources",
+                      "value": (
+                          "• [VinFast Newsroom](https://vinfastauto.us/newsroom)\n"
+                          "• [VinFastTalk.com](https://vinfasttalk.com)\n"
+                          "• [Google News Search](https://news.google.com/search?q=VinFast)"
+                      ),
+                      "inline": False
+                  }
+              ]
+
+              payload = {
+                  "username": "VinFast News Bot",
+                  "avatar_url": "https://raw.githubusercontent.com/vinfastownersorg-cyber/avo-website/main/images/icons/avo-logo.png",
+                  "embeds": [embed]
+              }
+
+              # Post to Discord
+              response = requests.post(webhook_url, json=payload)
+
+              if response.status_code == 204:
+                  print("✅ Successfully posted news to Discord")
+                  print(f"📊 Posted {len(sorted_articles)} articles")
+              else:
+                  print(f"❌ Failed to post to Discord: {response.status_code}")
+                  print(response.text)
+                  sys.exit(1)
+
+          else:
+              # No new articles found
+              print("ℹ️  No recent VinFast news articles found in last 24 hours")
+
+              # Post a message saying no news today
+              embed = {
+                  "title": "🚗 VinFast Daily News Roundup",
+                  "description": (
+                      f"📰 **No Major News Today - {datetime.now().strftime('%B %d, %Y')}**\n\n"
+                      "No significant VinFast news articles found in the last 24 hours.\n\n"
+                      "Check back tomorrow for updates!"
+                  ),
+                  "color": 0x808080,  # Gray
+                  "footer": {
+                      "text": "News from Google News | Automated by VinFastOwners.org"
+                  },
+                  "timestamp": datetime.utcnow().isoformat(),
+                  "fields": [
+                      {
+                          "name": "📰 More News Sources",
+                          "value": (
+                              "• [VinFast Newsroom](https://vinfastauto.us/newsroom)\n"
+                              "• [VinFastTalk.com](https://vinfasttalk.com)\n"
+                              "• [Google News Search](https://news.google.com/search?q=VinFast)"
+                          ),
+                          "inline": False
+                      }
+                  ]
+              }
+
+              payload = {
+                  "username": "VinFast News Bot",
+                  "avatar_url": "https://raw.githubusercontent.com/vinfastownersorg-cyber/avo-website/main/images/icons/avo-logo.png",
+                  "embeds": [embed]
+              }
+
+              response = requests.post(webhook_url, json=payload)
+
+              if response.status_code == 204:
+                  print("✅ Posted 'no news' message to Discord")
+              else:
+                  print(f"❌ Failed to post to Discord: {response.status_code}")
+                  sys.exit(1)
+
+          EOF
+
+      - name: Log completion
+        if: always()
+        run: |
+          echo "VinFast news workflow completed at $(date)"
