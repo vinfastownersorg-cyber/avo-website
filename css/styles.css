@@ -651,6 +651,72 @@ h2 {
     background: linear-gradient(135deg, var(--electric), var(--vf-vinfast-blue));
 }
 
+/* Individual Category Colors */
+.category-crimson .category-toggle {
+    background: linear-gradient(135deg, var(--vf-crimson-red), #8a1723);
+}
+
+.category-crimson .category-toggle:hover {
+    background: linear-gradient(135deg, #8a1723, var(--vf-crimson-red));
+}
+
+.category-blue .category-toggle {
+    background: linear-gradient(135deg, var(--vf-vinfast-blue), var(--electric));
+}
+
+.category-blue .category-toggle:hover {
+    background: linear-gradient(135deg, var(--electric), var(--vf-vinfast-blue));
+}
+
+.category-ocean .category-toggle {
+    background: linear-gradient(135deg, var(--vf-deep-ocean), #2d7359);
+}
+
+.category-ocean .category-toggle:hover {
+    background: linear-gradient(135deg, #2d7359, var(--vf-deep-ocean));
+}
+
+.category-sunset .category-toggle {
+    background: linear-gradient(135deg, var(--vf-sunset-orange), #ff8555);
+}
+
+.category-sunset .category-toggle:hover {
+    background: linear-gradient(135deg, #ff8555, var(--vf-sunset-orange));
+}
+
+.category-neptune .category-toggle {
+    background: linear-gradient(135deg, var(--vf-neptune-grey), #9aa5b0);
+}
+
+.category-neptune .category-toggle:hover {
+    background: linear-gradient(135deg, #9aa5b0, var(--vf-neptune-grey));
+}
+
+.category-jet .category-toggle {
+    background: linear-gradient(135deg, var(--vf-jet-black), #3a3a3a);
+}
+
+.category-jet .category-toggle:hover {
+    background: linear-gradient(135deg, #3a3a3a, var(--vf-jet-black));
+}
+
+.category-electric .category-toggle {
+    background: linear-gradient(135deg, var(--electric), #4dd4ac);
+}
+
+.category-electric .category-toggle:hover {
+    background: linear-gradient(135deg, #4dd4ac, var(--electric));
+}
+
+.category-silver .category-toggle {
+    background: linear-gradient(135deg, var(--vf-desat-silver), #d5dade);
+    color: var(--text-color);
+}
+
+.category-silver .category-toggle:hover {
+    background: linear-gradient(135deg, #d5dade, var(--vf-desat-silver));
+}
+
 .category-toggle:active {
     transform: scale(0.99);
 }
