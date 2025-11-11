@@ -63,7 +63,7 @@ jobs:
                             'texas', 'canada', 'dealership', 'delivery', 'recall', 'safety',
                             'nhtsa', 'epa', 'nasdaq', 'stock']
 
-              for entry in feed.entries[:20]:  # Check top 20
+              for entry in feed.entries[:50]:  # Check top 50 entries
                   try:
                       published = datetime(*entry.published_parsed[:6])
 
