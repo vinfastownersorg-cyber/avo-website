@@ -174,14 +174,20 @@ jobs:
           # Combine all priority channels (owners + official)
           ALL_PRIORITY_CHANNELS = {**PRIORITY_OWNER_CHANNELS, **OFFICIAL_CHANNELS}
 
-          # Search queries
+          # Search queries (English and French)
           search_queries = [
-              'VinFast VF8 review',
-              'VinFast VF9 review',
-              'VinFast test drive',
-              'VinFast 2024',
-              'VinFast 2025',
-              'VinFast news'
+              # English queries
+              ('VinFast VF8 review', 'en'),
+              ('VinFast VF9 review', 'en'),
+              ('VinFast test drive', 'en'),
+              ('VinFast 2024', 'en'),
+              ('VinFast 2025', 'en'),
+              ('VinFast news', 'en'),
+              # French queries
+              ('VinFast VF8 essai', 'fr'),
+              ('VinFast VF9 essai', 'fr'),
+              ('VinFast avis', 'fr'),
+              ('VinFast actualités', 'fr'),
           ]
 
           all_videos = []
@@ -240,9 +246,10 @@ jobs:
           # PART 2: General VinFast content search
 
           # Search for videos
-          for query in search_queries:
+          for query, language in search_queries:
               try:
-                  print(f"\n🔎 Searching: '{query}'")
+                  lang_label = "🇺🇸 English" if language == 'en' else "🇫🇷 French"
+                  print(f"\n🔎 Searching ({lang_label}): '{query}'")
 
                   search_response = youtube.search().list(
                       q=query,
@@ -251,7 +258,7 @@ jobs:
                       publishedAfter=time_threshold_rfc3339,
                       order='date',
                       maxResults=10,
-                      relevanceLanguage='en',
+                      relevanceLanguage=language,
                       safeSearch='moderate'
                   ).execute()
 
@@ -486,8 +493,8 @@ jobs:
               print("ℹ️  All quality videos have already been posted")
               sys.exit(0)
 
-          # Post top videos to Discord (max 3 per run)
-          videos_to_post = new_videos[:3]
+          # Post top videos to Discord (max 5 per run)
+          videos_to_post = new_videos[:5]
 
           for video in videos_to_post:
               try:
