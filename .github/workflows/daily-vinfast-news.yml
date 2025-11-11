@@ -142,10 +142,29 @@ jobs:
                               # Keep the main part, source is in entry.source
                               clean_title = clean_title.rsplit(' - ', 1)[0].strip()
 
+                          # Resolve Google News redirect to get direct article URL
+                          article_url = entry.link
+                          try:
+                              # Google News URLs redirect, follow them to get real URL
+                              if 'news.google.com' in article_url:
+                                  print(f"   🔗 Resolving redirect for: {clean_title[:50]}...")
+                                  response = requests.head(article_url, allow_redirects=True, timeout=5)
+                                  direct_url = response.url
+
+                                  # Verify the direct URL is accessible
+                                  verify_response = requests.head(direct_url, timeout=5)
+                                  if verify_response.status_code < 400:
+                                      article_url = direct_url
+                                      print(f"   ✅ Direct URL: {direct_url[:80]}...")
+                                  else:
+                                      print(f"   ⚠️  Direct URL not accessible ({verify_response.status_code}), using Google redirect")
+                          except Exception as e:
+                              print(f"   ⚠️  Could not resolve redirect: {e}, using original URL")
+
                           news_articles.append({
                               'title': clean_title,
                               'original_title': entry.title,
-                              'link': entry.link,
+                              'link': article_url,
                               'source': entry.source.title if hasattr(entry, 'source') else 'Google News',
                               'published': published,
                               'summary': entry.summary if hasattr(entry, 'summary') else '',
