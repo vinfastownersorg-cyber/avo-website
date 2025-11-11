@@ -111,7 +111,7 @@
 
         <!-- Membership Form -->
         <div class="membership-form-container">
-            <form class="membership-form" id="membershipForm" netlify>
+            <form class="membership-form" id="membershipForm">
                 <h3 lang="en">Member Registration</h3>
                 <h3 lang="fr">Inscription des Membres</h3>
 
@@ -320,11 +320,16 @@
         document.getElementById('membershipForm').addEventListener('submit', async function(e) {
             e.preventDefault();
 
+            console.log('Form submitted!');
+
             // Get form values
             const firstName = document.getElementById('firstName')?.value || '';
             const lastName = document.getElementById('lastName')?.value || '';
             const city = document.getElementById('city')?.value || '';
             const state = document.getElementById('state')?.value || '';
+
+            console.log('FirstName:', firstName);
+            console.log('LastName:', lastName);
 
             const formData = {
                 name: `${firstName} ${lastName}`.trim(),
@@ -334,6 +339,8 @@
                 vehicleColor: document.getElementById('vehicleColor')?.value || 'Not specified',
                 interests: document.getElementById('interests')?.value || 'Not specified'
             };
+
+            console.log('Form data:', formData);
 
             // Build Discord embed message
             const discordPayload = {
@@ -354,6 +361,7 @@
             };
 
             // Send to Discord webhook
+            console.log('Sending to Discord...');
             try {
                 const response = await fetch('https://discord.com/api/webhooks/1437665226014199868/URTf_d_QHRGHb3i7IXyj-UaejQT0DR7UXOo62hbRRKd1vEL6VM16d2y5Dn0zc65S6LFb', {
                     method: 'POST',
@@ -363,7 +371,10 @@
                     body: JSON.stringify(discordPayload)
                 });
 
+                console.log('Response status:', response.status);
+
                 if (response.ok) {
+                    console.log('Success!');
                     // Show success message
                     alert('Thank you for joining AVO! Your membership request has been submitted. We will contact you at ' + formData.email + ' within 24 hours.');
 
@@ -375,9 +386,12 @@
                         window.location.href = 'index.html';
                     }, 2000);
                 } else {
+                    const errorText = await response.text();
+                    console.error('Discord API error:', errorText);
                     throw new Error('Failed to submit');
                 }
             } catch (error) {
+                console.error('Error:', error);
                 alert('There was an error submitting your membership request. Please try again or contact us directly on Discord: https://discord.gg/WRVqmKuFFA');
             }
         });
