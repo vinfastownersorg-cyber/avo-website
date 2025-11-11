@@ -608,47 +608,57 @@ h2 {
 }
 
 /* Resources Section */
-.resources-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
+.resource-category {
+    margin: 3rem auto;
     max-width: 1200px;
-    margin: 2rem auto;
 }
 
-.resource-card {
-    background: white;
-    padding: 2rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.07);
-    transition: transform 0.3s, box-shadow 0.3s;
+.category-title {
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 3px solid var(--vf-vinfast-blue);
+}
+
+.resources-list {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 1.5rem;
 }
 
-.resource-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 16px rgba(0,0,0,0.12);
+.resource-item {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.resource-icon {
-    font-size: 3rem;
+.resource-item:hover {
+    transform: translateX(4px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.resource-item a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.1rem;
+    display: block;
     margin-bottom: 0.5rem;
 }
 
-.resource-card h3 {
-    color: var(--primary-color);
-    margin: 0;
-    font-size: 1.3rem;
+.resource-item a:hover {
+    color: var(--vf-crimson-red);
+    text-decoration: underline;
 }
 
-.resource-description {
+.item-description {
     color: var(--text-color);
     font-size: 0.95rem;
     line-height: 1.6;
-    margin: 0;
-    flex-grow: 1;
+    margin: 0.5rem 0 0 0;
 }
 
 .attribution {
@@ -656,7 +666,7 @@ h2 {
     color: var(--text-color);
     opacity: 0.7;
     font-size: 0.9rem;
-    margin-top: 2rem;
+    margin-top: 3rem;
 }
 
 /* Membership Section */
