@@ -1,0 +1,633 @@
+name: YouTube VinFast Content Monitor
+
+on:
+  schedule:
+    # Runs at 12:00 PM EST (5:00 PM UTC) and 8:00 PM EST (1:00 AM UTC next day)
+    - cron: '0 17 * * *'  # 12:00 PM EST / 9:00 AM PST
+    - cron: '0 1 * * *'   # 8:00 PM EST / 5:00 PM PST
+  workflow_dispatch: # Allows manual trigger for testing
+
+jobs:
+  monitor-youtube:
+    name: Find and Post Quality VinFast Videos
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install google-api-python-client requests
+
+      - name: Monitor YouTube and post to Discord
+        env:
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_STOCK_WEBHOOK_URL }}
+        run: |
+          python3 << 'EOF'
+          import requests
+          import os
+          import sys
+          import json
+          from datetime import datetime, timedelta
+          from googleapiclient.discovery import build
+          from googleapiclient.errors import HttpError
+
+          # Configuration
+          YOUTUBE_API_KEY = os.environ.get('YOUTUBE_API_KEY')
+          DISCORD_WEBHOOK_URL = os.environ.get('DISCORD_WEBHOOK_URL')
+
+          if not YOUTUBE_API_KEY:
+              print("ERROR: YOUTUBE_API_KEY secret not set")
+              sys.exit(1)
+
+          if not DISCORD_WEBHOOK_URL:
+              print("ERROR: DISCORD_WEBHOOK_URL secret not set")
+              sys.exit(1)
+
+          # Quality thresholds
+          THRESHOLDS = {
+              'min_views': 500,           # At least 500 views
+              'min_comments': 5,          # At least 5 comments
+              'min_engagement_score': 0.3,  # 0.3% engagement rate
+              'min_channel_subs': 500,    # Channel must have 500+ subscribers
+              'max_video_age_hours': 24   # Only last 24 hours
+          }
+
+          # Credible automotive channels (case-insensitive)
+          CREDIBLE_CHANNELS = [
+              'throttle house',
+              'out of spec reviews',
+              'out of spec motoring',
+              'insideevs',
+              'fully charged show',
+              'engineering explained',
+              'the straight pipes',
+              'autogefühl',
+              'autotrader',
+              'carwow',
+              'whatcar',
+              'top gear',
+              'motortrend channel',
+              'edmunds cars',
+              'kelley blue book',
+              'cars.com',
+              'car and driver',
+              'consumer reports',
+              'mkbhd',
+              'marques brownlee',
+              'alex on autos',
+              'redline reviews',
+              'savagegeese',
+              'everyday driver',
+              'vehicle virgins',
+              'supercar blondie',
+              'doug demuro',
+              'hoovies garage',
+              'tavarish',
+              'vinwiki'
+          ]
+
+          # Quality keywords (must have at least one)
+          QUALITY_KEYWORDS = [
+              'review',
+              'test drive',
+              'first drive',
+              'ownership',
+              'experience',
+              'update',
+              'news',
+              'announcement',
+              'vs',
+              'versus',
+              'comparison',
+              'range test',
+              'charging',
+              'software',
+              'hands-on',
+              'walkaround',
+              'features',
+              'impressions'
+          ]
+
+          # Spam keywords (auto-reject if found)
+          SPAM_KEYWORDS = [
+              'stock price',
+              'investment',
+              'buy shares',
+              'crash compilation',
+              'meme',
+              'funny moments',
+              'fails',
+              'clickbait',
+              'you won\'t believe',
+              'shocking',
+              'must see',
+              'this will blow your mind'
+          ]
+
+          # Spam patterns in channel names
+          SPAM_CHANNEL_PATTERNS = [
+              r'\d{4,}',  # 4+ consecutive digits
+              r'[A-Z]{5,}',  # 5+ consecutive capitals
+          ]
+
+          print("🔍 Starting YouTube VinFast content monitor...")
+          print(f"⏰ Searching for videos from last {THRESHOLDS['max_video_age_hours']} hours")
+
+          # Initialize YouTube API
+          try:
+              youtube = build('youtube', 'v3', developerKey=YOUTUBE_API_KEY)
+              print("✅ YouTube API initialized")
+          except Exception as e:
+              print(f"❌ Failed to initialize YouTube API: {e}")
+              sys.exit(1)
+
+          # Calculate time threshold
+          time_threshold = datetime.utcnow() - timedelta(hours=THRESHOLDS['max_video_age_hours'])
+          time_threshold_rfc3339 = time_threshold.strftime('%Y-%m-%dT%H:%M:%SZ')
+
+          # Priority VinFast Owner Channels (TOP PRIORITY - always post)
+          # To find channel IDs: Go to YouTube channel -> View Page Source -> Search for "channelId"
+          # Or use: https://www.youtube.com/@USERNAME -> click "About" -> Share -> Copy channel ID
+          PRIORITY_OWNER_CHANNELS = {
+              'Supernamm': 'CHANNEL_ID_HERE',  # TODO: Add @supernamm channel ID
+              'Natalie Ly': 'CHANNEL_ID_HERE',  # TODO: Add Natalie Ly's channel ID
+              # Add more priority VinFast owners here
+          }
+
+          # Official VinFast channels (from vinfastowners.org resources)
+          OFFICIAL_CHANNELS = {
+              'VinFast US': 'UCzKjl-p7WlKBVMxR6eCBpMw',  # @vinfastunitedstates
+              'VinFast Canada': 'UCXrH8l4q0IgK1bNvSyIFvkg',  # @vinfastcanada
+              'VinFast Official': 'UCaK5H-EjPJQJhH8bBZs8C6Q'  # @vinfastauto.official
+          }
+
+          # Combine all priority channels (owners + official)
+          ALL_PRIORITY_CHANNELS = {**PRIORITY_OWNER_CHANNELS, **OFFICIAL_CHANNELS}
+
+          # Search queries
+          search_queries = [
+              'VinFast VF8 review',
+              'VinFast VF9 review',
+              'VinFast test drive',
+              'VinFast 2024',
+              'VinFast 2025',
+              'VinFast news'
+          ]
+
+          all_videos = []
+          video_ids_seen = set()
+
+          # PART 1: Monitor priority channels (VinFast owners + official channels)
+          print("\n⭐ Checking priority VinFast channels...")
+          for channel_name, channel_id in ALL_PRIORITY_CHANNELS.items():
+              # Skip placeholder IDs
+              if channel_id == 'CHANNEL_ID_HERE':
+                  print(f"   ⚠️  Skipping {channel_name} - No channel ID configured")
+                  continue
+              try:
+                  print(f"\n📺 Checking: {channel_name}")
+
+                  # Search for recent videos from this specific channel
+                  channel_response = youtube.search().list(
+                      channelId=channel_id,
+                      type='video',
+                      part='id,snippet',
+                      publishedAfter=time_threshold_rfc3339,
+                      order='date',
+                      maxResults=5
+                  ).execute()
+
+                  for item in channel_response.get('items', []):
+                      video_id = item['id']['videoId']
+
+                      if video_id in video_ids_seen:
+                          continue
+
+                      video_ids_seen.add(video_id)
+
+                      snippet = item['snippet']
+                      video_data = {
+                          'video_id': video_id,
+                          'title': snippet['title'],
+                          'channel_title': snippet['channelTitle'],
+                          'channel_id': snippet['channelId'],
+                          'description': snippet['description'],
+                          'published_at': snippet['publishedAt'],
+                          'thumbnail': snippet['thumbnails']['high']['url'] if 'high' in snippet['thumbnails'] else snippet['thumbnails']['default']['url'],
+                          'is_official': True  # Mark as official channel
+                      }
+
+                      all_videos.append(video_data)
+                      print(f"   ✅ Found: {video_data['title'][:60]}...")
+
+                  print(f"   Found {len(channel_response.get('items', []))} recent videos")
+
+              except HttpError as e:
+                  print(f"   ⚠️  YouTube API error for {channel_name}: {e}")
+              except Exception as e:
+                  print(f"   ⚠️  Error checking {channel_name}: {e}")
+
+          # PART 2: General VinFast content search
+
+          # Search for videos
+          for query in search_queries:
+              try:
+                  print(f"\n🔎 Searching: '{query}'")
+
+                  search_response = youtube.search().list(
+                      q=query,
+                      type='video',
+                      part='id,snippet',
+                      publishedAfter=time_threshold_rfc3339,
+                      order='date',
+                      maxResults=10,
+                      relevanceLanguage='en',
+                      safeSearch='moderate'
+                  ).execute()
+
+                  for item in search_response.get('items', []):
+                      video_id = item['id']['videoId']
+
+                      # Skip duplicates
+                      if video_id in video_ids_seen:
+                          continue
+
+                      video_ids_seen.add(video_id)
+
+                      snippet = item['snippet']
+                      video_data = {
+                          'video_id': video_id,
+                          'title': snippet['title'],
+                          'channel_title': snippet['channelTitle'],
+                          'channel_id': snippet['channelId'],
+                          'description': snippet['description'],
+                          'published_at': snippet['publishedAt'],
+                          'thumbnail': snippet['thumbnails']['high']['url'] if 'high' in snippet['thumbnails'] else snippet['thumbnails']['default']['url']
+                      }
+
+                      all_videos.append(video_data)
+                      print(f"   Found: {video_data['title'][:60]}...")
+
+                  print(f"   ✅ Found {len(search_response.get('items', []))} videos")
+
+              except HttpError as e:
+                  print(f"   ⚠️  YouTube API error: {e}")
+              except Exception as e:
+                  print(f"   ⚠️  Error: {e}")
+
+          print(f"\n📊 Total unique videos found: {len(all_videos)}")
+
+          if not all_videos:
+              print("ℹ️  No recent VinFast videos found in last 24 hours")
+              sys.exit(0)
+
+          # Get detailed statistics for all videos
+          print("\n📈 Fetching detailed statistics...")
+          video_ids_list = [v['video_id'] for v in all_videos]
+
+          try:
+              # YouTube API allows up to 50 video IDs per request
+              stats_response = youtube.videos().list(
+                  part='statistics,contentDetails,snippet',
+                  id=','.join(video_ids_list)
+              ).execute()
+
+              # Map statistics to videos
+              stats_map = {}
+              for item in stats_response.get('items', []):
+                  video_id = item['id']
+                  stats = item['statistics']
+                  stats_map[video_id] = {
+                      'views': int(stats.get('viewCount', 0)),
+                      'likes': int(stats.get('likeCount', 0)),
+                      'comments': int(stats.get('commentCount', 0)),
+                      'duration': item['contentDetails']['duration']
+                  }
+
+              # Add stats to video data
+              for video in all_videos:
+                  vid_id = video['video_id']
+                  if vid_id in stats_map:
+                      video.update(stats_map[vid_id])
+                  else:
+                      video.update({'views': 0, 'likes': 0, 'comments': 0})
+
+              print(f"✅ Retrieved statistics for {len(stats_map)} videos")
+
+          except Exception as e:
+              print(f"⚠️  Error fetching statistics: {e}")
+              # Continue with videos but without stats
+
+          # Get channel information (subscriber counts)
+          print("\n📺 Fetching channel information...")
+          channel_ids = list(set([v['channel_id'] for v in all_videos]))
+
+          try:
+              channels_response = youtube.channels().list(
+                  part='statistics,snippet',
+                  id=','.join(channel_ids)
+              ).execute()
+
+              channel_map = {}
+              for item in channels_response.get('items', []):
+                  channel_id = item['id']
+                  channel_map[channel_id] = {
+                      'subscriber_count': int(item['statistics'].get('subscriberCount', 0)),
+                      'channel_url': f"https://youtube.com/channel/{channel_id}"
+                  }
+
+              # Add channel info to videos
+              for video in all_videos:
+                  ch_id = video['channel_id']
+                  if ch_id in channel_map:
+                      video['subscriber_count'] = channel_map[ch_id]['subscriber_count']
+                  else:
+                      video['subscriber_count'] = 0
+
+              print(f"✅ Retrieved info for {len(channel_map)} channels")
+
+          except Exception as e:
+              print(f"⚠️  Error fetching channel info: {e}")
+
+          # Filter videos by quality
+          print("\n🔍 Applying quality filters...")
+          quality_videos = []
+
+          for video in all_videos:
+              title_lower = video['title'].lower()
+              desc_lower = video['description'].lower()
+              channel_lower = video['channel_title'].lower()
+
+              # Check if this is an official VinFast channel
+              is_official = video.get('is_official', False)
+
+              # Official channels bypass most filters (always post their content)
+              if is_official:
+                  print(f"   🏢 OFFICIAL CHANNEL: {video['title'][:50]}...")
+                  video['is_credible'] = True
+                  video['credibility_boost'] = 200  # High boost for official content
+                  video['engagement_score'] = 1.0  # Default engagement
+                  video['quality_score'] = 201.0
+                  quality_videos.append(video)
+                  continue
+
+              # For non-official channels, apply standard filters:
+
+              # Filter 1: Check for spam keywords
+              has_spam = any(spam in title_lower or spam in desc_lower for spam in SPAM_KEYWORDS)
+              if has_spam:
+                  print(f"   ❌ SPAM: {video['title'][:50]}...")
+                  continue
+
+              # Filter 2: Check spam channel patterns
+              import re
+              is_spam_channel = any(re.search(pattern, video['channel_title']) for pattern in SPAM_CHANNEL_PATTERNS)
+              if is_spam_channel:
+                  print(f"   ❌ SPAM CHANNEL: {video['channel_title']}")
+                  continue
+
+              # Filter 3: Must have VinFast prominently in title or early description
+              vinfast_prominent = 'vinfast' in title_lower or 'vinfast' in desc_lower[:200]
+              if not vinfast_prominent:
+                  print(f"   ⏭️  Not prominent: {video['title'][:50]}...")
+                  continue
+
+              # Filter 4: Check for quality keywords
+              has_quality_keyword = any(keyword in title_lower or keyword in desc_lower for keyword in QUALITY_KEYWORDS)
+              if not has_quality_keyword:
+                  print(f"   ⏭️  No quality keywords: {video['title'][:50]}...")
+                  continue
+
+              # Filter 5: Minimum views threshold
+              views = video.get('views', 0)
+              if views < THRESHOLDS['min_views']:
+                  print(f"   ⏭️  Low views ({views}): {video['title'][:50]}...")
+                  continue
+
+              # Filter 6: Minimum comments threshold
+              comments = video.get('comments', 0)
+              if comments < THRESHOLDS['min_comments']:
+                  print(f"   ⏭️  Low comments ({comments}): {video['title'][:50]}...")
+                  continue
+
+              # Filter 7: Minimum subscriber count
+              subs = video.get('subscriber_count', 0)
+              if subs < THRESHOLDS['min_channel_subs']:
+                  print(f"   ⏭️  Low subs ({subs}): {video['channel_title']}")
+                  continue
+
+              # Calculate engagement score
+              if views > 0:
+                  engagement_score = ((comments + video.get('likes', 0)) / views) * 100
+              else:
+                  engagement_score = 0
+
+              video['engagement_score'] = engagement_score
+
+              # Filter 8: Minimum engagement score
+              if engagement_score < THRESHOLDS['min_engagement_score']:
+                  print(f"   ⏭️  Low engagement ({engagement_score:.2f}%): {video['title'][:50]}...")
+                  continue
+
+              # Boost score for credible channels
+              is_credible = any(credible in channel_lower for credible in CREDIBLE_CHANNELS)
+              video['is_credible'] = is_credible
+
+              if is_credible:
+                  video['credibility_boost'] = 100
+                  print(f"   ⭐ CREDIBLE CHANNEL: {video['channel_title']}")
+              else:
+                  video['credibility_boost'] = 0
+
+              # Calculate final quality score
+              video['quality_score'] = engagement_score + video['credibility_boost']
+
+              quality_videos.append(video)
+              print(f"   ✅ QUALITY: {video['title'][:50]}... (score: {video['quality_score']:.1f})")
+
+          print(f"\n✅ {len(quality_videos)} quality videos passed filters")
+
+          if not quality_videos:
+              print("ℹ️  No quality VinFast videos found in last 24 hours")
+              sys.exit(0)
+
+          # Sort by quality score
+          quality_videos.sort(key=lambda x: x['quality_score'], reverse=True)
+
+          # Load previously posted videos
+          POSTED_FILE = 'youtube_posted.json'
+          posted_videos = set()
+
+          try:
+              if os.path.exists(POSTED_FILE):
+                  with open(POSTED_FILE, 'r') as f:
+                      posted_data = json.load(f)
+                      posted_videos = set(posted_data.get('video_ids', []))
+                      print(f"📋 Loaded {len(posted_videos)} previously posted videos")
+          except Exception as e:
+              print(f"⚠️  Could not load posted videos: {e}")
+
+          # Filter out already posted videos
+          new_videos = [v for v in quality_videos if v['video_id'] not in posted_videos]
+
+          print(f"\n🆕 {len(new_videos)} new videos to post")
+
+          if not new_videos:
+              print("ℹ️  All quality videos have already been posted")
+              sys.exit(0)
+
+          # Post top videos to Discord (max 3 per run)
+          videos_to_post = new_videos[:3]
+
+          for video in videos_to_post:
+              try:
+                  # Calculate time since published
+                  published_dt = datetime.strptime(video['published_at'], '%Y-%m-%dT%H:%M:%SZ')
+                  time_diff = datetime.utcnow() - published_dt
+
+                  if time_diff.seconds < 3600:
+                      time_str = f"{time_diff.seconds // 60}m ago"
+                  else:
+                      hours = time_diff.seconds // 3600
+                      time_str = f"{hours}h ago"
+
+                  # Format numbers
+                  views_str = f"{video['views']:,}"
+                  comments_str = f"{video['comments']:,}"
+                  likes_str = f"{video.get('likes', 0):,}"
+                  subs_str = f"{video.get('subscriber_count', 0):,}"
+
+                  # Engagement quality indicator
+                  engagement = video['engagement_score']
+                  if engagement >= 2.0:
+                      engagement_quality = "🔥 Viral"
+                  elif engagement >= 1.0:
+                      engagement_quality = "⭐ High Quality"
+                  else:
+                      engagement_quality = "✓ Good"
+
+                  # Build embed
+                  description = f"**{video['title']}**\n\n"
+                  description += f"by **{video['channel_title']}**"
+
+                  # Show badge based on channel type
+                  is_priority_owner = video['channel_title'] in PRIORITY_OWNER_CHANNELS.keys()
+
+                  if is_priority_owner:
+                      description += " ⭐ *Priority VinFast Owner*"
+                  elif video.get('is_official', False):
+                      description += " 🏢 *Official VinFast Channel*"
+                  elif video['is_credible']:
+                      description += " ✅ *Verified Channel*"
+
+                  description += f"\n\n{video['description'][:200]}..."
+
+                  # Set color and title based on channel type
+                  if is_priority_owner:
+                      embed_color = 0xFFD700  # Gold for priority owners
+                      embed_title = "⭐ VinFast Owner Content"
+                  elif video.get('is_official', False):
+                      embed_color = 0x00539C  # VinFast blue for official content
+                      embed_title = "🏢 Official VinFast Content"
+                  else:
+                      embed_color = 0xFF0000  # YouTube red for community content
+                      embed_title = "🎥 New Quality VinFast Content"
+
+                  embed = {
+                      "title": embed_title,
+                      "description": description,
+                      "url": f"https://youtube.com/watch?v={video['video_id']}",
+                      "color": embed_color,
+                      "thumbnail": {
+                          "url": video['thumbnail']
+                      },
+                      "fields": [
+                          {
+                              "name": "📊 Stats",
+                              "value": f"👁️ {views_str} views\n💬 {comments_str} comments\n👍 {likes_str} likes",
+                              "inline": True
+                          },
+                          {
+                              "name": "📺 Channel",
+                              "value": f"👥 {subs_str} subscribers",
+                              "inline": True
+                          },
+                          {
+                              "name": "⏰ Published",
+                              "value": time_str,
+                              "inline": True
+                          },
+                          {
+                              "name": "🎯 Quality",
+                              "value": f"{engagement_quality}\n{engagement:.2f}% engagement",
+                              "inline": True
+                          }
+                      ],
+                      "footer": {
+                          "text": "YouTube | Auto-discovered content"
+                      },
+                      "timestamp": datetime.utcnow().isoformat()
+                  }
+
+                  payload = {
+                      "username": "VinFast YouTube Monitor",
+                      "avatar_url": "https://raw.githubusercontent.com/vinfastownersorg-cyber/avo-website/main/images/icons/avo-logo.png",
+                      "embeds": [embed]
+                  }
+
+                  # Post to Discord
+                  response = requests.post(DISCORD_WEBHOOK_URL, json=payload)
+
+                  if response.status_code == 204:
+                      print(f"✅ Posted: {video['title'][:60]}...")
+                      posted_videos.add(video['video_id'])
+                  else:
+                      print(f"❌ Failed to post: {response.status_code}")
+                      print(response.text)
+
+              except Exception as e:
+                  print(f"⚠️  Error posting video: {e}")
+
+          # Save updated posted videos list
+          try:
+              with open(POSTED_FILE, 'w') as f:
+                  json.dump({
+                      'video_ids': list(posted_videos),
+                      'last_updated': datetime.utcnow().isoformat()
+                  }, f, indent=2)
+              print(f"\n💾 Saved {len(posted_videos)} posted video IDs")
+          except Exception as e:
+              print(f"⚠️  Could not save posted videos: {e}")
+
+          print(f"\n✅ Successfully posted {len(videos_to_post)} new videos to Discord")
+
+          EOF
+
+      - name: Commit posted videos tracker
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+
+          if [ -f "youtube_posted.json" ]; then
+            git add youtube_posted.json
+            git diff --staged --quiet || git commit -m "Update YouTube posted videos tracker [skip ci]"
+            git push
+            echo "✅ Updated posted videos tracker"
+          else
+            echo "ℹ️  No tracker file to commit"
+          fi
+
+      - name: Log completion
+        if: always()
+        run: |
+          echo "YouTube monitor workflow completed at $(date)"
