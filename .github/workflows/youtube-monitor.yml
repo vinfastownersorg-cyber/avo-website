@@ -6,6 +6,11 @@ on:
     - cron: '0 17 * * *'  # 12:00 PM EST / 9:00 AM PST
     - cron: '0 1 * * *'   # 8:00 PM EST / 5:00 PM PST
   workflow_dispatch: # Allows manual trigger for testing
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/youtube-monitor.yml'
 
 jobs:
   monitor-youtube:
