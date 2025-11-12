@@ -6,6 +6,9 @@ on:
       - main
     types: [opened, synchronize, reopened]
 
+# Explicitly prevent this from running on push events
+# This workflow is designed for pull requests only
+
 jobs:
   validate-html:
     name: Validate HTML Files
