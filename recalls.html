@@ -590,16 +590,41 @@
             const make = 'VINFAST';
 
             // Show loading
-            nhtsaResults.innerHTML = '<div class="loading">🔍 <span lang="en">Searching NHTSA database...</span><span lang="fr">Recherche dans la base NHTSA...</span></div>';
+            nhtsaResults.innerHTML = '<div class="loading">🔍 <span lang="en">Searching NHTSA database across all model years...</span><span lang="fr">Recherche dans toutes les années-modèles NHTSA...</span></div>';
 
             try {
-                // NHTSA API endpoint
-                const apiUrl = `https://api.nhtsa.gov/recalls/recallsByVehicle?make=${make}&model=${model}&modelYear=${year}`;
+                // Query ALL years to catch recalls that span multiple years
+                // VinFast models available: 2022-2025
+                const years = [2022, 2023, 2024, 2025];
+                const allRecalls = [];
+                const seenCampaignNumbers = new Set();
 
-                const response = await fetch(apiUrl);
-                const data = await response.json();
+                // Fetch recalls for each year
+                for (const queryYear of years) {
+                    const apiUrl = `https://api.nhtsa.gov/recalls/recallsByVehicle?make=${make}&model=${model}&modelYear=${queryYear}`;
+                    const response = await fetch(apiUrl);
+                    const data = await response.json();
 
-                displayResults(data.results, model, year);
+                    // Add unique recalls (deduplicate by campaign number)
+                    if (data.results && data.results.length > 0) {
+                        data.results.forEach(recall => {
+                            const campaignNum = recall.NHTSACampaignNumber;
+                            if (!seenCampaignNumbers.has(campaignNum)) {
+                                seenCampaignNumbers.add(campaignNum);
+                                allRecalls.push(recall);
+                            }
+                        });
+                    }
+                }
+
+                // Sort by date (most recent first)
+                allRecalls.sort((a, b) => {
+                    const dateA = new Date(a.ReportReceivedDate.split('/').reverse().join('-'));
+                    const dateB = new Date(b.ReportReceivedDate.split('/').reverse().join('-'));
+                    return dateB - dateA;
+                });
+
+                displayResults(allRecalls, model, year);
             } catch (error) {
                 nhtsaResults.innerHTML = `
                     <div class="recall-card" style="border-left-color: #dc3545;">
@@ -618,10 +643,10 @@
                         <h3 lang="en">No NHTSA Recalls Found</h3>
                         <h3 lang="fr" style="display:none;">Aucun Rappel NHTSA Trouvé</h3>
                         <p lang="en">
-                            Great news! There are currently no safety recalls listed in the NHTSA database for the <strong>${year} VinFast ${model}</strong>.
+                            Great news! There are currently no safety recalls listed in the NHTSA database for the <strong>VinFast ${model}</strong> (all model years).
                         </p>
                         <p lang="fr" style="display:none;">
-                            Bonne nouvelle! Il n'y a actuellement aucun rappel de sécurité répertorié dans la base de données NHTSA pour le <strong>VinFast ${model} ${year}</strong>.
+                            Bonne nouvelle! Il n'y a actuellement aucun rappel de sécurité répertorié dans la base de données NHTSA pour le <strong>VinFast ${model}</strong> (toutes les années).
                         </p>
                         <p lang="en" style="font-size: 0.9rem; color: #666; margin-top: 1rem;">
                             💡 Tip: For the most accurate results, search by your specific VIN on <a href="https://www.nhtsa.gov/recalls" target="_blank">NHTSA.gov</a>
@@ -635,8 +660,14 @@
             }
 
             let html = `
-                <h3 lang="en">Found ${recalls.length} Recall${recalls.length > 1 ? 's' : ''} for ${year} VinFast ${model}</h3>
-                <h3 lang="fr" style="display:none;">Trouvé ${recalls.length} Rappel${recalls.length > 1 ? 's' : ''} pour VinFast ${model} ${year}</h3>
+                <h3 lang="en">Found ${recalls.length} Unique Recall${recalls.length > 1 ? 's' : ''} for VinFast ${model} (All Model Years)</h3>
+                <h3 lang="fr" style="display:none;">Trouvé ${recalls.length} Rappel${recalls.length > 1 ? 's' : ''} Unique${recalls.length > 1 ? 's' : ''} pour VinFast ${model} (Toutes Années)</h3>
+                <p lang="en" style="font-size: 0.95rem; color: #666; margin-bottom: 1.5rem;">
+                    <strong>Note:</strong> This search includes all recalls affecting VinFast ${model} vehicles from 2022-2025. Some recalls may apply to specific model years only. Check the recall details to see which years are affected.
+                </p>
+                <p lang="fr" style="display:none; font-size: 0.95rem; color: #666; margin-bottom: 1.5rem;">
+                    <strong>Remarque:</strong> Cette recherche inclut tous les rappels affectant les véhicules VinFast ${model} de 2022 à 2025. Certains rappels peuvent s'appliquer uniquement à des années-modèles spécifiques. Vérifiez les détails du rappel pour voir quelles années sont affectées.
+                </p>
             `;
 
             recalls.forEach(recall => {
