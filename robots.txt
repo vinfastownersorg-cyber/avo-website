@@ -1,22 +1,11 @@
-# robots.txt for VinFastOwners.org
-# Optimized for North American search engines
+# robots.txt for vinfastowners.org
+# Association of VinFast Owners North America
 
 User-agent: *
 Allow: /
 
-# Sitemap location
+# Sitemap
 Sitemap: https://vinfastowners.org/sitemap.xml
 
-# Disallow admin/internal pages if any exist
-Disallow: /admin/
-Disallow: /private/
-Disallow: /.git/
-Disallow: /.github/
-
-# Allow all resources for better crawling
-Allow: /css/
-Allow: /js/
-Allow: /images/
-
-# Crawl-delay (optional, helps with server load)
+# Crawl-delay for polite crawling
 Crawl-delay: 1
