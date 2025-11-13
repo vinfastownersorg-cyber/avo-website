@@ -425,7 +425,7 @@ with open('price_history.json', 'a') as f:
 
 1. **Check workflow logs:** GitHub → Actions → View run logs
 2. **Test manually:** Use "Run workflow" button
-3. **Discord:** Ask in #development channel
+3. **Discord:** Ask in an appropriate Discord channel
 4. **Email:** board@vinfastowners.org
 
 **Common issues:**

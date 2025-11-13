@@ -237,7 +237,7 @@ git push origin main
 
 ## Questions?
 
-**Discord:** #development channel
+**Discord:** an appropriate Discord channel
 **Email:** board@vinfastowners.org
 **Documentation:** This file
 

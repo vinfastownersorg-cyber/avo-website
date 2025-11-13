@@ -112,4 +112,4 @@ Create new webhook in different channel, update secret
 
 ---
 
-**Questions? Check STOCK_PRICE_BOT_SETUP.md or ask in Discord #development**
+**Questions? Check STOCK_PRICE_BOT_SETUP.md or ask in an appropriate Discord channel**

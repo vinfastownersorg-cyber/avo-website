@@ -51,11 +51,11 @@ For each collaborator:
 
 Create these Discord channels for your team:
 
-1. **#development**
+1. **A general development/tech discussion channel**
    - Purpose: General development chat
    - Usage: "Working on about.html", "Just pushed CSS updates"
 
-2. **#commits** (optional)
+2. **A commits notification channel** (optional)
    - Purpose: Automated commit notifications
    - Setup: GitHub webhook → Discord
    - Shows who pushed what in real-time
@@ -69,7 +69,7 @@ Create these Discord channels for your team:
 To see commits in Discord automatically:
 
 **In Discord:**
-1. Go to #commits channel settings → Integrations
+1. Go to your commits notification channel settings → Integrations
 2. Click **Webhooks** → **New Webhook**
 3. Name it "GitHub Commits"
 4. Copy the webhook URL
@@ -114,7 +114,7 @@ Welcome to the website development team! Here's how to get started:
    https://github.com/vinfastownersorg-cyber/avo-website/blob/main/SIMPLE_WORKFLOW.md
 
 5. Join our Discord server: [your Discord invite link]
-   - Check #development channel for coordination
+   - Check an appropriate Discord channel for coordination
 
 6. Make a test change to verify your access:
    git pull origin main
@@ -123,7 +123,7 @@ Welcome to the website development team! Here's how to get started:
    git commit -m "Test commit by [YourName]"
    git push origin main
 
-If you have any issues, reach out in Discord #development or email board@vinfastowners.org.
+If you have any issues, reach out in Discord or email board@vinfastowners.org.
 
 Looking forward to working with you!
 ```
@@ -136,7 +136,7 @@ Send them this checklist:
 - [ ] Repository cloned to your computer
 - [ ] Git identity configured
 - [ ] Read SIMPLE_WORKFLOW.md
-- [ ] Joined Discord #development
+- [ ] Joined Discord
 - [ ] Made successful test push
 - [ ] Know how to pull, commit, push
 - [ ] Know what to do if you get a conflict
@@ -148,7 +148,7 @@ Send them this checklist:
 
 ### Create a Quick Reference Card
 
-Post this in Discord #development pinned messages:
+Post this in Discord pinned messages:
 
 ```markdown
 📋 **Quick Daily Workflow**
@@ -167,7 +167,7 @@ git pull origin main
 git push origin main
 
 **Communication:**
-- Post in #development when working on major files
+- Post in an appropriate Discord channel when working on major files
 - Pull often (multiple times per day)
 - Test changes locally before pushing
 - Ask if unsure!
@@ -264,7 +264,7 @@ Set up notifications:
 3. Select **All Activity**
 4. You'll get email for every push
 
-Or just check Discord #commits if you set up the webhook.
+Or just check Discord for commit notifications if you set up the webhook.
 
 ### Emergency Rollback Procedure
 
@@ -413,7 +413,7 @@ Your setup is working well if:
 
 - [ ] Add all collaborators with Write access in GitHub
 - [ ] Remove branch protection from `main` branch
-- [ ] Create Discord #development channel
+- [ ] Create Discord an appropriate Discord channel
 - [ ] Set up GitHub → Discord webhook (optional)
 - [ ] Send onboarding email to first collaborator
 - [ ] Test with first collaborator
@@ -421,7 +421,7 @@ Your setup is working well if:
 - [ ] Pin quick reference in Discord
 - [ ] Set up backup script (optional)
 - [ ] Watch repository for notifications
-- [ ] Monitor #development for questions
+- [ ] Monitor Discord for questions
 
 ---
 
@@ -440,7 +440,7 @@ Share these files with collaborators:
 
 If issues come up:
 
-1. Check Discord #development
+1. Check Discord
 2. Review the troubleshooting section in SIMPLE_WORKFLOW.md
 3. Check git log to see what happened: `git log --oneline -10`
 4. Worst case, restore from backup
@@ -465,4 +465,4 @@ Git handles the technical safety. Your team handles the human coordination.
 
 ---
 
-**Questions?** Post in Discord #development or email board@vinfastowners.org
+**Questions?** Post in Discord or email board@vinfastowners.org

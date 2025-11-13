@@ -112,7 +112,7 @@ git branch -d feature/big-change
 
 **To avoid conflicts, just communicate:**
 
-1. **In Discord #development:**
+1. **In Discord (in an appropriate channel):**
    - "Working on the about page, be back in 20 mins"
    - "Just updated privacy.html, FYI"
    - "Going to change the navigation - heads up!"
@@ -291,7 +291,7 @@ That's it!
 
 ## Need Help?
 
-- **Discord:** #development channel
+- **Discord:** an appropriate Discord channel
 - **Email:** board@vinfastowners.org
 - **Git problems?** See [GIT_QUICK_REFERENCE.md](GIT_QUICK_REFERENCE.md)
 

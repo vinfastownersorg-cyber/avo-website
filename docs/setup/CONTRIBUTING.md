@@ -235,7 +235,7 @@ Add screenshots for visual changes
    ```
 
 2. **Communicate with collaborators:**
-   - Use Discord #development channel to coordinate
+   - Use an appropriate Discord channel to coordinate
    - Check who else is working on similar files
    - Discuss major changes before starting
 
@@ -511,7 +511,7 @@ git log --oneline
 ### Stuck on Git?
 
 1. Check this guide first
-2. Ask in Discord #development channel
+2. Ask in an appropriate Discord channel
 3. Search GitHub for similar issues
 4. Contact board@vinfastowners.org
 
@@ -568,7 +568,7 @@ By contributing to this project, you agree that your contributions will be licen
 ## Questions?
 
 If you have questions about contributing, reach out:
-- Discord: #development channel
+- Discord: an appropriate Discord channel
 - Email: board@vinfastowners.org
 - GitHub: Open an issue or discussion
 

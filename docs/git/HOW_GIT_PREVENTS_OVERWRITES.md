@@ -220,7 +220,7 @@ Based on typical web projects with 3-5 collaborators:
 
 ## Preventing Most Conflicts Through Communication
 
-In Discord #development:
+In Discord:
 
 ```
 Alice: "Working on about.html for next hour"

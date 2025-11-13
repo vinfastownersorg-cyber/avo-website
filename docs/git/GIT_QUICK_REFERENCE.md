@@ -544,7 +544,7 @@ git <command> --help
 ## When in Doubt
 
 1. **Don't panic** - Almost everything in git can be undone
-2. **Ask for help** - Discord #development channel
+2. **Ask for help** - an appropriate Discord channel
 3. **Make a backup** - `git stash` or copy files before experimenting
 4. **Read the error message** - Git usually tells you what went wrong
 5. **Use git status** - Shows what's happening in your repository
@@ -563,7 +563,7 @@ git <command> --help
 ## Contact
 
 Questions about git or the workflow?
-- Discord: #development channel
+- Discord: an appropriate Discord channel
 - Email: board@vinfastowners.org
 
 ---

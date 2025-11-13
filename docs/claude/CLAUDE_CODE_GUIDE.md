@@ -628,7 +628,7 @@ git push origin main
 
 ### Before Making Big Changes
 
-**Post in Discord #development:**
+**Post in Discord:**
 ```
 Working on adding a resources page with Claude Code.
 Will update navigation on all pages. ETA 1 hour.
@@ -677,7 +677,7 @@ Claude nailed it on first try!
 - **CLAUDE_SESSION_GUIDE.md** - For Claude to read at start of sessions
 
 ### Getting Help
-- **Discord:** #development channel
+- **Discord:** an appropriate Discord channel
 - **Email:** board@vinfastowners.org
 - **VS Code Help:** Help → Welcome
 - **Claude Code Help:** Click ? icon in Claude panel
