@@ -19,9 +19,24 @@ body:
 
         ---
 
-        Thanks for reporting a vehicle issue! This helps the AVO community and our advocacy efforts with VinFast.
+        **🔒 PRIVACY WARNING - PLEASE READ**
 
-        **Privacy Note:** Don't share your full VIN publicly. Last 4 digits only if needed.
+        **This issue will be PUBLIC and searchable on Google.** Anyone on the internet can read this forever.
+
+        **DO NOT include:**
+        - ❌ Full VIN numbers (last 4 digits only if absolutely needed)
+        - ❌ License plate numbers
+        - ❌ Your home address or personal address
+        - ❌ Phone numbers or email addresses
+        - ❌ Photos showing your face, license plates, or home
+        - ❌ Full names of service center employees
+        - ❌ Any other personal information you wouldn't want publicly searchable
+
+        **Only share information you're comfortable being permanently public.**
+
+        ---
+
+        Thanks for reporting a vehicle issue! This helps the AVO community and our advocacy efforts with VinFast.
 
   - type: dropdown
     id: vehicle-model
@@ -153,4 +168,6 @@ body:
         - label: I've searched existing issues and this is not a duplicate
           required: true
         - label: This information is accurate to the best of my knowledge
+          required: true
+        - label: I understand this issue is PUBLIC and will not include personal information
           required: true

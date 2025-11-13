@@ -17,6 +17,24 @@ body:
 
         ---
 
+        **🔒 PRIVACY WARNING - PLEASE READ**
+
+        **This issue will be PUBLIC and searchable on Google.** Anyone on the internet can read this forever.
+
+        **DO NOT include:**
+        - ❌ Full VIN numbers (last 4 digits only if absolutely needed)
+        - ❌ License plate numbers
+        - ❌ Your home address or personal address
+        - ❌ Phone numbers or email addresses
+        - ❌ Photos showing your face, license plates, or home
+        - ❌ Full names of service center employees
+        - ❌ Any other personal information you wouldn't want publicly searchable
+
+        **Only share information you're comfortable being permanently public.**
+
+        ---
+
+
         Thanks for reporting an app issue! This helps us track problems and advocate for improvements.
 
   - type: dropdown
@@ -131,3 +149,6 @@ body:
           required: true
         - label: This information is accurate to the best of my knowledge
           required: true
+        - label: I understand this issue is PUBLIC and will not include personal information
+          required: true
+
