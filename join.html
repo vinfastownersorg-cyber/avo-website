@@ -71,51 +71,97 @@
     <div class="lang-toggle">
         <button onclick="setLang('en')" class="active">EN</button>
         <button onclick="setLang('fr')">FR</button>
-    </div>
-
-    <!-- Navigation -->
+    </div>    <!-- Navigation -->
     <nav>
         <div class="nav-container">
             <div class="logo">
-                <img src="images/icons/avo-logo.png" alt="AVO Logo" class="logo-img">
-                <div class="logo-text-container">
-                    <span class="logo-text">AVO</span>
-                    <span class="logo-subtitle">
-                        <span lang="en">North America</span>
-                        <span lang="fr">Amérique du Nord</span>
-                    </span>
-                </div>
+                <a href="index.html">
+                    <img src="images/icons/avo-logo.png" alt="AVO Logo" class="logo-img">
+                    <div class="logo-text-container">
+                        <span class="logo-text">AVO</span>
+                        <span class="logo-subtitle">
+                            <span lang="en">North America</span>
+                            <span lang="fr">Amérique du Nord</span>
+                        </span>
+                    </div>
+                </a>
             </div>
+
+            <!-- Hamburger Menu for Mobile -->
+            <button class="hamburger" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
             <div class="nav-links">
                 <a href="index.html">
                     <span lang="en">Home</span>
                     <span lang="fr">Accueil</span>
                 </a>
-                <a href="index.html#about">
-                    <span lang="en">About</span>
-                    <span lang="fr">À Propos</span>
+                <a href="recalls.html">
+                    <span lang="en">Recalls & Safety</span>
+                    <span lang="fr">Rappels et Sécurité</span>
                 </a>
-                <a href="index.html#governance">
-                    <span lang="en">Governance</span>
-                    <span lang="fr">Gouvernance</span>
-                </a>
-                <a href="index.html#events">
-                    <span lang="en">Events</span>
-                    <span lang="fr">Événements</span>
+                <a href="considering-vinfast.html">
+                    <span lang="en">Considering VinFast?</span>
+                    <span lang="fr">Vous Envisagez VinFast?</span>
                 </a>
                 <a href="index.html#community">
                     <span lang="en">Community</span>
                     <span lang="fr">Communauté</span>
                 </a>
-                <a href="report-issue.html">
-                    <span lang="en">Report Issue</span>
-                    <span lang="fr">Signaler</span>
-                </a>
-                <a href="https://www.bonfire.com/store/association-of-vinfast-owners/" target="_blank">
-                    <span lang="en">Shop</span>
-                    <span lang="fr">Boutique</span>
-                </a>
-                <a href="join.html">
+
+                <!-- Governance Dropdown -->
+                <div class="nav-dropdown">
+                    <a href="index.html#governance">
+                        <span lang="en">Governance</span>
+                        <span lang="fr">Gouvernance</span>
+                    </a>
+                    <div class="dropdown-menu">
+                        <a href="board.html">
+                            <span lang="en">Board of Directors</span>
+                            <span lang="fr">Conseil d'Administration</span>
+                        </a>
+                        <a href="documents.html">
+                            <span lang="en">Documents & Bylaws</span>
+                            <span lang="fr">Documents & Règlements</span>
+                        </a>
+                        <a href="meeting-minutes.html">
+                            <span lang="en">Meeting Minutes</span>
+                            <span lang="fr">Procès-Verbaux</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Resources Dropdown -->
+                <div class="nav-dropdown">
+                    <a href="index.html#resources">
+                        <span lang="en">Resources</span>
+                        <span lang="fr">Ressources</span>
+                    </a>
+                    <div class="dropdown-menu">
+                        <a href="report-issue.html">
+                            <span lang="en">Report an Issue</span>
+                            <span lang="fr">Signaler un Problème</span>
+                        </a>
+                        <a href="index.html#events">
+                            <span lang="en">Events Calendar</span>
+                            <span lang="fr">Calendrier d'Événements</span>
+                        </a>
+                        <a href="index.html#about">
+                            <span lang="en">About AVO</span>
+                            <span lang="fr">À Propos d'AVO</span>
+                        </a>
+                        <a href="https://www.bonfire.com/store/association-of-vinfast-owners/" target="_blank">
+                            <span lang="en">Shop</span>
+                            <span lang="fr">Boutique</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Join CTA Button -->
+                <a href="join.html" class="btn-join-cta">
                     <span lang="en">Join</span>
                     <span lang="fr">Adhérer</span>
                 </a>

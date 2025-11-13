@@ -2,6 +2,69 @@
 
 document.addEventListener('DOMContentLoaded', function() {
 
+    // ========================================
+    // Navigation - Hamburger Menu & Dropdowns
+    // ========================================
+
+    // Hamburger menu toggle for mobile
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
+
+    if (hamburger) {
+        hamburger.addEventListener('click', function() {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+    }
+
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', function(event) {
+        const isClickInsideNav = event.target.closest('nav');
+        if (!isClickInsideNav && navLinks && navLinks.classList.contains('active')) {
+            hamburger.classList.remove('active');
+            navLinks.classList.remove('active');
+        }
+    });
+
+    // Dropdown menu handling for mobile
+    const dropdowns = document.querySelectorAll('.nav-dropdown');
+    dropdowns.forEach(dropdown => {
+        const dropdownLink = dropdown.querySelector('a');
+
+        // For mobile: toggle dropdown on click
+        dropdownLink.addEventListener('click', function(e) {
+            if (window.innerWidth <= 968) {
+                e.preventDefault();
+                dropdown.classList.toggle('active');
+
+                // Close other dropdowns
+                dropdowns.forEach(otherDropdown => {
+                    if (otherDropdown !== dropdown) {
+                        otherDropdown.classList.remove('active');
+                    }
+                });
+            }
+        });
+    });
+
+    // Close mobile menu when clicking a non-dropdown link
+    const mobileNavLinks = document.querySelectorAll('.nav-links > a:not(.nav-dropdown a)');
+    mobileNavLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            if (window.innerWidth <= 968) {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('active');
+            }
+        });
+    });
+
+    // Active page highlighting based on current URL
+    highlightActivePage();
+
+    // ========================================
+    // Smooth Scrolling
+    // ========================================
+
     // Smooth scroll for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
@@ -16,6 +79,12 @@ document.addEventListener('DOMContentLoaded', function() {
                         top: targetPosition,
                         behavior: 'smooth'
                     });
+
+                    // Close mobile menu after clicking
+                    if (hamburger && navLinks) {
+                        hamburger.classList.remove('active');
+                        navLinks.classList.remove('active');
+                    }
                 }
             }
         });
@@ -33,19 +102,21 @@ document.addEventListener('DOMContentLoaded', function() {
             const sectionId = section.getAttribute('id');
             const navLink = document.querySelector(`.nav-links a[href="#${sectionId}"]`);
 
-            if (navLink) {
+            if (navLink && !navLink.classList.contains('btn-join-cta')) {
                 if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
-                    navLink.style.color = 'var(--vinfast-blue)';
-                    navLink.style.fontWeight = '600';
+                    navLink.classList.add('active');
                 } else {
-                    navLink.style.color = '';
-                    navLink.style.fontWeight = '';
+                    navLink.classList.remove('active');
                 }
             }
         });
     }
 
     window.addEventListener('scroll', highlightNavigation);
+
+    // ========================================
+    // Language Toggle
+    // ========================================
 
     // Initialize language from saved preference or browser
     const savedLang = localStorage.getItem('vinfast-lang');
@@ -59,6 +130,40 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 });
+
+// ========================================
+// Active Page Highlighting Function
+// ========================================
+function highlightActivePage() {
+    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+
+    // Map pages to their nav links
+    const pageMap = {
+        'index.html': 'index.html',
+        '': 'index.html',
+        'recalls.html': 'recalls.html',
+        'considering-vinfast.html': 'considering-vinfast.html',
+        'report-issue.html': 'report-issue.html',
+        'board.html': 'board.html',
+        'documents.html': 'documents.html',
+        'bylaws.html': 'bylaws.html',
+        'meeting-minutes.html': 'meeting-minutes.html',
+        'join.html': 'join.html'
+    };
+
+    const targetPage = pageMap[currentPage];
+
+    if (targetPage) {
+        // Find and highlight the matching nav link
+        const navLinks = document.querySelectorAll('.nav-links a, .dropdown-menu a');
+        navLinks.forEach(link => {
+            const href = link.getAttribute('href');
+            if (href === targetPage || href.includes(targetPage)) {
+                link.classList.add('active');
+            }
+        });
+    }
+}
 
 // Language toggle function (called from onclick)
 function setLang(lang) {
