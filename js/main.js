@@ -34,16 +34,36 @@ document.addEventListener('DOMContentLoaded', function() {
         // For mobile: toggle dropdown on click
         dropdownLink.addEventListener('click', function(e) {
             if (window.innerWidth <= 968) {
+                // ALWAYS prevent default navigation on mobile for dropdown toggles
                 e.preventDefault();
-                dropdown.classList.toggle('active');
+                e.stopPropagation();
 
-                // Close other dropdowns
+                const isCurrentlyActive = dropdown.classList.contains('active');
+
+                // Close all dropdowns first
                 dropdowns.forEach(otherDropdown => {
-                    if (otherDropdown !== dropdown) {
-                        otherDropdown.classList.remove('active');
-                    }
+                    otherDropdown.classList.remove('active');
                 });
+
+                // Toggle current dropdown (if it wasn't active, open it)
+                if (!isCurrentlyActive) {
+                    dropdown.classList.add('active');
+                }
             }
+        });
+
+        // Prevent dropdown menu items from closing the parent dropdown on mobile
+        const dropdownMenuLinks = dropdown.querySelectorAll('.dropdown-menu a');
+        dropdownMenuLinks.forEach(menuLink => {
+            menuLink.addEventListener('click', function() {
+                // On mobile, close the entire nav after selecting a dropdown item
+                if (window.innerWidth <= 968 && hamburger && navLinks) {
+                    hamburger.classList.remove('active');
+                    navLinks.classList.remove('active');
+                    // Also close the dropdown
+                    dropdown.classList.remove('active');
+                }
+            });
         });
     });
 
