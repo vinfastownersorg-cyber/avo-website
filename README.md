@@ -4,9 +4,9 @@
 
 **Official website for the Association of VinFast Owners North America**
 
-🌐 **Live Site:** [vinfastowners.org](https://vinfastowners.org)  
-💬 **Discord:** [discord.gg/puQqaEZFAQ](https://discord.gg/puQqaEZFAQ)  
-👥 **Members:** 8,500+ VinFast owners across North America  
+🌐 **Live Site:** [vinfastowners.org](https://vinfastowners.org)
+💬 **Discord:** [discord.gg/puQqaEZFAQ](https://discord.gg/puQqaEZFAQ) - 475+ members
+👥 **Community:** Growing network of VinFast owners across North America  
 
 ---
 
@@ -267,16 +267,17 @@ This website is maintained by the Association of VinFast Owners North America.
 
 ## 📞 Contact
 
-- **Discord:** [discord.gg/puQqaEZFAQ](https://discord.gg/puQqaEZFAQ) - #vinfastownersdotorg channel
+- **Discord:** [discord.gg/puQqaEZFAQ](https://discord.gg/puQqaEZFAQ) - 475+ members - #vinfastownersdotorg channel
 - **Facebook:** [VinFast Owners Group](https://www.facebook.com/share/g/17dH6oZRA4/)
-- **VinFastTalk:** [vinfasttalk.com](https://vinfasttalk.com)
+- **VinFastTalk:** [vinfasttalk.com](https://vinfasttalk.com) - 594+ members
+- **VinFast Friend Support (VFFS):** Facebook group - 349+ members
 - **Board Email:** [Obfuscated - see site]
 
 ---
 
 ## 🏆 Acknowledgments
 
-- **8,500+ AVO Members** - Your engagement drives this organization
+- **AVO Community** - Your engagement drives this organization
 - **Board of Directors** - Volunteer leadership and governance
 - **Discord Community** - Daily support and knowledge sharing
 - **Claude Code** - AI pair programming assistant for site development
