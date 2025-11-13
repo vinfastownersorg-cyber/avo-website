@@ -73,6 +73,15 @@ The Association of VinFast Owners (AVO) is an independent, member-governed organ
 - **LocalStorage** - Remembers user preference
 - **Browser Detection** - Auto-selects French for French browsers
 
+### ⚜️ Quebec & French Resources
+- **Dedicated Section** - Comprehensive francophone resources for Quebec owners
+- **Official French Resources** - VinFast Canada website, Welcome Kit, and Service Centers (all in French)
+- **Transport Canada (French)** - Canadian recall database in French
+- **Circuit électrique** - Quebec's 5,000+ charging station network
+- **Roulez vert** - Quebec provincial EV rebates (up to $7,000)
+- **CAA-Québec** - EV resources including winter driving tips and range calculators
+- **Quebec Community** - Vinfast EV au Québec francophone Facebook group
+
 ---
 
 ## 📁 Site Structure
@@ -294,9 +303,12 @@ This website is maintained by the Association of VinFast Owners North America.
 - [x] SEO optimization (sitemap, robots.txt, meta tags)
 - [x] Active page highlighting
 - [x] Cache-busting for Safari compatibility
+- [x] Quebec & French resources section (Circuit électrique, Roulez vert, CAA-Québec)
+- [x] Community YouTube channels (Natalie Ly, Out of Spec BITS, SuperNamn, InfoNovice)
+- [x] Quebec francophone owner community (Vinfast EV au Québec Facebook group)
 
 ---
 
 **Built with ❤️ by the VinFast Owner Community**
 
-*Last Updated: January 13, 2025*
+*Last Updated: November 13, 2025*
