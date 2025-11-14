@@ -165,7 +165,7 @@ jobs:
           # Or use: https://www.youtube.com/@USERNAME -> click "About" -> Share -> Copy channel ID
           PRIORITY_OWNER_CHANNELS = {
               'Natalie Ly': 'UCVt-MpNUSwjHDS9RZ0lf2EA',  # @nataliely73
-              'SuperNamn': 'UCnKUxnVWMXVx1IUYZ3IhQcQ',  # @SuperNamn
+              'SuperNamn': 'UCagFWLt5ensDownQAaph2RQ',  # @SuperNamn
               # Add more priority VinFast owners here
           }
 
