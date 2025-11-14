@@ -2,7 +2,7 @@ name: YouTube VinFast Content Monitor
 
 on:
   schedule:
-    # Runs at 12:00 PM EST (5:00 PM UTC) and 8:00 PM EST (1:00 AM UTC next day)
+    # Runs twice daily to catch new VinFast content
     - cron: '0 17 * * *'  # 12:00 PM EST / 9:00 AM PST
     - cron: '0 1 * * *'   # 8:00 PM EST / 5:00 PM PST
   workflow_dispatch: # Allows manual trigger for testing
