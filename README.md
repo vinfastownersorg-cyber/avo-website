@@ -237,6 +237,7 @@ Edit `recalls.html` inline JavaScript (line ~580)
 
 Comprehensive guides available in `docs/`:
 
+- **[DEPLOYMENT_GUIDE.md](docs/setup/DEPLOYMENT_GUIDE.md)** - Deploy website to production (Netlify, VPS, shared hosting)
 - **[GITHUB_WORKFLOWS_GUIDE.md](docs/setup/GITHUB_WORKFLOWS_GUIDE.md)** - Working with GitHub Actions (news bot, stock prices, YouTube monitor)
 - **[CONTRIBUTING.md](docs/setup/CONTRIBUTING.md)** - Full contribution workflow and git best practices
 - **[SIMPLE_WORKFLOW.md](docs/git/SIMPLE_WORKFLOW.md)** - Quick start for everyday edits
