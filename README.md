@@ -233,6 +233,16 @@ All pages use consistent navigation structure. Update all 11 HTML files when cha
 **Update Recalls API:**
 Edit `recalls.html` inline JavaScript (line ~580)
 
+### Documentation
+
+Comprehensive guides available in `docs/`:
+
+- **[GITHUB_WORKFLOWS_GUIDE.md](docs/setup/GITHUB_WORKFLOWS_GUIDE.md)** - Working with GitHub Actions (news bot, stock prices, YouTube monitor)
+- **[CONTRIBUTING.md](docs/setup/CONTRIBUTING.md)** - Full contribution workflow and git best practices
+- **[SIMPLE_WORKFLOW.md](docs/git/SIMPLE_WORKFLOW.md)** - Quick start for everyday edits
+- **[CLAUDE_CODE_GUIDE.md](docs/claude/CLAUDE_CODE_GUIDE.md)** - Using Claude Code AI assistant
+- Bot setup guides in `docs/bots/` - Discord webhooks and automated workflows
+
 ---
 
 ## 🤝 Contributing

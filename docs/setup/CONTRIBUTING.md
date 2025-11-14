@@ -545,7 +545,10 @@ git log --oneline
 
 - Discord webhooks for form submissions
 - GitHub Issues for problem tracking
+- GitHub Actions workflows for automation (news, stock prices, YouTube monitoring)
 - Netlify for deployment (if configured)
+
+**Working with GitHub Actions?** See [GITHUB_WORKFLOWS_GUIDE.md](GITHUB_WORKFLOWS_GUIDE.md) for setup and usage.
 
 ---
 
