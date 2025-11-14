@@ -235,14 +235,17 @@ Edit `recalls.html` inline JavaScript (line ~580)
 
 ### Documentation
 
-Comprehensive guides available in `docs/`:
+📚 **[Complete Documentation Index](docs/INDEX.md)** - Browse all 19 guides organized by category
 
-- **[DEPLOYMENT_GUIDE.md](docs/setup/DEPLOYMENT_GUIDE.md)** - Deploy website to production (Netlify, VPS, shared hosting)
-- **[GITHUB_WORKFLOWS_GUIDE.md](docs/setup/GITHUB_WORKFLOWS_GUIDE.md)** - Working with GitHub Actions (news bot, stock prices, YouTube monitor)
-- **[CONTRIBUTING.md](docs/setup/CONTRIBUTING.md)** - Full contribution workflow and git best practices
-- **[SIMPLE_WORKFLOW.md](docs/git/SIMPLE_WORKFLOW.md)** - Quick start for everyday edits
+**Quick Start:**
+- **[SIMPLE_WORKFLOW.md](docs/git/SIMPLE_WORKFLOW.md)** - Quick start for everyday edits (5 min)
+- **[DEPLOYMENT_GUIDE.md](docs/setup/DEPLOYMENT_GUIDE.md)** - Deploy website to production (Netlify recommended)
 - **[CLAUDE_CODE_GUIDE.md](docs/claude/CLAUDE_CODE_GUIDE.md)** - Using Claude Code AI assistant
-- Bot setup guides in `docs/bots/` - Discord webhooks and automated workflows
+
+**Essential Guides:**
+- **[GITHUB_WORKFLOWS_GUIDE.md](docs/setup/GITHUB_WORKFLOWS_GUIDE.md)** - GitHub Actions automation (one-time token setup)
+- **[CONTRIBUTING.md](docs/setup/CONTRIBUTING.md)** - Full contribution workflow and best practices
+- Bot setup guides in `docs/bots/` - YouTube monitor, news bot, stock prices
 
 ---
 
