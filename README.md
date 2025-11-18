@@ -89,6 +89,14 @@ The Association of VinFast Owners (AVO) is an independent, member-governed organ
 - **Site-Wide Integration** - All Discord mentions lead to landing page
 - **Professional Design** - Discord-styled frame with dark theme and animated live indicator
 
+### 📧 Open Letter to VinFast Leadership
+- **Timeline Updates** - Public updates from AVO's dialogue with VinFast corporate
+- **Community Transparency** - 132+ owner signatures acknowledged
+- **Discord Integration** - Community feedback form with webhook notifications
+- **Google Form Link** - Access to full open letter document
+- **Staged Q&A Content** - Detailed discussions ready for board approval
+- **Professional Disclaimers** - Clear explanation of AVO's role and interpretation
+
 ### 👍 Resource Helpful Ratings
 - **Community-Driven** - Rate resources across 53+ community links
 - **localStorage Tracking** - Prevents duplicate voting per browser
@@ -106,6 +114,7 @@ vinfastowners-website/
 ├── discord.html                  # Discord landing page with live widget
 ├── considering-vinfast.html      # Prospective buyer guide
 ├── recalls.html                  # NHTSA/Transport Canada recalls
+├── open-letter.html              # Open Letter to VinFast Leadership updates
 ├── board.html                    # Board of Directors
 ├── documents.html                # Governance documents
 ├── bylaws.html                   # AVO Bylaws
@@ -339,6 +348,7 @@ This website is maintained by the Association of VinFast Owners North America.
 - [x] **Discord landing page** - Professional page with live widget, benefits, and site-wide integration
 - [x] **Resource helpful ratings** - 53+ resources with community voting system
 - [x] **Enhanced Facebook groups** - Updated descriptions with specific details for 8 groups
+- [x] **Open Letter page** - Timeline of VinFast leadership dialogue with Discord feedback integration
 
 ---
 
