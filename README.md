@@ -410,12 +410,15 @@ This website is maintained by the Association of VinFast Owners North America.
 
 ## 📅 Recent Updates
 
-### November 18, 2025 - Major Security & Content Updates
+### November 18, 2025 - Security, Navigation & Repository Cleanup
 - **Open Letter Page**: Added dialogue tracking with VinFast leadership (Discord feedback integration)
 - **Security Hardening**: Dual-layer protection (_config.yml + .htaccess) blocks sensitive files from public website
-- **Repository Security**: Removed internal security documentation from public GitHub repository
+- **Repository Security**: Removed internal documentation from public GitHub repository
+- **Navigation Fixes**: Updated all homepage anchor links (#foo → /#foo) for cross-page compatibility
 - **Navigation Updates**: Temporarily hidden Board, Calendar, and Events sections until populated
-- **Performance**: URL canonicalization (31 instances), recalls loop protection
+- **Repository Cleanup**: Removed unused documentation files (SYSTEM_STATUS.md, SEO-RECOMMENDATIONS.md)
+- **Performance**: URL canonicalization (31 instances), recalls loop protection, cache-busting updated
 - **SEO**: Enhanced meta tags, Twitter Cards, Open Graph for better social sharing
+- **Bilingual**: French translations verified and intact across all pages
 
 *Last Updated: November 18, 2025*
