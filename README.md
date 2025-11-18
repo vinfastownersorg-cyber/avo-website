@@ -398,11 +398,23 @@ This website is maintained by the Association of VinFast Owners North America.
 - [x] **Dual-layer security** - GitHub Pages (_config.yml) + Apache (.htaccess) protection
 - [x] **Security headers** - X-Frame-Options, X-Content-Type-Options, X-XSS-Protection
 - [x] **URL canonicalization** - Professional "/" links instead of "index.html" (31 instances)
-- [x] **Navigation cleanup** - Hidden unpopulated Board and Calendar pages until ready
+- [x] **Navigation cleanup** - Hidden unpopulated Board, Calendar, and Events until ready
 - [x] **Recalls page protection** - Prevents multiple simultaneous API requests and infinite loops
+- [x] **Events sections hidden** - Temporarily commented out all events content until calendar is populated
 
 ---
 
 **Built with ❤️ by the VinFast Owner Community**
 
-*Last Updated: November 18, 2025*
+---
+
+## 📅 Recent Updates
+
+### November 18, 2024 - Major Security & Content Updates
+- **Open Letter Page**: Added dialogue tracking with VinFast leadership (Discord feedback integration)
+- **Security Hardening**: Dual-layer protection (_config.yml + .htaccess) blocks sensitive files
+- **Navigation Updates**: Temporarily hidden Board, Calendar, and Events sections until populated
+- **Performance**: URL canonicalization (31 instances), recalls loop protection
+- **SEO**: Enhanced meta tags, Twitter Cards, Open Graph for better social sharing
+
+*Last Updated: November 18, 2024*
