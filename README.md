@@ -410,11 +410,11 @@ This website is maintained by the Association of VinFast Owners North America.
 
 ## 📅 Recent Updates
 
-### November 18, 2024 - Major Security & Content Updates
+### November 18, 2025 - Major Security & Content Updates
 - **Open Letter Page**: Added dialogue tracking with VinFast leadership (Discord feedback integration)
 - **Security Hardening**: Dual-layer protection (_config.yml + .htaccess) blocks sensitive files
 - **Navigation Updates**: Temporarily hidden Board, Calendar, and Events sections until populated
 - **Performance**: URL canonicalization (31 instances), recalls loop protection
 - **SEO**: Enhanced meta tags, Twitter Cards, Open Graph for better social sharing
 
-*Last Updated: November 18, 2024*
+*Last Updated: November 18, 2025*
