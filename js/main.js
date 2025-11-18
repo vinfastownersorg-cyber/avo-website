@@ -247,4 +247,71 @@ function deobfuscateEmail(element) {
 document.addEventListener('DOMContentLoaded', function() {
     // Deobfuscate all emails marked with data-email attribute
     document.querySelectorAll('[data-email]').forEach(deobfuscateEmail);
+
+    // Initialize helpful rating system
+    initializeHelpfulRatings();
 });
+
+// ========================================
+// Resource Helpful Rating System
+// ========================================
+
+// Initialize helpful ratings from localStorage
+function initializeHelpfulRatings() {
+    // Get saved ratings and user votes from localStorage
+    const savedRatings = JSON.parse(localStorage.getItem('resource-ratings') || '{}');
+    const userVotes = JSON.parse(localStorage.getItem('user-votes') || '[]');
+
+    // Update all helpful buttons with saved counts
+    document.querySelectorAll('.resource-item').forEach(item => {
+        const resourceId = item.getAttribute('data-resource-id');
+        if (resourceId) {
+            const count = savedRatings[resourceId] || 0;
+            const countElement = item.querySelector('.helpful-count');
+            const button = item.querySelector('.helpful-btn');
+
+            if (countElement) {
+                countElement.textContent = count;
+            }
+
+            // Mark as voted if user already voted
+            if (button && userVotes.includes(resourceId)) {
+                button.classList.add('voted');
+            }
+        }
+    });
+}
+
+// Mark a resource as helpful
+function markHelpful(resourceId) {
+    const savedRatings = JSON.parse(localStorage.getItem('resource-ratings') || '{}');
+    const userVotes = JSON.parse(localStorage.getItem('user-votes') || '[]');
+
+    // Check if user already voted for this resource
+    if (userVotes.includes(resourceId)) {
+        return; // Already voted
+    }
+
+    // Increment count
+    savedRatings[resourceId] = (savedRatings[resourceId] || 0) + 1;
+    userVotes.push(resourceId);
+
+    // Save to localStorage
+    localStorage.setItem('resource-ratings', JSON.stringify(savedRatings));
+    localStorage.setItem('user-votes', JSON.stringify(userVotes));
+
+    // Update UI
+    const item = document.querySelector(`[data-resource-id="${resourceId}"]`);
+    if (item) {
+        const countElement = item.querySelector('.helpful-count');
+        const button = item.querySelector('.helpful-btn');
+
+        if (countElement) {
+            countElement.textContent = savedRatings[resourceId];
+        }
+
+        if (button) {
+            button.classList.add('voted');
+        }
+    }
+}

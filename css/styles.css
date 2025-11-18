@@ -991,6 +991,66 @@ h2 {
     opacity: 0.85;
 }
 
+/* Resource Helpful Rating System */
+.resource-helpful {
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    display: flex;
+    justify-content: flex-end;
+}
+
+.helpful-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.4rem 0.75rem;
+    background: transparent;
+    border: 1px solid var(--vf-neptune-grey);
+    border-radius: 20px;
+    color: var(--vf-neptune-grey);
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: inherit;
+}
+
+.helpful-btn:hover {
+    background: var(--vf-vinfast-blue);
+    border-color: var(--vf-vinfast-blue);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(15, 76, 153, 0.2);
+}
+
+.helpful-btn.voted {
+    background: var(--vf-vinfast-blue);
+    border-color: var(--vf-vinfast-blue);
+    color: white;
+    pointer-events: none;
+}
+
+.helpful-btn.voted .helpful-icon {
+    animation: thumbsUp 0.4s ease;
+}
+
+@keyframes thumbsUp {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.3); }
+}
+
+.helpful-icon {
+    font-size: 1rem;
+    line-height: 1;
+}
+
+.helpful-count {
+    font-weight: 600;
+    min-width: 1.2rem;
+    text-align: center;
+}
+
 .attribution {
     text-align: center;
     color: var(--text-color);

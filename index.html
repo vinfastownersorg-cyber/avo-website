@@ -553,29 +553,53 @@
                     <span lang="fr">💚 Lettres Ouvertes & Sondages</span>
                 </button>
                 <div class="resources-list">
-                <div class="resource-item">
+                <div class="resource-item" data-resource-id="avo-open-letter">
                     <a href="https://bit.ly/vinfastletter" target="_blank" rel="noopener noreferrer">
                         <span lang="en">AVO's Open Letter to VinFast</span>
                         <span lang="fr">Lettre Ouverte d'AVO à VinFast</span>
                     </a>
                     <p class="item-description" lang="en">Official advocacy letter from the Association of VinFast Owners addressing key concerns and recommendations to VinFast leadership.</p>
                     <p class="item-description" lang="fr">Lettre officielle d'AVO abordant les préoccupations clés adressées à VinFast.</p>
+                    <div class="resource-helpful">
+                        <button class="helpful-btn" onclick="markHelpful('avo-open-letter')">
+                            <span class="helpful-icon">👍</span>
+                            <span lang="en">Helpful</span>
+                            <span lang="fr">Utile</span>
+                            <span class="helpful-count">0</span>
+                        </button>
+                    </div>
                 </div>
-                <div class="resource-item">
+                <div class="resource-item" data-resource-id="us-owners-survey">
                     <a href="https://forms.office.com/r/Kdwgme334f" target="_blank" rel="noopener noreferrer">
                         <span lang="en">US Owners Survey - Repairwise & Dealers</span>
                         <span lang="fr">Sondage Propriétaires US</span>
                     </a>
                     <p class="item-description" lang="en">Share your experience with Repairwise service and local dealerships to help AVO identify trends and advocate for improvements.</p>
                     <p class="item-description" lang="fr">Partagez votre expérience pour aider AVO à améliorer les services.</p>
+                    <div class="resource-helpful">
+                        <button class="helpful-btn" onclick="markHelpful('us-owners-survey')">
+                            <span class="helpful-icon">👍</span>
+                            <span lang="en">Helpful</span>
+                            <span lang="fr">Utile</span>
+                            <span class="helpful-count">0</span>
+                        </button>
+                    </div>
                 </div>
-                <div class="resource-item">
+                <div class="resource-item" data-resource-id="report-vehicle-issues">
                     <a href="report-issue.html">
                         <span lang="en">Report Vehicle Issues to AVO</span>
                         <span lang="fr">Signaler un Problème à AVO</span>
                     </a>
                     <p class="item-description" lang="en">Submit vehicle issues to AVO's tracking system. Help us identify common problems and advocate for solutions with VinFast on behalf of all owners.</p>
                     <p class="item-description" lang="fr">Soumettez des problèmes au système de suivi d'AVO pour aider tous les propriétaires.</p>
+                    <div class="resource-helpful">
+                        <button class="helpful-btn" onclick="markHelpful('report-vehicle-issues')">
+                            <span class="helpful-icon">👍</span>
+                            <span lang="en">Helpful</span>
+                            <span lang="fr">Utile</span>
+                            <span class="helpful-count">0</span>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -588,85 +612,165 @@
                     <span lang="fr">🇺🇸 VinFast États-Unis Officiel</span>
                 </button>
                 <div class="resources-list">
-                <div class="resource-item">
+                <div class="resource-item" data-resource-id="vinfast-usa-website">
                     <a href="https://vinfastauto.us/" target="_blank" rel="noopener noreferrer">
                         <span lang="en">VinFast USA Website</span>
                         <span lang="fr">Site VinFast USA</span>
                     </a>
                     <p class="item-description" lang="en">Official VinFast US website with vehicle information, dealer locator, and customer support. Your primary resource for warranty service and official company updates.</p>
                     <p class="item-description" lang="fr">Site officiel VinFast US avec informations sur les véhicules et support client.</p>
+                    <div class="resource-helpful">
+                        <button class="helpful-btn" onclick="markHelpful('vinfast-usa-website')">
+                            <span class="helpful-icon">👍</span>
+                            <span lang="en">Helpful</span>
+                            <span lang="fr">Utile</span>
+                            <span class="helpful-count">0</span>
+                        </button>
+                    </div>
                 </div>
-                <div class="resource-item">
+                <div class="resource-item" data-resource-id="vinfast-us-forum">
                     <a href="https://community.vinfastauto.us/forums/" target="_blank" rel="noopener noreferrer">
                         <span lang="en">VinFast Community Forum (US)</span>
                         <span lang="fr">Forum Communauté VinFast (US)</span>
                     </a>
                     <p class="item-description" lang="en">Official VinFast-hosted forum for US owners to discuss vehicles, share experiences, and get support directly from VinFast team members.</p>
                     <p class="item-description" lang="fr">Forum officiel VinFast pour les propriétaires américains.</p>
+                    <div class="resource-helpful">
+                        <button class="helpful-btn" onclick="markHelpful('vinfast-us-forum')">
+                            <span class="helpful-icon">👍</span>
+                            <span lang="en">Helpful</span>
+                            <span lang="fr">Utile</span>
+                            <span class="helpful-count">0</span>
+                        </button>
+                    </div>
                 </div>
-                <div class="resource-item">
+                <div class="resource-item" data-resource-id="vinfast-us-member-benefits">
                     <a href="https://community.vinfastauto.us/member-benefits/" target="_blank" rel="noopener noreferrer">
                         <span lang="en">VinFast Member Benefits (US)</span>
                         <span lang="fr">Avantages Membres VinFast (US)</span>
                     </a>
                     <p class="item-description" lang="en">Exclusive perks and benefits for VinFast US community members including special offers, early access to updates, and member-only events.</p>
                     <p class="item-description" lang="fr">Avantages exclusifs pour les membres de la communauté VinFast US.</p>
+                    <div class="resource-helpful">
+                        <button class="helpful-btn" onclick="markHelpful('vinfast-us-member-benefits')">
+                            <span class="helpful-icon">👍</span>
+                            <span lang="en">Helpful</span>
+                            <span lang="fr">Utile</span>
+                            <span class="helpful-count">0</span>
+                        </button>
+                    </div>
                 </div>
-                <div class="resource-item">
+                <div class="resource-item" data-resource-id="vinfast-app-ios-us">
                     <a href="https://apps.apple.com/us/app/vinfast/id6444273385" target="_blank" rel="noopener noreferrer">
                         <span lang="en">VinFast App (iOS - US)</span>
                         <span lang="fr">Application VinFast (iOS - US)</span>
                     </a>
                     <p class="item-description" lang="en">Control your VinFast remotely: lock/unlock, climate control, charging status, vehicle location, and service scheduling.</p>
                     <p class="item-description" lang="fr">Contrôlez votre VinFast à distance via l'application iOS.</p>
+                    <div class="resource-helpful">
+                        <button class="helpful-btn" onclick="markHelpful('vinfast-app-ios-us')">
+                            <span class="helpful-icon">👍</span>
+                            <span lang="en">Helpful</span>
+                            <span lang="fr">Utile</span>
+                            <span class="helpful-count">0</span>
+                        </button>
+                    </div>
                 </div>
-                <div class="resource-item">
+                <div class="resource-item" data-resource-id="vinfast-app-android-us">
                     <a href="https://play.google.com/store/apps/details?id=com.vinfast.us" target="_blank" rel="noopener noreferrer">
                         <span lang="en">VinFast App (Android - US)</span>
                         <span lang="fr">Application VinFast (Android - US)</span>
                     </a>
                     <p class="item-description" lang="en">Android version of the VinFast app for remote vehicle control, service scheduling, and account management.</p>
                     <p class="item-description" lang="fr">Version Android de l'application VinFast.</p>
+                    <div class="resource-helpful">
+                        <button class="helpful-btn" onclick="markHelpful('vinfast-app-android-us')">
+                            <span class="helpful-icon">👍</span>
+                            <span lang="en">Helpful</span>
+                            <span lang="fr">Utile</span>
+                            <span class="helpful-count">0</span>
+                        </button>
+                    </div>
                 </div>
-                <div class="resource-item">
+                <div class="resource-item" data-resource-id="vinfast-us-facebook">
                     <a href="https://www.facebook.com/VinFastUS/" target="_blank" rel="noopener noreferrer">
                         <span lang="en">VinFast US Facebook</span>
                         <span lang="fr">VinFast US Facebook</span>
                     </a>
                     <p class="item-description" lang="en">Official VinFast US Facebook page with company news, product updates, and customer engagement.</p>
                     <p class="item-description" lang="fr">Page Facebook officielle VinFast US.</p>
+                    <div class="resource-helpful">
+                        <button class="helpful-btn" onclick="markHelpful('vinfast-us-facebook')">
+                            <span class="helpful-icon">👍</span>
+                            <span lang="en">Helpful</span>
+                            <span lang="fr">Utile</span>
+                            <span class="helpful-count">0</span>
+                        </button>
+                    </div>
                 </div>
-                <div class="resource-item">
+                <div class="resource-item" data-resource-id="vinfast-us-instagram">
                     <a href="https://www.instagram.com/vinfastus/" target="_blank" rel="noopener noreferrer">
                         <span lang="en">VinFast US Instagram</span>
                         <span lang="fr">VinFast US Instagram</span>
                     </a>
                     <p class="item-description" lang="en">Follow VinFast US on Instagram for stunning vehicle photography, owner stories, and behind-the-scenes content.</p>
                     <p class="item-description" lang="fr">Suivez VinFast US sur Instagram.</p>
+                    <div class="resource-helpful">
+                        <button class="helpful-btn" onclick="markHelpful('vinfast-us-instagram')">
+                            <span class="helpful-icon">👍</span>
+                            <span lang="en">Helpful</span>
+                            <span lang="fr">Utile</span>
+                            <span class="helpful-count">0</span>
+                        </button>
+                    </div>
                 </div>
-                <div class="resource-item">
+                <div class="resource-item" data-resource-id="vinfast-us-youtube">
                     <a href="https://www.youtube.com/@vinfastunitedstates" target="_blank" rel="noopener noreferrer">
                         <span lang="en">VinFast US YouTube</span>
                         <span lang="fr">VinFast US YouTube</span>
                     </a>
                     <p class="item-description" lang="en">Official YouTube channel featuring vehicle reviews, how-to guides, feature demonstrations, and VinFast US news.</p>
                     <p class="item-description" lang="fr">Chaîne YouTube officielle VinFast US.</p>
+                    <div class="resource-helpful">
+                        <button class="helpful-btn" onclick="markHelpful('vinfast-us-youtube')">
+                            <span class="helpful-icon">👍</span>
+                            <span lang="en">Helpful</span>
+                            <span lang="fr">Utile</span>
+                            <span class="helpful-count">0</span>
+                        </button>
+                    </div>
                 </div>
-                <div class="resource-item">
+                <div class="resource-item" data-resource-id="vinfast-us-linkedin">
                     <a href="https://www.linkedin.com/company/vinfast-us" target="_blank" rel="noopener noreferrer">
                         <span lang="en">VinFast US LinkedIn</span>
                         <span lang="fr">VinFast US LinkedIn</span>
                     </a>
                     <p class="item-description" lang="en">Professional network presence for VinFast US, showcasing company culture, career opportunities, and industry insights.</p>
                     <p class="item-description" lang="fr">Présence professionnelle VinFast US sur LinkedIn.</p>
+                    <div class="resource-helpful">
+                        <button class="helpful-btn" onclick="markHelpful('vinfast-us-linkedin')">
+                            <span class="helpful-icon">👍</span>
+                            <span lang="en">Helpful</span>
+                            <span lang="fr">Utile</span>
+                            <span class="helpful-count">0</span>
+                        </button>
+                    </div>
                 </div>
-                <div class="resource-item">
+                <div class="resource-item" data-resource-id="vinfast-us-twitter">
                     <a href="https://x.com/VinFastUS" target="_blank" rel="noopener noreferrer">
                         <span lang="en">VinFast US on X (Twitter)</span>
                         <span lang="fr">VinFast US sur X (Twitter)</span>
                     </a>
                     <p class="item-description" lang="en">Real-time updates, customer support, and announcements from VinFast US on X (formerly Twitter).</p>
                     <p class="item-description" lang="fr">Mises à jour en temps réel de VinFast US sur X.</p>
+                    <div class="resource-helpful">
+                        <button class="helpful-btn" onclick="markHelpful('vinfast-us-twitter')">
+                            <span class="helpful-icon">👍</span>
+                            <span lang="en">Helpful</span>
+                            <span lang="fr">Utile</span>
+                            <span class="helpful-count">0</span>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -678,77 +782,149 @@
                 <span lang="fr">🇨🇦 VinFast Canada Officiel</span>
             </button>
             <div class="resources-list">
-                <div class="resource-item">
+                <div class="resource-item" data-resource-id="vinfast-canada-website">
                     <a href="https://vinfastauto.ca/en" target="_blank" rel="noopener noreferrer">
                         <span lang="en">VinFast Canada Website</span>
                         <span lang="fr">Site VinFast Canada</span>
                     </a>
                     <p class="item-description" lang="en">Official VinFast Canada website serving Canadian owners with localized support, French-language resources, and dealer network information.</p>
                     <p class="item-description" lang="fr">Site officiel VinFast Canada avec support local et ressources en français.</p>
+                    <div class="resource-helpful">
+                        <button class="helpful-btn" onclick="markHelpful('vinfast-canada-website')">
+                            <span class="helpful-icon">👍</span>
+                            <span lang="en">Helpful</span>
+                            <span lang="fr">Utile</span>
+                            <span class="helpful-count">0</span>
+                        </button>
+                    </div>
                 </div>
-                <div class="resource-item">
+                <div class="resource-item" data-resource-id="vinfast-welcome-canada">
                     <a href="https://vinfastwelcome.ca/" target="_blank" rel="noopener noreferrer">
                         <span lang="en">VinFast Welcome Kit (Canada)</span>
                         <span lang="fr">Trousse de Bienvenue VinFast</span>
                     </a>
                     <p class="item-description" lang="en">New Canadian owner onboarding portal with welcome information, setup guides, and getting-started resources tailored for the Canadian market.</p>
                     <p class="item-description" lang="fr">Portail d'accueil pour nouveaux propriétaires canadiens.</p>
+                    <div class="resource-helpful">
+                        <button class="helpful-btn" onclick="markHelpful('vinfast-welcome-canada')">
+                            <span class="helpful-icon">👍</span>
+                            <span lang="en">Helpful</span>
+                            <span lang="fr">Utile</span>
+                            <span class="helpful-count">0</span>
+                        </button>
+                    </div>
                 </div>
-                <div class="resource-item">
+                <div class="resource-item" data-resource-id="vinfast-app-ios-canada">
                     <a href="https://apps.apple.com/ca/app/vinfast/id6447723223" target="_blank" rel="noopener noreferrer">
                         <span lang="en">VinFast App (iOS - Canada)</span>
                         <span lang="fr">Application VinFast (iOS - Canada)</span>
                     </a>
                     <p class="item-description" lang="en">Canadian version of the VinFast iOS app with region-specific features and bilingual support.</p>
                     <p class="item-description" lang="fr">Version canadienne de l'application iOS VinFast avec support bilingue.</p>
+                    <div class="resource-helpful">
+                        <button class="helpful-btn" onclick="markHelpful('vinfast-app-ios-canada')">
+                            <span class="helpful-icon">👍</span>
+                            <span lang="en">Helpful</span>
+                            <span lang="fr">Utile</span>
+                            <span class="helpful-count">0</span>
+                        </button>
+                    </div>
                 </div>
-                <div class="resource-item">
+                <div class="resource-item" data-resource-id="vinfast-app-android-canada">
                     <a href="https://play.google.com/store/apps/details?id=com.vinfast.ca" target="_blank" rel="noopener noreferrer">
                         <span lang="en">VinFast App (Android - Canada)</span>
                         <span lang="fr">Application VinFast (Android - Canada)</span>
                     </a>
                     <p class="item-description" lang="en">Canadian Android app for VinFast owners with bilingual interface and Canada-specific features.</p>
                     <p class="item-description" lang="fr">Application Android VinFast pour propriétaires canadiens.</p>
+                    <div class="resource-helpful">
+                        <button class="helpful-btn" onclick="markHelpful('vinfast-app-android-canada')">
+                            <span class="helpful-icon">👍</span>
+                            <span lang="en">Helpful</span>
+                            <span lang="fr">Utile</span>
+                            <span class="helpful-count">0</span>
+                        </button>
+                    </div>
                 </div>
-                <div class="resource-item">
+                <div class="resource-item" data-resource-id="vinfast-canada-facebook">
                     <a href="https://www.facebook.com/VinFast.Canada" target="_blank" rel="noopener noreferrer">
                         <span lang="en">VinFast Canada Facebook</span>
                         <span lang="fr">VinFast Canada Facebook</span>
                     </a>
                     <p class="item-description" lang="en">Official VinFast Canada Facebook page with bilingual content and Canadian market updates.</p>
                     <p class="item-description" lang="fr">Page Facebook officielle VinFast Canada avec contenu bilingue.</p>
+                    <div class="resource-helpful">
+                        <button class="helpful-btn" onclick="markHelpful('vinfast-canada-facebook')">
+                            <span class="helpful-icon">👍</span>
+                            <span lang="en">Helpful</span>
+                            <span lang="fr">Utile</span>
+                            <span class="helpful-count">0</span>
+                        </button>
+                    </div>
                 </div>
-                <div class="resource-item">
+                <div class="resource-item" data-resource-id="vinfast-canada-instagram">
                     <a href="https://www.instagram.com/vinfastcanada/" target="_blank" rel="noopener noreferrer">
                         <span lang="en">VinFast Canada Instagram</span>
                         <span lang="fr">VinFast Canada Instagram</span>
                     </a>
                     <p class="item-description" lang="en">Follow VinFast Canada on Instagram for Canadian owner stories, vehicle showcases, and local event coverage.</p>
                     <p class="item-description" lang="fr">Suivez VinFast Canada sur Instagram.</p>
+                    <div class="resource-helpful">
+                        <button class="helpful-btn" onclick="markHelpful('vinfast-canada-instagram')">
+                            <span class="helpful-icon">👍</span>
+                            <span lang="en">Helpful</span>
+                            <span lang="fr">Utile</span>
+                            <span class="helpful-count">0</span>
+                        </button>
+                    </div>
                 </div>
-                <div class="resource-item">
+                <div class="resource-item" data-resource-id="vinfast-canada-youtube">
                     <a href="https://www.youtube.com/@vinfastcanada" target="_blank" rel="noopener noreferrer">
                         <span lang="en">VinFast Canada YouTube</span>
                         <span lang="fr">VinFast Canada YouTube</span>
                     </a>
                     <p class="item-description" lang="en">Official Canadian YouTube channel with vehicle tutorials, feature highlights, and Canadian-specific content.</p>
                     <p class="item-description" lang="fr">Chaîne YouTube officielle VinFast Canada.</p>
+                    <div class="resource-helpful">
+                        <button class="helpful-btn" onclick="markHelpful('vinfast-canada-youtube')">
+                            <span class="helpful-icon">👍</span>
+                            <span lang="en">Helpful</span>
+                            <span lang="fr">Utile</span>
+                            <span class="helpful-count">0</span>
+                        </button>
+                    </div>
                 </div>
-                <div class="resource-item">
+                <div class="resource-item" data-resource-id="vinfast-canada-linkedin">
                     <a href="https://ca.linkedin.com/company/vinfast-auto-canada-inc" target="_blank" rel="noopener noreferrer">
                         <span lang="en">VinFast Canada LinkedIn</span>
                         <span lang="fr">VinFast Canada LinkedIn</span>
                     </a>
                     <p class="item-description" lang="en">Professional networking presence for VinFast Canada showcasing company growth and career opportunities.</p>
                     <p class="item-description" lang="fr">Présence professionnelle VinFast Canada sur LinkedIn.</p>
+                    <div class="resource-helpful">
+                        <button class="helpful-btn" onclick="markHelpful('vinfast-canada-linkedin')">
+                            <span class="helpful-icon">👍</span>
+                            <span lang="en">Helpful</span>
+                            <span lang="fr">Utile</span>
+                            <span class="helpful-count">0</span>
+                        </button>
+                    </div>
                 </div>
-                <div class="resource-item">
+                <div class="resource-item" data-resource-id="vinfast-canada-twitter">
                     <a href="https://x.com/VinFastCanada" target="_blank" rel="noopener noreferrer">
                         <span lang="en">VinFast Canada on X (Twitter)</span>
                         <span lang="fr">VinFast Canada sur X (Twitter)</span>
                     </a>
                     <p class="item-description" lang="en">Real-time updates and customer engagement from VinFast Canada on X platform.</p>
                     <p class="item-description" lang="fr">Mises à jour en temps réel de VinFast Canada sur X.</p>
+                    <div class="resource-helpful">
+                        <button class="helpful-btn" onclick="markHelpful('vinfast-canada-twitter')">
+                            <span class="helpful-icon">👍</span>
+                            <span lang="en">Helpful</span>
+                            <span lang="fr">Utile</span>
+                            <span class="helpful-count">0</span>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -760,45 +936,85 @@
                 <span lang="fr">🌍 VinFast Global Officiel</span>
             </button>
             <div class="resources-list">
-                <div class="resource-item">
+                <div class="resource-item" data-resource-id="vinfast-worldwide">
                     <a href="https://vinfast.com/" target="_blank" rel="noopener noreferrer">
                         <span lang="en">VinFast Worldwide</span>
                         <span lang="fr">VinFast Mondial</span>
                     </a>
                     <p class="item-description" lang="en">VinFast's global headquarters website featuring international news, company vision, and information about VinFast's worldwide expansion and vehicle lineup.</p>
                     <p class="item-description" lang="fr">Site mondial de VinFast avec nouvelles internationales et vision de l'entreprise.</p>
+                    <div class="resource-helpful">
+                        <button class="helpful-btn" onclick="markHelpful('vinfast-worldwide')">
+                            <span class="helpful-icon">👍</span>
+                            <span lang="en">Helpful</span>
+                            <span lang="fr">Utile</span>
+                            <span class="helpful-count">0</span>
+                        </button>
+                    </div>
                 </div>
-                <div class="resource-item">
+                <div class="resource-item" data-resource-id="vinfast-owner-manuals">
                     <a href="https://om.vinfastauto.com/" target="_blank" rel="noopener noreferrer">
                         <span lang="en">VinFast Owner's Manuals</span>
                         <span lang="fr">Manuels du Propriétaire VinFast</span>
                     </a>
                     <p class="item-description" lang="en">Complete digital owner's manuals for VF8 and VF9 models. Essential reading for understanding your vehicle's features, maintenance schedules, and safety systems.</p>
                     <p class="item-description" lang="fr">Manuels numériques complets pour les modèles VF8 et VF9.</p>
+                    <div class="resource-helpful">
+                        <button class="helpful-btn" onclick="markHelpful('vinfast-owner-manuals')">
+                            <span class="helpful-icon">👍</span>
+                            <span lang="en">Helpful</span>
+                            <span lang="fr">Utile</span>
+                            <span class="helpful-count">0</span>
+                        </button>
+                    </div>
                 </div>
-                <div class="resource-item">
+                <div class="resource-item" data-resource-id="vinfast-global-facebook">
                     <a href="https://www.facebook.com/VinFastAuto.Official" target="_blank" rel="noopener noreferrer">
                         <span lang="en">VinFast Official Facebook</span>
                         <span lang="fr">VinFast Facebook Officiel</span>
                     </a>
                     <p class="item-description" lang="en">Global VinFast Facebook page with worldwide company announcements, international expansion news, and global community engagement.</p>
                     <p class="item-description" lang="fr">Page Facebook mondiale VinFast avec annonces internationales.</p>
+                    <div class="resource-helpful">
+                        <button class="helpful-btn" onclick="markHelpful('vinfast-global-facebook')">
+                            <span class="helpful-icon">👍</span>
+                            <span lang="en">Helpful</span>
+                            <span lang="fr">Utile</span>
+                            <span class="helpful-count">0</span>
+                        </button>
+                    </div>
                 </div>
-                <div class="resource-item">
+                <div class="resource-item" data-resource-id="vinfast-global-youtube">
                     <a href="https://www.youtube.com/@vinfastauto.official" target="_blank" rel="noopener noreferrer">
                         <span lang="en">VinFast Official YouTube</span>
                         <span lang="fr">VinFast YouTube Officiel</span>
                     </a>
                     <p class="item-description" lang="en">Global VinFast YouTube channel featuring international product launches, company milestones, and worldwide VinFast initiatives.</p>
                     <p class="item-description" lang="fr">Chaîne YouTube mondiale VinFast.</p>
+                    <div class="resource-helpful">
+                        <button class="helpful-btn" onclick="markHelpful('vinfast-global-youtube')">
+                            <span class="helpful-icon">👍</span>
+                            <span lang="en">Helpful</span>
+                            <span lang="fr">Utile</span>
+                            <span class="helpful-count">0</span>
+                        </button>
+                    </div>
                 </div>
-                <div class="resource-item">
+                <div class="resource-item" data-resource-id="vinfast-global-twitter">
                     <a href="https://x.com/vinfastofficial" target="_blank" rel="noopener noreferrer">
                         <span lang="en">VinFast Official on X (Twitter)</span>
                         <span lang="fr">VinFast Officiel sur X (Twitter)</span>
                     </a>
                     <p class="item-description" lang="en">Global VinFast presence on X platform with breaking news, announcements, and international community engagement.</p>
                     <p class="item-description" lang="fr">Présence mondiale VinFast sur X avec actualités et annonces.</p>
+                    <div class="resource-helpful">
+                        <button class="helpful-btn" onclick="markHelpful('vinfast-global-twitter')">
+                            <span class="helpful-icon">👍</span>
+                            <span lang="en">Helpful</span>
+                            <span lang="fr">Utile</span>
+                            <span class="helpful-count">0</span>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -810,21 +1026,37 @@
                 <span lang="fr">👫 Forums & Communautés Propriétaires</span>
             </button>
             <div class="resources-list">
-                <div class="resource-item">
+                <div class="resource-item" data-resource-id="vinfasttalk-forum">
                     <a href="https://www.vinfasttalk.com/" target="_blank" rel="noopener noreferrer">
                         <span lang="en">VinFastTalk.com Forum</span>
                         <span lang="fr">Forum VinFastTalk.com</span>
                     </a>
                     <p class="item-description" lang="en">Independent owner-run forum with technical discussions, troubleshooting threads, modification guides, and long-form owner experiences. Great for deep dives into specific topics.</p>
                     <p class="item-description" lang="fr">Forum indépendant pour discussions techniques et guides.</p>
+                    <div class="resource-helpful">
+                        <button class="helpful-btn" onclick="markHelpful('vinfasttalk-forum')">
+                            <span class="helpful-icon">👍</span>
+                            <span lang="en">Helpful</span>
+                            <span lang="fr">Utile</span>
+                            <span class="helpful-count">0</span>
+                        </button>
+                    </div>
                 </div>
-                <div class="resource-item">
+                <div class="resource-item" data-resource-id="vinfast-discord">
                     <a href="https://discord.gg/puQqaEZFAQ" target="_blank" rel="noopener noreferrer">
                         <span lang="en">VinFast Owners Discord Server</span>
                         <span lang="fr">Serveur Discord Propriétaires VinFast</span>
                     </a>
                     <p class="item-description" lang="en">Active real-time chat community with 500+ owners. Get instant answers, share photos, coordinate meetups, and connect with fellow VinFast enthusiasts in dedicated channels.</p>
                     <p class="item-description" lang="fr">Communauté de chat en temps réel avec 500+ propriétaires.</p>
+                    <div class="resource-helpful">
+                        <button class="helpful-btn" onclick="markHelpful('vinfast-discord')">
+                            <span class="helpful-icon">👍</span>
+                            <span lang="en">Helpful</span>
+                            <span lang="fr">Utile</span>
+                            <span class="helpful-count">0</span>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -836,77 +1068,149 @@
                 <span lang="fr">👥 Groupes Facebook Propriétaires</span>
             </button>
             <div class="resources-list">
-                <div class="resource-item">
+                <div class="resource-item" data-resource-id="vffs">
                     <a href="https://www.facebook.com/groups/1948970065435256/" target="_blank" rel="noopener noreferrer">
                         <span lang="en">VinFast Friend Support (VFFS)</span>
                         <span lang="fr">VinFast Friend Support (VFFS)</span>
                     </a>
-                    <p class="item-description" lang="en">The original and most active VinFast owner group with supportive community atmosphere focused on helping new owners and sharing experiences.</p>
-                    <p class="item-description" lang="fr">Groupe de propriétaires VinFast le plus actif et accueillant.</p>
+                    <p class="item-description" lang="en">The original and most active VinFast owner group with supportive community atmosphere focused on helping new owners and sharing experiences. Verified owners only - proof of ownership required to join.</p>
+                    <p class="item-description" lang="fr">Groupe de propriétaires VinFast le plus actif et accueillant. Propriétaires vérifiés seulement - preuve de propriété requise.</p>
+                    <div class="resource-helpful">
+                        <button class="helpful-btn" onclick="markHelpful('vffs')">
+                            <span class="helpful-icon">👍</span>
+                            <span lang="en">Helpful</span>
+                            <span lang="fr">Utile</span>
+                            <span class="helpful-count">0</span>
+                        </button>
+                    </div>
                 </div>
-                <div class="resource-item">
+                <div class="resource-item" data-resource-id="vf-fanclub-worldwide">
                     <a href="https://www.facebook.com/groups/1620193748471215/" target="_blank" rel="noopener noreferrer">
                         <span lang="en">VinFast Fan Club Worldwide</span>
                         <span lang="fr">VinFast Fan Club Mondial</span>
                     </a>
                     <p class="item-description" lang="en">International VinFast enthusiast community with members from around the globe sharing news, photos, and experiences from different markets.</p>
                     <p class="item-description" lang="fr">Communauté internationale d'enthousiastes VinFast.</p>
+                    <div class="resource-helpful">
+                        <button class="helpful-btn" onclick="markHelpful('vf-fanclub-worldwide')">
+                            <span class="helpful-icon">👍</span>
+                            <span lang="en">Helpful</span>
+                            <span lang="fr">Utile</span>
+                            <span class="helpful-count">0</span>
+                        </button>
+                    </div>
                 </div>
-                <div class="resource-item">
-                    <a href="https://www.facebook.com/groups/vinfast.usa" target="_blank" rel="noopener noreferrer">
-                        <span lang="en">VinFast Owners Club US/CAN</span>
-                        <span lang="fr">Club Propriétaires VinFast US/CAN</span>
+                <div class="resource-item" data-resource-id="vinfast-group">
+                    <a href="https://www.facebook.com/groups/2963458460343145/" target="_blank" rel="noopener noreferrer">
+                        <span lang="en">Vinfast Group</span>
+                        <span lang="fr">Groupe Vinfast</span>
                     </a>
-                    <p class="item-description" lang="en">North America-focused owner group for US and Canadian VinFast owners to share region-specific information, tips, and meetup opportunities.</p>
-                    <p class="item-description" lang="fr">Groupe nord-américain pour propriétaires US et canadiens.</p>
+                    <p class="item-description" lang="en">Active VinFast owner community for sharing experiences, technical discussions, and connecting with fellow owners across North America and beyond.</p>
+                    <p class="item-description" lang="fr">Communauté active de propriétaires VinFast pour partager expériences et discussions techniques.</p>
+                    <div class="resource-helpful">
+                        <button class="helpful-btn" onclick="markHelpful('vinfast-group')">
+                            <span class="helpful-icon">👍</span>
+                            <span lang="en">Helpful</span>
+                            <span lang="fr">Utile</span>
+                            <span class="helpful-count">0</span>
+                        </button>
+                    </div>
                 </div>
-                <div class="resource-item">
+                <div class="resource-item" data-resource-id="vf-canada">
                     <a href="https://www.facebook.com/groups/970009023658000/" target="_blank" rel="noopener noreferrer">
                         <span lang="en">VinFast Owners Club - Canada</span>
                         <span lang="fr">Club Propriétaires VinFast - Canada</span>
                     </a>
-                    <p class="item-description" lang="en">Canada-specific owner group focused on Canadian market issues, winter driving tips, charging infrastructure, and Canadian dealer experiences.</p>
-                    <p class="item-description" lang="fr">Groupe canadien pour enjeux spécifiques au marché canadien.</p>
+                    <p class="item-description" lang="en">Canada-wide owner community discussing Canadian market issues, winter driving strategies, charging infrastructure across provinces, dealer experiences, and provincial incentives. Bilingual welcome.</p>
+                    <p class="item-description" lang="fr">Communauté canadienne discutant enjeux du marché, conduite hivernale, infrastructure de recharge, et incitatifs provinciaux. Bilingue.</p>
+                    <div class="resource-helpful">
+                        <button class="helpful-btn" onclick="markHelpful('vf-canada')">
+                            <span class="helpful-icon">👍</span>
+                            <span lang="en">Helpful</span>
+                            <span lang="fr">Utile</span>
+                            <span class="helpful-count">0</span>
+                        </button>
+                    </div>
                 </div>
-                <div class="resource-item">
+                <div class="resource-item" data-resource-id="vf-ontario">
                     <a href="https://www.facebook.com/groups/766813804552862/" target="_blank" rel="noopener noreferrer">
                         <span lang="en">VinFast Ontario Owners Group</span>
                         <span lang="fr">Groupe Propriétaires VinFast Ontario</span>
                     </a>
-                    <p class="item-description" lang="en">Ontario-based owner community for coordinating local meetups, sharing regional charging locations, and connecting with nearby VinFast owners.</p>
-                    <p class="item-description" lang="fr">Communauté de propriétaires basée en Ontario.</p>
+                    <p class="item-description" lang="en">Ontario-based owner community for coordinating local meetups in Toronto, Ottawa, and across the province. Share regional charging locations, service center experiences, and connect with nearby owners.</p>
+                    <p class="item-description" lang="fr">Communauté ontarienne pour rencontres locales, emplacements de recharge régionaux, et connexion avec propriétaires à proximité.</p>
+                    <div class="resource-helpful">
+                        <button class="helpful-btn" onclick="markHelpful('vf-ontario')">
+                            <span class="helpful-icon">👍</span>
+                            <span lang="en">Helpful</span>
+                            <span lang="fr">Utile</span>
+                            <span class="helpful-count">0</span>
+                        </button>
+                    </div>
                 </div>
-                <div class="resource-item">
+                <div class="resource-item" data-resource-id="vf-quebec">
                     <a href="https://www.facebook.com/groups/vinfastquebec/" target="_blank" rel="noopener noreferrer">
                         <span lang="en">Vinfast EV au Québec</span>
                         <span lang="fr">Vinfast VÉ au Québec</span>
                     </a>
-                    <p class="item-description" lang="en">Quebec-based francophone owner community sharing experiences in French, discussing Quebec-specific charging networks (Circuit électrique), provincial incentives, and winter driving in la belle province.</p>
-                    <p class="item-description" lang="fr">Communauté francophone québécoise partageant expériences, réseaux de recharge, incitatifs provinciaux et conduite hivernale.</p>
+                    <p class="item-description" lang="en">Quebec-based francophone owner community sharing experiences in French. Discuss Quebec-specific charging networks (Circuit électrique, FLO), provincial rebates (Roulez vert), winter driving tips for harsh Canadian winters, and local dealer experiences.</p>
+                    <p class="item-description" lang="fr">Communauté francophone québécoise partageant expériences. Discutez réseaux de recharge québécois (Circuit électrique, FLO), rabais provinciaux (Roulez vert), conduite hivernale et concessionnaires locaux.</p>
+                    <div class="resource-helpful">
+                        <button class="helpful-btn" onclick="markHelpful('vf-quebec')">
+                            <span class="helpful-icon">👍</span>
+                            <span lang="en">Helpful</span>
+                            <span lang="fr">Utile</span>
+                            <span class="helpful-count">0</span>
+                        </button>
+                    </div>
                 </div>
-                <div class="resource-item">
+                <div class="resource-item" data-resource-id="vf8-vf9-group">
                     <a href="https://www.facebook.com/groups/1368646426983133/" target="_blank" rel="noopener noreferrer">
                         <span lang="en">VinFast VF8/9 EV Group</span>
                         <span lang="fr">Groupe VinFast VF8/9 VE</span>
                     </a>
-                    <p class="item-description" lang="en">Model-specific group dedicated to VF8 and VF9 owners with focused discussions on these specific vehicles' features, issues, and modifications.</p>
-                    <p class="item-description" lang="fr">Groupe dédié aux propriétaires de VF8 et VF9.</p>
+                    <p class="item-description" lang="en">Model-specific group dedicated to VF8 and VF9 owners. In-depth discussions on model-specific features, common issues, software updates, performance comparisons between trims (Eco, Plus), modifications, and troubleshooting tips.</p>
+                    <p class="item-description" lang="fr">Groupe dédié aux propriétaires VF8 et VF9. Discussions approfondies sur fonctionnalités, problèmes courants, mises à jour logicielles, et modifications.</p>
+                    <div class="resource-helpful">
+                        <button class="helpful-btn" onclick="markHelpful('vf8-vf9-group')">
+                            <span class="helpful-icon">👍</span>
+                            <span lang="en">Helpful</span>
+                            <span lang="fr">Utile</span>
+                            <span class="helpful-count">0</span>
+                        </button>
+                    </div>
                 </div>
-                <div class="resource-item">
+                <div class="resource-item" data-resource-id="vf-roadtrips">
                     <a href="https://www.facebook.com/groups/3063392110495331/" target="_blank" rel="noopener noreferrer">
                         <span lang="en">VF8/EV Roadtrips</span>
                         <span lang="fr">Voyages VF8/VE</span>
                     </a>
-                    <p class="item-description" lang="en">Adventure-focused group for planning road trips, sharing charging routes, trip reports, and travel tips for long-distance VinFast journeys.</p>
-                    <p class="item-description" lang="fr">Groupe pour planification de voyages et routes de recharge.</p>
+                    <p class="item-description" lang="en">Adventure-focused group for planning road trips with your VinFast. Share charging routes using A Better Route Planner (ABRP), trip reports with real-world range data, scenic destinations, camping setups, and travel tips for long-distance EV journeys.</p>
+                    <p class="item-description" lang="fr">Groupe d'aventure pour planifier voyages routiers. Partagez routes de recharge, rapports de voyage avec données d'autonomie réelles, destinations et conseils de voyage.</p>
+                    <div class="resource-helpful">
+                        <button class="helpful-btn" onclick="markHelpful('vf-roadtrips')">
+                            <span class="helpful-icon">👍</span>
+                            <span lang="en">Helpful</span>
+                            <span lang="fr">Utile</span>
+                            <span class="helpful-count">0</span>
+                        </button>
+                    </div>
                 </div>
-                <div class="resource-item">
+                <div class="resource-item" data-resource-id="vf-all-models">
                     <a href="https://facebook.com/groups/vinfast.vf6.vf7.vf8.vf9.owners/" target="_blank" rel="noopener noreferrer">
                         <span lang="en">VF6, VF7, VF8, VF9 Owners</span>
                         <span lang="fr">Propriétaires VF6, VF7, VF8, VF9</span>
                     </a>
-                    <p class="item-description" lang="en">Comprehensive group covering all VinFast model lines including upcoming VF6 and VF7, perfect for comparing models and future planning.</p>
-                    <p class="item-description" lang="fr">Groupe couvrant toutes les gammes de modèles VinFast.</p>
+                    <p class="item-description" lang="en">Comprehensive group covering all VinFast model lines including current VF8/VF9 and upcoming VF6/VF7 models. Perfect for comparing models, discussing size/range differences, future purchase planning, and staying updated on new model launches.</p>
+                    <p class="item-description" lang="fr">Groupe complet couvrant toutes gammes VinFast actuelles et futures. Parfait pour comparer modèles, différences de taille/autonomie, et planification d'achat.</p>
+                    <div class="resource-helpful">
+                        <button class="helpful-btn" onclick="markHelpful('vf-all-models')">
+                            <span class="helpful-icon">👍</span>
+                            <span lang="en">Helpful</span>
+                            <span lang="fr">Utile</span>
+                            <span class="helpful-count">0</span>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -918,37 +1222,69 @@
                 <span lang="fr">▶️ Chaînes YouTube Propriétaires</span>
             </button>
             <div class="resources-list">
-                <div class="resource-item">
+                <div class="resource-item" data-resource-id="natalie-ly">
                     <a href="https://www.youtube.com/@nataliely73" target="_blank" rel="noopener noreferrer">
                         <span lang="en">Natalie Ly</span>
                         <span lang="fr">Natalie Ly</span>
                     </a>
                     <p class="item-description" lang="en">VinFast owner creating authentic daily ownership content, real-world reviews, and honest discussions about the VinFast ownership experience from an owner's perspective.</p>
                     <p class="item-description" lang="fr">Propriétaire VinFast créant du contenu authentique sur l'expérience quotidienne.</p>
+                    <div class="resource-helpful">
+                        <button class="helpful-btn" onclick="markHelpful('natalie-ly')">
+                            <span class="helpful-icon">👍</span>
+                            <span lang="en">Helpful</span>
+                            <span lang="fr">Utile</span>
+                            <span class="helpful-count">0</span>
+                        </button>
+                    </div>
                 </div>
-                <div class="resource-item">
+                <div class="resource-item" data-resource-id="out-of-spec-bits">
                     <a href="https://www.youtube.com/@OutofSpecBITS/search?query=vinfast" target="_blank" rel="noopener noreferrer">
                         <span lang="en">Out of Spec BITS (Francie/Springroll)</span>
                         <span lang="fr">Out of Spec BITS (Francie/Springroll)</span>
                     </a>
                     <p class="item-description" lang="en">In-depth VinFast coverage from Francie and Springroll on Out of Spec's BITS channel, featuring detailed reviews, road tests, and technical deep-dives into VinFast vehicles.</p>
                     <p class="item-description" lang="fr">Couverture approfondie de VinFast avec tests routiers et analyses techniques.</p>
+                    <div class="resource-helpful">
+                        <button class="helpful-btn" onclick="markHelpful('out-of-spec-bits')">
+                            <span class="helpful-icon">👍</span>
+                            <span lang="en">Helpful</span>
+                            <span lang="fr">Utile</span>
+                            <span class="helpful-count">0</span>
+                        </button>
+                    </div>
                 </div>
-                <div class="resource-item">
+                <div class="resource-item" data-resource-id="supernamn">
                     <a href="https://www.youtube.com/@SuperNamn" target="_blank" rel="noopener noreferrer">
                         <span lang="en">SuperNamn</span>
                         <span lang="fr">SuperNamn</span>
                     </a>
                     <p class="item-description" lang="en">Vietnamese-American creator providing unique cultural perspective on VinFast ownership with engaging content bridging Vietnamese heritage and North American EV experience.</p>
                     <p class="item-description" lang="fr">Créateur offrant une perspective culturelle unique sur VinFast.</p>
+                    <div class="resource-helpful">
+                        <button class="helpful-btn" onclick="markHelpful('supernamn')">
+                            <span class="helpful-icon">👍</span>
+                            <span lang="en">Helpful</span>
+                            <span lang="fr">Utile</span>
+                            <span class="helpful-count">0</span>
+                        </button>
+                    </div>
                 </div>
-                <div class="resource-item">
+                <div class="resource-item" data-resource-id="infonovice">
                     <a href="https://www.youtube.com/@InfoNovice" target="_blank" rel="noopener noreferrer">
                         <span lang="en">InfoNovice</span>
                         <span lang="fr">InfoNovice</span>
                     </a>
                     <p class="item-description" lang="en">VinFast owner sharing practical ownership experiences, technical insights, and helpful guides for current and prospective VinFast owners.</p>
                     <p class="item-description" lang="fr">Propriétaire VinFast partageant expériences pratiques et guides utiles.</p>
+                    <div class="resource-helpful">
+                        <button class="helpful-btn" onclick="markHelpful('infonovice')">
+                            <span class="helpful-icon">👍</span>
+                            <span lang="en">Helpful</span>
+                            <span lang="fr">Utile</span>
+                            <span class="helpful-count">0</span>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -960,29 +1296,53 @@
                 <span lang="fr">🚢 Suivi des Expéditions</span>
             </button>
             <div class="resources-list">
-                <div class="resource-item">
+                <div class="resource-item" data-resource-id="silver-queen-vesselfinder">
                     <a href="https://www.vesselfinder.com/?mmsi=352001162" target="_blank" rel="noopener noreferrer">
                         <span lang="en">Silver Queen on VesselFinder</span>
                         <span lang="fr">Silver Queen sur VesselFinder</span>
                     </a>
                     <p class="item-description" lang="en">Track the Silver Queen vessel carrying VinFast vehicles in real-time using VesselFinder's live ship tracking with detailed route information and arrival estimates.</p>
                     <p class="item-description" lang="fr">Suivez le navire Silver Queen transportant des véhicules VinFast en temps réel.</p>
+                    <div class="resource-helpful">
+                        <button class="helpful-btn" onclick="markHelpful('silver-queen-vesselfinder')">
+                            <span class="helpful-icon">👍</span>
+                            <span lang="en">Helpful</span>
+                            <span lang="fr">Utile</span>
+                            <span class="helpful-count">0</span>
+                        </button>
+                    </div>
                 </div>
-                <div class="resource-item">
+                <div class="resource-item" data-resource-id="silver-queen-marinetraffic">
                     <a href="https://www.marinetraffic.com/en/ais/details/ships/shipid:758927" target="_blank" rel="noopener noreferrer">
                         <span lang="en">Silver Queen on MarineTraffic</span>
                         <span lang="fr">Silver Queen sur MarineTraffic</span>
                     </a>
                     <p class="item-description" lang="en">Alternative ship tracking platform with historical voyage data, port call information, and comprehensive vessel details for the Silver Queen.</p>
                     <p class="item-description" lang="fr">Plateforme alternative avec données historiques et informations portuaires.</p>
+                    <div class="resource-helpful">
+                        <button class="helpful-btn" onclick="markHelpful('silver-queen-marinetraffic')">
+                            <span class="helpful-icon">👍</span>
+                            <span lang="en">Helpful</span>
+                            <span lang="fr">Utile</span>
+                            <span class="helpful-count">0</span>
+                        </button>
+                    </div>
                 </div>
-                <div class="resource-item">
+                <div class="resource-item" data-resource-id="silver-queen-myshiptracking">
                     <a href="https://www.myshiptracking.com/?mmsi=352001162" target="_blank" rel="noopener noreferrer">
                         <span lang="en">Silver Queen on MyShipTracking</span>
                         <span lang="fr">Silver Queen sur MyShipTracking</span>
                     </a>
                     <p class="item-description" lang="en">Third tracking option for following vehicle shipments with live position updates and estimated time of arrival for VinFast deliveries.</p>
                     <p class="item-description" lang="fr">Troisième option de suivi avec mises à jour de position en direct.</p>
+                    <div class="resource-helpful">
+                        <button class="helpful-btn" onclick="markHelpful('silver-queen-myshiptracking')">
+                            <span class="helpful-icon">👍</span>
+                            <span lang="en">Helpful</span>
+                            <span lang="fr">Utile</span>
+                            <span class="helpful-count">0</span>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -994,61 +1354,117 @@
                 <span lang="fr">⚜️ Ressources Francophones / Quebec</span>
             </button>
             <div class="resources-list">
-                <div class="resource-item">
+                <div class="resource-item" data-resource-id="vinfast-canada-fr">
                     <a href="https://vinfastauto.ca/fr" target="_blank" rel="noopener noreferrer">
                         <span lang="en">VinFast Canada (Français)</span>
                         <span lang="fr">VinFast Canada (Français)</span>
                     </a>
                     <p class="item-description" lang="en">Official VinFast Canada website in French. Browse vehicles, find dealers, access support resources, and explore financing options - all in French for Quebec and francophone customers.</p>
                     <p class="item-description" lang="fr">Site officiel VinFast Canada en français. Parcourez véhicules, trouvez concessionnaires, accédez au soutien et explorez options de financement.</p>
+                    <div class="resource-helpful">
+                        <button class="helpful-btn" onclick="markHelpful('vinfast-canada-fr')">
+                            <span class="helpful-icon">👍</span>
+                            <span lang="en">Helpful</span>
+                            <span lang="fr">Utile</span>
+                            <span class="helpful-count">0</span>
+                        </button>
+                    </div>
                 </div>
-                <div class="resource-item">
+                <div class="resource-item" data-resource-id="vinfast-welcome-fr">
                     <a href="https://www.vinfastwelcome.ca/fr/" target="_blank" rel="noopener noreferrer">
                         <span lang="en">VinFast Welcome Kit (Français)</span>
                         <span lang="fr">Trousse de Bienvenue VinFast (Français)</span>
                     </a>
                     <p class="item-description" lang="en">New owner onboarding portal in French with welcome information, vehicle setup guides, warranty details, and getting-started resources for francophone customers.</p>
                     <p class="item-description" lang="fr">Portail d'accueil en français avec informations de bienvenue, guides de configuration, détails de garantie et ressources pour débuter.</p>
+                    <div class="resource-helpful">
+                        <button class="helpful-btn" onclick="markHelpful('vinfast-welcome-fr')">
+                            <span class="helpful-icon">👍</span>
+                            <span lang="en">Helpful</span>
+                            <span lang="fr">Utile</span>
+                            <span class="helpful-count">0</span>
+                        </button>
+                    </div>
                 </div>
-                <div class="resource-item">
+                <div class="resource-item" data-resource-id="vinfast-service-fr">
                     <a href="https://vinfastauto.ca/fr/service" target="_blank" rel="noopener noreferrer">
                         <span lang="en">VinFast Service Centers (Français)</span>
                         <span lang="fr">Centres de Service VinFast (Français)</span>
                     </a>
                     <p class="item-description" lang="en">Find VinFast service centers across Canada with French-language support. Schedule maintenance, repairs, and warranty work with bilingual service teams.</p>
                     <p class="item-description" lang="fr">Trouvez centres de service VinFast au Canada avec soutien en français. Planifiez entretien, réparations et travaux de garantie.</p>
+                    <div class="resource-helpful">
+                        <button class="helpful-btn" onclick="markHelpful('vinfast-service-fr')">
+                            <span class="helpful-icon">👍</span>
+                            <span lang="en">Helpful</span>
+                            <span lang="fr">Utile</span>
+                            <span class="helpful-count">0</span>
+                        </button>
+                    </div>
                 </div>
-                <div class="resource-item">
+                <div class="resource-item" data-resource-id="transport-canada-recalls-fr">
                     <a href="https://tc.canada.ca/fr/transport-routier/renseignements-rappels-securite-vehicules/renseignements-rappels-securite-vehicules" target="_blank" rel="noopener noreferrer">
                         <span lang="en">Transport Canada Recalls (French)</span>
                         <span lang="fr">Rappels Transports Canada (Français)</span>
                     </a>
                     <p class="item-description" lang="en">Official Canadian vehicle recall database in French. Search for VinFast safety recalls and advisories issued by Transport Canada for the Canadian market.</p>
                     <p class="item-description" lang="fr">Base de données officielle des rappels de véhicules en français. Recherchez rappels et avis de sécurité VinFast émis par Transports Canada.</p>
+                    <div class="resource-helpful">
+                        <button class="helpful-btn" onclick="markHelpful('transport-canada-recalls-fr')">
+                            <span class="helpful-icon">👍</span>
+                            <span lang="en">Helpful</span>
+                            <span lang="fr">Utile</span>
+                            <span class="helpful-count">0</span>
+                        </button>
+                    </div>
                 </div>
-                <div class="resource-item">
+                <div class="resource-item" data-resource-id="circuit-electrique">
                     <a href="https://lecircuitelectrique.com/" target="_blank" rel="noopener noreferrer">
                         <span lang="en">Circuit électrique (Quebec Charging Network)</span>
                         <span lang="fr">Circuit électrique (Réseau de Recharge Québec)</span>
                     </a>
                     <p class="item-description" lang="en">Quebec's largest public charging network with 5,000+ charging stations across the province. Essential for Quebec VinFast owners to locate DC fast chargers and Level 2 stations.</p>
                     <p class="item-description" lang="fr">Plus grand réseau public de recharge au Québec avec 5 000+ bornes. Essentiel pour propriétaires VinFast québécois pour trouver bornes rapides DC et niveau 2.</p>
+                    <div class="resource-helpful">
+                        <button class="helpful-btn" onclick="markHelpful('circuit-electrique')">
+                            <span class="helpful-icon">👍</span>
+                            <span lang="en">Helpful</span>
+                            <span lang="fr">Utile</span>
+                            <span class="helpful-count">0</span>
+                        </button>
+                    </div>
                 </div>
-                <div class="resource-item">
+                <div class="resource-item" data-resource-id="roulez-vert">
                     <a href="https://www.quebec.ca/transports/vehicules-electriques/rabais-vehicule-electrique" target="_blank" rel="noopener noreferrer">
                         <span lang="en">Roulez vert - Quebec EV Rebates</span>
                         <span lang="fr">Roulez vert - Rabais Véhicules Électriques</span>
                     </a>
                     <p class="item-description" lang="en">Quebec government's electric vehicle incentive program. Learn about provincial rebates and incentives available for VinFast purchases in Quebec (up to $7,000).</p>
                     <p class="item-description" lang="fr">Programme d'incitatifs du gouvernement du Québec pour véhicules électriques. Rabais provinciaux disponibles pour achats VinFast au Québec (jusqu'à 7 000$).</p>
+                    <div class="resource-helpful">
+                        <button class="helpful-btn" onclick="markHelpful('roulez-vert')">
+                            <span class="helpful-icon">👍</span>
+                            <span lang="en">Helpful</span>
+                            <span lang="fr">Utile</span>
+                            <span class="helpful-count">0</span>
+                        </button>
+                    </div>
                 </div>
-                <div class="resource-item">
+                <div class="resource-item" data-resource-id="caa-quebec-ev">
                     <a href="https://www.caaquebec.com/fr/sur-la-route/conseils/verte/vehicules-electriques/" target="_blank" rel="noopener noreferrer">
                         <span lang="en">CAA-Québec EV Resources</span>
                         <span lang="fr">Ressources VÉ CAA-Québec</span>
                     </a>
                     <p class="item-description" lang="en">CAA-Quebec's comprehensive electric vehicle resources in French including charging station maps, winter driving tips, range calculators, and EV buying guides for Quebec residents.</p>
                     <p class="item-description" lang="fr">Ressources complètes VÉ de CAA-Québec incluant cartes de bornes, conseils conduite hivernale, calculateurs d'autonomie et guides d'achat pour résidents québécois.</p>
+                    <div class="resource-helpful">
+                        <button class="helpful-btn" onclick="markHelpful('caa-quebec-ev')">
+                            <span class="helpful-icon">👍</span>
+                            <span lang="en">Helpful</span>
+                            <span lang="fr">Utile</span>
+                            <span class="helpful-count">0</span>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1060,13 +1476,21 @@
                 <span lang="fr">🛍️ Marchandise & Équipement</span>
             </button>
             <div class="resources-list">
-                <div class="resource-item">
+                <div class="resource-item" data-resource-id="avo-merch-store">
                     <a href="https://www.bonfire.com/store/association-of-vinfast-owners/" target="_blank" rel="noopener noreferrer">
                         <span lang="en">AVO Official Merch Store</span>
                         <span lang="fr">Boutique Officielle AVO</span>
                     </a>
                     <p class="item-description" lang="en">Official Association of VinFast Owners merchandise store featuring branded apparel, accessories, and community gear. Show your VinFast pride and support AVO!</p>
                     <p class="item-description" lang="fr">Boutique officielle avec vêtements et accessoires de marque AVO.</p>
+                    <div class="resource-helpful">
+                        <button class="helpful-btn" onclick="markHelpful('avo-merch-store')">
+                            <span class="helpful-icon">👍</span>
+                            <span lang="en">Helpful</span>
+                            <span lang="fr">Utile</span>
+                            <span class="helpful-count">0</span>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
