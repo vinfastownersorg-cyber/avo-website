@@ -5,7 +5,7 @@
 **Official website for the Association of VinFast Owners North America**
 
 🌐 **Live Site:** [vinfastowners.org](https://vinfastowners.org)
-💬 **Discord:** [discord.gg/puQqaEZFAQ](https://discord.gg/puQqaEZFAQ) - 475+ members
+💬 **Discord:** [vinfastowners.org/discord](https://vinfastowners.org/discord.html) - 500+ members
 👥 **Community:** Growing network of VinFast owners across North America  
 
 ---
@@ -82,13 +82,28 @@ The Association of VinFast Owners (AVO) is an independent, member-governed organ
 - **CAA-Québec** - EV resources including winter driving tips and range calculators
 - **Quebec Community** - Vinfast EV au Québec francophone Facebook group
 
+### 💬 Discord Landing Page
+- **Dedicated Discord Page** - Professional landing page highlighting Discord benefits
+- **Live Server Widget** - Shows online members in real-time
+- **Platform Benefits** - Explains why Discord is perfect for VinFast owners
+- **Site-Wide Integration** - All Discord mentions lead to landing page
+- **Professional Design** - Discord-styled frame with dark theme and animated live indicator
+
+### 👍 Resource Helpful Ratings
+- **Community-Driven** - Rate resources across 53+ community links
+- **localStorage Tracking** - Prevents duplicate voting per browser
+- **Unobtrusive Design** - Clean helpful buttons aligned right
+- **Bilingual Labels** - "Helpful" (EN) / "Utile" (FR)
+- **Real-time Counts** - See which resources the community finds most valuable
+
 ---
 
 ## 📁 Site Structure
 
 ```
 vinfastowners-website/
-├── index.html                    # Homepage (hero, stats, membership)
+├── index.html                    # Homepage (hero, stats, membership, resources)
+├── discord.html                  # Discord landing page with live widget
 ├── considering-vinfast.html      # Prospective buyer guide
 ├── recalls.html                  # NHTSA/Transport Canada recalls
 ├── board.html                    # Board of Directors
@@ -102,9 +117,9 @@ vinfastowners-website/
 ├── sitemap.xml                   # SEO sitemap
 ├── robots.txt                    # Search engine instructions
 ├── css/
-│   └── styles.css               # Main stylesheet (nav, responsive, etc.)
+│   └── styles.css               # Main stylesheet (nav, responsive, ratings)
 ├── js/
-│   └── main.js                  # Navigation, language, email obfuscation
+│   └── main.js                  # Navigation, language, ratings, email obfuscation
 └── images/
     └── icons/
         └── avo-logo.png         # AVO logo
@@ -281,7 +296,7 @@ This website is maintained by the Association of VinFast Owners North America.
 
 ## 📞 Contact
 
-- **Discord:** [discord.gg/puQqaEZFAQ](https://discord.gg/puQqaEZFAQ) - 475+ members - #vinfastownersdotorg channel
+- **Discord:** [vinfastowners.org/discord](https://vinfastowners.org/discord.html) - 500+ members - #vinfastownersdotorg channel
 - **Facebook:** [VinFast Owners Group](https://www.facebook.com/share/g/17dH6oZRA4/)
 - **VinFastTalk:** [vinfasttalk.com](https://vinfasttalk.com) - 594+ members
 - **VinFast Friend Support (VFFS):** Facebook group - 349+ members
@@ -321,9 +336,12 @@ This website is maintained by the Association of VinFast Owners North America.
 - [x] Quebec & French resources section (Circuit électrique, Roulez vert, CAA-Québec)
 - [x] Community YouTube channels (Natalie Ly, Out of Spec BITS, SuperNamn, InfoNovice)
 - [x] Quebec francophone owner community (Vinfast EV au Québec Facebook group)
+- [x] **Discord landing page** - Professional page with live widget, benefits, and site-wide integration
+- [x] **Resource helpful ratings** - 53+ resources with community voting system
+- [x] **Enhanced Facebook groups** - Updated descriptions with specific details for 8 groups
 
 ---
 
 **Built with ❤️ by the VinFast Owner Community**
 
-*Last Updated: November 13, 2025*
+*Last Updated: November 18, 2025*
