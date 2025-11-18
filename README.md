@@ -115,7 +115,7 @@ vinfastowners-website/
 ├── considering-vinfast.html      # Prospective buyer guide
 ├── recalls.html                  # NHTSA/Transport Canada recalls
 ├── open-letter.html              # Open Letter to VinFast Leadership updates
-├── board.html                    # Board of Directors
+├── board.html                    # Board of Directors (nav link temporarily hidden)
 ├── documents.html                # Governance documents
 ├── bylaws.html                   # AVO Bylaws
 ├── meeting-minutes.html          # Board meeting minutes
@@ -125,13 +125,18 @@ vinfastowners-website/
 ├── disclaimer.html               # Legal disclaimer
 ├── sitemap.xml                   # SEO sitemap
 ├── robots.txt                    # Search engine instructions
+├── _config.yml                   # GitHub Pages security config (excludes sensitive files)
+├── .nojekyll                     # Disables Jekyll processing for faster builds
 ├── css/
 │   └── styles.css               # Main stylesheet (nav, responsive, ratings)
 ├── js/
 │   └── main.js                  # Navigation, language, ratings, email obfuscation
-└── images/
-    └── icons/
-        └── avo-logo.png         # AVO logo
+├── images/
+│   └── icons/
+│       └── avo-logo.png         # AVO logo
+├── docs/                         # ⛔ EXCLUDED from public site (developer docs only)
+├── documents/                    # ⛔ EXCLUDED from public site (source files)
+└── .github/                      # ⛔ EXCLUDED from public site (GitHub Actions)
 ```
 
 ---
@@ -155,6 +160,17 @@ vinfastowners-website/
 - **Cache-Busting** - Version parameters on CSS/JS
 - **Optimized Images** - Compressed logo and icons
 - **Minimal Dependencies** - No jQuery, Bootstrap, or heavy frameworks
+
+### Security
+- **GitHub Pages Protection** - `_config.yml` excludes sensitive directories
+- **Excluded from Public Site:**
+  - `.github/` - Workflow files (prevents bot probing)
+  - `docs/` - Developer documentation
+  - `documents/` - Source files (Word docs, text files)
+  - All `.md` files - READMEs and project docs
+  - `.claude/` - AI assistant configuration
+  - `*.json` - Bot tracking files
+- **No Security Exposure** - Internal files not publicly accessible
 
 ---
 
@@ -189,15 +205,36 @@ const modelVariations = [model, model.replace(/(\d)/, ' $1')];
 
 **Result:** Smooth mobile UX with proper dropdown behavior
 
-### 3. Cache-Busting for Safari
+### 3. Recalls Page Protection
+**Problem:** Users potentially triggering multiple simultaneous API requests causing loops
+
+**Solution:**
+- Added `isSearching` flag to prevent concurrent requests
+- Disable submit button during API calls
+- `finally{}` block ensures state always resets
+- Console error logging for debugging
+
+**Result:** Bulletproof request handling, prevents infinite loops
+
+### 4. Cache-Busting for Safari
 **Problem:** Safari caching old CSS, Join button not styled correctly
 
 **Solution:**
 - Added version parameters: `css/styles.css?v=202511130107`
-- Applied across all 11 HTML pages
+- Applied across all 13 HTML pages
 - Version timestamp ensures fresh downloads
 
 **Result:** Safari users see updated styles without hard refresh
+
+### 5. URL Canonicalization
+**Problem:** Non-standard `href="index.html"` links throughout site
+
+**Solution:**
+- Changed all 31 instances to canonical `href="/"`
+- More professional and SEO-friendly
+- Industry standard practice
+
+**Result:** Cleaner, more professional URLs site-wide
 
 ---
 
@@ -349,6 +386,10 @@ This website is maintained by the Association of VinFast Owners North America.
 - [x] **Resource helpful ratings** - 53+ resources with community voting system
 - [x] **Enhanced Facebook groups** - Updated descriptions with specific details for 8 groups
 - [x] **Open Letter page** - Timeline of VinFast leadership dialogue with Discord feedback integration
+- [x] **GitHub Pages security** - Protected sensitive files (.github/, docs/) from public access
+- [x] **URL canonicalization** - Professional "/" links instead of "index.html" (31 instances)
+- [x] **Navigation cleanup** - Hidden unpopulated Board and Calendar pages until ready
+- [x] **Recalls page protection** - Prevents multiple simultaneous API requests and infinite loops
 
 ---
 
