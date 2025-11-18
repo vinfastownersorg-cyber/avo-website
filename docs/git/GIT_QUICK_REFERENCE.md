@@ -460,7 +460,7 @@ git checkout -b feature/should-be-on-branch
 git commit -m "Your commit message"
 
 # If you already pushed:
-# Contact @michaelbivens immediately!
+# Contact a board member or repository administrator immediately!
 ```
 
 ---

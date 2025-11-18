@@ -216,14 +216,14 @@ Create this script on your computer:
 #!/bin/bash
 
 # Directory to store backups
-BACKUP_DIR="/Users/michaelbivens/Vinfast/website-backups"
+BACKUP_DIR="$HOME/Vinfast/website-backups"
 DATE=$(date +%Y%m%d_%H%M%S)
 
 # Create backup directory if it doesn't exist
 mkdir -p "$BACKUP_DIR"
 
 # Navigate to repository
-cd /Users/michaelbivens/Vinfast/vinfastowners-website
+cd $HOME/Vinfast/vinfastowners-website
 
 # Pull latest changes
 git pull origin main
@@ -251,8 +251,8 @@ Run it daily or weekly:
 Or automate with cron:
 ```bash
 crontab -e
-# Add this line to run daily at 2 AM:
-0 2 * * * /Users/michaelbivens/Vinfast/backup-website.sh
+# Add this line to run daily at 2 AM (update path to your backup script location):
+0 2 * * * $HOME/Vinfast/backup-website.sh
 ```
 
 ### Monitor the Repository

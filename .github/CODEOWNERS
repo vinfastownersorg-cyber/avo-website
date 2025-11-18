@@ -2,24 +2,26 @@
 # This file defines who should review PRs for specific parts of the codebase
 # Lines starting with '#' are comments
 # Each line is a file pattern followed by one or more owners
+#
+# IMPORTANT: Replace @GITHUB-ADMIN with your actual GitHub username(s)
 
 # Default owners for everything in the repo
 # These users will be requested for review when someone opens a pull request
-*       @michaelbivens
+*       @GITHUB-ADMIN
 
 # Governance and legal documents require board review
-/documents/                     @michaelbivens
-privacy.html                    @michaelbivens
-board.html                      @michaelbivens
+/documents/                     @GITHUB-ADMIN
+privacy.html                    @GITHUB-ADMIN
+board.html                      @GITHUB-ADMIN
 
 # GitHub configurations
-/.github/                       @michaelbivens
+/.github/                       @GITHUB-ADMIN
 
 # Documentation
-*.md                           @michaelbivens
+*.md                           @GITHUB-ADMIN
 
 # You can add additional collaborators as they join:
 # Example:
-# *.html                        @michaelbivens @another-collaborator
+# *.html                        @GITHUB-ADMIN @another-collaborator
 # *.css                         @designer-username
 # *.js                          @developer-username
