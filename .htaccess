@@ -1,0 +1,152 @@
+# AVO Website Security Configuration
+# This file provides protection if hosted on Apache servers
+# Note: GitHub Pages uses Nginx and ignores .htaccess (uses _config.yml instead)
+# This file is for future-proofing and portability to other hosting platforms
+
+# Enable the rewrite engine
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+</IfModule>
+
+# ==========================================
+# BLOCK ACCESS TO SENSITIVE DIRECTORIES
+# ==========================================
+
+# Block access to .git directory (prevent source code exposure)
+<IfModule mod_rewrite.c>
+    RewriteRule ^\.git - [F,L]
+</IfModule>
+
+# Block access to GitHub Actions workflows
+<DirectoryMatch "^/.*/\.github/">
+    Require all denied
+</DirectoryMatch>
+
+# Block access to developer documentation
+<DirectoryMatch "^/.*/docs/">
+    Require all denied
+</DirectoryMatch>
+
+# Block access to source documents folder
+<DirectoryMatch "^/.*/documents/">
+    Require all denied
+</DirectoryMatch>
+
+# Block access to Claude AI configuration
+<DirectoryMatch "^/.*/\.claude/">
+    Require all denied
+</DirectoryMatch>
+
+# ==========================================
+# BLOCK ACCESS TO SENSITIVE FILE TYPES
+# ==========================================
+
+# Block access to all hidden files except .well-known (for SSL verification)
+<FilesMatch "^\.(?!well-known)">
+    Require all denied
+</FilesMatch>
+
+# Block access to README and documentation files
+<FilesMatch "(README|CONTRIBUTING|CHANGELOG|LICENSE|CODEOWNERS|SEO-RECOMMENDATIONS|SYSTEM_STATUS)\.(md|txt)$">
+    Require all denied
+</FilesMatch>
+
+# Block access to configuration files
+<FilesMatch "^(_config\.yml|\.nojekyll|\.gitignore|package\.json|composer\.json|\.env)$">
+    Require all denied
+</FilesMatch>
+
+# Block access to JSON tracking files
+<FilesMatch ".*\.json$">
+    Require all denied
+</FilesMatch>
+
+# Block access to backup and temporary files
+<FilesMatch "\.(bak|tmp|log|sql|old|swp|swo|~)$">
+    Require all denied
+</FilesMatch>
+
+# ==========================================
+# SECURITY HEADERS
+# ==========================================
+
+<IfModule mod_headers.c>
+    # Prevent clickjacking
+    Header always set X-Frame-Options "SAMEORIGIN"
+
+    # Prevent MIME type sniffing
+    Header always set X-Content-Type-Options "nosniff"
+
+    # Enable XSS protection
+    Header always set X-XSS-Protection "1; mode=block"
+
+    # Referrer Policy
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+
+    # Remove server signature
+    Header unset Server
+    Header unset X-Powered-By
+</IfModule>
+
+# ==========================================
+# PERFORMANCE & CACHING
+# ==========================================
+
+<IfModule mod_expires.c>
+    ExpiresActive On
+
+    # Images
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/gif "access plus 1 year"
+    ExpiresByType image/svg+xml "access plus 1 year"
+    ExpiresByType image/webp "access plus 1 year"
+
+    # CSS and JavaScript
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType text/javascript "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+
+    # Fonts
+    ExpiresByType font/woff2 "access plus 1 year"
+    ExpiresByType font/woff "access plus 1 year"
+    ExpiresByType font/ttf "access plus 1 year"
+
+    # HTML (shorter cache for dynamic content)
+    ExpiresByType text/html "access plus 1 hour"
+</IfModule>
+
+# ==========================================
+# COMPRESSION
+# ==========================================
+
+<IfModule mod_deflate.c>
+    # Compress HTML, CSS, JavaScript, Text, XML and fonts
+    AddOutputFilterByType DEFLATE text/html
+    AddOutputFilterByType DEFLATE text/css
+    AddOutputFilterByType DEFLATE text/javascript
+    AddOutputFilterByType DEFLATE application/javascript
+    AddOutputFilterByType DEFLATE text/xml
+    AddOutputFilterByType DEFLATE application/xml
+    AddOutputFilterByType DEFLATE application/json
+    AddOutputFilterByType DEFLATE font/woff2
+    AddOutputFilterByType DEFLATE font/woff
+</IfModule>
+
+# ==========================================
+# ERROR DOCUMENTS (Optional)
+# ==========================================
+
+# ErrorDocument 404 /404.html
+# ErrorDocument 403 /403.html
+# ErrorDocument 500 /500.html
+
+# ==========================================
+# FORCE HTTPS (Uncomment if using Apache with SSL)
+# ==========================================
+
+# <IfModule mod_rewrite.c>
+#     RewriteEngine On
+#     RewriteCond %{HTTPS} off
+#     RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+# </IfModule>

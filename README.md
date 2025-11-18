@@ -126,6 +126,7 @@ vinfastowners-website/
 ├── sitemap.xml                   # SEO sitemap
 ├── robots.txt                    # Search engine instructions
 ├── _config.yml                   # GitHub Pages security config (excludes sensitive files)
+├── .htaccess                     # Apache security rules (future-proofing for hosting migration)
 ├── .nojekyll                     # Disables Jekyll processing for faster builds
 ├── css/
 │   └── styles.css               # Main stylesheet (nav, responsive, ratings)
@@ -162,7 +163,9 @@ vinfastowners-website/
 - **Minimal Dependencies** - No jQuery, Bootstrap, or heavy frameworks
 
 ### Security
-- **GitHub Pages Protection** - `_config.yml` excludes sensitive directories
+- **Dual-Layer Protection** - Both GitHub Pages (_config.yml) and Apache (.htaccess) security
+- **GitHub Pages** - `_config.yml` excludes sensitive directories (active now)
+- **Apache** - `.htaccess` provides security if migrated to Apache hosting (future-proof)
 - **Excluded from Public Site:**
   - `.github/` - Workflow files (prevents bot probing)
   - `docs/` - Developer documentation
@@ -170,6 +173,12 @@ vinfastowners-website/
   - All `.md` files - READMEs and project docs
   - `.claude/` - AI assistant configuration
   - `*.json` - Bot tracking files
+- **.htaccess Features:**
+  - Blocks sensitive directories and file types
+  - Security headers (X-Frame-Options, X-Content-Type-Options, X-XSS-Protection)
+  - Compression (gzip) for faster page loads
+  - Browser caching rules for performance
+  - Ready for Apache/cPanel migration
 - **No Security Exposure** - Internal files not publicly accessible
 
 ---
@@ -386,7 +395,8 @@ This website is maintained by the Association of VinFast Owners North America.
 - [x] **Resource helpful ratings** - 53+ resources with community voting system
 - [x] **Enhanced Facebook groups** - Updated descriptions with specific details for 8 groups
 - [x] **Open Letter page** - Timeline of VinFast leadership dialogue with Discord feedback integration
-- [x] **GitHub Pages security** - Protected sensitive files (.github/, docs/) from public access
+- [x] **Dual-layer security** - GitHub Pages (_config.yml) + Apache (.htaccess) protection
+- [x] **Security headers** - X-Frame-Options, X-Content-Type-Options, X-XSS-Protection
 - [x] **URL canonicalization** - Professional "/" links instead of "index.html" (31 instances)
 - [x] **Navigation cleanup** - Hidden unpopulated Board and Calendar pages until ready
 - [x] **Recalls page protection** - Prevents multiple simultaneous API requests and infinite loops
