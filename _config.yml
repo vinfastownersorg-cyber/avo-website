@@ -1,0 +1,19 @@
+# GitHub Pages Configuration
+# This file tells GitHub Pages which files/folders to exclude from publishing
+
+# Exclude developer documentation and sensitive files
+exclude:
+  - .github/
+  - .claude/
+  - docs/
+  - documents/
+  - README.md
+  - SEO-RECOMMENDATIONS.md
+  - SYSTEM_STATUS.md
+  - "*.json"
+  - .gitignore
+  - CODEOWNERS
+  - LICENSE
+
+# Keep Jekyll processing disabled for faster builds
+# (we're using plain HTML/CSS/JS, not Jekyll features)
