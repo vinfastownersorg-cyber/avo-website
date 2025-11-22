@@ -64,7 +64,7 @@ jobs:
               'min_comments': 5,          # At least 5 comments
               'min_engagement_score': 0.3,  # 0.3% engagement rate
               'min_channel_subs': 500,    # Channel must have 500+ subscribers
-              'max_video_age_hours': 24   # Only last 24 hours
+              'max_video_age_hours': 48   # Last 48 hours (increased to catch more videos)
           }
 
           # Credible automotive channels (case-insensitive)
@@ -164,7 +164,7 @@ jobs:
           # To find channel IDs: Go to YouTube channel -> View Page Source -> Search for "channelId"
           # Or use: https://www.youtube.com/@USERNAME -> click "About" -> Share -> Copy channel ID
           PRIORITY_OWNER_CHANNELS = {
-              'Natalie Ly': 'UCVt-MpNUSwjHDS9RZ0lf2EA',  # @nataliely73
+              'Natalie Ly': 'UC3Iz5rmMM8m1TNTO6Epr0ZQ',  # @nataliely73
               'SuperNamn': 'UCagFWLt5ensDownQAaph2RQ',  # @SuperNamn
               # Add more priority VinFast owners here
           }
