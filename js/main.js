@@ -258,60 +258,102 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Initialize helpful ratings from localStorage
 function initializeHelpfulRatings() {
-    // Get saved ratings and user votes from localStorage
-    const savedRatings = JSON.parse(localStorage.getItem('resource-ratings') || '{}');
-    const userVotes = JSON.parse(localStorage.getItem('user-votes') || '[]');
+    // Fetch global ratings from JSON file
+    fetch('data/resource-ratings.json')
+        .then(response => response.json())
+        .then(globalRatings => {
+            const userVotes = JSON.parse(localStorage.getItem('user-votes') || '[]');
+            const pendingVotes = JSON.parse(localStorage.getItem('pending-votes') || '[]');
 
-    // Update all helpful buttons with saved counts
-    document.querySelectorAll('.resource-item').forEach(item => {
-        const resourceId = item.getAttribute('data-resource-id');
-        if (resourceId) {
-            const count = savedRatings[resourceId] || 0;
-            const countElement = item.querySelector('.helpful-count');
-            const button = item.querySelector('.helpful-btn');
+            // Update all helpful buttons with global counts
+            document.querySelectorAll('.resource-item').forEach(item => {
+                const resourceId = item.getAttribute('data-resource-id');
+                if (resourceId) {
+                    const count = globalRatings[resourceId] || 0;
+                    const countElement = item.querySelector('.helpful-count');
+                    const button = item.querySelector('.helpful-btn');
 
-            if (countElement) {
-                countElement.textContent = count;
+                    if (countElement) {
+                        countElement.textContent = count;
+                    }
+
+                    // Mark as voted if user already voted
+                    if (button && userVotes.includes(resourceId)) {
+                        button.classList.add('voted');
+                    }
+                }
+            });
+
+            // Log pending votes for admin reference
+            if (pendingVotes.length > 0) {
+                console.log('📊 Pending votes to aggregate:', pendingVotes);
             }
+        })
+        .catch(error => {
+            console.error('Failed to load global ratings:', error);
+            // Fallback to localStorage if JSON fetch fails
+            const savedRatings = JSON.parse(localStorage.getItem('resource-ratings') || '{}');
+            const userVotes = JSON.parse(localStorage.getItem('user-votes') || '[]');
 
-            // Mark as voted if user already voted
-            if (button && userVotes.includes(resourceId)) {
-                button.classList.add('voted');
-            }
-        }
-    });
+            document.querySelectorAll('.resource-item').forEach(item => {
+                const resourceId = item.getAttribute('data-resource-id');
+                if (resourceId) {
+                    const count = savedRatings[resourceId] || 0;
+                    const countElement = item.querySelector('.helpful-count');
+                    const button = item.querySelector('.helpful-btn');
+
+                    if (countElement) {
+                        countElement.textContent = count;
+                    }
+
+                    if (button && userVotes.includes(resourceId)) {
+                        button.classList.add('voted');
+                    }
+                }
+            });
+        });
 }
 
 // Mark a resource as helpful
 function markHelpful(resourceId) {
-    const savedRatings = JSON.parse(localStorage.getItem('resource-ratings') || '{}');
     const userVotes = JSON.parse(localStorage.getItem('user-votes') || '[]');
+    const pendingVotes = JSON.parse(localStorage.getItem('pending-votes') || '[]');
 
     // Check if user already voted for this resource
     if (userVotes.includes(resourceId)) {
         return; // Already voted
     }
 
-    // Increment count
-    savedRatings[resourceId] = (savedRatings[resourceId] || 0) + 1;
+    // Record the vote
     userVotes.push(resourceId);
 
-    // Save to localStorage
-    localStorage.setItem('resource-ratings', JSON.stringify(savedRatings));
-    localStorage.setItem('user-votes', JSON.stringify(userVotes));
+    // Add to pending votes (for aggregation into JSON file)
+    pendingVotes.push({
+        resourceId: resourceId,
+        timestamp: new Date().toISOString()
+    });
 
-    // Update UI
+    // Save to localStorage
+    localStorage.setItem('user-votes', JSON.stringify(userVotes));
+    localStorage.setItem('pending-votes', JSON.stringify(pendingVotes));
+
+    // Update UI immediately (optimistic update)
     const item = document.querySelector(`[data-resource-id="${resourceId}"]`);
     if (item) {
         const countElement = item.querySelector('.helpful-count');
         const button = item.querySelector('.helpful-btn');
 
         if (countElement) {
-            countElement.textContent = savedRatings[resourceId];
+            // Increment displayed count optimistically
+            const currentCount = parseInt(countElement.textContent) || 0;
+            countElement.textContent = currentCount + 1;
         }
 
         if (button) {
             button.classList.add('voted');
         }
     }
+
+    // Log for admin
+    console.log('✅ Vote recorded for:', resourceId, '| Total pending votes:', pendingVotes.length);
 }
