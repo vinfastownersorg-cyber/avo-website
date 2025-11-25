@@ -239,8 +239,19 @@ function deobfuscateEmail(element) {
         );
     });
 
-    // Create clickable mailto link
-    element.innerHTML = `<a href="mailto:${decoded}">${decoded}</a>`;
+    // Validate email format to prevent XSS
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(decoded)) {
+        console.error('Invalid email format after decoding:', encoded);
+        return;
+    }
+
+    // Create clickable mailto link safely (prevents XSS)
+    const link = document.createElement('a');
+    link.href = 'mailto:' + decoded;
+    link.textContent = decoded;
+    element.innerHTML = '';
+    element.appendChild(link);
 }
 
 // Initialize email deobfuscation on page load

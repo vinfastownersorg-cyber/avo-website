@@ -8,10 +8,13 @@ exclude:
   - docs/
   - documents/
   - README.md
-  - "*.json"
+  - youtube_posted.json  # Bot tracking file (keep private)
   - .gitignore
   - CODEOWNERS
   - LICENSE
+
+# NOTE: data/resource-ratings.json is intentionally NOT excluded
+# It needs to be publicly accessible for the rating system to work
 
 # Keep Jekyll processing disabled for faster builds
 # (we're using plain HTML/CSS/JS, not Jekyll features)
