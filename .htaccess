@@ -83,6 +83,23 @@
     # Referrer Policy
     Header always set Referrer-Policy "strict-origin-when-cross-origin"
 
+    # Content Security Policy (CSP)
+    # NOTE: GitHub Pages doesn't support custom headers - this is for future hosting
+    # Allows inline scripts/styles (required for current architecture)
+    # Restricts external connections to trusted domains only
+    Header always set Content-Security-Policy "\
+        default-src 'self'; \
+        script-src 'self' 'unsafe-inline'; \
+        style-src 'self' 'unsafe-inline'; \
+        img-src 'self' data: https:; \
+        font-src 'self' data:; \
+        connect-src 'self' https://discord.com https://api.nhtsa.gov; \
+        frame-src 'self' https://www.youtube.com; \
+        object-src 'none'; \
+        base-uri 'self'; \
+        form-action 'self'; \
+        frame-ancestors 'self';"
+
     # Remove server signature
     Header unset Server
     Header unset X-Powered-By
