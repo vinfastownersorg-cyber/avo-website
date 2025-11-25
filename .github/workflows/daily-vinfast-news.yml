@@ -22,7 +22,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install requests feedparser beautifulsoup4
+          pip install requests feedparser beautifulsoup4 lxml
 
       - name: Fetch VinFast news and post to Discord
         env:
@@ -372,6 +372,211 @@ jobs:
                   sys.exit(1)
 
           EOF
+
+      - name: Check VinFast website sitemaps for updates
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_STOCK_WEBHOOK_URL }}
+        run: |
+          python3 << 'EOF'
+          import requests
+          import json
+          import os
+          import sys
+          from datetime import datetime
+          from xml.etree import ElementTree as ET
+
+          webhook_url = os.environ.get('DISCORD_WEBHOOK_URL')
+
+          if not webhook_url:
+              print("ERROR: DISCORD_WEBHOOK_URL secret not set")
+              sys.exit(1)
+
+          print("🗺️  Checking VinFast website sitemaps for changes...")
+
+          # Sitemap URLs to monitor
+          sitemaps = {
+              'vinfastauto.us': 'https://vinfastauto.us/sitemap.xml',
+              'vinfastauto.ca': 'https://vinfastauto.ca/sitemap.xml'
+          }
+
+          # Storage file for previous sitemap state
+          sitemap_state_file = '.github/sitemap-state.json'
+
+          # Load previous state
+          previous_state = {}
+          if os.path.exists(sitemap_state_file):
+              try:
+                  with open(sitemap_state_file, 'r') as f:
+                      previous_state = json.load(f)
+                  print(f"✅ Loaded previous sitemap state ({len(previous_state)} sites)")
+              except Exception as e:
+                  print(f"⚠️  Could not load previous state: {e}")
+
+          current_state = {}
+          all_changes = []
+
+          for site_name, sitemap_url in sitemaps.items():
+              print(f"\n📍 Checking {site_name}...")
+
+              try:
+                  # Fetch sitemap
+                  response = requests.get(sitemap_url, timeout=15)
+
+                  if response.status_code == 200:
+                      # Parse XML
+                      root = ET.fromstring(response.content)
+
+                      # Extract namespace
+                      namespace = {'ns': 'http://www.sitemaps.org/schemas/sitemap/0.9'}
+
+                      # Extract all URLs
+                      urls = []
+                      for url_elem in root.findall('.//ns:url', namespace):
+                          loc = url_elem.find('ns:loc', namespace)
+                          lastmod = url_elem.find('ns:lastmod', namespace)
+
+                          if loc is not None:
+                              url_data = {
+                                  'loc': loc.text,
+                                  'lastmod': lastmod.text if lastmod is not None else None
+                              }
+                              urls.append(url_data)
+
+                      current_state[site_name] = {
+                          'urls': urls,
+                          'count': len(urls),
+                          'last_checked': datetime.utcnow().isoformat()
+                      }
+
+                      print(f"✅ Found {len(urls)} URLs in {site_name} sitemap")
+
+                      # Compare with previous state
+                      if site_name in previous_state:
+                          prev_urls = {u['loc'] for u in previous_state[site_name]['urls']}
+                          curr_urls = {u['loc'] for u in urls}
+
+                          new_urls = curr_urls - prev_urls
+                          removed_urls = prev_urls - curr_urls
+
+                          # Check for modified URLs (lastmod changed)
+                          modified_urls = []
+                          prev_url_dict = {u['loc']: u['lastmod'] for u in previous_state[site_name]['urls']}
+                          curr_url_dict = {u['loc']: u['lastmod'] for u in urls}
+
+                          for url in curr_urls & prev_urls:  # Intersection
+                              if prev_url_dict[url] != curr_url_dict[url]:
+                                  if curr_url_dict[url]:  # Only if lastmod exists
+                                      modified_urls.append(url)
+
+                          if new_urls or removed_urls or modified_urls:
+                              all_changes.append({
+                                  'site': site_name,
+                                  'new': list(new_urls),
+                                  'removed': list(removed_urls),
+                                  'modified': modified_urls
+                              })
+
+                              print(f"  🆕 New URLs: {len(new_urls)}")
+                              print(f"  🗑️  Removed URLs: {len(removed_urls)}")
+                              print(f"  📝 Modified URLs: {len(modified_urls)}")
+
+                              for url in list(new_urls)[:5]:  # Show first 5
+                                  print(f"    + {url}")
+                          else:
+                              print(f"  ✓ No changes detected")
+                      else:
+                          print(f"  ℹ️  First time checking {site_name} (no comparison)")
+
+                  elif response.status_code == 403:
+                      print(f"⚠️  {site_name} blocked access (403)")
+                  elif response.status_code == 404:
+                      print(f"⚠️  {site_name} sitemap not found (404)")
+                  else:
+                      print(f"⚠️  {site_name} returned status {response.status_code}")
+
+              except Exception as e:
+                  print(f"❌ Error checking {site_name}: {e}")
+
+          # Save current state
+          try:
+              os.makedirs(os.path.dirname(sitemap_state_file), exist_ok=True)
+              with open(sitemap_state_file, 'w') as f:
+                  json.dump(current_state, f, indent=2)
+              print(f"\n✅ Saved current sitemap state")
+          except Exception as e:
+              print(f"⚠️  Could not save state: {e}")
+
+          # Post changes to Discord
+          if all_changes:
+              print(f"\n📢 Posting {len(all_changes)} site updates to Discord...")
+
+              description = "🗺️ **VinFast Website Updates Detected**\n\n"
+
+              for change in all_changes:
+                  site = change['site']
+                  new_count = len(change['new'])
+                  removed_count = len(change['removed'])
+                  modified_count = len(change['modified'])
+
+                  description += f"**{site}**\n"
+
+                  if new_count > 0:
+                      description += f"🆕 **{new_count} new page(s)**\n"
+                      for url in change['new'][:3]:  # Show up to 3
+                          # Extract page path
+                          path = url.replace(f'https://{site}', '').replace('http://', '')
+                          description += f"  • [{path}]({url})\n"
+                      if new_count > 3:
+                          description += f"  • ...and {new_count - 3} more\n"
+                      description += "\n"
+
+                  if modified_count > 0:
+                      description += f"📝 **{modified_count} updated page(s)**\n"
+                      for url in change['modified'][:3]:
+                          path = url.replace(f'https://{site}', '').replace('http://', '')
+                          description += f"  • [{path}]({url})\n"
+                      if modified_count > 3:
+                          description += f"  • ...and {modified_count - 3} more\n"
+                      description += "\n"
+
+                  if removed_count > 0:
+                      description += f"🗑️ {removed_count} removed page(s)\n\n"
+
+              embed = {
+                  "title": "🌐 VinFast Website Changes",
+                  "description": description,
+                  "color": 0x00539C,
+                  "footer": {
+                      "text": "Sitemap Monitor | Automated by VinFastOwners.org"
+                  },
+                  "timestamp": datetime.utcnow().isoformat()
+              }
+
+              payload = {
+                  "username": "VinFast Website Monitor",
+                  "avatar_url": "https://raw.githubusercontent.com/vinfastownersorg-cyber/avo-website/main/images/icons/avo-logo.png",
+                  "embeds": [embed]
+              }
+
+              response = requests.post(webhook_url, json=payload)
+
+              if response.status_code == 204:
+                  print("✅ Posted website changes to Discord")
+              else:
+                  print(f"⚠️  Discord post failed: {response.status_code}")
+          else:
+              print("\nℹ️  No website changes detected")
+
+          EOF
+
+      - name: Commit sitemap state
+        if: always()
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add .github/sitemap-state.json || true
+          git diff --quiet --cached || git commit -m "Update sitemap state [skip ci]"
+          git push || true
 
       - name: Log completion
         if: always()
