@@ -1,0 +1,240 @@
+name: Post Single YouTube Video (One-Time)
+
+on:
+  workflow_dispatch:
+    inputs:
+      video_id:
+        description: 'YouTube Video ID (e.g., 8aHX9yl1T20)'
+        required: true
+        default: '8aHX9yl1T20'
+
+jobs:
+  post-video:
+    name: Post YouTube Video to Discord
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install google-api-python-client requests
+
+      - name: Fetch and post video
+        env:
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_STOCK_WEBHOOK_URL }}
+          VIDEO_ID: ${{ github.event.inputs.video_id }}
+        run: |
+          python3 << 'EOF'
+          import requests
+          import os
+          import sys
+          import json
+          from datetime import datetime
+          from googleapiclient.discovery import build
+
+          # Configuration
+          YOUTUBE_API_KEY = os.environ.get('YOUTUBE_API_KEY')
+          DISCORD_WEBHOOK_URL = os.environ.get('DISCORD_WEBHOOK_URL')
+          VIDEO_ID = os.environ.get('VIDEO_ID')
+
+          if not YOUTUBE_API_KEY or not DISCORD_WEBHOOK_URL or not VIDEO_ID:
+              print("ERROR: Missing required secrets or video ID")
+              sys.exit(1)
+
+          print(f"🎥 Posting YouTube video: {VIDEO_ID}")
+          print("=" * 60)
+
+          # Initialize YouTube API
+          youtube = build('youtube', 'v3', developerKey=YOUTUBE_API_KEY)
+
+          try:
+              # Get video details
+              video_response = youtube.videos().list(
+                  id=VIDEO_ID,
+                  part='snippet,statistics,contentDetails'
+              ).execute()
+
+              if not video_response.get('items'):
+                  print(f"❌ Video not found: {VIDEO_ID}")
+                  sys.exit(1)
+
+              video = video_response['items'][0]
+              snippet = video['snippet']
+              stats = video['statistics']
+
+              # Extract data
+              title = snippet['title']
+              channel_name = snippet['channelTitle']
+              description = snippet.get('description', '')
+              thumbnail = snippet['thumbnails']['high']['url'] if 'high' in snippet['thumbnails'] else snippet['thumbnails']['default']['url']
+              published_at = snippet['publishedAt']
+
+              views = int(stats.get('viewCount', 0))
+              likes = int(stats.get('likeCount', 0))
+              comments = int(stats.get('commentCount', 0))
+
+              # Format numbers
+              def format_number(num):
+                  if num >= 1_000_000:
+                      return f"{num/1_000_000:.1f}M"
+                  elif num >= 1_000:
+                      return f"{num/1_000:.1f}K"
+                  return str(num)
+
+              views_str = format_number(views)
+              likes_str = format_number(likes)
+              comments_str = format_number(comments)
+
+              # Calculate engagement
+              engagement = ((likes + comments) / views * 100) if views > 0 else 0
+
+              # Engagement quality
+              if engagement >= 2.0:
+                  engagement_quality = "🔥 Viral"
+              elif engagement >= 1.0:
+                  engagement_quality = "⭐ High Quality"
+              else:
+                  engagement_quality = "✓ Good"
+
+              # Parse publish date
+              try:
+                  published = datetime.strptime(published_at, '%Y-%m-%dT%H:%M:%SZ')
+                  time_ago = datetime.utcnow() - published
+
+                  if time_ago.days > 365:
+                      time_str = f"{time_ago.days // 365}y ago"
+                  elif time_ago.days > 30:
+                      time_str = f"{time_ago.days // 30}mo ago"
+                  elif time_ago.days > 0:
+                      time_str = f"{time_ago.days}d ago"
+                  elif time_ago.seconds >= 3600:
+                      time_str = f"{time_ago.seconds // 3600}h ago"
+                  else:
+                      time_str = f"{time_ago.seconds // 60}m ago"
+              except:
+                  time_str = "Recently"
+
+              # Get channel stats
+              try:
+                  channel_response = youtube.channels().list(
+                      id=snippet['channelId'],
+                      part='statistics'
+                  ).execute()
+
+                  if channel_response.get('items'):
+                      channel_stats = channel_response['items'][0]['statistics']
+                      subs = int(channel_stats.get('subscriberCount', 0))
+                      subs_str = format_number(subs)
+                  else:
+                      subs_str = "Unknown"
+              except:
+                  subs_str = "Unknown"
+
+              print(f"✅ Video found: {title[:60]}...")
+              print(f"📺 Channel: {channel_name}")
+              print(f"👁️  Views: {views_str}")
+              print(f"💬 Engagement: {engagement:.2f}%")
+
+              # Build Discord embed
+              embed = {
+                  "title": "🎥 New Quality VinFast Content",
+                  "description": f"**{title}**\n\n{description[:200]}..." if len(description) > 200 else f"**{title}**\n\n{description}",
+                  "url": f"https://youtube.com/watch?v={VIDEO_ID}",
+                  "color": 0xFF0000,  # YouTube red
+                  "thumbnail": {
+                      "url": thumbnail
+                  },
+                  "fields": [
+                      {
+                          "name": "📊 Stats",
+                          "value": f"👁️ {views_str} views\n💬 {comments_str} comments\n👍 {likes_str} likes",
+                          "inline": True
+                      },
+                      {
+                          "name": "📺 Channel",
+                          "value": f"{channel_name}\n👥 {subs_str} subscribers",
+                          "inline": True
+                      },
+                      {
+                          "name": "⏰ Published",
+                          "value": time_str,
+                          "inline": True
+                      },
+                      {
+                          "name": "🎯 Quality",
+                          "value": f"{engagement_quality}\n{engagement:.2f}% engagement",
+                          "inline": True
+                      },
+                      {
+                          "name": "💙 Support This Creator",
+                          "value": "👍 Like the video\n💬 Comment: \"Found this on VinFast Owners Discord!\"",
+                          "inline": False
+                      }
+                  ],
+                  "footer": {
+                      "text": "YouTube | Manually posted"
+                  },
+                  "timestamp": datetime.utcnow().isoformat()
+              }
+
+              payload = {
+                  "username": "VinFast YouTube Monitor",
+                  "avatar_url": "https://raw.githubusercontent.com/vinfastownersorg-cyber/avo-website/main/images/icons/avo-logo.png",
+                  "embeds": [embed]
+              }
+
+              # Post to Discord
+              response = requests.post(DISCORD_WEBHOOK_URL, json=payload)
+
+              if response.status_code == 204:
+                  print(f"\n✅ Successfully posted video to Discord!")
+                  print(f"🎯 Video: {title}")
+
+                  # Update posted videos file
+                  posted_file = 'youtube_posted.json'
+                  try:
+                      with open(posted_file, 'r') as f:
+                          data = json.load(f)
+
+                      if VIDEO_ID not in data['video_ids']:
+                          data['video_ids'].append(VIDEO_ID)
+                          data['last_updated'] = datetime.utcnow().isoformat()
+
+                          with open(posted_file, 'w') as f:
+                              json.dump(data, f, indent=2)
+
+                          print(f"💾 Added video ID to posted list")
+                  except Exception as e:
+                      print(f"⚠️  Could not update posted list: {e}")
+
+              else:
+                  print(f"❌ Failed to post to Discord: {response.status_code}")
+                  print(response.text)
+                  sys.exit(1)
+
+          except Exception as e:
+              print(f"❌ Error: {e}")
+              import traceback
+              traceback.print_exc()
+              sys.exit(1)
+
+          EOF
+
+      - name: Commit updated posted videos
+        if: always()
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add youtube_posted.json || true
+          git diff --quiet --cached || git commit -m "Update posted videos list [skip ci]"
+          git push || true
