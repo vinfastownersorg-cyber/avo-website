@@ -1,0 +1,195 @@
+name: Backfill VinFast IR Videos (One-Time)
+
+on:
+  workflow_dispatch: # Manual trigger only
+
+jobs:
+  backfill-videos:
+    name: Post All VinFast IR Videos to Discord
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install google-api-python-client requests
+
+      - name: Fetch and post VinFast IR videos
+        env:
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_STOCK_WEBHOOK_URL }}
+        run: |
+          python3 << 'EOF'
+          import requests
+          import os
+          import sys
+          import time
+          from datetime import datetime
+          from googleapiclient.discovery import build
+
+          # Configuration
+          YOUTUBE_API_KEY = os.environ.get('YOUTUBE_API_KEY')
+          DISCORD_WEBHOOK_URL = os.environ.get('DISCORD_WEBHOOK_URL')
+          VINFAST_IR_CHANNEL_ID = 'UC1eDzQrPuUFUARM3H7KEvlQ'
+
+          if not YOUTUBE_API_KEY or not DISCORD_WEBHOOK_URL:
+              print("ERROR: Missing required secrets")
+              sys.exit(1)
+
+          print("🎥 VinFast IR Video Backfill - One-Time Import")
+          print("=" * 60)
+
+          # Initialize YouTube API
+          youtube = build('youtube', 'v3', developerKey=YOUTUBE_API_KEY)
+          print("✅ YouTube API initialized")
+
+          # Fetch all videos from VinFast IR channel
+          print(f"\n📺 Fetching all videos from VinFast IR...")
+
+          all_videos = []
+          next_page_token = None
+
+          while True:
+              try:
+                  # Search for videos on the channel
+                  request = youtube.search().list(
+                      channelId=VINFAST_IR_CHANNEL_ID,
+                      type='video',
+                      part='id,snippet',
+                      order='date',
+                      maxResults=50,  # Max per page
+                      pageToken=next_page_token
+                  )
+                  response = request.execute()
+
+                  for item in response.get('items', []):
+                      video_id = item['id']['videoId']
+                      snippet = item['snippet']
+
+                      all_videos.append({
+                          'video_id': video_id,
+                          'title': snippet['title'],
+                          'description': snippet.get('description', ''),
+                          'published_at': snippet['publishedAt'],
+                          'thumbnail': snippet['thumbnails']['high']['url'] if 'high' in snippet['thumbnails'] else snippet['thumbnails']['default']['url']
+                      })
+
+                  print(f"   Found {len(response.get('items', []))} videos on this page...")
+
+                  # Check if there are more pages
+                  next_page_token = response.get('nextPageToken')
+                  if not next_page_token:
+                      break
+
+              except Exception as e:
+                  print(f"❌ Error fetching videos: {e}")
+                  break
+
+          print(f"\n✅ Total videos found: {len(all_videos)}")
+
+          if not all_videos:
+              print("ℹ️  No videos found on VinFast IR channel")
+              sys.exit(0)
+
+          # Get detailed stats for each video
+          print(f"\n📊 Fetching video statistics...")
+          video_ids = [v['video_id'] for v in all_videos]
+
+          # Fetch stats in batches of 50 (API limit)
+          video_stats = {}
+          for i in range(0, len(video_ids), 50):
+              batch = video_ids[i:i+50]
+              try:
+                  stats_response = youtube.videos().list(
+                      id=','.join(batch),
+                      part='statistics,contentDetails'
+                  ).execute()
+
+                  for item in stats_response.get('items', []):
+                      video_stats[item['id']] = {
+                          'views': int(item['statistics'].get('viewCount', 0)),
+                          'likes': int(item['statistics'].get('likeCount', 0)),
+                          'comments': int(item['statistics'].get('commentCount', 0))
+                      }
+              except Exception as e:
+                  print(f"⚠️  Error fetching stats for batch: {e}")
+
+          print(f"✅ Fetched stats for {len(video_stats)} videos")
+
+          # Post videos to Discord (oldest to newest)
+          print(f"\n📤 Posting {len(all_videos)} videos to Discord...")
+          print("⏱️  Rate limiting: 1 video every 2 seconds to avoid Discord limits")
+
+          posted_count = 0
+          for idx, video in enumerate(reversed(all_videos), 1):  # Oldest first
+              video_id = video['video_id']
+              stats = video_stats.get(video_id, {'views': 0, 'likes': 0, 'comments': 0})
+
+              # Parse publish date
+              try:
+                  published = datetime.strptime(video['published_at'], '%Y-%m-%dT%H:%M:%SZ')
+                  published_str = published.strftime('%B %d, %Y')
+              except:
+                  published_str = 'Unknown date'
+
+              # Build Discord embed
+              embed = {
+                  "title": f"🏢 {video['title']}",
+                  "description": video['description'][:200] + "..." if len(video['description']) > 200 else video['description'],
+                  "url": f"https://www.youtube.com/watch?v={video_id}",
+                  "color": 0x00539C,  # VinFast blue
+                  "thumbnail": {
+                      "url": video['thumbnail']
+                  },
+                  "fields": [
+                      {
+                          "name": "📊 Stats",
+                          "value": f"👁️ {stats['views']:,} views • 👍 {stats['likes']:,} likes • 💬 {stats['comments']:,} comments",
+                          "inline": False
+                      },
+                      {
+                          "name": "📅 Published",
+                          "value": published_str,
+                          "inline": True
+                      },
+                      {
+                          "name": "📺 Channel",
+                          "value": "VinFast IR (Investor Relations)",
+                          "inline": True
+                      }
+                  ],
+                  "footer": {
+                      "text": f"Official VinFast Channel • Video {idx} of {len(all_videos)}"
+                  }
+              }
+
+              payload = {
+                  "username": "VinFast YouTube Monitor",
+                  "avatar_url": "https://raw.githubusercontent.com/vinfastownersorg-cyber/avo-website/main/images/icons/avo-logo.png",
+                  "embeds": [embed]
+              }
+
+              try:
+                  response = requests.post(DISCORD_WEBHOOK_URL, json=payload)
+                  if response.status_code == 204:
+                      posted_count += 1
+                      print(f"   ✅ [{idx}/{len(all_videos)}] Posted: {video['title'][:50]}...")
+                  else:
+                      print(f"   ⚠️  [{idx}/{len(all_videos)}] Failed (status {response.status_code}): {video['title'][:50]}...")
+              except Exception as e:
+                  print(f"   ❌ [{idx}/{len(all_videos)}] Error posting: {e}")
+
+              # Rate limiting - wait 2 seconds between posts
+              if idx < len(all_videos):
+                  time.sleep(2)
+
+          print(f"\n{'=' * 60}")
+          print(f"✅ Backfill complete!")
+          print(f"📊 Posted {posted_count} out of {len(all_videos)} videos to Discord")
+          print(f"🎯 Check your Discord channel for all VinFast IR content!")
+
+          EOF
