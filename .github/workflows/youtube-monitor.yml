@@ -166,7 +166,11 @@ jobs:
           PRIORITY_OWNER_CHANNELS = {
               'Natalie Ly': 'UC3Iz5rmMM8m1TNTO6Epr0ZQ',  # @nataliely73
               'SuperNamn': 'UCagFWLt5ensDownQAaph2RQ',  # @SuperNamn
-              # Add more priority VinFast owners here
+              'Anh Ao Rach': 'UC1GoAAjOwFosYL76GClJ8sA',  # @AnhAoRach - First VF8 to 10k km in US
+              'Kim Java': 'UCGrP0evjGjo4HLwWeYXDL0A',  # @KimJava - Family VinFast content
+              'Roads Untraveled': 'UCvcm_wQUH4jvM33JgwVJ5Ew',  # @RoadsUntraveled - VF9 owner reviews
+              'Andres Vidoza': 'UComHLIY3Zc8_akQ8Et2YAJA',  # @AndresVidoza - Tech vlogger VF8 ownership
+              'Jana Askeland': 'UCufYC6AKV1c6gDv6DhHcKvQ',  # @JanaAskeland - A Real Mom Review VF9
           }
 
           # Official VinFast channels (from vinfastowners.org resources)
@@ -182,13 +186,37 @@ jobs:
 
           # Search queries (English and French)
           search_queries = [
-              # English queries
+              # English - Model-specific reviews
               ('VinFast VF8 review', 'en'),
               ('VinFast VF9 review', 'en'),
+              ('VinFast VF6 review', 'en'),
+              ('VinFast VF7 review', 'en'),
+              ('VinFast VF3 review', 'en'),
+
+              # English - Ownership & long-term content
+              ('VinFast ownership experience', 'en'),
+              ('VinFast 6 month review', 'en'),
+              ('VinFast one year review', 'en'),
+              ('living with VinFast', 'en'),
               ('VinFast test drive', 'en'),
+
+              # English - Technical & comparisons
+              ('VinFast vs Tesla', 'en'),
+              ('VinFast vs Ioniq', 'en'),
+              ('VinFast range test', 'en'),
+              ('VinFast charging test', 'en'),
+              ('VinFast software update', 'en'),
+
+              # English - Tips & problems
+              ('VinFast tips and tricks', 'en'),
+              ('VinFast problems fixed', 'en'),
+
+              # English - General & news
               ('VinFast 2024', 'en'),
               ('VinFast 2025', 'en'),
               ('VinFast news', 'en'),
+              ('VinFast announcement', 'en'),
+
               # French queries
               ('VinFast VF8 essai', 'fr'),
               ('VinFast VF9 essai', 'fr'),
@@ -584,6 +612,11 @@ jobs:
                               "name": "🎯 Quality",
                               "value": f"{engagement_quality}\n{engagement:.2f}% engagement",
                               "inline": True
+                          },
+                          {
+                              "name": "💙 Support This Creator",
+                              "value": "👍 Like the video\n💬 Comment: \"Found this on VinFast Owners Discord!\"",
+                              "inline": False
                           }
                       ],
                       "footer": {
