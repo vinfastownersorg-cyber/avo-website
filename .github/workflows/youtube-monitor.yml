@@ -101,7 +101,16 @@ jobs:
               'vinwiki',
               'hagerty',
               'carmudgeon show',
-              'jason cammisa'
+              'jason cammisa',
+              # Indian automotive channels
+              'autocar india',
+              'team-bhp',
+              'evo india',
+              'motoryaan',
+              'cartoq',
+              'rushlane',
+              'car blog india',
+              'gaadiwaadi'
           ]
 
           # Quality keywords (must have at least one)
@@ -225,6 +234,20 @@ jobs:
               ('VinFast VF9 essai', 'fr'),
               ('VinFast avis', 'fr'),
               ('VinFast actualités', 'fr'),
+
+              # India-specific queries (English)
+              ('VinFast India', 'en'),
+              ('VinFast VF6 India', 'en'),
+              ('VinFast VF7 India', 'en'),
+              ('VinFast Chennai', 'en'),
+              ('VinFast Tamil Nadu', 'en'),
+              ('VinFast India launch', 'en'),
+              ('VinFast India review', 'en'),
+
+              # Hindi queries (India)
+              ('VinFast India review', 'hi'),
+              ('VinFast VF6 review', 'hi'),
+              ('VinFast VF7 review', 'hi'),
           ]
 
           all_videos = []
@@ -285,7 +308,12 @@ jobs:
           # Search for videos
           for query, language in search_queries:
               try:
-                  lang_label = "🇺🇸 English" if language == 'en' else "🇫🇷 French"
+                  lang_labels = {
+                      'en': "🇺🇸 English",
+                      'fr': "🇫🇷 French",
+                      'hi': "🇮🇳 Hindi"
+                  }
+                  lang_label = lang_labels.get(language, language)
                   print(f"\n🔎 Searching ({lang_label}): '{query}'")
 
                   search_response = youtube.search().list(
@@ -493,8 +521,30 @@ jobs:
               else:
                   video['credibility_boost'] = 0
 
+              # Geographic relevance boost (North America + India priority)
+              geo_keywords = {
+                  'north_america': ['us', 'usa', 'united states', 'america', 'california', 'north carolina',
+                                   'texas', 'canada', 'dealership', 'delivery', 'recall', 'safety',
+                                   'nhtsa', 'epa', 'nasdaq', 'stock'],
+                  'india': ['india', 'indian', 'chennai', 'tamil nadu', 'delhi', 'mumbai',
+                           'bangalore', 'rupees', 'lakh', 'crore', 'tuticorin', 'bharat']
+              }
+
+              geo_boost = 0
+              for region, keywords in geo_keywords.items():
+                  for keyword in keywords:
+                      if keyword in title_lower:
+                          geo_boost += 10  # Title matches worth more
+                      if keyword in desc_lower:
+                          geo_boost += 3   # Description matches worth less
+
+              video['geo_boost'] = min(geo_boost, 50)  # Cap at 50 points
+
+              if video['geo_boost'] > 0:
+                  print(f"   🌍 Geographic relevance: +{video['geo_boost']} points")
+
               # Calculate final quality score
-              video['quality_score'] = engagement_score + video['credibility_boost']
+              video['quality_score'] = engagement_score + video['credibility_boost'] + video['geo_boost']
 
               quality_videos.append(video)
               print(f"   ✅ QUALITY: {video['title'][:50]}... (score: {video['quality_score']:.1f})")
