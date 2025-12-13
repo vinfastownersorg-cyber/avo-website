@@ -173,7 +173,8 @@ jobs:
           OFFICIAL_CHANNELS = {
               'VinFast US': 'UCzKjl-p7WlKBVMxR6eCBpMw',  # @vinfastunitedstates
               'VinFast Canada': 'UCXrH8l4q0IgK1bNvSyIFvkg',  # @vinfastcanada
-              'VinFast Official': 'UCaK5H-EjPJQJhH8bBZs8C6Q'  # @vinfastauto.official
+              'VinFast Official': 'UCaK5H-EjPJQJhH8bBZs8C6Q',  # @vinfastauto.official
+              'VinFast IR': 'UC1eDzQrPuUFUARM3H7KEvlQ'  # @VinFastIR (Investor Relations)
           }
 
           # Combine all priority channels (owners + official)
