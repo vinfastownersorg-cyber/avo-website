@@ -2,9 +2,10 @@ name: YouTube VinFast Content Monitor
 
 on:
   schedule:
-    # Runs twice daily to catch new VinFast content
-    - cron: '0 17 * * *'  # 12:00 PM EST / 9:00 AM PST
-    - cron: '0 1 * * *'   # 8:00 PM EST / 5:00 PM PST
+    # Runs three times daily during North American waking hours
+    - cron: '0 13 * * *'  # 8:00 AM EST / 5:00 AM PST (morning)
+    - cron: '0 17 * * *'  # 12:00 PM EST / 9:00 AM PST (noon)
+    - cron: '0 1 * * *'   # 8:00 PM EST / 5:00 PM PST (evening)
   workflow_dispatch: # Allows manual trigger for testing
   push:
     branches:
@@ -58,13 +59,14 @@ jobs:
               print("ERROR: DISCORD_WEBHOOK_URL secret not set")
               sys.exit(1)
 
-          # Quality thresholds
+          # Quality thresholds for general content
           THRESHOLDS = {
-              'min_views': 500,           # At least 500 views
-              'min_comments': 5,          # At least 5 comments
-              'min_engagement_score': 0.3,  # 0.3% engagement rate
-              'min_channel_subs': 500,    # Channel must have 500+ subscribers
-              'max_video_age_hours': 48   # Last 48 hours (increased to catch more videos)
+              'min_views': 200,           # At least 200 views (lowered from 500)
+              'min_comments': 3,          # At least 3 comments (lowered from 5)
+              'min_engagement_score': 0.2,  # 0.2% engagement rate (lowered from 0.3)
+              'min_channel_subs': 300,    # Channel must have 300+ subscribers (lowered from 500)
+              'max_video_age_hours': 48,  # Last 48 hours for general search
+              'priority_max_age_hours': 168  # 7 days for priority channels
           }
 
           # Credible automotive channels (case-insensitive)
@@ -158,7 +160,8 @@ jobs:
           ]
 
           print("🔍 Starting YouTube VinFast content monitor...")
-          print(f"⏰ Searching for videos from last {THRESHOLDS['max_video_age_hours']} hours")
+          print(f"⏰ Searching for videos from last {THRESHOLDS['max_video_age_hours']} hours (general)")
+          print(f"⏰ Priority channels: last {THRESHOLDS['priority_max_age_hours']} hours (7 days)")
 
           # Initialize YouTube API
           try:
@@ -168,9 +171,13 @@ jobs:
               print(f"❌ Failed to initialize YouTube API: {e}")
               sys.exit(1)
 
-          # Calculate time threshold
+          # Calculate time thresholds
           time_threshold = datetime.utcnow() - timedelta(hours=THRESHOLDS['max_video_age_hours'])
           time_threshold_rfc3339 = time_threshold.strftime('%Y-%m-%dT%H:%M:%SZ')
+
+          # Extended time threshold for priority channels (7 days)
+          priority_time_threshold = datetime.utcnow() - timedelta(hours=THRESHOLDS['priority_max_age_hours'])
+          priority_time_threshold_rfc3339 = priority_time_threshold.strftime('%Y-%m-%dT%H:%M:%SZ')
 
           # Priority VinFast Owner Channels (TOP PRIORITY - always post)
           # To find channel IDs: Go to YouTube channel -> View Page Source -> Search for "channelId"
@@ -261,22 +268,26 @@ jobs:
                   print(f"   ⚠️  Skipping {channel_name} - No channel ID configured")
                   continue
               try:
-                  print(f"\n📺 Checking: {channel_name}")
+                  print(f"\n📺 Checking: {channel_name} (ID: {channel_id[:15]}...)")
 
-                  # Search for recent videos from this specific channel
+                  # Search for recent videos from this specific channel (using extended 7-day window)
                   channel_response = youtube.search().list(
                       channelId=channel_id,
                       type='video',
                       part='id,snippet',
-                      publishedAfter=time_threshold_rfc3339,
+                      publishedAfter=priority_time_threshold_rfc3339,
                       order='date',
-                      maxResults=5
+                      maxResults=10
                   ).execute()
+
+                  items_count = len(channel_response.get('items', []))
+                  print(f"   Found {items_count} recent videos in last 7 days")
 
                   for item in channel_response.get('items', []):
                       video_id = item['id']['videoId']
 
                       if video_id in video_ids_seen:
+                          print(f"   ⏭️  Already seen: {video_id}")
                           continue
 
                       video_ids_seen.add(video_id)
@@ -290,13 +301,11 @@ jobs:
                           'description': snippet['description'],
                           'published_at': snippet['publishedAt'],
                           'thumbnail': snippet['thumbnails']['high']['url'] if 'high' in snippet['thumbnails'] else snippet['thumbnails']['default']['url'],
-                          'is_official': True  # Mark as official channel
+                          'is_official': True  # Mark as priority/official channel
                       }
 
                       all_videos.append(video_data)
-                      print(f"   ✅ Found: {video_data['title'][:60]}...")
-
-                  print(f"   Found {len(channel_response.get('items', []))} recent videos")
+                      print(f"   ✅ Found: {video_data['title'][:60]}... (published: {snippet['publishedAt']})")
 
               except HttpError as e:
                   print(f"   ⚠️  YouTube API error for {channel_name}: {e}")
