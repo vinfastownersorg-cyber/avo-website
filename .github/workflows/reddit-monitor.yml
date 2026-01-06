@@ -51,7 +51,7 @@ jobs:
 
           # Subreddits to monitor
           subreddits = [
-              'VinFastAuto',
+              'vinfastcommunity',
               'VinFast',  # Alternative spelling
               'electricvehicles',
               'EVs',  # 178k members
