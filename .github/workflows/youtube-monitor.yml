@@ -2,9 +2,9 @@ name: YouTube VinFast Content Monitor
 
 on:
   schedule:
-    # Runs three times daily during North American waking hours
-    - cron: '0 13 * * *'  # 8:00 AM EST / 5:00 AM PST (morning)
-    - cron: '0 17 * * *'  # 12:00 PM EST / 9:00 AM PST (noon)
+    # Runs three times daily during North American waking hours (both coasts)
+    - cron: '0 17 * * *'  # 12:00 PM EST / 9:00 AM PST (noon/morning)
+    - cron: '0 21 * * *'  # 4:00 PM EST / 1:00 PM PST (afternoon)
     - cron: '0 1 * * *'   # 8:00 PM EST / 5:00 PM PST (evening)
   workflow_dispatch: # Allows manual trigger for testing
   push:
