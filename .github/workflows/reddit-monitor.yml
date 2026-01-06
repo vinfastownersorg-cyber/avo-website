@@ -72,7 +72,7 @@ jobs:
           THRESHOLDS = {
               'min_upvotes': 5,        # At least 5 upvotes
               'min_comments': 2,       # At least 2 comments
-              'max_age_hours': 8       # Last 8 hours (matches 3x daily frequency)
+              'max_age_hours': 24      # Last 24 hours (deduplication via reddit_posted.json prevents re-posts)
           }
 
           all_posts = []
