@@ -206,20 +206,28 @@ jobs:
               print(f"   ⚠️  Error: {e}")
 
           # ========================================
-          # SECTION 4: Competitor News
+          # SECTION 4: VinFast Owner News (Most Important!)
           # ========================================
-          print("\n🏎️ Checking EV Competitor News...")
+          print("\n🚗 Checking VinFast Owner-Specific News...")
 
-          competitor_news = []
+          vinfast_news = []
 
           try:
-              competitors = ['Tesla', 'Rivian', 'Lucid', 'BYD']
+              # Search for VinFast owner-relevant topics
+              owner_topics = [
+                  'VinFast service center',
+                  'VinFast dealer',
+                  'VinFast delivery',
+                  'VinFast recall',
+                  'VinFast warranty',
+                  'VinFast maintenance'
+              ]
 
-              for competitor in competitors:
-                  search_url = f"https://www.bing.com/news/search?q={competitor}+electric+vehicle&format=rss"
+              for topic in owner_topics:
+                  search_url = f"https://www.bing.com/news/search?q={topic.replace(' ', '+')}&format=rss"
                   feed = feedparser.parse(search_url)
 
-                  for entry in feed.entries[:3]:  # Top 3 per competitor
+                  for entry in feed.entries[:2]:  # Top 2 per topic
                       try:
                           published = datetime(*entry.published_parsed[:6])
                           if published > cutoff_time:
@@ -227,26 +235,31 @@ jobs:
                               if ' - ' in title:
                                   title = title.rsplit(' - ', 1)[0].strip()
 
-                              # Only include major news (check for keywords)
-                              title_lower = title.lower()
-                              if any(word in title_lower for word in ['new', 'launch', 'recall', 'price', 'sales', 'delivery', 'update']):
-                                  competitor_news.append({
-                                      'title': f"{competitor}: {title}",
-                                      'link': entry.link
-                                  })
+                              vinfast_news.append({
+                                  'title': title,
+                                  'link': entry.link
+                              })
                       except:
                           continue
 
-              print(f"   Found {len(competitor_news)} competitor news items")
+              print(f"   Found {len(vinfast_news)} VinFast owner news items")
 
-              if competitor_news:
-                  competitor_text = ""
-                  for item in competitor_news[:4]:  # Top 4
-                      competitor_text += f"• [{item['title'][:100]}]({item['link']})\n"
+              if vinfast_news:
+                  vinfast_text = ""
+                  # Remove duplicates and take top 3
+                  seen_titles = set()
+                  unique_news = []
+                  for item in vinfast_news:
+                      if item['title'] not in seen_titles:
+                          seen_titles.add(item['title'])
+                          unique_news.append(item)
+
+                  for item in unique_news[:3]:  # Top 3
+                      vinfast_text += f"• [{item['title'][:100]}]({item['link']})\n"
 
                   sections.append({
-                      'name': '🏎️ EV Industry News',
-                      'value': competitor_text if competitor_text else 'No major competitor news',
+                      'name': '🚗 VinFast Owner News',
+                      'value': vinfast_text if vinfast_text else 'No major VinFast owner news this week',
                       'inline': False
                   })
 
@@ -254,19 +267,18 @@ jobs:
               print(f"   ⚠️  Error: {e}")
 
           # ========================================
-          # SECTION 5: VinFast Social Media Highlights
+          # SECTION 5: Community Highlights
           # ========================================
-          print("\n📱 Checking VinFast Social Media...")
+          print("\n👥 Community Highlights...")
 
-          # Note: This would require API keys for Twitter/Instagram
-          # For now, we'll add a placeholder
+          # Add reference to community resources
           sections.append({
-              'name': '📱 VinFast Social Media',
+              'name': '👥 VinFast Owner Community',
               'value': (
-                  "Check out VinFast's official channels for the latest:\n"
-                  "• [Instagram](https://www.instagram.com/vinfastauto.us/)\n"
-                  "• [Facebook](https://www.facebook.com/VinFastUSA)\n"
-                  "• [Twitter/X](https://twitter.com/VinFastUSA)"
+                  "🗣️ Join the conversation:\n"
+                  "• [VinFastTalk Forum](https://vinfasttalk.com)\n"
+                  "• [r/VinFastAuto](https://reddit.com/r/VinFastAuto)\n"
+                  "• VinFastOwners.org Discord (you're here!)"
               ),
               'inline': False
           })

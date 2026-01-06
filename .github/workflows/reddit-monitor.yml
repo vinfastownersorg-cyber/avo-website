@@ -52,18 +52,27 @@ jobs:
           # Subreddits to monitor
           subreddits = [
               'VinFastAuto',
+              'VinFast',  # Alternative spelling
               'electricvehicles',
+              'EVs',  # 178k members
+              'BoltEV',  # Comparable price point owners
+              'Ioniq5',  # Direct competitor cross-shopping
               'cars',
               'CarTalkUK',
               'askcarsales',
-              'whatcarshouldIbuy'
+              'whatcarshouldIbuy',
+              'VietNam',  # Vietnamese diaspora
+              'canada',  # Canadian VF owners
+              'LosAngeles',  # Major VinFast market
+              'bayarea',  # Silicon Valley market
+              'NorthCarolina',  # Manufacturing plant location
           ]
 
           # Quality thresholds
           THRESHOLDS = {
               'min_upvotes': 5,        # At least 5 upvotes
               'min_comments': 2,       # At least 2 comments
-              'max_age_hours': 24      # Last 24 hours
+              'max_age_hours': 8       # Last 8 hours (matches 3x daily frequency)
           }
 
           all_posts = []

@@ -50,12 +50,24 @@ jobs:
           print("=" * 60)
 
           # Forums to monitor (will check main page and specific forums)
+          # NOTE: Some forum IDs may need verification - check vinfasttalk.com for exact URLs
           forum_urls = [
               ('https://vinfasttalk.com/', 'Latest Activity'),
+
+              # Model-specific forums
               ('https://vinfasttalk.com/forum/vinfast-vf8.11/', 'VF8 Forum'),
               ('https://vinfasttalk.com/forum/vinfast-vf9.12/', 'VF9 Forum'),
               ('https://vinfasttalk.com/forum/vinfast-vf6.57/', 'VF6 Forum'),
               ('https://vinfasttalk.com/forum/vinfast-vf7.58/', 'VF7 Forum'),
+              ('https://vinfasttalk.com/forum/vinfast-vf3.59/', 'VF3 Forum'),  # Verify ID
+
+              # Owner-critical forums (verify forum IDs)
+              ('https://vinfasttalk.com/forum/general-discussion.2/', 'General Discussion'),
+              ('https://vinfasttalk.com/forum/service-and-maintenance.13/', 'Service & Maintenance'),
+              ('https://vinfasttalk.com/forum/charging-and-range.14/', 'Charging & Range'),
+              ('https://vinfasttalk.com/forum/software-and-updates.15/', 'Software & Updates'),
+              ('https://vinfasttalk.com/forum/problems-issues-defects.16/', 'Problems & Issues'),
+              ('https://vinfasttalk.com/forum/accessories-and-modifications.17/', 'Accessories & Mods'),
           ]
 
           all_threads = []

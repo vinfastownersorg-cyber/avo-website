@@ -50,19 +50,26 @@ jobs:
           print("=" * 60)
 
           # VinFast model years and variations to check
+          # NOTE: Transport Canada recalls for Canadian owners not yet monitored
+          # (no official API available - requires web scraping)
           vinfast_models = [
               ('VinFast', 'VF8', 2023),
               ('VinFast', 'VF8', 2024),
               ('VinFast', 'VF8', 2025),
+              ('VinFast', 'VF8', 2026),
               ('VinFast', 'VF9', 2023),
               ('VinFast', 'VF9', 2024),
               ('VinFast', 'VF9', 2025),
+              ('VinFast', 'VF9', 2026),
               ('VinFast', 'VF6', 2024),
               ('VinFast', 'VF6', 2025),
+              ('VinFast', 'VF6', 2026),
               ('VinFast', 'VF7', 2024),
               ('VinFast', 'VF7', 2025),
+              ('VinFast', 'VF7', 2026),
               ('VinFast', 'VF3', 2024),
               ('VinFast', 'VF3', 2025),
+              ('VinFast', 'VF3', 2026),
           ]
 
           all_recalls = []
@@ -156,15 +163,34 @@ jobs:
 
                   # Determine severity color
                   subject_lower = recall['subject'].lower()
-                  if any(word in subject_lower for word in ['fire', 'crash', 'injury', 'death', 'brake', 'steering']):
+                  consequence_lower = recall['consequence'].lower()
+                  combined = subject_lower + ' ' + consequence_lower
+
+                  # CRITICAL - immediate safety risk
+                  critical_keywords = [
+                      'fire', 'thermal runaway', 'battery fire', 'crash', 'injury', 'death',
+                      'brake failure', 'steering failure', 'loss of control',
+                      'unintended acceleration', 'airbag non-deployment', 'seat belt detachment'
+                  ]
+
+                  # HIGH - important safety feature
+                  high_keywords = [
+                      'airbag', 'seatbelt', 'seat belt', 'brake', 'steering',
+                      'stability control', 'traction control', 'parking brake'
+                  ]
+
+                  if any(word in combined for word in critical_keywords):
                       color = 0xFF0000  # Red - Critical
                       severity = "🔴 CRITICAL"
-                  elif any(word in subject_lower for word in ['airbag', 'seatbelt', 'safety', 'warning']):
+                      is_critical = True
+                  elif any(word in combined for word in high_keywords):
                       color = 0xFFA500  # Orange - High
                       severity = "🟠 HIGH PRIORITY"
+                      is_critical = False
                   else:
                       color = 0xFFFF00  # Yellow - Standard
                       severity = "🟡 SAFETY NOTICE"
+                      is_critical = False
 
                   # Build description
                   description = f"**{severity}**\n\n"
@@ -221,12 +247,16 @@ jobs:
                       "timestamp": datetime.utcnow().isoformat()
                   }
 
+                  # Only ping @everyone for CRITICAL recalls to avoid alert fatigue
                   payload = {
                       "username": "NHTSA Safety Monitor",
                       "avatar_url": "https://raw.githubusercontent.com/vinfastownersorg-cyber/avo-website/main/images/icons/avo-logo.png",
-                      "content": "@everyone 🚨 **NEW SAFETY RECALL ALERT**",  # Ping everyone for safety
                       "embeds": [embed]
                   }
+
+                  # Add @everyone ping only for critical safety issues
+                  if is_critical:
+                      payload["content"] = "@everyone 🚨 **CRITICAL SAFETY RECALL ALERT**"
 
                   # Post to Discord
                   response = requests.post(DISCORD_WEBHOOK_URL, json=payload)
