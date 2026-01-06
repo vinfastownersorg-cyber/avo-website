@@ -1,0 +1,276 @@
+name: NHTSA Recall & Safety Monitor
+
+on:
+  schedule:
+    # Runs three times daily during North American waking hours
+    - cron: '0 14 * * *'  # 9:00 AM EST / 6:00 AM PST (morning)
+    - cron: '0 18 * * *'  # 1:00 PM EST / 10:00 AM PST (midday)
+    - cron: '0 22 * * *'  # 5:00 PM EST / 2:00 PM PST (afternoon)
+  workflow_dispatch: # Allows manual trigger for testing
+
+jobs:
+  check-recalls:
+    name: Check NHTSA & Transport Canada for VinFast Safety Items
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install requests beautifulsoup4
+
+      - name: Check for VinFast recalls and safety campaigns
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_STOCK_WEBHOOK_URL }}
+        run: |
+          python3 << 'EOF'
+          import requests
+          import os
+          import sys
+          import json
+          from datetime import datetime
+
+          # Configuration
+          DISCORD_WEBHOOK_URL = os.environ.get('DISCORD_WEBHOOK_URL')
+
+          if not DISCORD_WEBHOOK_URL:
+              print("ERROR: DISCORD_WEBHOOK_URL secret not set")
+              sys.exit(1)
+
+          print("🚨 Starting NHTSA Recall & Safety Monitor...")
+          print("=" * 60)
+
+          # VinFast model years and variations to check
+          vinfast_models = [
+              ('VinFast', 'VF8', 2023),
+              ('VinFast', 'VF8', 2024),
+              ('VinFast', 'VF8', 2025),
+              ('VinFast', 'VF9', 2023),
+              ('VinFast', 'VF9', 2024),
+              ('VinFast', 'VF9', 2025),
+              ('VinFast', 'VF6', 2024),
+              ('VinFast', 'VF6', 2025),
+              ('VinFast', 'VF7', 2024),
+              ('VinFast', 'VF7', 2025),
+              ('VinFast', 'VF3', 2024),
+              ('VinFast', 'VF3', 2025),
+          ]
+
+          all_recalls = []
+          checked_ids = set()  # Prevent duplicates
+
+          # Check NHTSA API for each model/year combination
+          for make, model, year in vinfast_models:
+              print(f"\n🔍 Checking: {year} {make} {model}")
+
+              try:
+                  # NHTSA Recalls API
+                  url = f"https://api.nhtsa.gov/recalls/recallsByVehicle"
+                  params = {
+                      'make': make,
+                      'model': model,
+                      'modelYear': year
+                  }
+
+                  response = requests.get(url, params=params, timeout=15)
+
+                  if response.status_code == 200:
+                      data = response.json()
+                      results = data.get('results', [])
+
+                      print(f"   Found {len(results)} recall(s)")
+
+                      for recall in results:
+                          recall_id = recall.get('NHTSACampaignNumber', 'Unknown')
+
+                          # Skip duplicates
+                          if recall_id in checked_ids:
+                              print(f"   ⏭️  Already seen: {recall_id}")
+                              continue
+
+                          checked_ids.add(recall_id)
+
+                          recall_data = {
+                              'id': recall_id,
+                              'manufacturer': recall.get('Manufacturer', 'VinFast'),
+                              'subject': recall.get('Subject', 'No subject'),
+                              'summary': recall.get('Summary', 'No summary available'),
+                              'consequence': recall.get('Consequence', 'Not specified'),
+                              'remedy': recall.get('Remedy', 'Not specified'),
+                              'report_date': recall.get('ReportReceivedDate', 'Unknown'),
+                              'component': recall.get('Component', 'Not specified'),
+                              'model': f"{year} {make} {model}",
+                              'affected_units': recall.get('PotentialUnitsAffected', 'Unknown')
+                          }
+
+                          all_recalls.append(recall_data)
+                          print(f"   ✅ {recall_id}: {recall_data['subject'][:60]}...")
+                  else:
+                      print(f"   ⚠️  API returned status {response.status_code}")
+
+              except Exception as e:
+                  print(f"   ❌ Error: {e}")
+
+          print(f"\n📊 Total unique recalls found: {len(all_recalls)}")
+
+          # Load previously posted recalls
+          POSTED_FILE = 'nhtsa_posted.json'
+          posted_recalls = set()
+
+          try:
+              if os.path.exists(POSTED_FILE):
+                  with open(POSTED_FILE, 'r') as f:
+                      posted_data = json.load(f)
+                      posted_recalls = set(posted_data.get('recall_ids', []))
+                      print(f"📋 Loaded {len(posted_recalls)} previously posted recalls")
+          except Exception as e:
+              print(f"⚠️  Could not load posted recalls: {e}")
+
+          # Filter out already posted recalls
+          new_recalls = [r for r in all_recalls if r['id'] not in posted_recalls]
+
+          print(f"\n🆕 {len(new_recalls)} new recall(s) to post")
+
+          if not new_recalls:
+              print("ℹ️  All recalls have already been posted")
+              sys.exit(0)
+
+          # Post new recalls to Discord
+          for recall in new_recalls:
+              try:
+                  # Parse date
+                  try:
+                      report_date = datetime.strptime(recall['report_date'], '%Y%m%d')
+                      date_str = report_date.strftime('%B %d, %Y')
+                  except:
+                      date_str = recall['report_date']
+
+                  # Determine severity color
+                  subject_lower = recall['subject'].lower()
+                  if any(word in subject_lower for word in ['fire', 'crash', 'injury', 'death', 'brake', 'steering']):
+                      color = 0xFF0000  # Red - Critical
+                      severity = "🔴 CRITICAL"
+                  elif any(word in subject_lower for word in ['airbag', 'seatbelt', 'safety', 'warning']):
+                      color = 0xFFA500  # Orange - High
+                      severity = "🟠 HIGH PRIORITY"
+                  else:
+                      color = 0xFFFF00  # Yellow - Standard
+                      severity = "🟡 SAFETY NOTICE"
+
+                  # Build description
+                  description = f"**{severity}**\n\n"
+                  description += f"**Campaign Number:** {recall['id']}\n"
+                  description += f"**Affected Vehicle:** {recall['model']}\n"
+                  description += f"**Component:** {recall['component']}\n"
+                  description += f"**Units Affected:** {recall['affected_units']}\n\n"
+
+                  description += f"**Summary:**\n{recall['summary'][:500]}"
+                  if len(recall['summary']) > 500:
+                      description += "..."
+
+                  # Build embed
+                  embed = {
+                      "title": f"🚨 {recall['subject']}",
+                      "description": description,
+                      "url": f"https://www.nhtsa.gov/recalls?nhtsaId={recall['id']}",
+                      "color": color,
+                      "fields": [
+                          {
+                              "name": "⚠️ Consequence",
+                              "value": recall['consequence'][:1024],  # Discord limit
+                              "inline": False
+                          },
+                          {
+                              "name": "🔧 Remedy",
+                              "value": recall['remedy'][:1024],  # Discord limit
+                              "inline": False
+                          },
+                          {
+                              "name": "📅 Report Date",
+                              "value": date_str,
+                              "inline": True
+                          },
+                          {
+                              "name": "🏢 Manufacturer",
+                              "value": recall['manufacturer'],
+                              "inline": True
+                          },
+                          {
+                              "name": "📞 What to Do",
+                              "value": (
+                                  "1. Contact your VinFast dealer immediately\n"
+                                  "2. Do NOT ignore this recall\n"
+                                  "3. Repairs are FREE under federal law\n"
+                                  "4. Check [NHTSA.gov](https://www.nhtsa.gov/recalls) for details"
+                              ),
+                              "inline": False
+                          }
+                      ],
+                      "footer": {
+                          "text": "NHTSA Safety Recall | Automated by VinFastOwners.org"
+                      },
+                      "timestamp": datetime.utcnow().isoformat()
+                  }
+
+                  payload = {
+                      "username": "NHTSA Safety Monitor",
+                      "avatar_url": "https://raw.githubusercontent.com/vinfastownersorg-cyber/avo-website/main/images/icons/avo-logo.png",
+                      "content": "@everyone 🚨 **NEW SAFETY RECALL ALERT**",  # Ping everyone for safety
+                      "embeds": [embed]
+                  }
+
+                  # Post to Discord
+                  response = requests.post(DISCORD_WEBHOOK_URL, json=payload)
+
+                  if response.status_code == 204:
+                      print(f"✅ Posted: {recall['id']} - {recall['subject'][:50]}...")
+                      posted_recalls.add(recall['id'])
+                  else:
+                      print(f"❌ Failed to post {recall['id']}: {response.status_code}")
+                      print(response.text)
+
+              except Exception as e:
+                  print(f"⚠️  Error posting recall {recall.get('id', 'Unknown')}: {e}")
+
+          # Save updated posted recalls list
+          try:
+              with open(POSTED_FILE, 'w') as f:
+                  json.dump({
+                      'recall_ids': list(posted_recalls),
+                      'last_updated': datetime.utcnow().isoformat()
+                  }, f, indent=2)
+              print(f"\n💾 Saved {len(posted_recalls)} posted recall IDs")
+          except Exception as e:
+              print(f"⚠️  Could not save posted recalls: {e}")
+
+          print(f"\n✅ Successfully posted {len(new_recalls)} new recall(s) to Discord")
+
+          EOF
+
+      - name: Commit posted recalls tracker
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+
+          if [ -f "nhtsa_posted.json" ]; then
+            git add nhtsa_posted.json
+            git diff --staged --quiet || git commit -m "Update NHTSA posted recalls tracker [skip ci]"
+            git push
+            echo "✅ Updated posted recalls tracker"
+          else
+            echo "ℹ️  No tracker file to commit"
+          fi
+
+      - name: Log completion
+        if: always()
+        run: |
+          echo "NHTSA recall monitor workflow completed at $(date)"

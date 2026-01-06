@@ -1,0 +1,325 @@
+name: Weekly EV Industry Digest
+
+on:
+  schedule:
+    # Runs every Saturday at noon EST (17:00 UTC)
+    - cron: '0 17 * * 6'
+  workflow_dispatch: # Allows manual trigger for testing
+
+jobs:
+  weekly-digest:
+    name: Generate Weekly EV Industry Update
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install requests feedparser beautifulsoup4 lxml
+
+      - name: Generate weekly digest
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_STOCK_WEBHOOK_URL }}
+        run: |
+          python3 << 'EOF'
+          import requests
+          import feedparser
+          import os
+          import sys
+          from datetime import datetime, timedelta
+          from bs4 import BeautifulSoup
+
+          # Configuration
+          DISCORD_WEBHOOK_URL = os.environ.get('DISCORD_WEBHOOK_URL')
+
+          if not DISCORD_WEBHOOK_URL:
+              print("ERROR: DISCORD_WEBHOOK_URL secret not set")
+              sys.exit(1)
+
+          print("📅 Starting Weekly EV Industry Digest...")
+          print("=" * 60)
+
+          today = datetime.now().strftime("%B %d, %Y")
+          sections = []
+
+          # ========================================
+          # SECTION 1: EV Incentives & Policy Updates
+          # ========================================
+          print("\n💰 Checking EV Incentives & Policy...")
+
+          incentives = []
+
+          try:
+              # Check for federal tax credit news
+              search_url = "https://www.bing.com/news/search?q=EV+tax+credit+federal&format=rss"
+              feed = feedparser.parse(search_url)
+
+              cutoff_time = datetime.now() - timedelta(days=7)
+
+              for entry in feed.entries[:10]:
+                  try:
+                      published = datetime(*entry.published_parsed[:6])
+                      if published > cutoff_time:
+                          title = entry.title
+                          if ' - ' in title:
+                              title = title.rsplit(' - ', 1)[0].strip()
+
+                          incentives.append({
+                              'title': title,
+                              'link': entry.link,
+                              'source': entry.source.title if hasattr(entry, 'source') else 'News'
+                          })
+                  except:
+                      continue
+
+              print(f"   Found {len(incentives)} recent incentive articles")
+
+          except Exception as e:
+              print(f"   ⚠️  Error: {e}")
+
+          if incentives:
+              incentive_text = ""
+              for item in incentives[:3]:  # Top 3
+                  incentive_text += f"• [{item['title'][:100]}]({item['link']})\n"
+
+              sections.append({
+                  'name': '💰 EV Incentives & Policy',
+                  'value': incentive_text if incentive_text else 'No major updates this week',
+                  'inline': False
+              })
+
+          # ========================================
+          # SECTION 2: Software/OTA Updates
+          # ========================================
+          print("\n📱 Checking for OTA/Software Updates...")
+
+          ota_updates = []
+
+          try:
+              # Check VinFast newsroom for software updates
+              search_queries = [
+                  'VinFast software update',
+                  'VinFast OTA update',
+                  'VinFast firmware'
+              ]
+
+              for query in search_queries:
+                  search_url = f"https://www.bing.com/news/search?q={query.replace(' ', '+')}&format=rss"
+                  feed = feedparser.parse(search_url)
+
+                  for entry in feed.entries[:5]:
+                      try:
+                          published = datetime(*entry.published_parsed[:6])
+                          if published > cutoff_time:
+                              title = entry.title
+                              if ' - ' in title:
+                                  title = title.rsplit(' - ', 1)[0].strip()
+
+                              # Check if actually about updates
+                              title_lower = title.lower()
+                              if 'update' in title_lower or 'software' in title_lower or 'ota' in title_lower:
+                                  ota_updates.append({
+                                      'title': title,
+                                      'link': entry.link
+                                  })
+                      except:
+                          continue
+
+              # Remove duplicates
+              seen = set()
+              unique_ota = []
+              for update in ota_updates:
+                  if update['title'] not in seen:
+                      seen.add(update['title'])
+                      unique_ota.append(update)
+
+              print(f"   Found {len(unique_ota)} OTA update articles")
+
+              if unique_ota:
+                  ota_text = ""
+                  for item in unique_ota[:3]:
+                      ota_text += f"• [{item['title'][:100]}]({item['link']})\n"
+
+                  sections.append({
+                      'name': '📱 Software & OTA Updates',
+                      'value': ota_text if ota_text else 'No updates this week',
+                      'inline': False
+                  })
+
+          except Exception as e:
+              print(f"   ⚠️  Error: {e}")
+
+          # ========================================
+          # SECTION 3: Charging Network Expansion
+          # ========================================
+          print("\n⚡ Checking Charging Network News...")
+
+          charging_news = []
+
+          try:
+              search_queries = [
+                  'Electrify America new stations',
+                  'EVgo expansion',
+                  'ChargePoint new locations'
+              ]
+
+              for query in search_queries:
+                  search_url = f"https://www.bing.com/news/search?q={query.replace(' ', '+')}&format=rss"
+                  feed = feedparser.parse(search_url)
+
+                  for entry in feed.entries[:5]:
+                      try:
+                          published = datetime(*entry.published_parsed[:6])
+                          if published > cutoff_time:
+                              title = entry.title
+                              if ' - ' in title:
+                                  title = title.rsplit(' - ', 1)[0].strip()
+
+                              charging_news.append({
+                                  'title': title,
+                                  'link': entry.link
+                              })
+                      except:
+                          continue
+
+              print(f"   Found {len(charging_news)} charging network articles")
+
+              if charging_news:
+                  charging_text = ""
+                  for item in charging_news[:3]:
+                      charging_text += f"• [{item['title'][:100]}]({item['link']})\n"
+
+                  sections.append({
+                      'name': '⚡ Charging Network Expansion',
+                      'value': charging_text if charging_text else 'No major expansions this week',
+                      'inline': False
+                  })
+
+          except Exception as e:
+              print(f"   ⚠️  Error: {e}")
+
+          # ========================================
+          # SECTION 4: Competitor News
+          # ========================================
+          print("\n🏎️ Checking EV Competitor News...")
+
+          competitor_news = []
+
+          try:
+              competitors = ['Tesla', 'Rivian', 'Lucid', 'BYD']
+
+              for competitor in competitors:
+                  search_url = f"https://www.bing.com/news/search?q={competitor}+electric+vehicle&format=rss"
+                  feed = feedparser.parse(search_url)
+
+                  for entry in feed.entries[:3]:  # Top 3 per competitor
+                      try:
+                          published = datetime(*entry.published_parsed[:6])
+                          if published > cutoff_time:
+                              title = entry.title
+                              if ' - ' in title:
+                                  title = title.rsplit(' - ', 1)[0].strip()
+
+                              # Only include major news (check for keywords)
+                              title_lower = title.lower()
+                              if any(word in title_lower for word in ['new', 'launch', 'recall', 'price', 'sales', 'delivery', 'update']):
+                                  competitor_news.append({
+                                      'title': f"{competitor}: {title}",
+                                      'link': entry.link
+                                  })
+                      except:
+                          continue
+
+              print(f"   Found {len(competitor_news)} competitor news items")
+
+              if competitor_news:
+                  competitor_text = ""
+                  for item in competitor_news[:4]:  # Top 4
+                      competitor_text += f"• [{item['title'][:100]}]({item['link']})\n"
+
+                  sections.append({
+                      'name': '🏎️ EV Industry News',
+                      'value': competitor_text if competitor_text else 'No major competitor news',
+                      'inline': False
+                  })
+
+          except Exception as e:
+              print(f"   ⚠️  Error: {e}")
+
+          # ========================================
+          # SECTION 5: VinFast Social Media Highlights
+          # ========================================
+          print("\n📱 Checking VinFast Social Media...")
+
+          # Note: This would require API keys for Twitter/Instagram
+          # For now, we'll add a placeholder
+          sections.append({
+              'name': '📱 VinFast Social Media',
+              'value': (
+                  "Check out VinFast's official channels for the latest:\n"
+                  "• [Instagram](https://www.instagram.com/vinfastauto.us/)\n"
+                  "• [Facebook](https://www.facebook.com/VinFastUSA)\n"
+                  "• [Twitter/X](https://twitter.com/VinFastUSA)"
+              ),
+              'inline': False
+          })
+
+          # ========================================
+          # Build and Send Discord Embed
+          # ========================================
+          print("\n📤 Building weekly digest...")
+
+          if len(sections) < 2:
+              print("ℹ️  Not enough content for weekly digest")
+              sections.append({
+                  'name': '📰 This Week',
+                  'value': 'Quiet week in the EV industry. Check back next Saturday!',
+                  'inline': False
+              })
+
+          description = (
+              f"📅 **Your Weekly EV Industry Update - {today}**\n\n"
+              "Curated news on incentives, charging, software updates, and the EV market."
+          )
+
+          embed = {
+              "title": "📰 Weekly EV Industry Digest",
+              "description": description,
+              "color": 0x00539C,  # VinFast blue
+              "fields": sections,
+              "footer": {
+                  "text": "Weekly Digest | Every Saturday Noon EST | Automated by VinFastOwners.org"
+              },
+              "timestamp": datetime.utcnow().isoformat()
+          }
+
+          payload = {
+              "username": "Weekly Digest Bot",
+              "avatar_url": "https://raw.githubusercontent.com/vinfastownersorg-cyber/avo-website/main/images/icons/avo-logo.png",
+              "embeds": [embed]
+          }
+
+          # Post to Discord
+          response = requests.post(DISCORD_WEBHOOK_URL, json=payload)
+
+          if response.status_code == 204:
+              print("✅ Successfully posted weekly digest to Discord")
+              print(f"📊 Included {len(sections)} sections")
+          else:
+              print(f"❌ Failed to post to Discord: {response.status_code}")
+              print(response.text)
+              sys.exit(1)
+
+          EOF
+
+      - name: Log completion
+        if: always()
+        run: |
+          echo "Weekly EV digest workflow completed at $(date)"

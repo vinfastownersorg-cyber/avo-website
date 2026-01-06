@@ -1,0 +1,324 @@
+name: Reddit Community Monitor
+
+on:
+  schedule:
+    # Runs three times daily during North American waking hours
+    - cron: '0 15 * * *'  # 10:00 AM EST / 7:00 AM PST (morning)
+    - cron: '0 19 * * *'  # 2:00 PM EST / 11:00 AM PST (midday)
+    - cron: '0 23 * * *'  # 6:00 PM EST / 3:00 PM PST (afternoon)
+  workflow_dispatch: # Allows manual trigger for testing
+
+jobs:
+  monitor-reddit:
+    name: Find and Post Quality VinFast Reddit Discussions
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install requests
+
+      - name: Monitor Reddit for VinFast discussions
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_STOCK_WEBHOOK_URL }}
+        run: |
+          python3 << 'EOF'
+          import requests
+          import os
+          import sys
+          import json
+          from datetime import datetime, timedelta
+
+          # Configuration
+          DISCORD_WEBHOOK_URL = os.environ.get('DISCORD_WEBHOOK_URL')
+
+          if not DISCORD_WEBHOOK_URL:
+              print("ERROR: DISCORD_WEBHOOK_URL secret not set")
+              sys.exit(1)
+
+          print("🔍 Starting Reddit VinFast Monitor...")
+          print("=" * 60)
+
+          # Subreddits to monitor
+          subreddits = [
+              'VinFastAuto',
+              'electricvehicles',
+              'cars',
+              'CarTalkUK',
+              'askcarsales',
+              'whatcarshouldIbuy'
+          ]
+
+          # Quality thresholds
+          THRESHOLDS = {
+              'min_upvotes': 5,        # At least 5 upvotes
+              'min_comments': 2,       # At least 2 comments
+              'max_age_hours': 24      # Last 24 hours
+          }
+
+          all_posts = []
+          seen_ids = set()
+
+          # Calculate time threshold
+          time_threshold = datetime.utcnow() - timedelta(hours=THRESHOLDS['max_age_hours'])
+
+          # Search each subreddit
+          for subreddit in subreddits:
+              print(f"\n📱 Checking r/{subreddit}...")
+
+              try:
+                  # Reddit JSON API (no auth required)
+                  # Search for "VinFast" posts
+                  search_url = f"https://www.reddit.com/r/{subreddit}/search.json"
+                  params = {
+                      'q': 'VinFast',
+                      'restrict_sr': 'true',
+                      'sort': 'new',
+                      'limit': 25,
+                      't': 'day'  # Last 24 hours
+                  }
+
+                  headers = {
+                      'User-Agent': 'VinFastOwners.org Monitor Bot 1.0'
+                  }
+
+                  response = requests.get(search_url, params=params, headers=headers, timeout=15)
+
+                  if response.status_code == 200:
+                      data = response.json()
+                      posts = data.get('data', {}).get('children', [])
+
+                      print(f"   Found {len(posts)} search results")
+
+                      for post in posts:
+                          post_data = post.get('data', {})
+
+                          # Extract post details
+                          post_id = post_data.get('id')
+                          title = post_data.get('title', '')
+                          author = post_data.get('author', '[deleted]')
+                          upvotes = post_data.get('ups', 0)
+                          comments = post_data.get('num_comments', 0)
+                          permalink = f"https://www.reddit.com{post_data.get('permalink', '')}"
+                          created_utc = post_data.get('created_utc', 0)
+                          selftext = post_data.get('selftext', '')
+                          subreddit_name = post_data.get('subreddit', subreddit)
+
+                          # Skip if already seen
+                          if post_id in seen_ids:
+                              continue
+
+                          seen_ids.add(post_id)
+
+                          # Check age
+                          post_time = datetime.utcfromtimestamp(created_utc)
+                          if post_time < time_threshold:
+                              print(f"   ⏭️  Too old: {title[:50]}...")
+                              continue
+
+                          # Check quality thresholds
+                          if upvotes < THRESHOLDS['min_upvotes']:
+                              print(f"   ⏭️  Low upvotes ({upvotes}): {title[:50]}...")
+                              continue
+
+                          if comments < THRESHOLDS['min_comments']:
+                              print(f"   ⏭️  Low comments ({comments}): {title[:50]}...")
+                              continue
+
+                          # Check if VinFast is prominently featured
+                          title_lower = title.lower()
+                          text_lower = selftext.lower()
+
+                          if 'vinfast' not in title_lower and 'vinfast' not in text_lower[:200]:
+                              print(f"   ⏭️  VinFast not prominent: {title[:50]}...")
+                              continue
+
+                          # Calculate engagement score
+                          engagement_score = upvotes + (comments * 2)  # Comments worth more
+
+                          all_posts.append({
+                              'id': post_id,
+                              'title': title,
+                              'author': author,
+                              'upvotes': upvotes,
+                              'comments': comments,
+                              'permalink': permalink,
+                              'subreddit': subreddit_name,
+                              'created_utc': created_utc,
+                              'selftext': selftext[:500],  # First 500 chars
+                              'engagement_score': engagement_score
+                          })
+
+                          print(f"   ✅ {title[:60]}... (↑{upvotes} 💬{comments})")
+
+                  elif response.status_code == 429:
+                      print(f"   ⚠️  Rate limited, waiting...")
+                      import time
+                      time.sleep(2)
+                  else:
+                      print(f"   ⚠️  Status {response.status_code}")
+
+              except Exception as e:
+                  print(f"   ❌ Error: {e}")
+
+          print(f"\n📊 Total posts found: {len(all_posts)}")
+
+          if not all_posts:
+              print("ℹ️  No quality VinFast discussions found in last 24 hours")
+              sys.exit(0)
+
+          # Load previously posted discussions
+          POSTED_FILE = 'reddit_posted.json'
+          posted_ids = set()
+
+          try:
+              if os.path.exists(POSTED_FILE):
+                  with open(POSTED_FILE, 'r') as f:
+                      posted_data = json.load(f)
+                      posted_ids = set(posted_data.get('post_ids', []))
+                      print(f"📋 Loaded {len(posted_ids)} previously posted discussions")
+          except Exception as e:
+              print(f"⚠️  Could not load posted discussions: {e}")
+
+          # Filter out already posted
+          new_posts = [p for p in all_posts if p['id'] not in posted_ids]
+
+          print(f"\n🆕 {len(new_posts)} new discussion(s) to post")
+
+          if not new_posts:
+              print("ℹ️  All discussions have already been posted")
+              sys.exit(0)
+
+          # Sort by engagement score
+          new_posts.sort(key=lambda x: x['engagement_score'], reverse=True)
+
+          # Post top 5 to Discord
+          posts_to_post = new_posts[:5]
+
+          for post in posts_to_post:
+              try:
+                  # Calculate time ago
+                  post_time = datetime.utcfromtimestamp(post['created_utc'])
+                  time_diff = datetime.utcnow() - post_time
+
+                  if time_diff.seconds < 3600:
+                      time_str = f"{time_diff.seconds // 60}m ago"
+                  else:
+                      hours = time_diff.seconds // 3600
+                      time_str = f"{hours}h ago"
+
+                  # Determine post type and color
+                  title_lower = post['title'].lower()
+                  if any(word in title_lower for word in ['question', '?', 'help', 'advice', 'should i']):
+                      post_type = "❓ Question"
+                      color = 0x5865F2  # Discord blue
+                  elif any(word in title_lower for word in ['review', 'experience', 'ownership', 'owned']):
+                      post_type = "⭐ Owner Experience"
+                      color = 0x57F287  # Green
+                  elif any(word in title_lower for word in ['issue', 'problem', 'concern', 'defect', 'recall']):
+                      post_type = "⚠️ Issue Discussion"
+                      color = 0xFEE75C  # Yellow
+                  else:
+                      post_type = "💬 Discussion"
+                      color = 0x00539C  # VinFast blue
+
+                  # Build description
+                  description = f"**r/{post['subreddit']}** • {post_type}\n\n"
+
+                  if post['selftext']:
+                      description += f"{post['selftext'][:400]}"
+                      if len(post['selftext']) > 400:
+                          description += "..."
+                  else:
+                      description += "*Link post - click title to view*"
+
+                  # Build embed
+                  embed = {
+                      "title": post['title'][:256],  # Discord title limit
+                      "url": post['permalink'],
+                      "description": description,
+                      "color": color,
+                      "fields": [
+                          {
+                              "name": "👤 Author",
+                              "value": f"u/{post['author']}",
+                              "inline": True
+                          },
+                          {
+                              "name": "⏰ Posted",
+                              "value": time_str,
+                              "inline": True
+                          },
+                          {
+                              "name": "📊 Engagement",
+                              "value": f"↑ {post['upvotes']} upvotes • 💬 {post['comments']} comments",
+                              "inline": False
+                          }
+                      ],
+                      "footer": {
+                          "text": "Reddit | Automated by VinFastOwners.org"
+                      },
+                      "timestamp": datetime.utcnow().isoformat()
+                  }
+
+                  payload = {
+                      "username": "Reddit Monitor",
+                      "avatar_url": "https://raw.githubusercontent.com/vinfastownersorg-cyber/avo-website/main/images/icons/avo-logo.png",
+                      "embeds": [embed]
+                  }
+
+                  # Post to Discord
+                  response = requests.post(DISCORD_WEBHOOK_URL, json=payload)
+
+                  if response.status_code == 204:
+                      print(f"✅ Posted: r/{post['subreddit']} - {post['title'][:50]}...")
+                      posted_ids.add(post['id'])
+                  else:
+                      print(f"❌ Failed to post {post['id']}: {response.status_code}")
+
+              except Exception as e:
+                  print(f"⚠️  Error posting {post.get('id', 'Unknown')}: {e}")
+
+          # Save updated posted list
+          try:
+              with open(POSTED_FILE, 'w') as f:
+                  json.dump({
+                      'post_ids': list(posted_ids),
+                      'last_updated': datetime.utcnow().isoformat()
+                  }, f, indent=2)
+              print(f"\n💾 Saved {len(posted_ids)} posted discussion IDs")
+          except Exception as e:
+              print(f"⚠️  Could not save posted discussions: {e}")
+
+          print(f"\n✅ Successfully posted {len(posts_to_post)} new discussions to Discord")
+
+          EOF
+
+      - name: Commit posted discussions tracker
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+
+          if [ -f "reddit_posted.json" ]; then
+            git add reddit_posted.json
+            git diff --staged --quiet || git commit -m "Update Reddit posted discussions tracker [skip ci]"
+            git push
+            echo "✅ Updated posted discussions tracker"
+          else
+            echo "ℹ️  No tracker file to commit"
+          fi
+
+      - name: Log completion
+        if: always()
+        run: |
+          echo "Reddit monitor workflow completed at $(date)"

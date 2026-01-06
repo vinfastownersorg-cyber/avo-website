@@ -1,0 +1,347 @@
+name: VinFastTalk.com Forum Monitor
+
+on:
+  schedule:
+    # Runs twice daily
+    - cron: '0 16 * * *'  # 11:00 AM EST / 8:00 AM PST (morning)
+    - cron: '0 2 * * *'   # 9:00 PM EST / 6:00 PM PST (evening)
+  workflow_dispatch: # Allows manual trigger for testing
+
+jobs:
+  monitor-forum:
+    name: Check VinFastTalk.com for New Discussions
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install requests beautifulsoup4 lxml
+
+      - name: Monitor VinFastTalk.com forum
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_STOCK_WEBHOOK_URL }}
+        run: |
+          python3 << 'EOF'
+          import requests
+          import os
+          import sys
+          import json
+          from datetime import datetime, timedelta
+          from bs4 import BeautifulSoup
+
+          # Configuration
+          DISCORD_WEBHOOK_URL = os.environ.get('DISCORD_WEBHOOK_URL')
+
+          if not DISCORD_WEBHOOK_URL:
+              print("ERROR: DISCORD_WEBHOOK_URL secret not set")
+              sys.exit(1)
+
+          print("🔍 Starting VinFastTalk.com Forum Monitor...")
+          print("=" * 60)
+
+          # Forums to monitor (will check main page and specific forums)
+          forum_urls = [
+              ('https://vinfasttalk.com/', 'Latest Activity'),
+              ('https://vinfasttalk.com/forum/vinfast-vf8.11/', 'VF8 Forum'),
+              ('https://vinfasttalk.com/forum/vinfast-vf9.12/', 'VF9 Forum'),
+              ('https://vinfasttalk.com/forum/vinfast-vf6.57/', 'VF6 Forum'),
+              ('https://vinfasttalk.com/forum/vinfast-vf7.58/', 'VF7 Forum'),
+          ]
+
+          all_threads = []
+          seen_ids = set()
+
+          # Headers to mimic browser
+          headers = {
+              'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+          }
+
+          for url, forum_name in forum_urls:
+              print(f"\n📋 Checking: {forum_name}")
+
+              try:
+                  response = requests.get(url, headers=headers, timeout=20)
+
+                  if response.status_code == 200:
+                      soup = BeautifulSoup(response.content, 'lxml')
+
+                      # XenForo forum structure - find discussion threads
+                      # Look for structItem elements (XenForo thread listing)
+                      threads = soup.find_all('div', class_='structItem--thread')
+
+                      if not threads:
+                          # Alternative: look for thread links
+                          threads = soup.find_all('a', href=lambda x: x and '/threads/' in x if x else False)
+
+                      print(f"   Found {len(threads)} thread elements")
+
+                      for thread in threads[:15]:  # Check top 15
+                          try:
+                              # Extract thread info
+                              if thread.name == 'div':
+                                  # structItem div
+                                  title_elem = thread.find('a', {'data-tp-primary': 'on'})
+                                  if not title_elem:
+                                      title_elem = thread.find('a', class_='structItem-title')
+
+                                  if not title_elem:
+                                      continue
+
+                                  title = title_elem.get_text(strip=True)
+                                  link = title_elem.get('href', '')
+
+                                  # Get reply count
+                                  reply_elem = thread.find('dd', class_='structItem-cell--meta')
+                                  replies = 0
+                                  if reply_elem:
+                                      reply_text = reply_elem.get_text(strip=True)
+                                      try:
+                                          replies = int(''.join(filter(str.isdigit, reply_text.split()[0])))
+                                      except:
+                                          pass
+
+                                  # Get author
+                                  author_elem = thread.find('a', class_='username')
+                                  author = author_elem.get_text(strip=True) if author_elem else 'Unknown'
+
+                                  # Get timestamp
+                                  time_elem = thread.find('time')
+                                  timestamp = None
+                                  if time_elem and time_elem.get('datetime'):
+                                      try:
+                                          timestamp = datetime.fromisoformat(time_elem.get('datetime').replace('Z', '+00:00'))
+                                      except:
+                                          pass
+
+                              else:
+                                  # Direct link element
+                                  title = thread.get_text(strip=True)
+                                  link = thread.get('href', '')
+                                  replies = 0
+                                  author = 'Unknown'
+                                  timestamp = None
+
+                              # Clean up link
+                              if link and not link.startswith('http'):
+                                  link = f"https://vinfasttalk.com{link}"
+
+                              # Extract thread ID from URL
+                              thread_id = None
+                              if '/threads/' in link:
+                                  try:
+                                      thread_id = link.split('/threads/')[1].split('/')[0].split('.')[0]
+                                  except:
+                                      pass
+
+                              if not thread_id or thread_id in seen_ids:
+                                  continue
+
+                              seen_ids.add(thread_id)
+
+                              # Check if recent (if we have timestamp)
+                              if timestamp:
+                                  time_diff = datetime.now(timestamp.tzinfo) - timestamp
+                                  if time_diff.days > 1:  # Only last 24 hours
+                                      continue
+                              else:
+                                  # If no timestamp, assume it might be recent since it's on the page
+                                  pass
+
+                              all_threads.append({
+                                  'id': thread_id,
+                                  'title': title,
+                                  'link': link,
+                                  'forum': forum_name,
+                                  'author': author,
+                                  'replies': replies,
+                                  'timestamp': timestamp.isoformat() if timestamp else None
+                              })
+
+                              print(f"   ✅ {title[:60]}... ({replies} replies)")
+
+                          except Exception as e:
+                              print(f"   ⚠️  Error parsing thread: {e}")
+                              continue
+
+                      print(f"   Collected {len([t for t in all_threads if t['forum'] == forum_name])} threads")
+
+                  else:
+                      print(f"   ⚠️  Status {response.status_code}")
+
+              except Exception as e:
+                  print(f"   ❌ Error: {e}")
+
+          print(f"\n📊 Total threads found: {len(all_threads)}")
+
+          if not all_threads:
+              print("ℹ️  No threads found")
+              sys.exit(0)
+
+          # Load previously posted threads
+          POSTED_FILE = 'vinfasttalk_posted.json'
+          posted_ids = set()
+
+          try:
+              if os.path.exists(POSTED_FILE):
+                  with open(POSTED_FILE, 'r') as f:
+                      posted_data = json.load(f)
+                      posted_ids = set(posted_data.get('thread_ids', []))
+                      print(f"📋 Loaded {len(posted_ids)} previously posted threads")
+          except Exception as e:
+              print(f"⚠️  Could not load posted threads: {e}")
+
+          # Filter out already posted
+          new_threads = [t for t in all_threads if t['id'] not in posted_ids]
+
+          print(f"\n🆕 {len(new_threads)} new thread(s) to post")
+
+          if not new_threads:
+              print("ℹ️  All threads have already been posted")
+              sys.exit(0)
+
+          # Sort by replies (most engaging first)
+          new_threads.sort(key=lambda x: x['replies'], reverse=True)
+
+          # Post top 5 to Discord
+          threads_to_post = new_threads[:5]
+
+          for thread in threads_to_post:
+              try:
+                  # Determine thread category and color
+                  title_lower = thread['title'].lower()
+
+                  if any(word in title_lower for word in ['vf8', 'vf 8']):
+                      category = "🚗 VF8"
+                      color = 0x00539C  # VinFast blue
+                  elif any(word in title_lower for word in ['vf9', 'vf 9']):
+                      category = "🚙 VF9"
+                      color = 0x00A3FF  # Electric blue
+                  elif any(word in title_lower for word in ['vf6', 'vf 6']):
+                      category = "🚘 VF6"
+                      color = 0xFF6B35  # Adventure red
+                  elif any(word in title_lower for word in ['vf7', 'vf 7']):
+                      category = "🚕 VF7"
+                      color = 0x059669  # Emerald
+                  elif any(word in title_lower for word in ['question', '?', 'help', 'how']):
+                      category = "❓ Question"
+                      color = 0x5865F2  # Discord blue
+                  elif any(word in title_lower for word in ['issue', 'problem', 'defect', 'concern']):
+                      category = "⚠️ Issue"
+                      color = 0xFEE75C  # Yellow
+                  elif any(word in title_lower for word in ['review', 'experience', 'ownership']):
+                      category = "⭐ Review"
+                      color = 0x57F287  # Green
+                  else:
+                      category = "💬 Discussion"
+                      color = 0x00539C  # VinFast blue
+
+                  # Time ago
+                  time_str = "Recently"
+                  if thread['timestamp']:
+                      try:
+                          thread_time = datetime.fromisoformat(thread['timestamp'])
+                          time_diff = datetime.now(thread_time.tzinfo) - thread_time
+
+                          if time_diff.seconds < 3600:
+                              time_str = f"{time_diff.seconds // 60}m ago"
+                          elif time_diff.days == 0:
+                              time_str = f"{time_diff.seconds // 3600}h ago"
+                          else:
+                              time_str = f"{time_diff.days}d ago"
+                      except:
+                          pass
+
+                  # Build description
+                  description = f"**{thread['forum']}** • {category}\n\n"
+                  description += f"💬 **{thread['replies']} replies**"
+
+                  # Build embed
+                  embed = {
+                      "title": thread['title'][:256],  # Discord title limit
+                      "url": thread['link'],
+                      "description": description,
+                      "color": color,
+                      "fields": [
+                          {
+                              "name": "👤 Started by",
+                              "value": thread['author'],
+                              "inline": True
+                          },
+                          {
+                              "name": "⏰ Posted",
+                              "value": time_str,
+                              "inline": True
+                          },
+                          {
+                              "name": "📊 Activity",
+                              "value": f"{thread['replies']} replies",
+                              "inline": True
+                          }
+                      ],
+                      "footer": {
+                          "text": "VinFastTalk.com | Automated by VinFastOwners.org"
+                      },
+                      "timestamp": datetime.utcnow().isoformat()
+                  }
+
+                  payload = {
+                      "username": "VinFastTalk Monitor",
+                      "avatar_url": "https://raw.githubusercontent.com/vinfastownersorg-cyber/avo-website/main/images/icons/avo-logo.png",
+                      "embeds": [embed]
+                  }
+
+                  # Post to Discord
+                  response = requests.post(DISCORD_WEBHOOK_URL, json=payload)
+
+                  if response.status_code == 204:
+                      print(f"✅ Posted: {thread['title'][:50]}...")
+                      posted_ids.add(thread['id'])
+                  else:
+                      print(f"❌ Failed to post {thread['id']}: {response.status_code}")
+
+              except Exception as e:
+                  print(f"⚠️  Error posting {thread.get('id', 'Unknown')}: {e}")
+
+          # Save updated posted list
+          try:
+              with open(POSTED_FILE, 'w') as f:
+                  json.dump({
+                      'thread_ids': list(posted_ids),
+                      'last_updated': datetime.utcnow().isoformat()
+                  }, f, indent=2)
+              print(f"\n💾 Saved {len(posted_ids)} posted thread IDs")
+          except Exception as e:
+              print(f"⚠️  Could not save posted threads: {e}")
+
+          print(f"\n✅ Successfully posted {len(threads_to_post)} new threads to Discord")
+
+          EOF
+
+      - name: Commit posted threads tracker
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+
+          if [ -f "vinfasttalk_posted.json" ]; then
+            git add vinfasttalk_posted.json
+            git diff --staged --quiet || git commit -m "Update VinFastTalk posted threads tracker [skip ci]"
+            git push
+            echo "✅ Updated posted threads tracker"
+          else
+            echo "ℹ️  No tracker file to commit"
+          fi
+
+      - name: Log completion
+        if: always()
+        run: |
+          echo "VinFastTalk monitor workflow completed at $(date)"
