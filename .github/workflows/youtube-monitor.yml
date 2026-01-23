@@ -268,8 +268,14 @@ jobs:
               if channel_id == 'CHANNEL_ID_HERE':
                   print(f"   ⚠️  Skipping {channel_name} - No channel ID configured")
                   continue
+
+              # Determine if this is an official channel or owner channel
+              is_official_channel = channel_id in OFFICIAL_CHANNELS.values()
+              is_owner_channel = channel_id in PRIORITY_OWNER_CHANNELS.values()
+
               try:
-                  print(f"\n📺 Checking: {channel_name} (ID: {channel_id[:15]}...)")
+                  channel_type = "🏢 OFFICIAL" if is_official_channel else "⭐ OWNER"
+                  print(f"\n📺 Checking: {channel_name} ({channel_type}) (ID: {channel_id[:15]}...)")
 
                   # Search for recent videos from this specific channel (using extended 7-day window)
                   channel_response = youtube.search().list(
@@ -294,6 +300,15 @@ jobs:
                       video_ids_seen.add(video_id)
 
                       snippet = item['snippet']
+
+                      # For Simply Gregster, check if video mentions VinFast
+                      if channel_name == 'SimplyGregster':
+                          title_lower = snippet['title'].lower()
+                          desc_lower = snippet['description'].lower()
+                          if 'vinfast' not in title_lower and 'vinfast' not in desc_lower:
+                              print(f"   ⏭️  SKIP (no VinFast mention): {snippet['title'][:60]}...")
+                              continue
+
                       video_data = {
                           'video_id': video_id,
                           'title': snippet['title'],
@@ -302,7 +317,8 @@ jobs:
                           'description': snippet['description'],
                           'published_at': snippet['publishedAt'],
                           'thumbnail': snippet['thumbnails']['high']['url'] if 'high' in snippet['thumbnails'] else snippet['thumbnails']['default']['url'],
-                          'is_official': True  # Mark as priority/official channel
+                          'is_official': is_official_channel,  # Only mark OFFICIAL channels as official
+                          'is_priority_owner': is_owner_channel  # Mark owner channels separately
                       }
 
                       all_videos.append(video_data)
@@ -624,14 +640,15 @@ jobs:
                   description = f"**{video['title']}**\n\n"
                   description += f"by **{video['channel_title']}**"
 
-                  # Show badge based on channel type
-                  is_priority_owner = video['channel_title'] in PRIORITY_OWNER_CHANNELS.keys()
+                  # Show badge based on channel type - use the flags we set earlier
+                  is_priority_owner = video.get('is_priority_owner', False)
+                  is_official = video.get('is_official', False)
 
                   if is_priority_owner:
                       description += " ⭐ *Priority VinFast Owner*"
-                  elif video.get('is_official', False):
+                  elif is_official:
                       description += " 🏢 *Official VinFast Channel*"
-                  elif video['is_credible']:
+                  elif video.get('is_credible', False):
                       description += " ✅ *Verified Channel*"
 
                   description += f"\n\n{video['description'][:200]}..."
@@ -640,7 +657,7 @@ jobs:
                   if is_priority_owner:
                       embed_color = 0xFFD700  # Gold for priority owners
                       embed_title = "⭐ VinFast Owner Content"
-                  elif video.get('is_official', False):
+                  elif is_official:
                       embed_color = 0x00539C  # VinFast blue for official content
                       embed_title = "🏢 Official VinFast Content"
                   else:
