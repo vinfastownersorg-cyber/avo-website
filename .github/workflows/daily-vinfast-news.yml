@@ -634,25 +634,40 @@ jobs:
 
                   if new_count > 0:
                       description += f"🆕 **{new_count} new page(s)**\n"
-                      for url in change['new'][:3]:  # Show up to 3
+                      for url in change['new']:  # Show ALL new pages
                           # Extract page path
                           path = url.replace(f'https://{site}', '').replace('http://', '')
+                          # Truncate long paths to keep embed readable
+                          if len(path) > 80:
+                              path = path[:77] + '...'
                           description += f"  • [{path}]({url})\n"
-                      if new_count > 3:
-                          description += f"  • ...and {new_count - 3} more\n"
                       description += "\n"
 
                   if modified_count > 0:
                       description += f"📝 **{modified_count} updated page(s)**\n"
-                      for url in change['modified'][:3]:
+                      for url in change['modified']:  # Show ALL modified pages
                           path = url.replace(f'https://{site}', '').replace('http://', '')
+                          # Truncate long paths to keep embed readable
+                          if len(path) > 80:
+                              path = path[:77] + '...'
                           description += f"  • [{path}]({url})\n"
-                      if modified_count > 3:
-                          description += f"  • ...and {modified_count - 3} more\n"
                       description += "\n"
 
                   if removed_count > 0:
-                      description += f"🗑️ {removed_count} removed page(s)\n\n"
+                      description += f"🗑️ **{removed_count} removed page(s)**\n"
+                      for url in change['removed']:  # Show ALL removed pages
+                          path = url.replace(f'https://{site}', '').replace('http://', '')
+                          # Truncate long paths to keep embed readable
+                          if len(path) > 80:
+                              path = path[:77] + '...'
+                          description += f"  • {path}\n"  # No link for removed pages
+                      description += "\n"
+
+              # Discord embed description limit is 4096 characters
+              # If description is too long, truncate with warning
+              if len(description) > 4000:
+                  print(f"⚠️  Description too long ({len(description)} chars), truncating...")
+                  description = description[:3900] + "\n\n*...output truncated (too many changes)*"
 
               embed = {
                   "title": "🌐 VinFast Website Changes",
@@ -676,6 +691,7 @@ jobs:
                   print("✅ Posted website changes to Discord")
               else:
                   print(f"⚠️  Discord post failed: {response.status_code}")
+                  print(f"Response: {response.text}")
           else:
               print("\nℹ️  No website changes detected")
 
