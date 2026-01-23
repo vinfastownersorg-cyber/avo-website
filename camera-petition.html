@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Primary Meta Tags -->
+    <title>Camera Upgrade Petition | VinFast Owners Association</title>
+    <meta name="title" content="Camera Upgrade Petition | VinFast Owners Association">
+    <meta name="description" content="Petition for North American VinFast VF8/VF9 owners requesting the same camera hardware and software upgrades released in Vietnam.">
+    <meta name="keywords" content="VinFast camera upgrade, VF8 camera, VF9 camera, VinFast petition, 360 camera, backup camera, VinFast improvements">
+    <meta name="robots" content="index, follow">
+
+    <!-- Multilingual SEO - North America (US/Canada) -->
+    <link rel="alternate" hreflang="en" href="https://vinfastowners.org/camera-petition.html" />
+    <link rel="alternate" hreflang="en-US" href="https://vinfastowners.org/camera-petition.html" />
+    <link rel="alternate" hreflang="en-CA" href="https://vinfastowners.org/camera-petition.html" />
+    <link rel="alternate" hreflang="fr-CA" href="https://vinfastowners.org/camera-petition.html?lang=fr" />
+    <link rel="alternate" hreflang="x-default" href="https://vinfastowners.org/camera-petition.html" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://vinfastowners.org/camera-petition.html">
+    <meta property="og:title" content="Camera Upgrade Petition | VinFast Owners">
+    <meta property="og:description" content="Sign the petition for camera hardware and software upgrades for North American VF8/VF9 owners.">
+    <meta property="og:image" content="https://vinfastowners.org/images/icons/avo-logo.png">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:locale:alternate" content="en_CA">
+    <meta property="og:locale:alternate" content="fr_CA">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://vinfastowners.org/camera-petition.html">
+    <meta name="twitter:title" content="Camera Upgrade Petition | VinFast Owners">
+    <meta name="twitter:description" content="Sign the petition for camera hardware and software upgrades for North American VF8/VF9 owners.">
+    <meta name="twitter:image" content="https://vinfastowners.org/images/icons/avo-logo.png">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://vinfastowners.org/camera-petition.html" />
+
+    <link rel="stylesheet" href="css/styles.css?v=202511181735">
+
+    <style>
+        /* Camera Petition Page Specific Styles */
+        .petition-hero {
+            background: linear-gradient(135deg, #1a5490 0%, #2980b9 100%);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .petition-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .petition-hero .subtitle {
+            font-size: 1.25rem;
+            opacity: 0.95;
+            max-width: 800px;
+            margin: 0 auto 1.5rem;
+        }
+
+        .signers-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .info-box {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 8px;
+        }
+
+        .info-box h3 {
+            color: #0d47a1;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .info-box p {
+            color: #0d47a1;
+            line-height: 1.7;
+            margin-bottom: 0.75rem;
+        }
+
+        .info-box ul {
+            color: #0d47a1;
+            margin-left: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .info-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 900px;
+            margin: 3rem auto;
+            padding-left: 2rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: #2980b9;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 3rem;
+            padding-left: 2rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2rem;
+            top: 0;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: #2980b9;
+            border: 3px solid white;
+            box-shadow: 0 0 0 3px #2980b9;
+        }
+
+        .timeline-date {
+            color: #2980b9;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+
+        .timeline-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border-left: 3px solid #2980b9;
+        }
+
+        .timeline-content h3 {
+            color: #1a5490;
+            margin-bottom: 1rem;
+        }
+
+        .cta-box {
+            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+            color: white;
+            padding: 2.5rem;
+            border-radius: 12px;
+            text-align: center;
+            margin: 3rem 0;
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.3);
+        }
+
+        .cta-box h3 {
+            color: white;
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+
+        .cta-box p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            opacity: 0.95;
+        }
+
+        .btn-primary {
+            background: white;
+            color: #4CAF50;
+            padding: 1.2rem 3rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.2rem;
+            display: inline-block;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(0,0,0,0.3);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            display: inline-block;
+            transition: all 0.3s ease;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            margin: 0.5rem;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .improvements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .improvement-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border-left: 4px solid #4CAF50;
+        }
+
+        .improvement-card h4 {
+            color: #1a5490;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .improvement-card p {
+            color: #555;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .petition-hero h1 {
+                font-size: 2rem;
+            }
+
+            .timeline {
+                padding-left: 1.5rem;
+            }
+
+            .timeline-content {
+                padding: 1.5rem;
+            }
+
+            .improvements-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Language Toggle -->
+    <div class="lang-toggle">
+        <button class="active" onclick="setLang('en')">EN</button>
+        <button onclick="setLang('fr')">FR</button>
+    </div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">
+                <a href="/">
+                    <img src="images/icons/avo-logo.png" alt="AVO Logo" class="logo-img">
+                    <div class="logo-text-container">
+                        <span class="logo-text">AVO</span>
+                        <span class="logo-subtitle">
+                            <span lang="en">North America</span>
+                            <span lang="fr">Amérique du Nord</span>
+                        </span>
+                    </div>
+                </a>
+            </div>
+
+            <div class="nav-links">
+                <a href="/">
+                    <span lang="en">← Back to Home</span>
+                    <span lang="fr">← Retour à l'accueil</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="petition-hero">
+        <h1>
+            <span lang="en">📢 Camera Upgrade Petition</span>
+            <span lang="fr">📢 Pétition Mise à Niveau Caméra</span>
+        </h1>
+        <p class="subtitle">
+            <span lang="en">Request the same camera improvements released in Vietnam for North American VF8 and VF9 owners</span>
+            <span lang="fr">Demandez les mêmes améliorations de caméra publiées au Vietnam pour les propriétaires VF8 et VF9 nord-américains</span>
+        </p>
+        <div class="signers-badge">
+            <span lang="en">📝 <strong id="signature-count">0</strong> Signatures</span>
+            <span lang="fr">📝 <strong id="signature-count-fr">0</strong> Signatures</span>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="content-section">
+        <div class="container" style="max-width: 900px;">
+
+            <!-- Call to Action -->
+            <div class="cta-box">
+                <h3>
+                    <span lang="en">✍️ Sign the Petition</span>
+                    <span lang="fr">✍️ Signer la Pétition</span>
+                </h3>
+                <p lang="en">
+                    Add your voice to the growing number of North American VF8 and VF9 owners requesting these important camera upgrades.
+                </p>
+                <p lang="fr">
+                    Ajoutez votre voix au nombre croissant de propriétaires VF8 et VF9 nord-américains demandant ces améliorations importantes de caméra.
+                </p>
+
+                <a href="#" class="btn-primary" id="petition-link">
+                    <span lang="en">📝 SIGN THE PETITION</span>
+                    <span lang="fr">📝 SIGNER LA PÉTITION</span>
+                </a>
+
+                <div style="margin-top: 1.5rem;">
+                    <a href="#videos" class="btn-secondary">
+                        <span lang="en">🎥 Watch Comparison Videos</span>
+                        <span lang="fr">🎥 Voir Vidéos Comparatives</span>
+                    </a>
+                </div>
+
+                <p lang="en" style="margin-top: 1.5rem; font-size: 0.95rem; opacity: 0.9;">
+                    ⏱️ Takes less than 60 seconds • VF8 & VF9 owners only • USA & Canada
+                </p>
+                <p lang="fr" style="margin-top: 1.5rem; font-size: 0.95rem; opacity: 0.9;">
+                    ⏱️ Moins de 60 secondes • Propriétaires VF8 et VF9 seulement • États-Unis et Canada
+                </p>
+            </div>
+
+            <!-- What We're Requesting -->
+            <div class="info-box">
+                <h3>
+                    <span lang="en">🎯 What We're Requesting</span>
+                    <span lang="fr">🎯 Ce Que Nous Demandons</span>
+                </h3>
+                <p lang="en">
+                    VinFast recently released significant camera hardware and software improvements to the Vietnamese market. North American VF8 and VF9 owners deserve access to these same safety and quality-of-life enhancements.
+                </p>
+                <p lang="fr">
+                    VinFast a récemment publié des améliorations importantes de matériel et de logiciel de caméra sur le marché vietnamien. Les propriétaires VF8 et VF9 nord-américains méritent d'avoir accès à ces mêmes améliorations de sécurité et de qualité de vie.
+                </p>
+            </div>
+
+            <!-- Improvements Grid -->
+            <div class="improvements-grid">
+                <div class="improvement-card">
+                    <h4>
+                        <span>📸</span>
+                        <span lang="en">Enhanced Resolution</span>
+                        <span lang="fr">Résolution Améliorée</span>
+                    </h4>
+                    <p lang="en">Sharper, clearer camera images for better visibility and safer maneuvering.</p>
+                    <p lang="fr">Images de caméra plus nettes et plus claires pour une meilleure visibilité et une manœuvre plus sûre.</p>
+                </div>
+
+                <div class="improvement-card">
+                    <h4>
+                        <span>🌙</span>
+                        <span lang="en">Low-Light Performance</span>
+                        <span lang="fr">Performance Faible Luminosité</span>
+                    </h4>
+                    <p lang="en">Improved night vision and better camera performance in dark or low-light conditions.</p>
+                    <p lang="fr">Vision nocturne améliorée et meilleures performances de caméra dans des conditions sombres ou de faible luminosité.</p>
+                </div>
+
+                <div class="improvement-card">
+                    <h4>
+                        <span>🔄</span>
+                        <span lang="en">Better 360° Stitching</span>
+                        <span lang="fr">Meilleur Assemblage 360°</span>
+                    </h4>
+                    <p lang="en">More seamless 360-degree camera view with reduced blind spots and better image blending.</p>
+                    <p lang="fr">Vue caméra 360 degrés plus fluide avec angles morts réduits et meilleur mélange d'images.</p>
+                </div>
+
+                <div class="improvement-card">
+                    <h4>
+                        <span>📐</span>
+                        <span lang="en">Reduced Distortion</span>
+                        <span lang="fr">Distorsion Réduite</span>
+                    </h4>
+                    <p lang="en">Less image warping and distortion for more accurate spatial awareness when parking and maneuvering.</p>
+                    <p lang="fr">Moins de déformation et de distorsion d'image pour une meilleure conscience spatiale lors du stationnement.</p>
+                </div>
+            </div>
+
+            <!-- Video Evidence -->
+            <div class="info-box" id="videos">
+                <h3>
+                    <span>🎥</span>
+                    <span lang="en">Video Evidence</span>
+                    <span lang="fr">Preuves Vidéo</span>
+                </h3>
+                <p lang="en">
+                    Watch these comparison videos showing the camera improvements available in Vietnam:
+                </p>
+                <p lang="fr">
+                    Regardez ces vidéos comparatives montrant les améliorations de caméra disponibles au Vietnam :
+                </p>
+                <div style="margin-top: 1rem;">
+                    <p lang="en"><strong>📹 Video links coming soon</strong></p>
+                    <p lang="fr"><strong>📹 Liens vidéo à venir</strong></p>
+                    <!-- Add video embeds or links here when available -->
+                </div>
+            </div>
+
+            <!-- Timeline of Updates -->
+            <div class="timeline">
+
+                <!-- Petition Launch -->
+                <div class="timeline-item">
+                    <div class="timeline-date">
+                        <span lang="en">JANUARY 2026</span>
+                        <span lang="fr">JANVIER 2026</span>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>
+                            <span lang="en">Petition Launched</span>
+                            <span lang="fr">Pétition Lancée</span>
+                        </h3>
+                        <p lang="en">
+                            The Association of VinFast Owners North America has launched this petition to formally request that VinFast provide the same camera hardware and software upgrades to North American VF8 and VF9 owners that were recently released in the Vietnamese market.
+                        </p>
+                        <p lang="fr">
+                            L'Association des Propriétaires VinFast Amérique du Nord a lancé cette pétition pour demander formellement que VinFast fournisse les mêmes mises à niveau de matériel et de logiciel de caméra aux propriétaires VF8 et VF9 nord-américains qui ont récemment été publiées sur le marché vietnamien.
+                        </p>
+
+                        <div style="background: #f0f7ff; padding: 1.5rem; border-radius: 8px; margin-top: 1.5rem;">
+                            <h4 style="color: #1a5490; margin-top: 0;">
+                                <span lang="en">📋 Petition Details</span>
+                                <span lang="fr">📋 Détails de la Pétition</span>
+                            </h4>
+                            <ul style="margin-bottom: 0;">
+                                <li lang="en"><strong>Goal:</strong> Collect signatures from verified VF8 and VF9 owners in USA and Canada</li>
+                                <li lang="en"><strong>Timeline:</strong> 30-60 days to collect signatures</li>
+                                <li lang="en"><strong>Submission:</strong> Petition will be formally submitted to VinFast North America leadership</li>
+                                <li lang="en"><strong>Updates:</strong> Regular progress updates posted to this page</li>
+                                <li lang="fr" style="display: none;"><strong>Objectif :</strong> Recueillir des signatures de propriétaires VF8 et VF9 vérifiés aux États-Unis et au Canada</li>
+                                <li lang="fr" style="display: none;"><strong>Calendrier :</strong> 30-60 jours pour recueillir des signatures</li>
+                                <li lang="fr" style="display: none;"><strong>Soumission :</strong> La pétition sera officiellement soumise à la direction de VinFast Amérique du Nord</li>
+                                <li lang="fr" style="display: none;"><strong>Mises à jour :</strong> Mises à jour régulières publiées sur cette page</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Future timeline items will be added here as petition progresses -->
+
+            </div>
+
+            <!-- Why This Matters -->
+            <div class="info-box">
+                <h3>
+                    <span>💡</span>
+                    <span lang="en">Why This Matters</span>
+                    <span lang="fr">Pourquoi C'est Important</span>
+                </h3>
+                <p lang="en">
+                    <strong>Safety:</strong> Improved cameras mean better visibility when backing up, parking, and navigating tight spaces. These improvements directly enhance driver and pedestrian safety.
+                </p>
+                <p lang="en">
+                    <strong>Quality of Life:</strong> Clearer cameras reduce stress and frustration during daily driving tasks, making the ownership experience more enjoyable.
+                </p>
+                <p lang="en">
+                    <strong>Parity:</strong> North American owners have paid premium prices for their vehicles and deserve the same quality improvements available in other markets.
+                </p>
+                <p lang="fr">
+                    <strong>Sécurité :</strong> Des caméras améliorées signifient une meilleure visibilité lors de la marche arrière, du stationnement et de la navigation dans des espaces restreints.
+                </p>
+                <p lang="fr">
+                    <strong>Qualité de vie :</strong> Des caméras plus claires réduisent le stress et la frustration lors des tâches de conduite quotidiennes.
+                </p>
+                <p lang="fr">
+                    <strong>Parité :</strong> Les propriétaires nord-américains ont payé des prix premium pour leurs véhicules et méritent les mêmes améliorations de qualité disponibles sur d'autres marchés.
+                </p>
+            </div>
+
+            <!-- Share the Petition -->
+            <div style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+                        padding: 2rem;
+                        border-radius: 12px;
+                        text-align: center;
+                        margin: 3rem 0;
+                        border: 2px solid #2980b9;">
+                <h3 style="color: #1a5490; margin-bottom: 1rem;">
+                    <span lang="en">📣 Spread the Word</span>
+                    <span lang="fr">📣 Faites Passer le Mot</span>
+                </h3>
+                <p lang="en" style="margin-bottom: 1.5rem;">
+                    Share this petition with other VinFast owners in your community, on social media, and in owner groups. The more signatures we collect, the stronger our request to VinFast.
+                </p>
+                <p lang="fr" style="margin-bottom: 1.5rem;">
+                    Partagez cette pétition avec d'autres propriétaires VinFast dans votre communauté, sur les réseaux sociaux et dans les groupes de propriétaires.
+                </p>
+                <div>
+                    <p lang="en" style="margin: 0; color: #555;">
+                        <strong>Share on:</strong> VinFastTalk.com • VFFS Facebook Group • Discord • VF Canada Group
+                    </p>
+                    <p lang="fr" style="margin: 0; color: #555;">
+                        <strong>Partager sur :</strong> VinFastTalk.com • Groupe Facebook VFFS • Discord • Groupe VF Canada
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>AVO</h4>
+                <p lang="en">Association of VinFast Owners North America</p>
+                <p lang="fr">Association des Propriétaires VinFast Amérique du Nord</p>
+            </div>
+
+            <div class="footer-section">
+                <h4>
+                    <span lang="en">Quick Links</span>
+                    <span lang="fr">Liens Rapides</span>
+                </h4>
+                <ul class="footer-links">
+                    <li><a href="/">
+                        <span lang="en">Home</span>
+                        <span lang="fr">Accueil</span>
+                    </a></li>
+                    <li><a href="board.html">
+                        <span lang="en">Board</span>
+                        <span lang="fr">Conseil</span>
+                    </a></li>
+                    <li><a href="join.html">
+                        <span lang="en">Join AVO</span>
+                        <span lang="fr">Rejoindre AVO</span>
+                    </a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>
+                    <span lang="en">Community</span>
+                    <span lang="fr">Communauté</span>
+                </h4>
+                <ul class="footer-links">
+                    <li><a href="discord.html">Discord</a></li>
+                    <li><a href="https://www.facebook.com/share/g/17dH6oZRA4/" target="_blank">Facebook</a></li>
+                    <li><a href="https://vinfasttalk.com" target="_blank">VinFastTalk</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>
+                <span lang="en">© 2026 Association of VinFast Owners (AVO) North America</span>
+                <span lang="fr">© 2026 Association des Propriétaires VinFast (AVO) Amérique du Nord</span>
+            </p>
+            <p>
+                <span lang="en">Independent owner organization | Not affiliated with VinFast Auto</span>
+                <span lang="fr">Organisation indépendante | Non affiliée à VinFast Auto</span>
+            </p>
+        </div>
+    </footer>
+
+    <script src="js/main.js?v=202511181735"></script>
+
+    <script>
+        // Update petition link when form is ready
+        // Replace '#' with actual Microsoft Forms URL
+        document.getElementById('petition-link').addEventListener('click', function(e) {
+            // Temporary alert until form is ready
+            e.preventDefault();
+            alert('Petition form coming soon! The Microsoft Forms petition is being finalized. Check back soon or join our Discord for updates.');
+        });
+
+        // Signature counter - update this manually or via API
+        // For now, placeholder
+        const signatureCount = 0; // Update this number as signatures come in
+        document.getElementById('signature-count').textContent = signatureCount;
+        document.getElementById('signature-count-fr').textContent = signatureCount;
+    </script>
+</body>
+</html>
