@@ -249,6 +249,72 @@
             margin: 0;
         }
 
+        /* Privacy Notice Collapsible */
+        .privacy-notice {
+            margin-top: 2rem;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .privacy-notice summary {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            list-style: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: background 0.2s ease;
+        }
+
+        .privacy-notice summary:hover {
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        .privacy-notice summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .privacy-notice summary::before {
+            content: '🔒';
+            font-size: 1.2rem;
+        }
+
+        .privacy-notice summary::after {
+            content: '▼';
+            margin-left: auto;
+            font-size: 0.8rem;
+            transition: transform 0.3s ease;
+        }
+
+        .privacy-notice[open] summary::after {
+            transform: rotate(-180deg);
+        }
+
+        .privacy-notice-content {
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        .privacy-notice-content ul {
+            margin: 0.75rem 0 0.75rem 1.5rem;
+            padding: 0;
+        }
+
+        .privacy-notice-content li {
+            margin-bottom: 0.5rem;
+        }
+
+        .privacy-notice-content a {
+            color: white;
+            text-decoration: underline;
+        }
+
         /* Mobile Responsive */
         @media (max-width: 768px) {
             .petition-hero h1 {
@@ -352,6 +418,66 @@
                 <p lang="fr" style="margin-top: 1.5rem; font-size: 0.95rem; opacity: 0.9;">
                     ⏱️ Moins de 60 secondes • Propriétaires VF8 et VF9 seulement • États-Unis et Canada
                 </p>
+
+                <!-- Privacy Notice (Collapsible) -->
+                <details class="privacy-notice">
+                    <summary>
+                        <span lang="en">Privacy & Data Collection Notice</span>
+                        <span lang="fr">Avis de Confidentialité et Collecte de Données</span>
+                    </summary>
+                    <div class="privacy-notice-content">
+                        <p lang="en">
+                            <strong>This petition form is hosted by Microsoft Forms.</strong> By signing, you will be submitting information to Microsoft's platform.
+                        </p>
+                        <p lang="fr">
+                            <strong>Ce formulaire de pétition est hébergé par Microsoft Forms.</strong> En signant, vous soumettrez des informations à la plateforme de Microsoft.
+                        </p>
+
+                        <p lang="en"><strong>We collect only:</strong></p>
+                        <p lang="fr"><strong>Nous recueillons seulement :</strong></p>
+                        <ul>
+                            <li lang="en">Your name (or preferred display name)</li>
+                            <li lang="en">Vehicle model (VF8 or VF9) and model year</li>
+                            <li lang="en">Country (USA or Canada)</li>
+                            <li lang="en">Optional: Email address for petition updates only</li>
+                            <li lang="fr" style="display: none;">Votre nom (ou nom d'affichage préféré)</li>
+                            <li lang="fr" style="display: none;">Modèle de véhicule (VF8 ou VF9) et année</li>
+                            <li lang="fr" style="display: none;">Pays (États-Unis ou Canada)</li>
+                            <li lang="fr" style="display: none;">Optionnel : Adresse courriel pour les mises à jour de la pétition uniquement</li>
+                        </ul>
+
+                        <p lang="en"><strong>We do NOT collect:</strong></p>
+                        <p lang="fr"><strong>Nous ne recueillons PAS :</strong></p>
+                        <ul>
+                            <li lang="en">❌ VIN numbers (full or partial)</li>
+                            <li lang="en">❌ Phone numbers</li>
+                            <li lang="en">❌ Physical addresses</li>
+                            <li lang="en">❌ Payment information</li>
+                            <li lang="fr" style="display: none;">❌ Numéros VIN (complets ou partiels)</li>
+                            <li lang="fr" style="display: none;">❌ Numéros de téléphone</li>
+                            <li lang="fr" style="display: none;">❌ Adresses physiques</li>
+                            <li lang="fr" style="display: none;">❌ Informations de paiement</li>
+                        </ul>
+
+                        <p lang="en">
+                            <strong>Data Usage:</strong> Your signature will be used solely to demonstrate owner support for this petition to VinFast North America. Petition data will be submitted to VinFast leadership with aggregate signature counts and representative quotes (if provided).
+                        </p>
+                        <p lang="fr">
+                            <strong>Utilisation des données :</strong> Votre signature sera utilisée uniquement pour démontrer le soutien des propriétaires pour cette pétition à VinFast Amérique du Nord.
+                        </p>
+
+                        <p lang="en">
+                            <strong>Privacy Policies:</strong><br>
+                            • AVO Privacy Policy: <a href="privacy.html" target="_blank">vinfastowners.org/privacy.html</a><br>
+                            • Microsoft Privacy Statement: <a href="https://privacy.microsoft.com/en-us/privacystatement" target="_blank">privacy.microsoft.com</a>
+                        </p>
+                        <p lang="fr">
+                            <strong>Politiques de confidentialité :</strong><br>
+                            • Politique de confidentialité AVO : <a href="privacy.html" target="_blank">vinfastowners.org/privacy.html</a><br>
+                            • Déclaration de confidentialité Microsoft : <a href="https://privacy.microsoft.com/fr-ca/privacystatement" target="_blank">privacy.microsoft.com</a>
+                        </p>
+                    </div>
+                </details>
             </div>
 
             <!-- What We're Requesting -->
