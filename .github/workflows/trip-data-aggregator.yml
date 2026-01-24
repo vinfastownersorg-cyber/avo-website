@@ -1,0 +1,227 @@
+name: Trip Data Aggregator
+
+on:
+  # Can be manually triggered
+  workflow_dispatch:
+    inputs:
+      data_type:
+        description: 'Type of data to aggregate'
+        required: true
+        default: 'both'
+        type: choice
+        options:
+          - trip
+          - dcfc
+          - both
+
+  # Run weekly to validate and maintain data
+  schedule:
+    - cron: '0 0 * * 0'  # Every Sunday at midnight UTC
+
+jobs:
+  aggregate-data:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Validate Trip Data
+        if: github.event.inputs.data_type == 'trip' || github.event.inputs.data_type == 'both' || github.event_name == 'schedule'
+        run: |
+          python3 << 'EOF'
+          import json
+          import sys
+          from datetime import datetime
+
+          print("📊 Validating trip data...")
+
+          try:
+              with open('.github/data/trip-data.json', 'r') as f:
+                  data = json.load(f)
+
+              # Validate JSON structure
+              if 'submissions' not in data or 'metadata' not in data:
+                  print("❌ Invalid JSON structure")
+                  sys.exit(1)
+
+              # Count submissions
+              submission_count = len(data['submissions'])
+              print(f"✅ Trip data validated: {submission_count} submissions")
+
+              # Update metadata
+              data['metadata']['total_submissions'] = submission_count
+              data['metadata']['last_updated'] = datetime.utcnow().isoformat() + 'Z'
+
+              # Write back
+              with open('.github/data/trip-data.json', 'w') as f:
+                  json.dump(data, f, indent=2)
+
+              print("✅ Metadata updated")
+
+          except FileNotFoundError:
+              print("❌ Trip data file not found")
+              sys.exit(1)
+          except json.JSONDecodeError as e:
+              print(f"❌ Invalid JSON: {e}")
+              sys.exit(1)
+          EOF
+
+      - name: Validate DCFC Data
+        if: github.event.inputs.data_type == 'dcfc' || github.event.inputs.data_type == 'both' || github.event_name == 'schedule'
+        run: |
+          python3 << 'EOF'
+          import json
+          import sys
+          from datetime import datetime
+
+          print("⚡ Validating DCFC data...")
+
+          try:
+              with open('.github/data/dcfc-data.json', 'r') as f:
+                  data = json.load(f)
+
+              # Validate JSON structure
+              if 'submissions' not in data or 'metadata' not in data:
+                  print("❌ Invalid JSON structure")
+                  sys.exit(1)
+
+              # Count submissions
+              submission_count = len(data['submissions'])
+              print(f"✅ DCFC data validated: {submission_count} submissions")
+
+              # Update metadata
+              data['metadata']['total_submissions'] = submission_count
+              data['metadata']['last_updated'] = datetime.utcnow().isoformat() + 'Z'
+
+              # Write back
+              with open('.github/data/dcfc-data.json', 'w') as f:
+                  json.dump(data, f, indent=2)
+
+              print("✅ Metadata updated")
+
+          except FileNotFoundError:
+              print("❌ DCFC data file not found")
+              sys.exit(1)
+          except json.JSONDecodeError as e:
+              print(f"❌ Invalid JSON: {e}")
+              sys.exit(1)
+          EOF
+
+      - name: Calculate Statistics
+        if: github.event_name == 'schedule'
+        run: |
+          python3 << 'EOF'
+          import json
+          from statistics import mean
+
+          print("📈 Calculating statistics...")
+
+          # Load trip data
+          with open('.github/data/trip-data.json', 'r') as f:
+              trip_data = json.load(f)
+
+          # Load DCFC data
+          with open('.github/data/dcfc-data.json', 'r') as f:
+              dcfc_data = json.load(f)
+
+          trip_count = len(trip_data['submissions'])
+          dcfc_count = len(dcfc_data['submissions'])
+
+          print(f"📊 Total trip submissions: {trip_count}")
+          print(f"⚡ Total DCFC submissions: {dcfc_count}")
+
+          # Calculate averages if data exists
+          if trip_count > 0:
+              efficiencies = [s.get('efficiency', 0) for s in trip_data['submissions'] if 'efficiency' in s]
+              if efficiencies:
+                  avg_efficiency = mean(efficiencies)
+                  print(f"🚗 Average efficiency: {avg_efficiency:.2f} mi/kWh")
+
+          if dcfc_count > 0:
+              peak_speeds = [s.get('peak_speed', 0) for s in dcfc_data['submissions'] if 'peak_speed' in s]
+              if peak_speeds:
+                  avg_peak = mean(peak_speeds)
+                  print(f"⚡ Average peak charging speed: {avg_peak:.1f} kW")
+          EOF
+
+      - name: Check for changes
+        id: git-check
+        run: |
+          git diff --quiet .github/data/ || echo "changed=true" >> $GITHUB_OUTPUT
+
+      - name: Commit and push if changed
+        if: steps.git-check.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add .github/data/
+          git commit -m "📊 Update trip data metadata
+
+          Automated data validation and metadata update
+
+          Co-Authored-By: GitHub Actions <github-actions[bot]@users.noreply.github.com>"
+          git push
+
+      - name: Notify Discord (on schedule)
+        if: github.event_name == 'schedule' && steps.git-check.outputs.changed == 'true'
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        run: |
+          python3 << 'EOF'
+          import os
+          import json
+          import urllib.request
+          from datetime import datetime
+
+          webhook_url = os.environ.get('DISCORD_WEBHOOK')
+          if not webhook_url:
+              print("ℹ️ No Discord webhook configured")
+              exit(0)
+
+          # Load data for stats
+          with open('.github/data/trip-data.json', 'r') as f:
+              trip_data = json.load(f)
+          with open('.github/data/dcfc-data.json', 'r') as f:
+              dcfc_data = json.load(f)
+
+          embed = {
+              "title": "📊 Trip Data Weekly Update",
+              "description": "Automated data validation and statistics",
+              "color": 0x1a5490,
+              "fields": [
+                  {
+                      "name": "🚗 Trip Submissions",
+                      "value": str(trip_data['metadata']['total_submissions']),
+                      "inline": True
+                  },
+                  {
+                      "name": "⚡ DCFC Submissions",
+                      "value": str(dcfc_data['metadata']['total_submissions']),
+                      "inline": True
+                  }
+              ],
+              "timestamp": datetime.utcnow().isoformat()
+          }
+
+          payload = {"embeds": [embed]}
+
+          req = urllib.request.Request(
+              webhook_url,
+              data=json.dumps(payload).encode('utf-8'),
+              headers={'Content-Type': 'application/json'}
+          )
+
+          try:
+              urllib.request.urlopen(req)
+              print("✅ Discord notification sent")
+          except Exception as e:
+              print(f"⚠️ Failed to send Discord notification: {e}")
+          EOF

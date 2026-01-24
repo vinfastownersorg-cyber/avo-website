@@ -1,0 +1,1325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VinFast Trip Data & Charging Insights - VinFast Owners Association</title>
+    <meta name="description" content="Share and explore real-world VinFast trip efficiency and DCFC charging data from the community.">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --vinfast-crimson: #C8102E;
+            --vinfast-blue: #1a5490;
+            --vinfast-sunset: #FF6B35;
+            --vinfast-grey: #4A5568;
+            --vinfast-light-grey: #E2E8F0;
+            --success-green: #4CAF50;
+            --warning-orange: #FF9800;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--vinfast-crimson) 0%, #a00d26 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            opacity: 0.95;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Back Button */
+        .back-button {
+            display: inline-block;
+            margin: 2rem;
+            padding: 0.75rem 1.5rem;
+            background: var(--vinfast-blue);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            background: #164070;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        /* Privacy Warning */
+        .privacy-warning {
+            background: linear-gradient(135deg, var(--warning-orange) 0%, #f57c00 100%);
+            color: white;
+            padding: 2rem;
+            margin: 2rem;
+            border-radius: 12px;
+            border-left: 5px solid #e65100;
+        }
+
+        .privacy-warning h3 {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .privacy-warning ul {
+            margin-left: 1.5rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Tab Navigation */
+        .tab-navigation {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            padding: 2rem 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .tab-button {
+            padding: 1rem 2rem;
+            background: var(--vinfast-light-grey);
+            border: none;
+            border-radius: 12px 12px 0 0;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--vinfast-grey);
+        }
+
+        .tab-button.active {
+            background: white;
+            color: var(--vinfast-crimson);
+            box-shadow: 0 -4px 12px rgba(0,0,0,0.1);
+        }
+
+        .tab-button:hover:not(.active) {
+            background: #cbd5e0;
+        }
+
+        /* Tab Content */
+        .tab-content {
+            display: none;
+            padding: 2rem;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Forms */
+        .form-section {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .form-section h3 {
+            color: var(--vinfast-blue);
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--vinfast-grey);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            padding: 0.75rem;
+            border: 2px solid var(--vinfast-light-grey);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--vinfast-blue);
+        }
+
+        .form-group small {
+            color: #666;
+            margin-top: 0.25rem;
+            font-size: 0.875rem;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: auto;
+        }
+
+        .submit-button {
+            background: linear-gradient(135deg, var(--vinfast-crimson) 0%, #a00d26 100%);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        .submit-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(200, 16, 46, 0.3);
+        }
+
+        .submit-button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Charts Section */
+        .charts-section {
+            padding: 2rem;
+        }
+
+        .chart-container {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .chart-container h3 {
+            color: var(--vinfast-blue);
+            margin-bottom: 1.5rem;
+        }
+
+        .chart-wrapper {
+            position: relative;
+            height: 400px;
+        }
+
+        /* Success Message */
+        .success-message {
+            display: none;
+            background: linear-gradient(135deg, var(--success-green) 0%, #45a049 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        /* Language Toggle */
+        [lang="fr"] {
+            display: none;
+        }
+
+        html[lang="fr"] [lang="en"] {
+            display: none;
+        }
+
+        html[lang="fr"] [lang="fr"] {
+            display: inline;
+        }
+
+        .language-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            border: 2px solid var(--vinfast-crimson);
+            border-radius: 8px;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--vinfast-crimson);
+            z-index: 1000;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .chart-wrapper {
+                height: 300px;
+            }
+
+            .tab-navigation {
+                padding: 1rem;
+            }
+
+            .tab-button {
+                padding: 0.75rem 1rem;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="language-toggle" onclick="toggleLanguage()">
+        <span lang="en">🇫🇷 Français</span>
+        <span lang="fr">🇺🇸 English</span>
+    </button>
+
+    <div class="container">
+        <!-- Hero Section -->
+        <div class="hero">
+            <h1>
+                <span lang="en">📊 VinFast Trip Data & Charging Insights</span>
+                <span lang="fr">📊 Données de Trajet et Recharge VinFast</span>
+            </h1>
+            <p lang="en">Share your real-world trip efficiency and DCFC charging experiences to help the VinFast community make informed decisions.</p>
+            <p lang="fr">Partagez vos expériences réelles d'efficacité de trajet et de recharge DCFC pour aider la communauté VinFast à prendre des décisions éclairées.</p>
+        </div>
+
+        <a href="index.html" class="back-button">
+            <span lang="en">← Back to Home</span>
+            <span lang="fr">← Retour à l'Accueil</span>
+        </a>
+
+        <!-- Privacy Warning -->
+        <div class="privacy-warning">
+            <h3>
+                <span>⚠️</span>
+                <span lang="en">Public Data Notice</span>
+                <span lang="fr">Avis de Données Publiques</span>
+            </h3>
+            <p lang="en"><strong>All submitted data will be publicly visible on this page and stored in our public GitHub repository.</strong></p>
+            <p lang="fr"><strong>Toutes les données soumises seront publiquement visibles sur cette page et stockées dans notre dépôt GitHub public.</strong></p>
+            <ul>
+                <li lang="en">✅ DO share: Trip efficiency, charging speeds, settings, weather conditions</li>
+                <li lang="fr">✅ PARTAGEZ: Efficacité de trajet, vitesses de recharge, paramètres, conditions météo</li>
+                <li lang="en">❌ DO NOT share: Personal information, exact locations, VIN numbers, license plates</li>
+                <li lang="fr">❌ NE PARTAGEZ PAS: Informations personnelles, emplacements exacts, numéros VIN, plaques</li>
+            </ul>
+        </div>
+
+        <!-- Tab Navigation -->
+        <div class="tab-navigation">
+            <button class="tab-button active" onclick="switchTab('trip')">
+                <span lang="en">🚗 Trip Data</span>
+                <span lang="fr">🚗 Données de Trajet</span>
+            </button>
+            <button class="tab-button" onclick="switchTab('dcfc')">
+                <span lang="en">⚡ DCFC Charging</span>
+                <span lang="fr">⚡ Recharge DCFC</span>
+            </button>
+            <button class="tab-button" onclick="switchTab('charts')">
+                <span lang="en">📈 Data Insights</span>
+                <span lang="fr">📈 Analyses de Données</span>
+            </button>
+        </div>
+
+        <!-- Trip Data Tab -->
+        <div id="trip-tab" class="tab-content active">
+            <div class="success-message" id="trip-success">
+                <p lang="en">✅ Trip data submitted successfully! Thank you for contributing to the community.</p>
+                <p lang="fr">✅ Données de trajet soumises avec succès! Merci de contribuer à la communauté.</p>
+            </div>
+
+            <form id="trip-form">
+                <!-- Basic Trip Information -->
+                <div class="form-section">
+                    <h3 lang="en">📍 Basic Trip Information</h3>
+                    <h3 lang="fr">📍 Informations de Base sur le Trajet</h3>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label lang="en">Date of Trip *</label>
+                            <label lang="fr">Date du Trajet *</label>
+                            <input type="date" name="date" required max="">
+                        </div>
+
+                        <div class="form-group">
+                            <label lang="en">Vehicle Model *</label>
+                            <label lang="fr">Modèle de Véhicule *</label>
+                            <select name="model" required>
+                                <option value="">-- Select --</option>
+                                <option value="VF8">VF8</option>
+                                <option value="VF9">VF9</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label lang="en">Model Year *</label>
+                            <label lang="fr">Année du Modèle *</label>
+                            <select name="year" required>
+                                <option value="">-- Select --</option>
+                                <option value="2023">2023</option>
+                                <option value="2024">2024</option>
+                                <option value="2025">2025</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label lang="en">Battery Size *</label>
+                            <label lang="fr">Taille de Batterie *</label>
+                            <select name="battery" required>
+                                <option value="">-- Select --</option>
+                                <option value="82kWh">82 kWh (Standard Range)</option>
+                                <option value="87.7kWh">87.7 kWh (Plus)</option>
+                                <option value="92kWh">92 kWh (Extended Range)</option>
+                                <option value="123kWh">123 kWh (VF9)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label lang="en">Starting Battery % *</label>
+                            <label lang="fr">% de Batterie Initiale *</label>
+                            <input type="number" name="start_soc" min="0" max="100" required>
+                            <small lang="en">0-100%</small>
+                            <small lang="fr">0-100%</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label lang="en">Ending Battery % *</label>
+                            <label lang="fr">% de Batterie Finale *</label>
+                            <input type="number" name="end_soc" min="0" max="100" required>
+                            <small lang="en">0-100%</small>
+                            <small lang="fr">0-100%</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label lang="en">Distance Traveled *</label>
+                            <label lang="fr">Distance Parcourue *</label>
+                            <input type="number" name="distance" step="0.1" min="0" required>
+                            <small lang="en">Miles</small>
+                            <small lang="fr">Miles</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label lang="en">Efficiency (Calculated)</label>
+                            <label lang="fr">Efficacité (Calculée)</label>
+                            <input type="text" name="efficiency_display" readonly placeholder="Auto-calculated">
+                            <small lang="en">mi/kWh</small>
+                            <small lang="fr">mi/kWh</small>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Vehicle Settings -->
+                <div class="form-section">
+                    <h3 lang="en">⚙️ Vehicle Settings During Trip</h3>
+                    <h3 lang="fr">⚙️ Paramètres du Véhicule Pendant le Trajet</h3>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label lang="en">Drive Mode *</label>
+                            <label lang="fr">Mode de Conduite *</label>
+                            <select name="drive_mode" required>
+                                <option value="">-- Select --</option>
+                                <option value="Eco">Eco</option>
+                                <option value="Normal">Normal</option>
+                                <option value="Sport">Sport</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label lang="en">Regenerative Braking *</label>
+                            <label lang="fr">Freinage Régénératif *</label>
+                            <select name="regen" required>
+                                <option value="">-- Select --</option>
+                                <option value="Low">Low</option>
+                                <option value="Medium">Medium</option>
+                                <option value="High">High</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label lang="en">Climate Control *</label>
+                            <label lang="fr">Climatisation *</label>
+                            <select name="climate" required>
+                                <option value="">-- Select --</option>
+                                <option value="Off">Off</option>
+                                <option value="AC">AC On</option>
+                                <option value="Heat">Heat On</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label lang="en">Temperature Setting</label>
+                            <label lang="fr">Température Réglée</label>
+                            <input type="number" name="temp_setting" min="60" max="85">
+                            <small lang="en">°F (if climate was on)</small>
+                            <small lang="fr">°F (si climatisation active)</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label lang="en">Average Speed *</label>
+                            <label lang="fr">Vitesse Moyenne *</label>
+                            <input type="number" name="avg_speed" min="0" required>
+                            <small lang="en">MPH</small>
+                            <small lang="fr">MPH</small>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Environmental Conditions -->
+                <div class="form-section">
+                    <h3 lang="en">🌤️ Environmental Conditions</h3>
+                    <h3 lang="fr">🌤️ Conditions Environnementales</h3>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label lang="en">Outside Temperature *</label>
+                            <label lang="fr">Température Extérieure *</label>
+                            <input type="number" name="outside_temp" required>
+                            <small lang="en">°F</small>
+                            <small lang="fr">°F</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label lang="en">Weather Conditions *</label>
+                            <label lang="fr">Conditions Météo *</label>
+                            <select name="weather" required>
+                                <option value="">-- Select --</option>
+                                <option value="Clear">Clear/Sunny</option>
+                                <option value="Cloudy">Cloudy</option>
+                                <option value="Rain">Rain</option>
+                                <option value="Snow">Snow</option>
+                                <option value="Windy">Windy</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label lang="en">Terrain Type *</label>
+                            <label lang="fr">Type de Terrain *</label>
+                            <select name="terrain" required>
+                                <option value="">-- Select --</option>
+                                <option value="Flat">Mostly Flat</option>
+                                <option value="Hills">Some Hills</option>
+                                <option value="Mountains">Mountainous</option>
+                                <option value="Mixed">Mixed</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label lang="en">Road Type *</label>
+                            <label lang="fr">Type de Route *</label>
+                            <select name="road_type" required>
+                                <option value="">-- Select --</option>
+                                <option value="City">City/Urban</option>
+                                <option value="Highway">Highway</option>
+                                <option value="Mixed">Mixed</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Additional Notes -->
+                <div class="form-section">
+                    <h3 lang="en">📝 Additional Information</h3>
+                    <h3 lang="fr">📝 Informations Supplémentaires</h3>
+
+                    <div class="form-group">
+                        <label lang="en">Region/Country *</label>
+                        <label lang="fr">Région/Pays *</label>
+                        <select name="region" required>
+                            <option value="">-- Select --</option>
+                            <option value="USA">United States</option>
+                            <option value="Canada">Canada</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label lang="en">Additional Notes</label>
+                        <label lang="fr">Notes Supplémentaires</label>
+                        <textarea name="notes" rows="4" placeholder="Any additional details about your trip..."></textarea>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-button">
+                    <span lang="en">📊 Submit Trip Data</span>
+                    <span lang="fr">📊 Soumettre les Données de Trajet</span>
+                </button>
+            </form>
+        </div>
+
+        <!-- DCFC Charging Tab -->
+        <div id="dcfc-tab" class="tab-content">
+            <div class="success-message" id="dcfc-success">
+                <p lang="en">✅ DCFC charging data submitted successfully! Thank you for contributing.</p>
+                <p lang="fr">✅ Données de recharge DCFC soumises avec succès! Merci de contribuer.</p>
+            </div>
+
+            <form id="dcfc-form">
+                <!-- Basic Charging Information -->
+                <div class="form-section">
+                    <h3 lang="en">⚡ Basic Charging Information</h3>
+                    <h3 lang="fr">⚡ Informations de Base sur la Recharge</h3>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label lang="en">Date of Charging Session *</label>
+                            <label lang="fr">Date de la Session de Recharge *</label>
+                            <input type="date" name="date" required max="">
+                        </div>
+
+                        <div class="form-group">
+                            <label lang="en">Vehicle Model *</label>
+                            <label lang="fr">Modèle de Véhicule *</label>
+                            <select name="model" required>
+                                <option value="">-- Select --</option>
+                                <option value="VF8">VF8</option>
+                                <option value="VF9">VF9</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label lang="en">Model Year *</label>
+                            <label lang="fr">Année du Modèle *</label>
+                            <select name="year" required>
+                                <option value="">-- Select --</option>
+                                <option value="2023">2023</option>
+                                <option value="2024">2024</option>
+                                <option value="2025">2025</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label lang="en">Battery Size *</label>
+                            <label lang="fr">Taille de Batterie *</label>
+                            <select name="battery" required>
+                                <option value="">-- Select --</option>
+                                <option value="82kWh">82 kWh (Standard Range)</option>
+                                <option value="87.7kWh">87.7 kWh (Plus)</option>
+                                <option value="92kWh">92 kWh (Extended Range)</option>
+                                <option value="123kWh">123 kWh (VF9)</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charging Station Info -->
+                <div class="form-section">
+                    <h3 lang="en">🔌 Charging Station Details</h3>
+                    <h3 lang="fr">🔌 Détails de la Station de Recharge</h3>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label lang="en">Charging Network *</label>
+                            <label lang="fr">Réseau de Recharge *</label>
+                            <select name="network" required>
+                                <option value="">-- Select --</option>
+                                <option value="Electrify America">Electrify America</option>
+                                <option value="EVgo">EVgo</option>
+                                <option value="ChargePoint">ChargePoint</option>
+                                <option value="Tesla Supercharger">Tesla Supercharger (Magic Dock)</option>
+                                <option value="Shell Recharge">Shell Recharge</option>
+                                <option value="Blink">Blink</option>
+                                <option value="FLO">FLO</option>
+                                <option value="Petro-Canada">Petro-Canada</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label lang="en">Charger Type *</label>
+                            <label lang="fr">Type de Chargeur *</label>
+                            <select name="charger_type" required>
+                                <option value="">-- Select --</option>
+                                <option value="CCS">CCS (Combined Charging System)</option>
+                                <option value="NACS">NACS (Tesla)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label lang="en">Advertised Charger Power *</label>
+                            <label lang="fr">Puissance Annoncée du Chargeur *</label>
+                            <select name="charger_power" required>
+                                <option value="">-- Select --</option>
+                                <option value="50kW">50 kW</option>
+                                <option value="100kW">100 kW</option>
+                                <option value="150kW">150 kW</option>
+                                <option value="175kW">175 kW</option>
+                                <option value="250kW">250 kW</option>
+                                <option value="350kW">350 kW</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label lang="en">General Location *</label>
+                            <label lang="fr">Emplacement Général *</label>
+                            <input type="text" name="location" placeholder="City, State" required>
+                            <small lang="en">City/State only (no exact addresses)</small>
+                            <small lang="fr">Ville/Province seulement (pas d'adresses exactes)</small>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Battery & Performance -->
+                <div class="form-section">
+                    <h3 lang="en">🔋 Battery & Performance Data</h3>
+                    <h3 lang="fr">🔋 Données de Batterie et Performance</h3>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label lang="en">Starting Battery % *</label>
+                            <label lang="fr">% de Batterie Initiale *</label>
+                            <input type="number" name="start_soc" min="0" max="100" required>
+                            <small lang="en">0-100%</small>
+                            <small lang="fr">0-100%</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label lang="en">Ending Battery % *</label>
+                            <label lang="fr">% de Batterie Finale *</label>
+                            <input type="number" name="end_soc" min="0" max="100" required>
+                            <small lang="en">0-100%</small>
+                            <small lang="fr">0-100%</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label lang="en">Peak Charging Speed *</label>
+                            <label lang="fr">Vitesse de Recharge Maximale *</label>
+                            <input type="number" name="peak_speed" min="0" step="0.1" required>
+                            <small lang="en">kW</small>
+                            <small lang="fr">kW</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label lang="en">Average Charging Speed</label>
+                            <label lang="fr">Vitesse de Recharge Moyenne</label>
+                            <input type="number" name="avg_speed" min="0" step="0.1">
+                            <small lang="en">kW</small>
+                            <small lang="fr">kW</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label lang="en">Total Charging Time *</label>
+                            <label lang="fr">Temps Total de Recharge *</label>
+                            <input type="number" name="duration" min="0" required>
+                            <small lang="en">Minutes</small>
+                            <small lang="fr">Minutes</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label lang="en">Energy Added</label>
+                            <label lang="fr">Énergie Ajoutée</label>
+                            <input type="number" name="energy_added" min="0" step="0.1">
+                            <small lang="en">kWh</small>
+                            <small lang="fr">kWh</small>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Environmental Conditions -->
+                <div class="form-section">
+                    <h3 lang="en">🌡️ Environmental Conditions</h3>
+                    <h3 lang="fr">🌡️ Conditions Environnementales</h3>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label lang="en">Outside Temperature *</label>
+                            <label lang="fr">Température Extérieure *</label>
+                            <input type="number" name="temperature" required>
+                            <small lang="en">°F</small>
+                            <small lang="fr">°F</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label lang="en">Battery Preconditioned? *</label>
+                            <label lang="fr">Batterie Préconditionnée? *</label>
+                            <select name="preconditioned" required>
+                                <option value="">-- Select --</option>
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                                <option value="Unknown">Unknown</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Additional Info -->
+                <div class="form-section">
+                    <h3 lang="en">📝 Additional Information</h3>
+                    <h3 lang="fr">📝 Informations Supplémentaires</h3>
+
+                    <div class="form-group">
+                        <label lang="en">Session Rating</label>
+                        <label lang="fr">Évaluation de la Session</label>
+                        <select name="rating">
+                            <option value="">-- Select --</option>
+                            <option value="5">⭐⭐⭐⭐⭐ Excellent</option>
+                            <option value="4">⭐⭐⭐⭐ Good</option>
+                            <option value="3">⭐⭐⭐ Average</option>
+                            <option value="2">⭐⭐ Below Average</option>
+                            <option value="1">⭐ Poor</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label lang="en">Additional Notes</label>
+                        <label lang="fr">Notes Supplémentaires</label>
+                        <textarea name="notes" rows="4" placeholder="Any issues, observations, or helpful details..."></textarea>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-button">
+                    <span lang="en">⚡ Submit Charging Data</span>
+                    <span lang="fr">⚡ Soumettre les Données de Recharge</span>
+                </button>
+            </form>
+        </div>
+
+        <!-- Charts Tab -->
+        <div id="charts-tab" class="tab-content">
+            <div class="charts-section">
+                <div class="chart-container">
+                    <h3 lang="en">📊 Average Efficiency by Vehicle Model</h3>
+                    <h3 lang="fr">📊 Efficacité Moyenne par Modèle de Véhicule</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="efficiencyByModelChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <h3 lang="en">🚗 Efficiency by Drive Mode</h3>
+                    <h3 lang="fr">🚗 Efficacité par Mode de Conduite</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="efficiencyByDriveModeChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <h3 lang="en">🌡️ Efficiency vs Temperature</h3>
+                    <h3 lang="fr">🌡️ Efficacité vs Température</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="efficiencyByTempChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <h3 lang="en">⚡ DCFC Peak Charging Speed by Network</h3>
+                    <h3 lang="fr">⚡ Vitesse de Recharge Maximale DCFC par Réseau</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="dcfcByNetworkChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <h3 lang="en">🔋 DCFC Charging Curve (by Starting SOC)</h3>
+                    <h3 lang="fr">🔋 Courbe de Recharge DCFC (par SOC Initial)</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="chargingCurveChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Set max date to today
+        document.querySelectorAll('input[type="date"]').forEach(input => {
+            const today = new Date().toISOString().split('T')[0];
+            input.setAttribute('max', today);
+        });
+
+        // Auto-calculate efficiency for trip form
+        const tripForm = document.getElementById('trip-form');
+        const startSOC = tripForm.querySelector('[name="start_soc"]');
+        const endSOC = tripForm.querySelector('[name="end_soc"]');
+        const distance = tripForm.querySelector('[name="distance"]');
+        const battery = tripForm.querySelector('[name="battery"]');
+        const efficiencyDisplay = tripForm.querySelector('[name="efficiency_display"]');
+
+        function calculateEfficiency() {
+            const start = parseFloat(startSOC.value);
+            const end = parseFloat(endSOC.value);
+            const dist = parseFloat(distance.value);
+            const batterySize = parseFloat(battery.value);
+
+            if (start && end && dist && batterySize && start > end) {
+                const socUsed = start - end;
+                const kwhUsed = (socUsed / 100) * batterySize;
+                const efficiency = dist / kwhUsed;
+                efficiencyDisplay.value = efficiency.toFixed(2) + ' mi/kWh';
+            } else {
+                efficiencyDisplay.value = '';
+            }
+        }
+
+        startSOC.addEventListener('input', calculateEfficiency);
+        endSOC.addEventListener('input', calculateEfficiency);
+        distance.addEventListener('input', calculateEfficiency);
+        battery.addEventListener('change', calculateEfficiency);
+
+        // Tab switching
+        function switchTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // Show selected tab
+            document.getElementById(tabName + '-tab').classList.add('active');
+            event.target.classList.add('active');
+
+            // Load charts if charts tab is selected
+            if (tabName === 'charts') {
+                loadCharts();
+            }
+        }
+
+        // Language toggle
+        function toggleLanguage() {
+            const html = document.documentElement;
+            const currentLang = html.getAttribute('lang') || 'en';
+            html.setAttribute('lang', currentLang === 'en' ? 'fr' : 'en');
+        }
+
+        // Trip form submission
+        tripForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const formData = new FormData(tripForm);
+            const data = Object.fromEntries(formData);
+
+            // Add timestamp
+            data.timestamp = new Date().toISOString();
+
+            // Calculate efficiency
+            const start = parseFloat(data.start_soc);
+            const end = parseFloat(data.end_soc);
+            const dist = parseFloat(data.distance);
+            const batterySize = parseFloat(data.battery);
+            const socUsed = start - end;
+            const kwhUsed = (socUsed / 100) * batterySize;
+            data.efficiency = (dist / kwhUsed).toFixed(2);
+
+            try {
+                // TODO: Replace with actual Discord webhook URL
+                const webhookURL = 'YOUR_DISCORD_WEBHOOK_URL_HERE';
+
+                const discordPayload = {
+                    embeds: [{
+                        title: '🚗 New Trip Data Submission',
+                        color: 0xC8102E,
+                        fields: [
+                            { name: 'Model', value: `${data.model} ${data.year}`, inline: true },
+                            { name: 'Battery', value: data.battery, inline: true },
+                            { name: 'Distance', value: `${data.distance} mi`, inline: true },
+                            { name: 'Efficiency', value: `${data.efficiency} mi/kWh`, inline: true },
+                            { name: 'Drive Mode', value: data.drive_mode, inline: true },
+                            { name: 'Temperature', value: `${data.outside_temp}°F`, inline: true },
+                        ],
+                        timestamp: data.timestamp
+                    }]
+                };
+
+                // Uncomment when webhook is configured
+                // await fetch(webhookURL, {
+                //     method: 'POST',
+                //     headers: { 'Content-Type': 'application/json' },
+                //     body: JSON.stringify(discordPayload)
+                // });
+
+                // Show success message
+                document.getElementById('trip-success').classList.add('show');
+                tripForm.reset();
+
+                // Hide success after 5 seconds
+                setTimeout(() => {
+                    document.getElementById('trip-success').classList.remove('show');
+                }, 5000);
+
+                // Store locally (will be committed by GitHub Actions)
+                console.log('Trip data:', data);
+
+            } catch (error) {
+                alert('Error submitting data. Please try again.');
+                console.error(error);
+            }
+        });
+
+        // DCFC form submission
+        document.getElementById('dcfc-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData);
+
+            // Add timestamp
+            data.timestamp = new Date().toISOString();
+
+            try {
+                // TODO: Replace with actual Discord webhook URL
+                const webhookURL = 'YOUR_DISCORD_WEBHOOK_URL_HERE';
+
+                const discordPayload = {
+                    embeds: [{
+                        title: '⚡ New DCFC Charging Data',
+                        color: 0x1a5490,
+                        fields: [
+                            { name: 'Model', value: `${data.model} ${data.year}`, inline: true },
+                            { name: 'Network', value: data.network, inline: true },
+                            { name: 'Peak Speed', value: `${data.peak_speed} kW`, inline: true },
+                            { name: 'SOC Range', value: `${data.start_soc}% → ${data.end_soc}%`, inline: true },
+                            { name: 'Duration', value: `${data.duration} min`, inline: true },
+                            { name: 'Location', value: data.location, inline: true },
+                        ],
+                        timestamp: data.timestamp
+                    }]
+                };
+
+                // Uncomment when webhook is configured
+                // await fetch(webhookURL, {
+                //     method: 'POST',
+                //     headers: { 'Content-Type': 'application/json' },
+                //     body: JSON.stringify(discordPayload)
+                // });
+
+                // Show success message
+                document.getElementById('dcfc-success').classList.add('show');
+                e.target.reset();
+
+                // Hide success after 5 seconds
+                setTimeout(() => {
+                    document.getElementById('dcfc-success').classList.remove('show');
+                }, 5000);
+
+                // Store locally (will be committed by GitHub Actions)
+                console.log('DCFC data:', data);
+
+            } catch (error) {
+                alert('Error submitting data. Please try again.');
+                console.error(error);
+            }
+        });
+
+        // Charts initialization
+        let chartsInitialized = false;
+
+        function loadCharts() {
+            if (chartsInitialized) return;
+            chartsInitialized = true;
+
+            // Sample data - will be replaced with actual data from JSON files
+            const sampleTripData = [
+                { model: 'VF8', battery: '87.7kWh', efficiency: 2.8, drive_mode: 'Eco', outside_temp: 72, start_soc: 90, end_soc: 20, distance: 172 },
+                { model: 'VF8', battery: '87.7kWh', efficiency: 2.5, drive_mode: 'Normal', outside_temp: 65, start_soc: 100, end_soc: 25, distance: 164 },
+                { model: 'VF8', battery: '87.7kWh', efficiency: 2.1, drive_mode: 'Sport', outside_temp: 68, start_soc: 95, end_soc: 15, distance: 146 },
+                { model: 'VF8', battery: '82kWh', efficiency: 2.6, drive_mode: 'Eco', outside_temp: 70, start_soc: 100, end_soc: 30, distance: 149 },
+                { model: 'VF8', battery: '82kWh', efficiency: 2.3, drive_mode: 'Normal', outside_temp: 45, start_soc: 90, end_soc: 20, distance: 132 },
+                { model: 'VF9', battery: '123kWh', efficiency: 2.3, drive_mode: 'Eco', outside_temp: 75, start_soc: 100, end_soc: 20, distance: 226 },
+                { model: 'VF9', battery: '123kWh', efficiency: 2.0, drive_mode: 'Normal', outside_temp: 50, start_soc: 95, end_soc: 25, distance: 172 },
+                { model: 'VF9', battery: '123kWh', efficiency: 1.8, drive_mode: 'Sport', outside_temp: 55, start_soc: 100, end_soc: 20, distance: 177 },
+                { model: 'VF8', battery: '87.7kWh', efficiency: 3.0, drive_mode: 'Eco', outside_temp: 68, start_soc: 85, end_soc: 30, distance: 145 },
+                { model: 'VF8', battery: '87.7kWh', efficiency: 1.9, drive_mode: 'Normal', outside_temp: 28, start_soc: 100, end_soc: 35, distance: 109 },
+                { model: 'VF9', battery: '123kWh', efficiency: 2.4, drive_mode: 'Eco', outside_temp: 78, start_soc: 90, end_soc: 15, distance: 221 },
+                { model: 'VF8', battery: '82kWh', efficiency: 2.7, drive_mode: 'Eco', outside_temp: 62, start_soc: 100, end_soc: 25, distance: 151 }
+            ];
+
+            const sampleDCFCData = [
+                { model: 'VF8', network: 'Electrify America', peak_speed: 145, start_soc: 15, end_soc: 80, duration: 32 },
+                { model: 'VF8', network: 'Electrify America', peak_speed: 152, start_soc: 20, end_soc: 75, duration: 28 },
+                { model: 'VF8', network: 'EVgo', peak_speed: 98, start_soc: 25, end_soc: 80, duration: 38 },
+                { model: 'VF8', network: 'ChargePoint', peak_speed: 87, start_soc: 18, end_soc: 75, duration: 42 },
+                { model: 'VF9', network: 'Electrify America', peak_speed: 188, start_soc: 10, end_soc: 80, duration: 45 },
+                { model: 'VF9', network: 'Electrify America', peak_speed: 195, start_soc: 12, end_soc: 75, duration: 41 },
+                { model: 'VF9', network: 'EVgo', peak_speed: 105, start_soc: 22, end_soc: 80, duration: 52 },
+                { model: 'VF8', network: 'Electrify America', peak_speed: 138, start_soc: 30, end_soc: 80, duration: 35 },
+                { model: 'VF8', network: 'ChargePoint', peak_speed: 92, start_soc: 15, end_soc: 70, duration: 40 },
+                { model: 'VF9', network: 'Other', peak_speed: 78, start_soc: 20, end_soc: 75, duration: 55 }
+            ];
+
+            // Calculate averages from sample data
+            const vf8_82 = sampleTripData.filter(d => d.model === 'VF8' && d.battery === '82kWh');
+            const vf8_877 = sampleTripData.filter(d => d.model === 'VF8' && d.battery === '87.7kWh');
+            const vf9_123 = sampleTripData.filter(d => d.model === 'VF9' && d.battery === '123kWh');
+
+            const avg_vf8_82 = vf8_82.reduce((sum, d) => sum + d.efficiency, 0) / vf8_82.length;
+            const avg_vf8_877 = vf8_877.reduce((sum, d) => sum + d.efficiency, 0) / vf8_877.length;
+            const avg_vf9_123 = vf9_123.reduce((sum, d) => sum + d.efficiency, 0) / vf9_123.length;
+
+            // Chart 1: Efficiency by Model
+            new Chart(document.getElementById('efficiencyByModelChart'), {
+                type: 'bar',
+                data: {
+                    labels: ['VF8 (82kWh)', 'VF8 (87.7kWh)', 'VF9 (123kWh)'],
+                    datasets: [{
+                        label: 'Average Efficiency (mi/kWh)',
+                        data: [avg_vf8_82.toFixed(2), avg_vf8_877.toFixed(2), avg_vf9_123.toFixed(2)],
+                        backgroundColor: ['#C8102E', '#1a5490', '#FF6B35']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: { display: true, text: 'mi/kWh' }
+                        }
+                    }
+                }
+            });
+
+            // Chart 2: Efficiency by Drive Mode
+            const eco = sampleTripData.filter(d => d.drive_mode === 'Eco');
+            const normal = sampleTripData.filter(d => d.drive_mode === 'Normal');
+            const sport = sampleTripData.filter(d => d.drive_mode === 'Sport');
+
+            const avg_eco = eco.reduce((sum, d) => sum + d.efficiency, 0) / eco.length;
+            const avg_normal = normal.reduce((sum, d) => sum + d.efficiency, 0) / normal.length;
+            const avg_sport = sport.reduce((sum, d) => sum + d.efficiency, 0) / sport.length;
+
+            new Chart(document.getElementById('efficiencyByDriveModeChart'), {
+                type: 'bar',
+                data: {
+                    labels: ['Eco', 'Normal', 'Sport'],
+                    datasets: [{
+                        label: 'Average Efficiency (mi/kWh)',
+                        data: [avg_eco.toFixed(2), avg_normal.toFixed(2), avg_sport.toFixed(2)],
+                        backgroundColor: ['#4CAF50', '#1a5490', '#C8102E']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: { display: true, text: 'mi/kWh' }
+                        }
+                    }
+                }
+            });
+
+            // Chart 3: Efficiency vs Temperature
+            const tempData = sampleTripData.map(d => ({
+                x: d.outside_temp,
+                y: d.efficiency
+            }));
+
+            new Chart(document.getElementById('efficiencyByTempChart'), {
+                type: 'scatter',
+                data: {
+                    datasets: [{
+                        label: 'Trip Efficiency',
+                        data: tempData,
+                        backgroundColor: '#1a5490',
+                        pointRadius: 6,
+                        pointHoverRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            title: { display: true, text: 'Temperature (°F)' },
+                            min: 20,
+                            max: 85
+                        },
+                        y: {
+                            title: { display: true, text: 'Efficiency (mi/kWh)' },
+                            beginAtZero: true,
+                            max: 3.5
+                        }
+                    }
+                }
+            });
+
+            // Chart 4: DCFC by Network
+            const ea = sampleDCFCData.filter(d => d.network === 'Electrify America');
+            const evgo = sampleDCFCData.filter(d => d.network === 'EVgo');
+            const cp = sampleDCFCData.filter(d => d.network === 'ChargePoint');
+            const other = sampleDCFCData.filter(d => d.network === 'Other');
+
+            const avg_ea = ea.reduce((sum, d) => sum + d.peak_speed, 0) / ea.length;
+            const avg_evgo = evgo.reduce((sum, d) => sum + d.peak_speed, 0) / evgo.length;
+            const avg_cp = cp.reduce((sum, d) => sum + d.peak_speed, 0) / cp.length;
+            const avg_other = other.reduce((sum, d) => sum + d.peak_speed, 0) / other.length;
+
+            new Chart(document.getElementById('dcfcByNetworkChart'), {
+                type: 'bar',
+                data: {
+                    labels: ['Electrify America', 'EVgo', 'ChargePoint', 'Other'],
+                    datasets: [{
+                        label: 'Average Peak Speed (kW)',
+                        data: [avg_ea.toFixed(1), avg_evgo.toFixed(1), avg_cp.toFixed(1), avg_other.toFixed(1)],
+                        backgroundColor: '#C8102E'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    indexAxis: 'y',
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            title: { display: true, text: 'kW' }
+                        }
+                    }
+                }
+            });
+
+            // Chart 5: Charging Curve
+            // Group by SOC ranges
+            const soc_0_20 = sampleDCFCData.filter(d => d.start_soc <= 20);
+            const soc_20_40 = sampleDCFCData.filter(d => d.start_soc > 20 && d.start_soc <= 40);
+            const soc_40_60 = sampleDCFCData.filter(d => d.start_soc > 40 && d.start_soc <= 60);
+            const soc_60_80 = sampleDCFCData.filter(d => d.start_soc > 60 && d.start_soc <= 80);
+
+            const avg_0_20 = soc_0_20.length > 0 ? soc_0_20.reduce((sum, d) => sum + d.peak_speed, 0) / soc_0_20.length : 150;
+            const avg_20_40 = soc_20_40.length > 0 ? soc_20_40.reduce((sum, d) => sum + d.peak_speed, 0) / soc_20_40.length : 140;
+            const avg_40_60 = soc_40_60.length > 0 ? soc_40_60.reduce((sum, d) => sum + d.peak_speed, 0) / soc_40_60.length : 100;
+            const avg_60_80 = soc_60_80.length > 0 ? soc_60_80.reduce((sum, d) => sum + d.peak_speed, 0) / soc_60_80.length : 60;
+
+            new Chart(document.getElementById('chargingCurveChart'), {
+                type: 'line',
+                data: {
+                    labels: ['0-20%', '20-40%', '40-60%', '60-80%', '80-100%'],
+                    datasets: [{
+                        label: 'Average Peak Speed (kW)',
+                        data: [avg_0_20.toFixed(1), avg_20_40.toFixed(1), avg_40_60.toFixed(1), avg_60_80.toFixed(1), 35],
+                        borderColor: '#1a5490',
+                        backgroundColor: 'rgba(26, 84, 144, 0.1)',
+                        tension: 0.4,
+                        fill: true,
+                        pointRadius: 5,
+                        pointHoverRadius: 7
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            title: { display: true, text: 'Charging Speed (kW)' },
+                            beginAtZero: true,
+                            max: 200
+                        }
+                    }
+                }
+            });
+
+            // TODO: Load actual data from JSON files and update charts
+            loadDataFromJSON();
+        }
+
+        async function loadDataFromJSON() {
+            try {
+                // Load trip data
+                const tripResponse = await fetch('.github/data/trip-data.json');
+                if (tripResponse.ok) {
+                    const tripData = await tripResponse.json();
+                    updateTripCharts(tripData);
+                }
+
+                // Load DCFC data
+                const dcfcResponse = await fetch('.github/data/dcfc-data.json');
+                if (dcfcResponse.ok) {
+                    const dcfcData = await dcfcResponse.json();
+                    updateDCFCCharts(dcfcData);
+                }
+            } catch (error) {
+                console.log('No data available yet');
+            }
+        }
+
+        function updateTripCharts(data) {
+            // TODO: Process data and update charts
+            console.log('Trip data loaded:', data);
+        }
+
+        function updateDCFCCharts(data) {
+            // TODO: Process data and update charts
+            console.log('DCFC data loaded:', data);
+        }
+    </script>
+</body>
+</html>

@@ -74,6 +74,15 @@
   </url>
 
   <url>
+    <loc>https://vinfastowners.org/trip-data.html</loc>
+    <lastmod>2026-01-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://vinfastowners.org/trip-data.html" />
+    <xhtml:link rel="alternate" hreflang="fr-CA" href="https://vinfastowners.org/trip-data.html?lang=fr" />
+  </url>
+
+  <url>
     <loc>https://vinfastowners.org/open-letter.html</loc>
     <lastmod>2026-01-23</lastmod>
     <changefreq>monthly</changefreq>
