@@ -277,7 +277,7 @@ jobs:
               'value': (
                   "🗣️ Join the conversation:\n"
                   "• [VinFastTalk Forum](https://vinfasttalk.com)\n"
-                  "• [r/VinFastAuto](https://reddit.com/r/VinFastAuto)\n"
+                  "• [r/VinFast](https://reddit.com/r/VinFast)\n"
                   "• VinFastOwners.org Discord (you're here!)"
               ),
               'inline': False

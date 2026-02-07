@@ -134,7 +134,45 @@ jobs:
               'hands-on',
               'walkaround',
               'features',
-              'impressions'
+              'impressions',
+              'road trip',
+              'delivery',
+              'owner',
+              'unboxing',
+              'tour',
+              'pros and cons',
+              'honest',
+              'real world',
+              'daily driver',
+              'long term',
+              'month',
+              'year',
+              'problems',
+              'issues',
+              'worth it',
+              'should you buy',
+              'buyers guide',
+              'tips',
+              'tricks',
+              'how to',
+              'tutorial',
+              'cost',
+              'maintenance',
+              'road test',
+              'winter',
+              'cold weather',
+              'highway',
+              'city',
+              'efficiency',
+              'mileage',
+              'autopilot',
+              'adas',
+              'interior',
+              'exterior',
+              'cargo',
+              'family',
+              'kids',
+              'ev life'
           ]
 
           # Spam keywords (auto-reject if found)
@@ -156,7 +194,7 @@ jobs:
           # Spam patterns in channel names
           SPAM_CHANNEL_PATTERNS = [
               r'\d{4,}',  # 4+ consecutive digits
-              r'[A-Z]{5,}',  # 5+ consecutive capitals
+              r'^[A-Z\s]{15,}$',  # Only flag channels that are ENTIRELY uppercase and 15+ chars
           ]
 
           print("🔍 Starting YouTube VinFast content monitor...")
@@ -233,8 +271,8 @@ jobs:
               ('VinFast problems fixed', 'en'),
 
               # English - General & news
-              ('VinFast 2024', 'en'),
               ('VinFast 2025', 'en'),
+              ('VinFast 2026', 'en'),
               ('VinFast news', 'en'),
               ('VinFast announcement', 'en'),
 

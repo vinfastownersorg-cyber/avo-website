@@ -524,7 +524,8 @@ jobs:
               except Exception as e:
                   print(f"⚠️  Could not load previous state: {e}")
 
-          current_state = {}
+          # Start with previous state so sites that error don't lose their saved state
+          current_state = dict(previous_state)
           all_changes = []
 
           for site_name, sitemap_url in sitemaps.items():
@@ -533,6 +534,7 @@ jobs:
               try:
                   # Fetch sitemap
                   response = requests.get(sitemap_url, timeout=15)
+                  print(f"   HTTP {response.status_code} from {sitemap_url}")
 
                   if response.status_code == 200:
                       # Parse XML
@@ -608,8 +610,11 @@ jobs:
 
               except Exception as e:
                   print(f"❌ Error checking {site_name}: {e}")
+                  # Keep previous state for this site if it exists (don't lose it on error)
+                  if site_name in previous_state:
+                      print(f"   ℹ️  Preserving previous state for {site_name}")
 
-          # Save current state
+          # Save current state (includes preserved state for errored sites)
           try:
               os.makedirs(os.path.dirname(sitemap_state_file), exist_ok=True)
               with open(sitemap_state_file, 'w') as f:
@@ -697,13 +702,171 @@ jobs:
 
           EOF
 
-      - name: Commit sitemap state
+      - name: Monitor VinFast page content for changes
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_STOCK_WEBHOOK_URL }}
+        run: |
+          python3 << 'EOF'
+          import requests
+          import hashlib
+          import json
+          import os
+          import re
+          import sys
+          from datetime import datetime
+
+          webhook_url = os.environ.get('DISCORD_WEBHOOK_URL')
+
+          if not webhook_url:
+              print("ERROR: DISCORD_WEBHOOK_URL secret not set")
+              sys.exit(1)
+
+          print("🔍 Monitoring VinFast pages for content changes...")
+
+          # Pages to monitor (not reliably covered by sitemap)
+          PAGES_TO_MONITOR = {
+              'US Investor Relations': 'https://vinfastauto.us/investor-relations/',
+              'US Newsroom': 'https://vinfastauto.us/newsroom',
+              'CA Newsroom (EN)': 'https://vinfastauto.ca/en/newsroom',
+              'US Homepage': 'https://vinfastauto.us/',
+              'CA Homepage': 'https://vinfastauto.ca/en',
+              'VinFast Owners': 'https://vinfastowners.org',
+          }
+
+          state_file = '.github/page-monitor-state.json'
+
+          # Load previous state
+          previous_state = {}
+          if os.path.exists(state_file):
+              try:
+                  with open(state_file, 'r') as f:
+                      previous_state = json.load(f)
+                  print(f"✅ Loaded previous page state ({len(previous_state)} pages)")
+              except Exception as e:
+                  print(f"⚠️  Could not load previous state: {e}")
+
+          current_state = {}
+          changes_detected = []
+
+          for page_name, page_url in PAGES_TO_MONITOR.items():
+              print(f"\n📄 Checking: {page_name} ({page_url})")
+
+              try:
+                  response = requests.get(page_url, timeout=20, headers={
+                      'User-Agent': 'Mozilla/5.0 (compatible; VinFastOwnersBot/1.0)'
+                  })
+
+                  if response.status_code != 200:
+                      print(f"   ⚠️  HTTP {response.status_code} - skipping")
+                      # Preserve previous state for this page
+                      if page_name in previous_state:
+                          current_state[page_name] = previous_state[page_name]
+                      continue
+
+                  # Strip HTML tags to get text content (avoids false positives from CSS/JS changes)
+                  html_content = response.text
+                  # Remove script and style blocks entirely
+                  text = re.sub(r'<script[^>]*>.*?</script>', '', html_content, flags=re.DOTALL | re.IGNORECASE)
+                  text = re.sub(r'<style[^>]*>.*?</style>', '', text, flags=re.DOTALL | re.IGNORECASE)
+                  # Remove all HTML tags
+                  text = re.sub(r'<[^>]+>', ' ', text)
+                  # Normalize whitespace
+                  text = re.sub(r'\s+', ' ', text).strip()
+
+                  # Hash the text content
+                  content_hash = hashlib.sha256(text.encode('utf-8')).hexdigest()
+
+                  current_state[page_name] = {
+                      'url': page_url,
+                      'hash': content_hash,
+                      'last_checked': datetime.utcnow().isoformat(),
+                      'content_length': len(text)
+                  }
+
+                  # Compare with previous state
+                  if page_name in previous_state:
+                      prev_hash = previous_state[page_name].get('hash', '')
+                      if prev_hash and prev_hash != content_hash:
+                          prev_len = previous_state[page_name].get('content_length', 0)
+                          curr_len = len(text)
+                          len_diff = curr_len - prev_len
+                          print(f"   🔔 CHANGE DETECTED! (content length: {prev_len} -> {curr_len}, diff: {len_diff:+d})")
+                          changes_detected.append({
+                              'name': page_name,
+                              'url': page_url,
+                              'prev_length': prev_len,
+                              'curr_length': curr_len,
+                              'length_diff': len_diff
+                          })
+                      else:
+                          print(f"   ✓ No change (hash matches)")
+                  else:
+                      print(f"   ℹ️  First check - baseline recorded")
+
+              except Exception as e:
+                  print(f"   ❌ Error: {e}")
+                  # Preserve previous state on error
+                  if page_name in previous_state:
+                      current_state[page_name] = previous_state[page_name]
+
+          # Save current state
+          try:
+              os.makedirs(os.path.dirname(state_file), exist_ok=True)
+              with open(state_file, 'w') as f:
+                  json.dump(current_state, f, indent=2)
+              print(f"\n✅ Saved page monitor state ({len(current_state)} pages)")
+          except Exception as e:
+              print(f"⚠️  Could not save page state: {e}")
+
+          # Post changes to Discord
+          if changes_detected:
+              print(f"\n📢 Posting {len(changes_detected)} page change(s) to Discord...")
+
+              description = "🔍 **VinFast Page Content Changes Detected**\n\n"
+              description += "*The following pages have updated content:*\n\n"
+
+              for change in changes_detected:
+                  diff_str = f"{change['length_diff']:+d}" if change['length_diff'] != 0 else "~0"
+                  description += f"🔔 **[{change['name']}]({change['url']})**\n"
+                  description += f"   Content length: {change['prev_length']:,} → {change['curr_length']:,} chars ({diff_str})\n\n"
+
+              description += "*Check these pages for new announcements, filings, or updates.*"
+
+              embed = {
+                  "title": "🌐 VinFast Page Update Alert",
+                  "description": description,
+                  "color": 0xFF6600,  # Orange for attention
+                  "footer": {
+                      "text": "Page Content Monitor | Automated by VinFastOwners.org"
+                  },
+                  "timestamp": datetime.utcnow().isoformat()
+              }
+
+              payload = {
+                  "username": "VinFast Website Monitor",
+                  "avatar_url": "https://raw.githubusercontent.com/vinfastownersorg-cyber/avo-website/main/images/icons/avo-logo.png",
+                  "embeds": [embed]
+              }
+
+              response = requests.post(webhook_url, json=payload)
+
+              if response.status_code == 204:
+                  print("✅ Posted page changes to Discord")
+              else:
+                  print(f"⚠️  Discord post failed: {response.status_code}")
+                  print(f"Response: {response.text}")
+          else:
+              print("\nℹ️  No page content changes detected")
+
+          EOF
+
+      - name: Commit monitoring state
         if: always()
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git add .github/sitemap-state.json || true
-          git diff --quiet --cached || git commit -m "Update sitemap state [skip ci]"
+          git add .github/sitemap-state.json .github/page-monitor-state.json || true
+          git diff --quiet --cached || git commit -m "Update website monitoring state [skip ci]"
           git push || true
 
       - name: Log completion
