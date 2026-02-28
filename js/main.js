@@ -332,7 +332,7 @@ function highlightActivePage() {
         'documents.html': 'documents.html',
         'meeting-minutes.html': 'meeting-minutes.html',
         'join.html': 'join.html',
-        'discord.html': 'discord.html',
+        'discord.html': 'index.html',
         'links.html': 'links.html',
         'trip-data.html': 'trip-data.html',
         'petition.html': 'petition.html',
