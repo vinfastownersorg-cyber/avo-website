@@ -90,6 +90,16 @@
     <priority>0.7</priority>
   </url>
 
+  <!-- Petition Pages -->
+  <url>
+    <loc>https://vinfastowners.org/petition.html</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://vinfastowners.org/petition.html" />
+    <xhtml:link rel="alternate" hreflang="fr-CA" href="https://vinfastowners.org/petition.html?lang=fr" />
+  </url>
+
   <!-- Legal Pages -->
   <url>
     <loc>https://vinfastowners.org/privacy.html</loc>
