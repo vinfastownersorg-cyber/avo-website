@@ -420,6 +420,53 @@
             font-weight: 600;
         }
 
+        /* Share Section */
+        .share-section {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 2rem;
+            margin: 2rem 0;
+            border-radius: 12px;
+            text-align: center;
+            border: 2px solid #00897B;
+        }
+
+        .share-section h3 {
+            color: #00897B;
+            margin-bottom: 1rem;
+        }
+
+        .share-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+
+        .share-links a {
+            display: inline-block;
+            padding: 0.6rem 1.2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: white;
+            transition: all 0.2s ease;
+        }
+
+        .share-links a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .share-facebook { background: #1877F2; }
+        .share-x { background: #000; }
+        .share-reddit { background: #FF4500; }
+        .share-linkedin { background: #0A66C2; }
+        .share-whatsapp { background: #25D366; }
+        .share-zalo { background: #0068FF; }
+        .share-email { background: #00897B; }
+
         /* Thank-You Section (hidden by default) */
         .thank-you-section {
             display: none;
@@ -1072,6 +1119,27 @@
                     <span lang="en">Drive the Future. Together.</span>
                     <span lang="fr">Conduisons l'avenir. Ensemble.</span>
                 </p>
+            </div>
+
+            <!-- ── Share Section ── -->
+            <div class="share-section">
+                <h3>
+                    <span lang="en">📣 Share This Petition</span>
+                    <span lang="fr">📣 Partagez cette pétition</span>
+                </h3>
+                <p>
+                    <span lang="en">Help us reach more VinFast owners. Share now to:</span>
+                    <span lang="fr">Aidez-nous à rejoindre plus de propriétaires VinFast. Partagez sur :</span>
+                </p>
+                <div class="share-links">
+                    <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fvinfastowners.org%2Fpetition.html" target="_blank" rel="noopener" class="share-facebook">Facebook</a>
+                    <a href="https://x.com/intent/tweet?url=https%3A%2F%2Fvinfastowners.org%2Fpetition.html&text=Sign%20the%20AVO%20community%20petition%20for%20VinFast%20features%21" target="_blank" rel="noopener" class="share-x">X</a>
+                    <a href="https://www.reddit.com/submit?url=https%3A%2F%2Fvinfastowners.org%2Fpetition.html&title=VinFast%20Community%20Feature%20Request%20Petition" target="_blank" rel="noopener" class="share-reddit">Reddit</a>
+                    <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fvinfastowners.org%2Fpetition.html" target="_blank" rel="noopener" class="share-linkedin">LinkedIn</a>
+                    <a href="https://api.whatsapp.com/send?text=Sign%20the%20AVO%20petition%20for%20VinFast%20features%3A%20https%3A%2F%2Fvinfastowners.org%2Fpetition.html" target="_blank" rel="noopener" class="share-whatsapp">WhatsApp</a>
+                    <a href="https://zalo.me/share?url=https%3A%2F%2Fvinfastowners.org%2Fpetition.html" target="_blank" rel="noopener" class="share-zalo">Zalo</a>
+                    <a href="mailto:?subject=VinFast%20Community%20Feature%20Request%20Petition&body=Sign%20the%20AVO%20petition%20for%20VinFast%20features%3A%20https%3A%2F%2Fvinfastowners.org%2Fpetition.html" class="share-email">Email</a>
+                </div>
             </div>
 
             <!-- ── Thank-You Section (hidden, shown on #thank-you / #merci hash) ── -->
