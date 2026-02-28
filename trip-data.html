@@ -3,85 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VinFast Trip Data & Charging Insights - VinFast Owners Association</title>
+
+    <!-- Primary Meta Tags -->
+    <title>Trip Data | AVO North America</title>
+    <meta name="title" content="Trip Data | AVO North America">
     <meta name="description" content="Share and explore real-world VinFast trip efficiency and DCFC charging data from the community.">
+
+    <!-- Multilingual SEO -->
+    <link rel="alternate" hreflang="en" href="https://vinfastowners.org/trip-data.html">
+    <link rel="alternate" hreflang="fr-CA" href="https://vinfastowners.org/trip-data.html?lang=fr">
+    <link rel="alternate" hreflang="x-default" href="https://vinfastowners.org/trip-data.html">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://vinfastowners.org/trip-data.html">
+    <meta property="og:title" content="Trip Data | AVO North America">
+    <meta property="og:description" content="Share and explore real-world VinFast trip efficiency and DCFC charging data from the community.">
+    <meta property="og:image" content="https://vinfastowners.org/images/icons/avo-logo.png">
+
+    <!-- Canonical -->
+    <link rel="canonical" href="https://vinfastowners.org/trip-data.html">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="images/icons/avo-logo.png">
+    <link rel="apple-touch-icon" href="images/icons/avo-logo.png">
 
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="css/styles.css">
+
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        /* ===== Trip-data-specific inline styles ===== */
 
         :root {
             --vinfast-crimson: #C8102E;
-            --vinfast-blue: #1a5490;
             --vinfast-sunset: #FF6B35;
             --vinfast-grey: #4A5568;
             --vinfast-light-grey: #E2E8F0;
             --success-green: #4CAF50;
             --warning-orange: #FF9800;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 2rem 1rem;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            overflow: hidden;
-        }
-
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(135deg, var(--vinfast-crimson) 0%, #a00d26 100%);
-            color: white;
-            padding: 3rem 2rem;
-            text-align: center;
-        }
-
-        .hero h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            font-weight: 700;
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            opacity: 0.95;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        /* Back Button */
-        .back-button {
-            display: inline-block;
-            margin: 2rem;
-            padding: 0.75rem 1.5rem;
-            background: var(--vinfast-blue);
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .back-button:hover {
-            background: #164070;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
         }
 
         /* Privacy Warning */
@@ -275,35 +237,39 @@
             display: block;
         }
 
-        /* Language Toggle */
-        [lang="fr"] {
-            display: none;
-        }
-
-        html[lang="fr"] [lang="en"] {
-            display: none;
-        }
-
-        html[lang="fr"] [lang="fr"] {
-            display: inline;
-        }
-
-        .language-toggle {
-            position: fixed;
-            top: 20px;
-            right: 20px;
+        /* Trip data container */
+        .trip-data-container {
+            max-width: 1200px;
+            margin: 0 auto;
             background: white;
-            border: 2px solid var(--vinfast-crimson);
-            border-radius: 8px;
-            padding: 0.5rem 1rem;
-            cursor: pointer;
-            font-weight: 600;
-            color: var(--vinfast-crimson);
-            z-index: 1000;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        /* Trip Hero Section */
+        .trip-hero {
+            background: linear-gradient(135deg, var(--vinfast-crimson) 0%, #a00d26 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .trip-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .trip-hero p {
+            font-size: 1.2rem;
+            opacity: 0.95;
+            max-width: 800px;
+            margin: 0 auto;
         }
 
         @media (max-width: 768px) {
-            .hero h1 {
+            .trip-hero h1 {
                 font-size: 1.8rem;
             }
 
@@ -327,561 +293,768 @@
     </style>
 </head>
 <body>
-    <button class="language-toggle" onclick="toggleLanguage()">
-        <span lang="en">🇫🇷 Français</span>
-        <span lang="fr">🇺🇸 English</span>
+<div class="scroll-progress" aria-hidden="true"></div>
+
+    <!-- ===== Glass Navigation ===== -->
+    <nav class="nav-v2" role="navigation" aria-label="Main navigation">
+        <div class="nav-inner">
+            <a href="/" class="nav-logo" aria-label="AVO Home">
+                <img src="images/icons/avo-logo.png" alt="AVO Logo" width="44" height="44">
+                <div class="nav-logo-text">
+                    <span class="nav-logo-name">AVO</span>
+                    <span class="nav-logo-sub">
+                        <span lang="en">North America</span>
+                        <span lang="fr">Amérique du Nord</span>
+                    </span>
+                </div>
+            </a>
+
+            <button class="hamburger-v2" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <div class="nav-links-v2" id="nav-menu">
+                <a href="index.html">
+                    <span lang="en">Home</span>
+                    <span lang="fr">Accueil</span>
+                </a>
+                <a href="considering-vinfast.html">
+                    <span lang="en">Considering VinFast?</span>
+                    <span lang="fr">Vous Envisagez VinFast?</span>
+                </a>
+                <!-- Community Dropdown -->
+                <div class="nav-drop">
+                    <a href="#community">
+                        <span lang="en">Community</span>
+                        <span lang="fr">Communauté</span>
+                    </a>
+                    <div class="nav-drop-menu">
+                        <a href="discord.html">
+                            <span lang="en">Discord</span>
+                            <span lang="fr">Discord</span>
+                        </a>
+                        <a href="https://www.facebook.com/share/g/17dH6oZRA4/" target="_blank" rel="noopener">
+                            <span lang="en">Facebook Group</span>
+                            <span lang="fr">Groupe Facebook</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Governance Dropdown -->
+                <div class="nav-drop">
+                    <a href="#governance">
+                        <span lang="en">Governance</span>
+                        <span lang="fr">Gouvernance</span>
+                    </a>
+                    <div class="nav-drop-menu">
+                        <a href="board.html">
+                            <span lang="en">Board of Directors</span>
+                            <span lang="fr">Conseil d'Administration</span>
+                        </a>
+                        <a href="documents.html">
+                            <span lang="en">Documents & Bylaws</span>
+                            <span lang="fr">Documents et Règlements</span>
+                        </a>
+                        <a href="meeting-minutes.html">
+                            <span lang="en">Meeting Minutes</span>
+                            <span lang="fr">Procès-Verbaux</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Resources Dropdown -->
+                <div class="nav-drop">
+                    <a href="#resources">
+                        <span lang="en">Resources</span>
+                        <span lang="fr">Ressources</span>
+                    </a>
+                    <div class="nav-drop-menu">
+                        <a href="recalls.html">
+                            <span lang="en">Recalls & Safety</span>
+                            <span lang="fr">Rappels et Sécurité</span>
+                        </a>
+                        <a href="trip-data.html">
+                            <span lang="en">Trip Data</span>
+                            <span lang="fr">Données de Voyage</span>
+                        </a>
+                        <a href="petition.html">
+                            <span lang="en">Petition</span>
+                            <span lang="fr">Pétition</span>
+                        </a>
+                        <a href="report-issue.html">
+                            <span lang="en">Report an Issue</span>
+                            <span lang="fr">Signaler un Problème</span>
+                        </a>
+                        <a href="vf8-vf9-user-guide.html">
+                            <span lang="en">User Guide</span>
+                            <span lang="fr">Guide d'Utilisation</span>
+                        </a>
+                        <a href="links.html">
+                            <span lang="en">All Links</span>
+                            <span lang="fr">Tous les Liens</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Join CTA -->
+                <a href="join.html" class="nav-cta">
+                    <span lang="en">Join</span>
+                    <span lang="fr">Adhérer</span>
+                </a>
+
+                <!-- Mobile-only controls -->
+                <div class="mobile-controls">
+                    <div class="lang-switch">
+                        <button onclick="setLang('en')" class="active" aria-label="English">EN</button>
+                        <button onclick="setLang('fr')" aria-label="Français">FR</button>
+                    </div>
+                    <button class="theme-toggle" aria-label="Toggle dark mode"></button>
+                </div>
+            </div>
+
+            <!-- Desktop controls -->
+            <div class="nav-controls">
+                <div class="lang-switch">
+                    <button onclick="setLang('en')" class="active" aria-label="English">EN</button>
+                    <button onclick="setLang('fr')" aria-label="Français">FR</button>
+                </div>
+                <button class="theme-toggle" aria-label="Toggle dark mode"></button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ===== Page Header with Breadcrumb ===== -->
+    <section class="page-header-v2">
+        <nav class="breadcrumb-v2" aria-label="Breadcrumb">
+            <a href="index.html">
+                <span lang="en">Home</span>
+                <span lang="fr">Accueil</span>
+            </a>
+            <span aria-hidden="true">/</span>
+            <a href="#resources">
+                <span lang="en">Resources</span>
+                <span lang="fr">Ressources</span>
+            </a>
+            <span aria-hidden="true">/</span>
+            <span aria-current="page">
+                <span lang="en">Trip Data</span>
+                <span lang="fr">Données de Voyage</span>
+            </span>
+        </nav>
+    </section>
+
+    <!-- ===== Main Content ===== -->
+    <main>
+        <div class="trip-data-container">
+            <!-- Hero Section -->
+            <div class="trip-hero">
+                <h1>
+                    <span lang="en">VinFast Trip Data & Charging Insights</span>
+                    <span lang="fr">Données de Trajet et Recharge VinFast</span>
+                </h1>
+                <p lang="en">Share your real-world trip efficiency and DCFC charging experiences to help the VinFast community make informed decisions.</p>
+                <p lang="fr">Partagez vos expériences réelles d'efficacité de trajet et de recharge DCFC pour aider la communauté VinFast à prendre des décisions éclairées.</p>
+            </div>
+
+            <!-- Privacy Warning -->
+            <div class="privacy-warning">
+                <h3>
+                    <span lang="en">Public Data Notice</span>
+                    <span lang="fr">Avis de Données Publiques</span>
+                </h3>
+                <p lang="en"><strong>All submitted data will be publicly visible on this page and stored in our public GitHub repository.</strong></p>
+                <p lang="fr"><strong>Toutes les données soumises seront publiquement visibles sur cette page et stockées dans notre dépôt GitHub public.</strong></p>
+                <ul>
+                    <li lang="en">DO share: Trip efficiency, charging speeds, settings, weather conditions</li>
+                    <li lang="fr">PARTAGEZ: Efficacité de trajet, vitesses de recharge, paramètres, conditions météo</li>
+                    <li lang="en">DO NOT share: Personal information, exact locations, VIN numbers, license plates</li>
+                    <li lang="fr">NE PARTAGEZ PAS: Informations personnelles, emplacements exacts, numéros VIN, plaques</li>
+                </ul>
+            </div>
+
+            <!-- Tab Navigation -->
+            <div class="tab-navigation">
+                <button class="tab-button active" onclick="switchTab('trip')">
+                    <span lang="en">Trip Data</span>
+                    <span lang="fr">Données de Trajet</span>
+                </button>
+                <button class="tab-button" onclick="switchTab('dcfc')">
+                    <span lang="en">DCFC Charging</span>
+                    <span lang="fr">Recharge DCFC</span>
+                </button>
+                <button class="tab-button" onclick="switchTab('charts')">
+                    <span lang="en">Data Insights</span>
+                    <span lang="fr">Analyses de Données</span>
+                </button>
+            </div>
+
+            <!-- Trip Data Tab -->
+            <div id="trip-tab" class="tab-content active">
+                <div class="success-message" id="trip-success">
+                    <p lang="en">Trip data submitted successfully! Thank you for contributing to the community.</p>
+                    <p lang="fr">Données de trajet soumises avec succès! Merci de contribuer à la communauté.</p>
+                </div>
+
+                <form id="trip-form">
+                    <!-- Basic Trip Information -->
+                    <div class="form-section">
+                        <h3 lang="en">Basic Trip Information</h3>
+                        <h3 lang="fr">Informations de Base sur le Trajet</h3>
+
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label lang="en">Date of Trip *</label>
+                                <label lang="fr">Date du Trajet *</label>
+                                <input type="date" name="date" required max="">
+                            </div>
+
+                            <div class="form-group">
+                                <label lang="en">Vehicle Model *</label>
+                                <label lang="fr">Modèle de Véhicule *</label>
+                                <select name="model" required>
+                                    <option value="">-- Select --</option>
+                                    <option value="VF8">VF8</option>
+                                    <option value="VF9">VF9</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label lang="en">Model Year *</label>
+                                <label lang="fr">Année du Modèle *</label>
+                                <select name="year" required>
+                                    <option value="">-- Select --</option>
+                                    <option value="2023">2023</option>
+                                    <option value="2024">2024</option>
+                                    <option value="2025">2025</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label lang="en">Battery Size *</label>
+                                <label lang="fr">Taille de Batterie *</label>
+                                <select name="battery" required>
+                                    <option value="">-- Select --</option>
+                                    <option value="82kWh">82 kWh (Standard Range)</option>
+                                    <option value="87.7kWh">87.7 kWh (Plus)</option>
+                                    <option value="92kWh">92 kWh (Extended Range)</option>
+                                    <option value="123kWh">123 kWh (VF9)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label lang="en">Starting Battery % *</label>
+                                <label lang="fr">% de Batterie Initiale *</label>
+                                <input type="number" name="start_soc" min="0" max="100" required>
+                                <small lang="en">0-100%</small>
+                                <small lang="fr">0-100%</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label lang="en">Ending Battery % *</label>
+                                <label lang="fr">% de Batterie Finale *</label>
+                                <input type="number" name="end_soc" min="0" max="100" required>
+                                <small lang="en">0-100%</small>
+                                <small lang="fr">0-100%</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label lang="en">Distance Traveled *</label>
+                                <label lang="fr">Distance Parcourue *</label>
+                                <input type="number" name="distance" step="0.1" min="0" required>
+                                <small lang="en">Miles</small>
+                                <small lang="fr">Miles</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label lang="en">Efficiency (Calculated)</label>
+                                <label lang="fr">Efficacité (Calculée)</label>
+                                <input type="text" name="efficiency_display" readonly placeholder="Auto-calculated">
+                                <small lang="en">mi/kWh</small>
+                                <small lang="fr">mi/kWh</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Vehicle Settings -->
+                    <div class="form-section">
+                        <h3 lang="en">Vehicle Settings During Trip</h3>
+                        <h3 lang="fr">Paramètres du Véhicule Pendant le Trajet</h3>
+
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label lang="en">Drive Mode *</label>
+                                <label lang="fr">Mode de Conduite *</label>
+                                <select name="drive_mode" required>
+                                    <option value="">-- Select --</option>
+                                    <option value="Eco">Eco</option>
+                                    <option value="Normal">Normal</option>
+                                    <option value="Sport">Sport</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label lang="en">Regenerative Braking *</label>
+                                <label lang="fr">Freinage Régénératif *</label>
+                                <select name="regen" required>
+                                    <option value="">-- Select --</option>
+                                    <option value="Low">Low</option>
+                                    <option value="Medium">Medium</option>
+                                    <option value="High">High</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label lang="en">Climate Control *</label>
+                                <label lang="fr">Climatisation *</label>
+                                <select name="climate" required>
+                                    <option value="">-- Select --</option>
+                                    <option value="Off">Off</option>
+                                    <option value="AC">AC On</option>
+                                    <option value="Heat">Heat On</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label lang="en">Temperature Setting</label>
+                                <label lang="fr">Température Réglée</label>
+                                <input type="number" name="temp_setting" min="60" max="85">
+                                <small lang="en">°F (if climate was on)</small>
+                                <small lang="fr">°F (si climatisation active)</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label lang="en">Average Speed *</label>
+                                <label lang="fr">Vitesse Moyenne *</label>
+                                <input type="number" name="avg_speed" min="0" required>
+                                <small lang="en">MPH</small>
+                                <small lang="fr">MPH</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Environmental Conditions -->
+                    <div class="form-section">
+                        <h3 lang="en">Environmental Conditions</h3>
+                        <h3 lang="fr">Conditions Environnementales</h3>
+
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label lang="en">Outside Temperature *</label>
+                                <label lang="fr">Température Extérieure *</label>
+                                <input type="number" name="outside_temp" required>
+                                <small lang="en">°F</small>
+                                <small lang="fr">°F</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label lang="en">Weather Conditions *</label>
+                                <label lang="fr">Conditions Météo *</label>
+                                <select name="weather" required>
+                                    <option value="">-- Select --</option>
+                                    <option value="Clear">Clear/Sunny</option>
+                                    <option value="Cloudy">Cloudy</option>
+                                    <option value="Rain">Rain</option>
+                                    <option value="Snow">Snow</option>
+                                    <option value="Windy">Windy</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label lang="en">Terrain Type *</label>
+                                <label lang="fr">Type de Terrain *</label>
+                                <select name="terrain" required>
+                                    <option value="">-- Select --</option>
+                                    <option value="Flat">Mostly Flat</option>
+                                    <option value="Hills">Some Hills</option>
+                                    <option value="Mountains">Mountainous</option>
+                                    <option value="Mixed">Mixed</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label lang="en">Road Type *</label>
+                                <label lang="fr">Type de Route *</label>
+                                <select name="road_type" required>
+                                    <option value="">-- Select --</option>
+                                    <option value="City">City/Urban</option>
+                                    <option value="Highway">Highway</option>
+                                    <option value="Mixed">Mixed</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Additional Notes -->
+                    <div class="form-section">
+                        <h3 lang="en">Additional Information</h3>
+                        <h3 lang="fr">Informations Supplémentaires</h3>
+
+                        <div class="form-group">
+                            <label lang="en">Region/Country *</label>
+                            <label lang="fr">Région/Pays *</label>
+                            <select name="region" required>
+                                <option value="">-- Select --</option>
+                                <option value="USA">United States</option>
+                                <option value="Canada">Canada</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label lang="en">Additional Notes</label>
+                            <label lang="fr">Notes Supplémentaires</label>
+                            <textarea name="notes" rows="4" placeholder="Any additional details about your trip..."></textarea>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="submit-button">
+                        <span lang="en">Submit Trip Data</span>
+                        <span lang="fr">Soumettre les Données de Trajet</span>
+                    </button>
+                </form>
+            </div>
+
+            <!-- DCFC Charging Tab -->
+            <div id="dcfc-tab" class="tab-content">
+                <div class="success-message" id="dcfc-success">
+                    <p lang="en">DCFC charging data submitted successfully! Thank you for contributing.</p>
+                    <p lang="fr">Données de recharge DCFC soumises avec succès! Merci de contribuer.</p>
+                </div>
+
+                <form id="dcfc-form">
+                    <!-- Basic Charging Information -->
+                    <div class="form-section">
+                        <h3 lang="en">Basic Charging Information</h3>
+                        <h3 lang="fr">Informations de Base sur la Recharge</h3>
+
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label lang="en">Date of Charging Session *</label>
+                                <label lang="fr">Date de la Session de Recharge *</label>
+                                <input type="date" name="date" required max="">
+                            </div>
+
+                            <div class="form-group">
+                                <label lang="en">Vehicle Model *</label>
+                                <label lang="fr">Modèle de Véhicule *</label>
+                                <select name="model" required>
+                                    <option value="">-- Select --</option>
+                                    <option value="VF8">VF8</option>
+                                    <option value="VF9">VF9</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label lang="en">Model Year *</label>
+                                <label lang="fr">Année du Modèle *</label>
+                                <select name="year" required>
+                                    <option value="">-- Select --</option>
+                                    <option value="2023">2023</option>
+                                    <option value="2024">2024</option>
+                                    <option value="2025">2025</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label lang="en">Battery Size *</label>
+                                <label lang="fr">Taille de Batterie *</label>
+                                <select name="battery" required>
+                                    <option value="">-- Select --</option>
+                                    <option value="82kWh">82 kWh (Standard Range)</option>
+                                    <option value="87.7kWh">87.7 kWh (Plus)</option>
+                                    <option value="92kWh">92 kWh (Extended Range)</option>
+                                    <option value="123kWh">123 kWh (VF9)</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Charging Station Info -->
+                    <div class="form-section">
+                        <h3 lang="en">Charging Station Details</h3>
+                        <h3 lang="fr">Détails de la Station de Recharge</h3>
+
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label lang="en">Charging Network *</label>
+                                <label lang="fr">Réseau de Recharge *</label>
+                                <select name="network" required>
+                                    <option value="">-- Select --</option>
+                                    <option value="Electrify America">Electrify America</option>
+                                    <option value="EVgo">EVgo</option>
+                                    <option value="ChargePoint">ChargePoint</option>
+                                    <option value="Tesla Supercharger">Tesla Supercharger (Magic Dock)</option>
+                                    <option value="Shell Recharge">Shell Recharge</option>
+                                    <option value="Blink">Blink</option>
+                                    <option value="FLO">FLO</option>
+                                    <option value="Petro-Canada">Petro-Canada</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label lang="en">Charger Type *</label>
+                                <label lang="fr">Type de Chargeur *</label>
+                                <select name="charger_type" required>
+                                    <option value="">-- Select --</option>
+                                    <option value="CCS">CCS (Combined Charging System)</option>
+                                    <option value="NACS">NACS (Tesla)</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label lang="en">Advertised Charger Power *</label>
+                                <label lang="fr">Puissance Annoncée du Chargeur *</label>
+                                <select name="charger_power" required>
+                                    <option value="">-- Select --</option>
+                                    <option value="50kW">50 kW</option>
+                                    <option value="100kW">100 kW</option>
+                                    <option value="150kW">150 kW</option>
+                                    <option value="175kW">175 kW</option>
+                                    <option value="250kW">250 kW</option>
+                                    <option value="350kW">350 kW</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label lang="en">General Location *</label>
+                                <label lang="fr">Emplacement Général *</label>
+                                <input type="text" name="location" placeholder="City, State" required>
+                                <small lang="en">City/State only (no exact addresses)</small>
+                                <small lang="fr">Ville/Province seulement (pas d'adresses exactes)</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Battery & Performance -->
+                    <div class="form-section">
+                        <h3 lang="en">Battery & Performance Data</h3>
+                        <h3 lang="fr">Données de Batterie et Performance</h3>
+
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label lang="en">Starting Battery % *</label>
+                                <label lang="fr">% de Batterie Initiale *</label>
+                                <input type="number" name="start_soc" min="0" max="100" required>
+                                <small lang="en">0-100%</small>
+                                <small lang="fr">0-100%</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label lang="en">Ending Battery % *</label>
+                                <label lang="fr">% de Batterie Finale *</label>
+                                <input type="number" name="end_soc" min="0" max="100" required>
+                                <small lang="en">0-100%</small>
+                                <small lang="fr">0-100%</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label lang="en">Peak Charging Speed *</label>
+                                <label lang="fr">Vitesse de Recharge Maximale *</label>
+                                <input type="number" name="peak_speed" min="0" step="0.1" required>
+                                <small lang="en">kW</small>
+                                <small lang="fr">kW</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label lang="en">Average Charging Speed</label>
+                                <label lang="fr">Vitesse de Recharge Moyenne</label>
+                                <input type="number" name="avg_speed" min="0" step="0.1">
+                                <small lang="en">kW</small>
+                                <small lang="fr">kW</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label lang="en">Total Charging Time *</label>
+                                <label lang="fr">Temps Total de Recharge *</label>
+                                <input type="number" name="duration" min="0" required>
+                                <small lang="en">Minutes</small>
+                                <small lang="fr">Minutes</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label lang="en">Energy Added</label>
+                                <label lang="fr">Énergie Ajoutée</label>
+                                <input type="number" name="energy_added" min="0" step="0.1">
+                                <small lang="en">kWh</small>
+                                <small lang="fr">kWh</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Environmental Conditions -->
+                    <div class="form-section">
+                        <h3 lang="en">Environmental Conditions</h3>
+                        <h3 lang="fr">Conditions Environnementales</h3>
+
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label lang="en">Outside Temperature *</label>
+                                <label lang="fr">Température Extérieure *</label>
+                                <input type="number" name="temperature" required>
+                                <small lang="en">°F</small>
+                                <small lang="fr">°F</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label lang="en">Battery Preconditioned? *</label>
+                                <label lang="fr">Batterie Préconditionnée? *</label>
+                                <select name="preconditioned" required>
+                                    <option value="">-- Select --</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                    <option value="Unknown">Unknown</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Additional Info -->
+                    <div class="form-section">
+                        <h3 lang="en">Additional Information</h3>
+                        <h3 lang="fr">Informations Supplémentaires</h3>
+
+                        <div class="form-group">
+                            <label lang="en">Session Rating</label>
+                            <label lang="fr">Évaluation de la Session</label>
+                            <select name="rating">
+                                <option value="">-- Select --</option>
+                                <option value="5">Excellent</option>
+                                <option value="4">Good</option>
+                                <option value="3">Average</option>
+                                <option value="2">Below Average</option>
+                                <option value="1">Poor</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label lang="en">Additional Notes</label>
+                            <label lang="fr">Notes Supplémentaires</label>
+                            <textarea name="notes" rows="4" placeholder="Any issues, observations, or helpful details..."></textarea>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="submit-button">
+                        <span lang="en">Submit Charging Data</span>
+                        <span lang="fr">Soumettre les Données de Recharge</span>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Charts Tab -->
+            <div id="charts-tab" class="tab-content">
+                <div class="charts-section">
+                    <div class="chart-container">
+                        <h3 lang="en">Average Efficiency by Vehicle Model</h3>
+                        <h3 lang="fr">Efficacité Moyenne par Modèle de Véhicule</h3>
+                        <div class="chart-wrapper">
+                            <canvas id="efficiencyByModelChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="chart-container">
+                        <h3 lang="en">Efficiency by Drive Mode</h3>
+                        <h3 lang="fr">Efficacité par Mode de Conduite</h3>
+                        <div class="chart-wrapper">
+                            <canvas id="efficiencyByDriveModeChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="chart-container">
+                        <h3 lang="en">Efficiency vs Temperature</h3>
+                        <h3 lang="fr">Efficacité vs Température</h3>
+                        <div class="chart-wrapper">
+                            <canvas id="efficiencyByTempChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="chart-container">
+                        <h3 lang="en">DCFC Peak Charging Speed by Network</h3>
+                        <h3 lang="fr">Vitesse de Recharge Maximale DCFC par Réseau</h3>
+                        <div class="chart-wrapper">
+                            <canvas id="dcfcByNetworkChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="chart-container">
+                        <h3 lang="en">DCFC Charging Curve (by Starting SOC)</h3>
+                        <h3 lang="fr">Courbe de Recharge DCFC (par SOC Initial)</h3>
+                        <div class="chart-wrapper">
+                            <canvas id="chargingCurveChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- ===== Footer ===== -->
+    <footer class="footer-v2">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <div style="display:flex; align-items:center; gap:var(--space-3); margin-bottom:var(--space-4);">
+                    <img src="images/icons/avo-logo.png" alt="AVO" width="36" height="36">
+                    <strong style="font-size:var(--text-lg); color:white;">AVO</strong>
+                </div>
+                <p lang="en">Association of VinFast Owners North America. Independent owner organization, not affiliated with VinFast Auto.</p>
+                <p lang="fr">Association des Propriétaires VinFast Amérique du Nord. Organisation indépendante, non affiliée à VinFast Auto.</p>
+            </div>
+
+            <div class="footer-col">
+                <h4>
+                    <span lang="en">Navigation</span>
+                    <span lang="fr">Navigation</span>
+                </h4>
+                <ul class="footer-links-v2">
+                    <li><a href="index.html"><span lang="en">Home</span><span lang="fr">Accueil</span></a></li>
+                    <li><a href="considering-vinfast.html"><span lang="en">Buyer Guide</span><span lang="fr">Guide d'Achat</span></a></li>
+                    <li><a href="recalls.html"><span lang="en">Recalls</span><span lang="fr">Rappels</span></a></li>
+                    <li><a href="trip-data.html"><span lang="en">Trip Data</span><span lang="fr">Données de Voyage</span></a></li>
+                    <li><a href="report-issue.html"><span lang="en">Report Issue</span><span lang="fr">Signaler</span></a></li>
+                    <li><a href="links.html"><span lang="en">All Links</span><span lang="fr">Tous les Liens</span></a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4>
+                    <span lang="en">Community</span>
+                    <span lang="fr">Communauté</span>
+                </h4>
+                <ul class="footer-links-v2">
+                    <li><a href="discord.html">Discord</a></li>
+                    <li><a href="https://www.facebook.com/share/g/17dH6oZRA4/" target="_blank" rel="noopener">Facebook</a></li>
+                    <li><a href="https://vinfasttalk.com" target="_blank" rel="noopener">VinFastTalk</a></li>
+                    <li><a href="https://www.bonfire.com/store/association-of-vinfast-owners/" target="_blank" rel="noopener"><span lang="en">Shop</span><span lang="fr">Boutique</span></a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4>
+                    <span lang="en">Legal</span>
+                    <span lang="fr">Légal</span>
+                </h4>
+                <ul class="footer-links-v2">
+                    <li><a href="privacy.html"><span lang="en">Privacy Policy</span><span lang="fr">Confidentialité</span></a></li>
+                    <li><a href="disclaimer.html"><span lang="en">Disclaimer</span><span lang="fr">Avertissement</span></a></li>
+                    <li><a href="documents.html"><span lang="en">Governance</span><span lang="fr">Gouvernance</span></a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom-v2">
+            <p lang="en">&copy; 2025–2026 Association of VinFast Owners North America. Independent owner organization, not affiliated with VinFast Auto.</p>
+            <p lang="fr">&copy; 2025–2026 Association des Propriétaires VinFast Amérique du Nord. Organisation indépendante, non affiliée à VinFast Auto.</p>
+        </div>
+    </footer>
+
+    <button class="back-to-top" aria-label="Back to top">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
     </button>
-
-    <div class="container">
-        <!-- Hero Section -->
-        <div class="hero">
-            <h1>
-                <span lang="en">📊 VinFast Trip Data & Charging Insights</span>
-                <span lang="fr">📊 Données de Trajet et Recharge VinFast</span>
-            </h1>
-            <p lang="en">Share your real-world trip efficiency and DCFC charging experiences to help the VinFast community make informed decisions.</p>
-            <p lang="fr">Partagez vos expériences réelles d'efficacité de trajet et de recharge DCFC pour aider la communauté VinFast à prendre des décisions éclairées.</p>
-        </div>
-
-        <a href="index.html" class="back-button">
-            <span lang="en">← Back to Home</span>
-            <span lang="fr">← Retour à l'Accueil</span>
-        </a>
-
-        <!-- Privacy Warning -->
-        <div class="privacy-warning">
-            <h3>
-                <span>⚠️</span>
-                <span lang="en">Public Data Notice</span>
-                <span lang="fr">Avis de Données Publiques</span>
-            </h3>
-            <p lang="en"><strong>All submitted data will be publicly visible on this page and stored in our public GitHub repository.</strong></p>
-            <p lang="fr"><strong>Toutes les données soumises seront publiquement visibles sur cette page et stockées dans notre dépôt GitHub public.</strong></p>
-            <ul>
-                <li lang="en">✅ DO share: Trip efficiency, charging speeds, settings, weather conditions</li>
-                <li lang="fr">✅ PARTAGEZ: Efficacité de trajet, vitesses de recharge, paramètres, conditions météo</li>
-                <li lang="en">❌ DO NOT share: Personal information, exact locations, VIN numbers, license plates</li>
-                <li lang="fr">❌ NE PARTAGEZ PAS: Informations personnelles, emplacements exacts, numéros VIN, plaques</li>
-            </ul>
-        </div>
-
-        <!-- Tab Navigation -->
-        <div class="tab-navigation">
-            <button class="tab-button active" onclick="switchTab('trip')">
-                <span lang="en">🚗 Trip Data</span>
-                <span lang="fr">🚗 Données de Trajet</span>
-            </button>
-            <button class="tab-button" onclick="switchTab('dcfc')">
-                <span lang="en">⚡ DCFC Charging</span>
-                <span lang="fr">⚡ Recharge DCFC</span>
-            </button>
-            <button class="tab-button" onclick="switchTab('charts')">
-                <span lang="en">📈 Data Insights</span>
-                <span lang="fr">📈 Analyses de Données</span>
-            </button>
-        </div>
-
-        <!-- Trip Data Tab -->
-        <div id="trip-tab" class="tab-content active">
-            <div class="success-message" id="trip-success">
-                <p lang="en">✅ Trip data submitted successfully! Thank you for contributing to the community.</p>
-                <p lang="fr">✅ Données de trajet soumises avec succès! Merci de contribuer à la communauté.</p>
-            </div>
-
-            <form id="trip-form">
-                <!-- Basic Trip Information -->
-                <div class="form-section">
-                    <h3 lang="en">📍 Basic Trip Information</h3>
-                    <h3 lang="fr">📍 Informations de Base sur le Trajet</h3>
-
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label lang="en">Date of Trip *</label>
-                            <label lang="fr">Date du Trajet *</label>
-                            <input type="date" name="date" required max="">
-                        </div>
-
-                        <div class="form-group">
-                            <label lang="en">Vehicle Model *</label>
-                            <label lang="fr">Modèle de Véhicule *</label>
-                            <select name="model" required>
-                                <option value="">-- Select --</option>
-                                <option value="VF8">VF8</option>
-                                <option value="VF9">VF9</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label lang="en">Model Year *</label>
-                            <label lang="fr">Année du Modèle *</label>
-                            <select name="year" required>
-                                <option value="">-- Select --</option>
-                                <option value="2023">2023</option>
-                                <option value="2024">2024</option>
-                                <option value="2025">2025</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label lang="en">Battery Size *</label>
-                            <label lang="fr">Taille de Batterie *</label>
-                            <select name="battery" required>
-                                <option value="">-- Select --</option>
-                                <option value="82kWh">82 kWh (Standard Range)</option>
-                                <option value="87.7kWh">87.7 kWh (Plus)</option>
-                                <option value="92kWh">92 kWh (Extended Range)</option>
-                                <option value="123kWh">123 kWh (VF9)</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label lang="en">Starting Battery % *</label>
-                            <label lang="fr">% de Batterie Initiale *</label>
-                            <input type="number" name="start_soc" min="0" max="100" required>
-                            <small lang="en">0-100%</small>
-                            <small lang="fr">0-100%</small>
-                        </div>
-
-                        <div class="form-group">
-                            <label lang="en">Ending Battery % *</label>
-                            <label lang="fr">% de Batterie Finale *</label>
-                            <input type="number" name="end_soc" min="0" max="100" required>
-                            <small lang="en">0-100%</small>
-                            <small lang="fr">0-100%</small>
-                        </div>
-
-                        <div class="form-group">
-                            <label lang="en">Distance Traveled *</label>
-                            <label lang="fr">Distance Parcourue *</label>
-                            <input type="number" name="distance" step="0.1" min="0" required>
-                            <small lang="en">Miles</small>
-                            <small lang="fr">Miles</small>
-                        </div>
-
-                        <div class="form-group">
-                            <label lang="en">Efficiency (Calculated)</label>
-                            <label lang="fr">Efficacité (Calculée)</label>
-                            <input type="text" name="efficiency_display" readonly placeholder="Auto-calculated">
-                            <small lang="en">mi/kWh</small>
-                            <small lang="fr">mi/kWh</small>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Vehicle Settings -->
-                <div class="form-section">
-                    <h3 lang="en">⚙️ Vehicle Settings During Trip</h3>
-                    <h3 lang="fr">⚙️ Paramètres du Véhicule Pendant le Trajet</h3>
-
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label lang="en">Drive Mode *</label>
-                            <label lang="fr">Mode de Conduite *</label>
-                            <select name="drive_mode" required>
-                                <option value="">-- Select --</option>
-                                <option value="Eco">Eco</option>
-                                <option value="Normal">Normal</option>
-                                <option value="Sport">Sport</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label lang="en">Regenerative Braking *</label>
-                            <label lang="fr">Freinage Régénératif *</label>
-                            <select name="regen" required>
-                                <option value="">-- Select --</option>
-                                <option value="Low">Low</option>
-                                <option value="Medium">Medium</option>
-                                <option value="High">High</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label lang="en">Climate Control *</label>
-                            <label lang="fr">Climatisation *</label>
-                            <select name="climate" required>
-                                <option value="">-- Select --</option>
-                                <option value="Off">Off</option>
-                                <option value="AC">AC On</option>
-                                <option value="Heat">Heat On</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label lang="en">Temperature Setting</label>
-                            <label lang="fr">Température Réglée</label>
-                            <input type="number" name="temp_setting" min="60" max="85">
-                            <small lang="en">°F (if climate was on)</small>
-                            <small lang="fr">°F (si climatisation active)</small>
-                        </div>
-
-                        <div class="form-group">
-                            <label lang="en">Average Speed *</label>
-                            <label lang="fr">Vitesse Moyenne *</label>
-                            <input type="number" name="avg_speed" min="0" required>
-                            <small lang="en">MPH</small>
-                            <small lang="fr">MPH</small>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Environmental Conditions -->
-                <div class="form-section">
-                    <h3 lang="en">🌤️ Environmental Conditions</h3>
-                    <h3 lang="fr">🌤️ Conditions Environnementales</h3>
-
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label lang="en">Outside Temperature *</label>
-                            <label lang="fr">Température Extérieure *</label>
-                            <input type="number" name="outside_temp" required>
-                            <small lang="en">°F</small>
-                            <small lang="fr">°F</small>
-                        </div>
-
-                        <div class="form-group">
-                            <label lang="en">Weather Conditions *</label>
-                            <label lang="fr">Conditions Météo *</label>
-                            <select name="weather" required>
-                                <option value="">-- Select --</option>
-                                <option value="Clear">Clear/Sunny</option>
-                                <option value="Cloudy">Cloudy</option>
-                                <option value="Rain">Rain</option>
-                                <option value="Snow">Snow</option>
-                                <option value="Windy">Windy</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label lang="en">Terrain Type *</label>
-                            <label lang="fr">Type de Terrain *</label>
-                            <select name="terrain" required>
-                                <option value="">-- Select --</option>
-                                <option value="Flat">Mostly Flat</option>
-                                <option value="Hills">Some Hills</option>
-                                <option value="Mountains">Mountainous</option>
-                                <option value="Mixed">Mixed</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label lang="en">Road Type *</label>
-                            <label lang="fr">Type de Route *</label>
-                            <select name="road_type" required>
-                                <option value="">-- Select --</option>
-                                <option value="City">City/Urban</option>
-                                <option value="Highway">Highway</option>
-                                <option value="Mixed">Mixed</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Additional Notes -->
-                <div class="form-section">
-                    <h3 lang="en">📝 Additional Information</h3>
-                    <h3 lang="fr">📝 Informations Supplémentaires</h3>
-
-                    <div class="form-group">
-                        <label lang="en">Region/Country *</label>
-                        <label lang="fr">Région/Pays *</label>
-                        <select name="region" required>
-                            <option value="">-- Select --</option>
-                            <option value="USA">United States</option>
-                            <option value="Canada">Canada</option>
-                            <option value="Other">Other</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label lang="en">Additional Notes</label>
-                        <label lang="fr">Notes Supplémentaires</label>
-                        <textarea name="notes" rows="4" placeholder="Any additional details about your trip..."></textarea>
-                    </div>
-                </div>
-
-                <button type="submit" class="submit-button">
-                    <span lang="en">📊 Submit Trip Data</span>
-                    <span lang="fr">📊 Soumettre les Données de Trajet</span>
-                </button>
-            </form>
-        </div>
-
-        <!-- DCFC Charging Tab -->
-        <div id="dcfc-tab" class="tab-content">
-            <div class="success-message" id="dcfc-success">
-                <p lang="en">✅ DCFC charging data submitted successfully! Thank you for contributing.</p>
-                <p lang="fr">✅ Données de recharge DCFC soumises avec succès! Merci de contribuer.</p>
-            </div>
-
-            <form id="dcfc-form">
-                <!-- Basic Charging Information -->
-                <div class="form-section">
-                    <h3 lang="en">⚡ Basic Charging Information</h3>
-                    <h3 lang="fr">⚡ Informations de Base sur la Recharge</h3>
-
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label lang="en">Date of Charging Session *</label>
-                            <label lang="fr">Date de la Session de Recharge *</label>
-                            <input type="date" name="date" required max="">
-                        </div>
-
-                        <div class="form-group">
-                            <label lang="en">Vehicle Model *</label>
-                            <label lang="fr">Modèle de Véhicule *</label>
-                            <select name="model" required>
-                                <option value="">-- Select --</option>
-                                <option value="VF8">VF8</option>
-                                <option value="VF9">VF9</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label lang="en">Model Year *</label>
-                            <label lang="fr">Année du Modèle *</label>
-                            <select name="year" required>
-                                <option value="">-- Select --</option>
-                                <option value="2023">2023</option>
-                                <option value="2024">2024</option>
-                                <option value="2025">2025</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label lang="en">Battery Size *</label>
-                            <label lang="fr">Taille de Batterie *</label>
-                            <select name="battery" required>
-                                <option value="">-- Select --</option>
-                                <option value="82kWh">82 kWh (Standard Range)</option>
-                                <option value="87.7kWh">87.7 kWh (Plus)</option>
-                                <option value="92kWh">92 kWh (Extended Range)</option>
-                                <option value="123kWh">123 kWh (VF9)</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Charging Station Info -->
-                <div class="form-section">
-                    <h3 lang="en">🔌 Charging Station Details</h3>
-                    <h3 lang="fr">🔌 Détails de la Station de Recharge</h3>
-
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label lang="en">Charging Network *</label>
-                            <label lang="fr">Réseau de Recharge *</label>
-                            <select name="network" required>
-                                <option value="">-- Select --</option>
-                                <option value="Electrify America">Electrify America</option>
-                                <option value="EVgo">EVgo</option>
-                                <option value="ChargePoint">ChargePoint</option>
-                                <option value="Tesla Supercharger">Tesla Supercharger (Magic Dock)</option>
-                                <option value="Shell Recharge">Shell Recharge</option>
-                                <option value="Blink">Blink</option>
-                                <option value="FLO">FLO</option>
-                                <option value="Petro-Canada">Petro-Canada</option>
-                                <option value="Other">Other</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label lang="en">Charger Type *</label>
-                            <label lang="fr">Type de Chargeur *</label>
-                            <select name="charger_type" required>
-                                <option value="">-- Select --</option>
-                                <option value="CCS">CCS (Combined Charging System)</option>
-                                <option value="NACS">NACS (Tesla)</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label lang="en">Advertised Charger Power *</label>
-                            <label lang="fr">Puissance Annoncée du Chargeur *</label>
-                            <select name="charger_power" required>
-                                <option value="">-- Select --</option>
-                                <option value="50kW">50 kW</option>
-                                <option value="100kW">100 kW</option>
-                                <option value="150kW">150 kW</option>
-                                <option value="175kW">175 kW</option>
-                                <option value="250kW">250 kW</option>
-                                <option value="350kW">350 kW</option>
-                                <option value="Other">Other</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label lang="en">General Location *</label>
-                            <label lang="fr">Emplacement Général *</label>
-                            <input type="text" name="location" placeholder="City, State" required>
-                            <small lang="en">City/State only (no exact addresses)</small>
-                            <small lang="fr">Ville/Province seulement (pas d'adresses exactes)</small>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Battery & Performance -->
-                <div class="form-section">
-                    <h3 lang="en">🔋 Battery & Performance Data</h3>
-                    <h3 lang="fr">🔋 Données de Batterie et Performance</h3>
-
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label lang="en">Starting Battery % *</label>
-                            <label lang="fr">% de Batterie Initiale *</label>
-                            <input type="number" name="start_soc" min="0" max="100" required>
-                            <small lang="en">0-100%</small>
-                            <small lang="fr">0-100%</small>
-                        </div>
-
-                        <div class="form-group">
-                            <label lang="en">Ending Battery % *</label>
-                            <label lang="fr">% de Batterie Finale *</label>
-                            <input type="number" name="end_soc" min="0" max="100" required>
-                            <small lang="en">0-100%</small>
-                            <small lang="fr">0-100%</small>
-                        </div>
-
-                        <div class="form-group">
-                            <label lang="en">Peak Charging Speed *</label>
-                            <label lang="fr">Vitesse de Recharge Maximale *</label>
-                            <input type="number" name="peak_speed" min="0" step="0.1" required>
-                            <small lang="en">kW</small>
-                            <small lang="fr">kW</small>
-                        </div>
-
-                        <div class="form-group">
-                            <label lang="en">Average Charging Speed</label>
-                            <label lang="fr">Vitesse de Recharge Moyenne</label>
-                            <input type="number" name="avg_speed" min="0" step="0.1">
-                            <small lang="en">kW</small>
-                            <small lang="fr">kW</small>
-                        </div>
-
-                        <div class="form-group">
-                            <label lang="en">Total Charging Time *</label>
-                            <label lang="fr">Temps Total de Recharge *</label>
-                            <input type="number" name="duration" min="0" required>
-                            <small lang="en">Minutes</small>
-                            <small lang="fr">Minutes</small>
-                        </div>
-
-                        <div class="form-group">
-                            <label lang="en">Energy Added</label>
-                            <label lang="fr">Énergie Ajoutée</label>
-                            <input type="number" name="energy_added" min="0" step="0.1">
-                            <small lang="en">kWh</small>
-                            <small lang="fr">kWh</small>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Environmental Conditions -->
-                <div class="form-section">
-                    <h3 lang="en">🌡️ Environmental Conditions</h3>
-                    <h3 lang="fr">🌡️ Conditions Environnementales</h3>
-
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label lang="en">Outside Temperature *</label>
-                            <label lang="fr">Température Extérieure *</label>
-                            <input type="number" name="temperature" required>
-                            <small lang="en">°F</small>
-                            <small lang="fr">°F</small>
-                        </div>
-
-                        <div class="form-group">
-                            <label lang="en">Battery Preconditioned? *</label>
-                            <label lang="fr">Batterie Préconditionnée? *</label>
-                            <select name="preconditioned" required>
-                                <option value="">-- Select --</option>
-                                <option value="Yes">Yes</option>
-                                <option value="No">No</option>
-                                <option value="Unknown">Unknown</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Additional Info -->
-                <div class="form-section">
-                    <h3 lang="en">📝 Additional Information</h3>
-                    <h3 lang="fr">📝 Informations Supplémentaires</h3>
-
-                    <div class="form-group">
-                        <label lang="en">Session Rating</label>
-                        <label lang="fr">Évaluation de la Session</label>
-                        <select name="rating">
-                            <option value="">-- Select --</option>
-                            <option value="5">⭐⭐⭐⭐⭐ Excellent</option>
-                            <option value="4">⭐⭐⭐⭐ Good</option>
-                            <option value="3">⭐⭐⭐ Average</option>
-                            <option value="2">⭐⭐ Below Average</option>
-                            <option value="1">⭐ Poor</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label lang="en">Additional Notes</label>
-                        <label lang="fr">Notes Supplémentaires</label>
-                        <textarea name="notes" rows="4" placeholder="Any issues, observations, or helpful details..."></textarea>
-                    </div>
-                </div>
-
-                <button type="submit" class="submit-button">
-                    <span lang="en">⚡ Submit Charging Data</span>
-                    <span lang="fr">⚡ Soumettre les Données de Recharge</span>
-                </button>
-            </form>
-        </div>
-
-        <!-- Charts Tab -->
-        <div id="charts-tab" class="tab-content">
-            <div class="charts-section">
-                <div class="chart-container">
-                    <h3 lang="en">📊 Average Efficiency by Vehicle Model</h3>
-                    <h3 lang="fr">📊 Efficacité Moyenne par Modèle de Véhicule</h3>
-                    <div class="chart-wrapper">
-                        <canvas id="efficiencyByModelChart"></canvas>
-                    </div>
-                </div>
-
-                <div class="chart-container">
-                    <h3 lang="en">🚗 Efficiency by Drive Mode</h3>
-                    <h3 lang="fr">🚗 Efficacité par Mode de Conduite</h3>
-                    <div class="chart-wrapper">
-                        <canvas id="efficiencyByDriveModeChart"></canvas>
-                    </div>
-                </div>
-
-                <div class="chart-container">
-                    <h3 lang="en">🌡️ Efficiency vs Temperature</h3>
-                    <h3 lang="fr">🌡️ Efficacité vs Température</h3>
-                    <div class="chart-wrapper">
-                        <canvas id="efficiencyByTempChart"></canvas>
-                    </div>
-                </div>
-
-                <div class="chart-container">
-                    <h3 lang="en">⚡ DCFC Peak Charging Speed by Network</h3>
-                    <h3 lang="fr">⚡ Vitesse de Recharge Maximale DCFC par Réseau</h3>
-                    <div class="chart-wrapper">
-                        <canvas id="dcfcByNetworkChart"></canvas>
-                    </div>
-                </div>
-
-                <div class="chart-container">
-                    <h3 lang="en">🔋 DCFC Charging Curve (by Starting SOC)</h3>
-                    <h3 lang="fr">🔋 Courbe de Recharge DCFC (par SOC Initial)</h3>
-                    <div class="chart-wrapper">
-                        <canvas id="chargingCurveChart"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <script>
         // Set max date to today
@@ -939,13 +1112,6 @@
             }
         }
 
-        // Language toggle
-        function toggleLanguage() {
-            const html = document.documentElement;
-            const currentLang = html.getAttribute('lang') || 'en';
-            html.setAttribute('lang', currentLang === 'en' ? 'fr' : 'en');
-        }
-
         // Trip form submission
         tripForm.addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -971,7 +1137,7 @@
 
                 const discordPayload = {
                     embeds: [{
-                        title: '🚗 New Trip Data Submission',
+                        title: 'New Trip Data Submission',
                         color: 0xC8102E,
                         fields: [
                             { name: 'Model', value: `${data.model} ${data.year}`, inline: true },
@@ -1026,7 +1192,7 @@
 
                 const discordPayload = {
                     embeds: [{
-                        title: '⚡ New DCFC Charging Data',
+                        title: 'New DCFC Charging Data',
                         color: 0x1a5490,
                         fields: [
                             { name: 'Model', value: `${data.model} ${data.year}`, inline: true },
@@ -1316,5 +1482,6 @@
             console.log('DCFC data loaded:', data);
         }
     </script>
+    <script src="js/main.js"></script>
 </body>
 </html>

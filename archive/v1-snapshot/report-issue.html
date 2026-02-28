@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report an Issue - AVO</title>
+    <link rel="stylesheet" href="css/styles.css?v=202511181735">
+</head>
+<body>
+    <!-- Under Construction Banner -->n    <div style="background: linear-gradient(135deg, #FF6B35 0%, #d93f0b 100%); color: white; text-align: center; padding: 1rem 1.5rem; font-weight: 500; box-shadow: 0 2px 8px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000;">n        <span lang="en">🚧 Website Under Construction - Share feedback in Discord: <a href="discord.html" style="color: white; text-decoration: underline; font-weight: 700;">#vinfastownersdotorg</a></span>n        <span lang="fr">🚧 Site en Construction - Partagez vos commentaires sur Discord: <a href="discord.html" style="color: white; text-decoration: underline; font-weight: 700;">#vinfastownersdotorg</a></span>n    </div>nn
+    <!-- Language Toggle -->
+    <div class="lang-toggle">
+        <button onclick="setLang('en')" class="active">EN</button>
+        <button onclick="setLang('fr')">FR</button>
+    </div>    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">
+                <a href="/">
+                    <img src="images/icons/avo-logo.png" alt="AVO Logo" class="logo-img">
+                    <div class="logo-text-container">
+                        <span class="logo-text">AVO</span>
+                        <span class="logo-subtitle">
+                            <span lang="en">North America</span>
+                            <span lang="fr">Amérique du Nord</span>
+                        </span>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Hamburger Menu for Mobile -->
+            <button class="hamburger" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>            <div class="nav-links">
+                <a href="/">
+                    <span lang="en">Home</span>
+                    <span lang="fr">Accueil</span>
+                </a>
+                <a href="considering-vinfast.html">
+                    <span lang="en">Considering VinFast?</span>
+                    <span lang="fr">Vous Envisagez VinFast?</span>
+                </a>
+                <a href="#community">
+                    <span lang="en">Community</span>
+                    <span lang="fr">Communauté</span>
+                </a>
+
+                <!-- Governance Dropdown -->
+                <div class="nav-dropdown">
+                    <a href="#governance">
+                        <span lang="en">Governance</span>
+                        <span lang="fr">Gouvernance</span>
+                    </a>
+                    <div class="dropdown-menu">
+                        <a href="board.html">
+                            <span lang="en">Board of Directors</span>
+                            <span lang="fr">Conseil d'Administration</span>
+                        </a>
+                        <a href="documents.html">
+                            <span lang="en">Documents & Bylaws</span>
+                            <span lang="fr">Documents & Règlements</span>
+                        </a>
+                        <a href="meeting-minutes.html">
+                            <span lang="en">Meeting Minutes</span>
+                            <span lang="fr">Procès-Verbaux</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Resources Dropdown -->
+                <div class="nav-dropdown">
+                    <a href="/#resources">
+                        <span lang="en">Resources</span>
+                        <span lang="fr">Ressources</span>
+                    </a>
+                    <div class="dropdown-menu">
+                        <a href="recalls.html">
+                            <span lang="en">Recalls & Safety</span>
+                            <span lang="fr">Rappels et Sécurité</span>
+                        </a>
+                        <a href="report-issue.html">
+                            <span lang="en">Report an Issue</span>
+                            <span lang="fr">Signaler un Problème</span>
+                        </a>
+                        <!-- Events link hidden --> <!-- <a href="/#events"> -->
+                            <span lang="en">Events Calendar</span>
+                            <span lang="fr">Calendrier d'Événements</span>
+                        <!-- </a> -->
+                        <a href="/#about">
+                            <span lang="en">About AVO</span>
+                            <span lang="fr">À Propos d'AVO</span>
+                        </a>
+                        <a href="https://www.bonfire.com/store/association-of-vinfast-owners/" target="_blank">
+                            <span lang="en">Shop</span>
+                            <span lang="fr">Boutique</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Join CTA Button -->
+                <a href="join.html" class="btn-join-cta">
+                    <span lang="en">Join</span>
+                    <span lang="fr">Adhérer</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Report Issue Section -->
+    <section class="content-section" style="padding-top: 2rem;">
+        <h2>
+            <span lang="en">Report a VinFast Issue</span>
+            <span lang="fr">Signaler un Problème VinFast</span>
+        </h2>
+        <p class="section-intro" lang="en">
+            Help the AVO community by reporting VinFast vehicle issues, app problems, service center experiences, or suggesting improvements. Your reports help us advocate for better products and services.
+        </p>
+        <p class="section-intro" lang="fr">
+            Aidez la communauté AVO en signalant des problèmes de véhicules VinFast, des problèmes d'application, des expériences de centre de service ou en suggérant des améliorations.
+        </p>
+
+        <!-- Important Disclaimer -->
+        <div class="notice-box" style="background: #FFE5E5; border-left: 5px solid #DC3545; padding: 1.5rem; margin: 2rem 0; border-radius: 8px;">
+            <h3 style="color: #721C24; margin-bottom: 1rem;">
+                <span lang="en">⚠️ Important Disclaimer</span>
+                <span lang="fr">⚠️ Avis Important</span>
+            </h3>
+            <p style="color: #721C24; margin-bottom: 0.75rem;" lang="en">
+                <strong>This tracker is for community advocacy and documentation only.</strong> AVO is an independent owner organization and is <strong>NOT affiliated with VinFast Auto</strong>. This system does not replace official VinFast support channels.
+            </p>
+            <p style="color: #721C24; margin-bottom: 0.75rem;" lang="fr">
+                <strong>Ce système est uniquement destiné à la défense et à la documentation communautaire.</strong> AVO est une organisation indépendante de propriétaires et n'est <strong>PAS affiliée à VinFast Auto</strong>.
+            </p>
+            <p style="color: #721C24; margin-bottom: 0.75rem;" lang="en">
+                <strong>You must still report issues to VinFast directly:</strong>
+            </p>
+            <p style="color: #721C24; margin-bottom: 0.75rem;" lang="fr">
+                <strong>Vous devez toujours signaler les problèmes directement à VinFast:</strong>
+            </p>
+            <ul style="color: #721C24; margin-left: 1.5rem; margin-bottom: 0.75rem;">
+                <li lang="en"><strong>VinFast Customer Support:</strong> 1-888-689-3278 or <a href="https://vinfastauto.us/support" target="_blank" style="color: #721C24; text-decoration: underline;">vinfastauto.us/support</a></li>
+                <li lang="fr"><strong>Support Client VinFast:</strong> 1-888-689-3278 ou <a href="https://vinfastauto.us/support" target="_blank" style="color: #721C24; text-decoration: underline;">vinfastauto.us/support</a></li>
+                <li lang="en"><strong>Safety Issues:</strong> Contact NHTSA at 1-888-327-4236 or <a href="https://www.nhtsa.gov/report-a-safety-problem" target="_blank" style="color: #721C24; text-decoration: underline;">nhtsa.gov</a> | <a href="recalls.html" style="color: #721C24; text-decoration: underline; font-weight: 600;">View Recalls & Safety Info</a></li>
+                <li lang="fr"><strong>Problèmes de Sécurité:</strong> Contactez NHTSA au 1-888-327-4236 ou <a href="https://www.nhtsa.gov/report-a-safety-problem" target="_blank" style="color: #721C24; text-decoration: underline;">nhtsa.gov</a> | <a href="recalls.html" style="color: #721C24; text-decoration: underline; font-weight: 600;">Voir Rappels et Sécurité</a></li>
+                <li lang="en"><strong>Service Centers:</strong> RepairWise, NAPA NexDrive, or your VinFast dealership</li>
+                <li lang="fr"><strong>Centres de Service:</strong> RepairWise, NAPA NexDrive ou votre concessionnaire VinFast</li>
+            </ul>
+            <p style="color: #721C24; font-size: 0.9rem; margin-bottom: 0;" lang="en">
+                <strong>Limitation of Liability:</strong> AVO accepts no responsibility or ownership for issues reported here. This tracker is provided as-is for community benefit. AVO does not guarantee issue resolution, response times, or any specific outcomes. Use of this system does not create any warranty, obligation, or liability on the part of AVO, its board members, or volunteers.
+            </p>
+            <p style="color: #721C24; font-size: 0.9rem; margin-bottom: 0;" lang="fr">
+                <strong>Limitation de Responsabilité:</strong> AVO n'accepte aucune responsabilité pour les problèmes signalés ici. Ce système est fourni tel quel pour le bénéfice de la communauté.
+            </p>
+        </div>
+
+        <!-- Member Notice -->
+        <div class="notice-box" style="background: #FFF3CD; border-left: 5px solid #FFC107; padding: 1.5rem; margin: 2rem 0; border-radius: 8px;">
+            <h3 style="color: #856404; margin-bottom: 1rem;">
+                <span lang="en">⚠️ Members Only</span>
+                <span lang="fr">⚠️ Membres Seulement</span>
+            </h3>
+            <p style="color: #856404;" lang="en">
+                This issue reporting system is for AVO members only. If you're not yet a member, please <a href="join.html" style="color: #856404; text-decoration: underline;">join AVO first</a> or visit our <a href="discord.html" style="color: #856404; text-decoration: underline;">Discord</a> to participate in the community.
+            </p>
+            <p style="color: #856404;" lang="fr">
+                Ce système de signalement de problèmes est réservé aux membres d'AVO. Si vous n'êtes pas encore membre, veuillez d'abord <a href="join.html" style="color: #856404; text-decoration: underline;">rejoindre AVO</a> ou visiter notre <a href="discord.html" style="color: #856404; text-decoration: underline;">Discord</a> pour participer à la communauté.
+            </p>
+        </div>
+
+        <!-- Privacy Notice -->
+        <div class="notice-box" style="background: #E3F2FD; border-left: 5px solid #2196F3; padding: 1.5rem; margin: 2rem 0; border-radius: 8px;">
+            <h3 style="color: #1565C0; margin-bottom: 1rem;">
+                <span lang="en">🔒 Privacy Notice - Please Read</span>
+                <span lang="fr">🔒 Avis de Confidentialité - Veuillez Lire</span>
+            </h3>
+            <p style="color: #1565C0; font-weight: 600; margin-bottom: 1rem;" lang="en">
+                <strong>All issues are PUBLIC and searchable on Google.</strong>
+            </p>
+            <p style="color: #1565C0; font-weight: 600; margin-bottom: 1rem;" lang="fr">
+                <strong>Tous les problèmes sont PUBLICS et indexés par Google.</strong>
+            </p>
+            <p style="color: #1565C0; margin-bottom: 1rem;" lang="en">
+                Anyone on the internet can read your issue forever. <strong>DO NOT include:</strong>
+            </p>
+            <p style="color: #1565C0; margin-bottom: 1rem;" lang="fr">
+                N'importe qui sur Internet peut lire votre problème pour toujours. <strong>N'INCLUEZ PAS:</strong>
+            </p>
+            <ul style="color: #1565C0; margin-left: 1.5rem; margin-bottom: 1rem;">
+                <li lang="en">❌ Full VIN numbers (last 4 digits only if absolutely needed)</li>
+                <li lang="fr">❌ Numéros VIN complets (4 derniers chiffres seulement si absolument nécessaire)</li>
+                <li lang="en">❌ License plate numbers</li>
+                <li lang="fr">❌ Numéros de plaques d'immatriculation</li>
+                <li lang="en">❌ Your home address or personal addresses</li>
+                <li lang="fr">❌ Votre adresse personnelle ou domicile</li>
+                <li lang="en">❌ Phone numbers or email addresses</li>
+                <li lang="fr">❌ Numéros de téléphone ou adresses e-mail</li>
+                <li lang="en">❌ Photos showing your face, license plates, or home</li>
+                <li lang="fr">❌ Photos montrant votre visage, plaques ou domicile</li>
+                <li lang="en">❌ Full names of service center employees</li>
+                <li lang="fr">❌ Noms complets des employés des centres de service</li>
+            </ul>
+            <p style="color: #1565C0; font-weight: 600; margin-bottom: 0;" lang="en">
+                ✅ Only share information you're comfortable being permanently public.
+            </p>
+            <p style="color: #1565C0; font-weight: 600; margin-bottom: 0;" lang="fr">
+                ✅ Ne partagez que les informations que vous êtes à l'aise de rendre publiques de façon permanente.
+            </p>
+        </div>
+
+        <!-- Issue Type Selection -->
+        <div class="issue-types-grid">
+            <div class="issue-type-card" onclick="window.open('https://github.com/vinfastownersorg-cyber/avo-website/issues/new/choose', '_blank')">
+                <div class="issue-icon">🚗</div>
+                <h3 lang="en">Vehicle Issue</h3>
+                <h3 lang="fr">Problème de Véhicule</h3>
+                <p lang="en">Charging, infotainment, ADAS, motor, or other vehicle problems</p>
+                <p lang="fr">Charge, infodivertissement, ADAS, moteur ou autres problèmes de véhicule</p>
+            </div>
+
+            <div class="issue-type-card" onclick="window.open('https://github.com/vinfastownersorg-cyber/avo-website/issues/new/choose', '_blank')">
+                <div class="issue-icon">📱</div>
+                <h3 lang="en">App Issue</h3>
+                <h3 lang="fr">Problème d'Application</h3>
+                <p lang="en">VinFast mobile app not working correctly</p>
+                <p lang="fr">L'application mobile VinFast ne fonctionne pas correctement</p>
+            </div>
+
+            <div class="issue-type-card" onclick="window.open('https://github.com/vinfastownersorg-cyber/avo-website/issues/new/choose', '_blank')">
+                <div class="issue-icon">🔧</div>
+                <h3 lang="en">Service Issue</h3>
+                <h3 lang="fr">Problème de Service</h3>
+                <p lang="en">RepairWise, NAPA NexDrive, or dealership service problems</p>
+                <p lang="fr">Problèmes de service RepairWise, NAPA NexDrive ou concessionnaire</p>
+            </div>
+
+            <div class="issue-type-card" onclick="window.open('https://github.com/vinfastownersorg-cyber/avo-website/issues/new/choose', '_blank')">
+                <div class="issue-icon">💡</div>
+                <h3 lang="en">Feature Request</h3>
+                <h3 lang="fr">Demande de Fonctionnalité</h3>
+                <p lang="en">Suggest improvements to vehicles, app, or AVO website</p>
+                <p lang="fr">Suggérer des améliorations aux véhicules, à l'application ou au site AVO</p>
+            </div>
+
+            <div class="issue-type-card" onclick="window.open('https://github.com/vinfastownersorg-cyber/avo-website/issues/new/choose', '_blank')">
+                <div class="issue-icon">🚨</div>
+                <h3 lang="en">Request Escalation</h3>
+                <h3 lang="fr">Demande d'Escalade</h3>
+                <p lang="en">Ask AVO board to escalate issue to VinFast Corporate</p>
+                <p lang="fr">Demander au conseil d'AVO d'escalader le problème</p>
+            </div>
+
+            <div class="issue-type-card" onclick="window.location.href='discord.html'">
+                <div class="issue-icon">💬</div>
+                <h3 lang="en">Quick Question</h3>
+                <h3 lang="fr">Question Rapide</h3>
+                <p lang="en">Ask the community on Discord for quick help</p>
+                <p lang="fr">Demandez à la communauté sur Discord</p>
+            </div>
+        </div>
+
+        <!-- How to Report Section -->
+        <div class="card" style="margin-top: 3rem;">
+            <h3>
+                <span lang="en">📝 How to Report an Issue</span>
+                <span lang="fr">📝 Comment Signaler un Problème</span>
+            </h3>
+
+            <p lang="en">
+                We use GitHub Issues for transparent, public tracking of VinFast vehicle, app, and service problems. This helps the entire AVO community see what issues exist, vote on them, and track resolution progress.
+            </p>
+            <p lang="fr">
+                Nous utilisons GitHub Issues pour un suivi transparent et public des problèmes de véhicules, d'applications et de services VinFast.
+            </p>
+
+            <div style="margin: 2rem 0;">
+                <h4 lang="en">✅ Why GitHub?</h4>
+                <h4 lang="fr">✅ Pourquoi GitHub?</h4>
+                <ul>
+                    <li lang="en"><strong>Public & Transparent</strong> - Everyone can see all reported issues</li>
+                    <li lang="fr"><strong>Public et Transparent</strong> - Tout le monde peut voir tous les problèmes signalés</li>
+                    <li lang="en"><strong>Search Before Posting</strong> - See if others have the same problem</li>
+                    <li lang="fr"><strong>Rechercher Avant de Publier</strong> - Voir si d'autres ont le même problème</li>
+                    <li lang="en"><strong>Vote with Reactions</strong> - 👍 issues you also experience</li>
+                    <li lang="fr"><strong>Voter avec des Réactions</strong> - 👍 sur les problèmes que vous rencontrez aussi</li>
+                    <li lang="en"><strong>Track Progress</strong> - See when issues are escalated or resolved</li>
+                    <li lang="fr"><strong>Suivre les Progrès</strong> - Voir quand les problèmes sont escaladés ou résolus</li>
+                    <li lang="en"><strong>Help the Community</strong> - Your report helps other owners</li>
+                    <li lang="fr"><strong>Aider la Communauté</strong> - Votre rapport aide d'autres propriétaires</li>
+                </ul>
+            </div>
+
+            <div style="margin: 2rem 0;">
+                <h4 lang="en">🆕 No GitHub Account? No Problem!</h4>
+                <h4 lang="fr">🆕 Pas de Compte GitHub? Pas de Problème!</h4>
+                <p lang="en">
+                    Creating a free GitHub account takes 2 minutes:
+                </p>
+                <p lang="fr">
+                    Créer un compte GitHub gratuit prend 2 minutes:
+                </p>
+                <ol>
+                    <li lang="en">Go to <a href="https://github.com/signup" target="_blank">github.com/signup</a></li>
+                    <li lang="fr">Allez sur <a href="https://github.com/signup" target="_blank">github.com/signup</a></li>
+                    <li lang="en">Enter your email (can use any email address)</li>
+                    <li lang="fr">Entrez votre email (vous pouvez utiliser n'importe quelle adresse email)</li>
+                    <li lang="en">Create a password and username</li>
+                    <li lang="fr">Créez un mot de passe et un nom d'utilisateur</li>
+                    <li lang="en">Verify your email</li>
+                    <li lang="fr">Vérifiez votre email</li>
+                    <li lang="en">Done! Click any button above to start reporting</li>
+                    <li lang="fr">Terminé! Cliquez sur n'importe quel bouton ci-dessus pour commencer à signaler</li>
+                </ol>
+            </div>
+
+            <div style="margin: 2rem 0;">
+                <h4 lang="en">📋 What to Expect</h4>
+                <h4 lang="fr">📋 À Quoi S'Attendre</h4>
+                <p lang="en">
+                    When you click a button above, you'll see a <strong>simple form</strong> asking for details about your issue. Just fill it out - we've made it easy! The AVO board reviews all issues and escalates important ones to VinFast Corporate.
+                </p>
+                <p lang="fr">
+                    Lorsque vous cliquez sur un bouton ci-dessus, vous verrez un <strong>formulaire simple</strong> demandant des détails sur votre problème.
+                </p>
+            </div>
+        </div>
+
+        <!-- View Existing Issues -->
+        <div class="card" style="margin-top: 4rem; text-align: center;">
+            <h3>
+                <span lang="en">View Existing Issues & Requests</span>
+                <span lang="fr">Voir les Problèmes et Demandes Existants</span>
+            </h3>
+            <p lang="en">
+                Check if your issue has already been reported or see what features are being worked on.
+            </p>
+            <p lang="fr">
+                Vérifiez si votre problème a déjà été signalé ou consultez les fonctionnalités en cours de développement.
+            </p>
+            <div style="margin-top: 1.5rem;">
+                <a href="https://github.com/vinfastownersorg-cyber/avo-website/issues" class="btn btn-small" target="_blank">
+                    <span lang="en">📋 View All Issues on GitHub</span>
+                    <span lang="fr">📋 Voir Tous les Problèmes sur GitHub</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="text-center" style="margin-top: 3rem;">
+            <a href="/" class="btn btn-outline">
+                <span lang="en">← Back to Home</span>
+                <span lang="fr">← Retour à l'Accueil</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>AVO</h4>
+                <p lang="en">Association of VinFast Owners<br>North America</p>
+                <p lang="fr">Association des Propriétaires VinFast<br>Amérique du Nord</p>
+            </div>
+            <div class="footer-section">
+                <h4>
+                    <span lang="en">Support</span>
+                    <span lang="fr">Support</span>
+                </h4>
+                <ul class="footer-links">
+                    <li><a href="report-issue.html"><span lang="en">Report Issue</span><span lang="fr">Signaler un Problème</span></a></li>
+                    <li><a href="considering-vinfast.html">
+                        <span lang="en">Considering VinFast?</span>
+                        <span lang="fr">Vous envisagez VinFast?</span>
+                    </a></li>
+                    <li><a href="discord.html">Discord Support</a></li>
+                    <li><a href="privacy.html"><span lang="en">Privacy</span><span lang="fr">Confidentialité</span></a></li>
+                    <li><a href="disclaimer.html"><span lang="en">Disclaimer</span><span lang="fr">Avertissement</span></a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>
+                    <span lang="en">Community</span>
+                    <span lang="fr">Communauté</span>
+                </h4>
+                <ul class="footer-links">
+                    <li><a href="discord.html">Discord</a></li>
+                    <li><a href="https://www.facebook.com/share/g/17dH6oZRA4/" target="_blank">Facebook</a></li>
+                    <li><a href="https://vinfasttalk.com" target="_blank">VinFastTalk</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p lang="en">&copy; 2025 Association of VinFast Owners North America. Independent owner organization, not affiliated with VinFast Auto.</p>
+            <p lang="fr">&copy; 2025 Association des Propriétaires VinFast Amérique du Nord. Organisation indépendante, non affiliée à VinFast Auto.</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js?v=202511181735"></script>
+</body>
+</html>

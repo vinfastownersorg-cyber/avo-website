@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Primary Meta Tags -->
+    <title>Join Our Discord Community | VinFast Owners Association</title>
+    <meta name="title" content="Join Our Discord Community | VinFast Owners Association">
+    <meta name="description" content="Connect with 500+ VinFast VF8 & VF9 owners on Discord. Get instant support, participate in board voting, share experiences, and stay updated on recalls and news.">
+    <meta name="keywords" content="VinFast Discord, VinFast community, VinFast owners chat, VinFast support, VinFast VF8 VF9 Discord">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://vinfastowners.org/discord.html">
+    <meta property="og:title" content="Join Our Discord Community | VinFast Owners">
+    <meta property="og:description" content="Connect with 500+ VinFast owners in real-time. Get support, share experiences, and stay updated.">
+    <meta property="og:image" content="https://vinfastowners.org/images/icons/avo-logo.png">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://vinfastowners.org/discord.html">
+    <meta name="twitter:title" content="Join Our Discord Community | VinFast Owners">
+    <meta name="twitter:description" content="Connect with 500+ VinFast owners in real-time.">
+    <meta name="twitter:image" content="https://vinfastowners.org/images/icons/avo-logo.png">
+
+    <link rel="stylesheet" href="css/styles.css?v=202511181735">
+
+    <style>
+        /* Discord Page Specific Styles */
+        .discord-hero {
+            background: linear-gradient(135deg, #5865F2 0%, #7289DA 100%);
+            min-height: auto;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            padding: 5rem 2rem;
+        }
+
+        .discord-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse"><path d="M 50 0 L 0 0 0 50" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .discord-hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .discord-logo-badge {
+            background: white;
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            flex-shrink: 0;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .discord-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .discord-info-header {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .discord-info h2 {
+            font-size: 2rem;
+            color: white;
+            margin: 0;
+            line-height: 1.3;
+        }
+
+        .discord-intro {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.95);
+            line-height: 1.7;
+            margin-bottom: 2.5rem;
+        }
+
+        .discord-benefits {
+            display: grid;
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .discord-benefit-item {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border-left: 4px solid white;
+            transition: all 0.3s ease;
+        }
+
+        .discord-benefit-item:hover {
+            transform: translateX(5px);
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .discord-benefit-item h3 {
+            font-size: 1.2rem;
+            color: white;
+            margin: 0 0 0.5rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .discord-benefit-item p {
+            color: rgba(255, 255, 255, 0.9);
+            margin: 0;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .discord-benefit-item svg {
+            stroke: white;
+        }
+
+        .discord-widget-column {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .discord-widget-column h3 {
+            font-size: 1.3rem;
+            color: white;
+            margin: 0 0 1.5rem 0;
+            text-align: center;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Discord-like Widget Frame */
+        .discord-widget-frame {
+            width: 100%;
+            background: #36393f;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .discord-widget-frame:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(88, 101, 242, 0.3);
+        }
+
+        /* Discord Widget Header */
+        .discord-widget-header {
+            background: #2f3136;
+            padding: 1rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+        }
+
+        .discord-widget-header svg {
+            width: 24px;
+            height: 24px;
+            flex-shrink: 0;
+        }
+
+        .server-name {
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 1rem;
+            flex: 1;
+        }
+
+        .live-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #43b581;
+            font-weight: 600;
+            font-size: 0.85rem;
+            background: rgba(67, 181, 129, 0.1);
+            padding: 0.35rem 0.75rem;
+            border-radius: 12px;
+        }
+
+        .live-indicator::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: #43b581;
+            border-radius: 50%;
+            display: inline-block;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.6;
+                transform: scale(0.9);
+            }
+        }
+
+        /* Discord Widget Body */
+        .discord-widget-body {
+            background: #36393f;
+            height: 670px;
+        }
+
+        .discord-widget-wrapper {
+            width: 100%;
+            height: 100%;
+        }
+
+        .discord-widget-wrapper iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .discord-join-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            background: white;
+            color: #5865F2;
+            padding: 1.25rem 3rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            text-decoration: none;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            align-self: flex-start;
+        }
+
+        .discord-join-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .discord-hero {
+                padding: 3rem 1.5rem;
+            }
+
+            .discord-hero-content {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .discord-info h2 {
+                font-size: 1.5rem;
+            }
+
+            .discord-info-header {
+                flex-direction: column;
+                text-align: center;
+                align-items: center;
+            }
+
+            .discord-join-btn {
+                align-self: center;
+                padding: 1rem 2rem;
+                font-size: 1.1rem;
+            }
+
+            .discord-widget-body {
+                height: 400px;
+            }
+
+            .discord-widget-header {
+                padding: 0.85rem 1rem;
+            }
+
+            .server-name {
+                font-size: 0.9rem;
+            }
+
+            .live-indicator {
+                font-size: 0.75rem;
+                padding: 0.3rem 0.6rem;
+            }
+
+            .discord-widget-header svg {
+                width: 20px;
+                height: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Language Toggle -->
+    <div class="lang-toggle">
+        <button class="active" onclick="setLang('en')">EN</button>
+        <button onclick="setLang('fr')">FR</button>
+    </div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">
+                <a href="/">
+                    <img src="images/icons/avo-logo.png" alt="AVO Logo" class="logo-img">
+                    <div class="logo-text-container">
+                        <span class="logo-text">AVO</span>
+                        <span class="logo-subtitle">
+                            <span lang="en">North America</span>
+                            <span lang="fr">Amérique du Nord</span>
+                        </span>
+                    </div>
+                </a>
+            </div>
+
+            <div class="nav-links">
+                <a href="/">
+                    <span lang="en">← Back to Home</span>
+                    <span lang="fr">← Retour à l'accueil</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="discord-hero">
+        <div class="discord-hero-content">
+            <!-- Left Column - Discord Info & Benefits -->
+            <div class="discord-info">
+                <div class="discord-info-header">
+                    <div class="discord-logo-badge">
+                        <svg width="50" height="50" viewBox="0 0 71 55" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M60.1045 4.8978C55.5792 2.8214 50.7265 1.2916 45.6527 0.41542C45.5603 0.39851 45.468 0.440769 45.4204 0.525289C44.7963 1.6353 44.105 3.0834 43.6209 4.2216C38.1637 3.4046 32.7345 3.4046 27.3892 4.2216C26.905 3.0581 26.1886 1.6353 25.5617 0.525289C25.5141 0.443589 25.4218 0.40133 25.3294 0.41542C20.2584 1.2888 15.4057 2.8186 10.8776 4.8978C10.8384 4.9147 10.8048 4.9429 10.7825 4.9795C1.57795 18.7309 -0.943561 32.1443 0.293408 45.3914C0.299005 45.4562 0.335386 45.5182 0.385761 45.5576C6.45866 50.0174 12.3413 52.7249 18.1147 54.5195C18.2071 54.5477 18.305 54.5139 18.3638 54.4378C19.7295 52.5728 20.9469 50.6063 21.9907 48.5383C22.0523 48.4172 21.9935 48.2735 21.8676 48.2256C19.9366 47.4931 18.0979 46.6 16.3292 45.5858C16.1893 45.5041 16.1781 45.304 16.3068 45.2082C16.679 44.9293 17.0513 44.6391 17.4067 44.3461C17.471 44.2926 17.5606 44.2813 17.6362 44.3151C29.2558 49.6202 41.8354 49.6202 53.3179 44.3151C53.3935 44.2785 53.4831 44.2898 53.5502 44.3433C53.9057 44.6363 54.2779 44.9293 54.6529 45.2082C54.7816 45.304 54.7732 45.5041 54.6333 45.5858C52.8646 46.6197 51.0259 47.4931 49.0921 48.2228C48.9662 48.2707 48.9102 48.4172 48.9718 48.5383C50.038 50.6034 51.2554 52.5699 52.5959 54.435C52.6519 54.5139 52.7526 54.5477 52.845 54.5195C58.6464 52.7249 64.529 50.0174 70.6019 45.5576C70.6551 45.5182 70.6887 45.459 70.6943 45.3942C72.1747 30.0791 68.2147 16.7757 60.1968 4.9823C60.1772 4.9429 60.1437 4.9147 60.1045 4.8978ZM23.7259 37.3253C20.2276 37.3253 17.3451 34.1136 17.3451 30.1693C17.3451 26.225 20.1717 23.0133 23.7259 23.0133C27.308 23.0133 30.1626 26.2532 30.1066 30.1693C30.1066 34.1136 27.28 37.3253 23.7259 37.3253ZM47.3178 37.3253C43.8196 37.3253 40.9371 34.1136 40.9371 30.1693C40.9371 26.225 43.7636 23.0133 47.3178 23.0133C50.9 23.0133 53.7545 26.2532 53.6986 30.1693C53.6986 34.1136 50.9 37.3253 47.3178 37.3253Z" fill="#5865F2"/>
+                        </svg>
+                    </div>
+                    <h2>
+                        <span lang="en">Why Discord for VinFast Owners?</span>
+                        <span lang="fr">Pourquoi Discord pour Propriétaires VinFast?</span>
+                    </h2>
+                </div>
+
+                <p class="discord-intro">
+                    <span lang="en">Discord is the central hub for the VinFast owner community. Get instant help, connect with fellow owners, and stay informed about everything VinFast.</span>
+                    <span lang="fr">Discord est le centre de la communauté des propriétaires VinFast. Obtenez de l'aide instantanée, connectez-vous avec d'autres propriétaires et restez informé de tout ce qui concerne VinFast.</span>
+                </p>
+
+                <div class="discord-benefits">
+                    <div class="discord-benefit-item">
+                        <h3>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0066CC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                            </svg>
+                            <span lang="en">Real-Time Communication</span>
+                            <span lang="fr">Communication en Temps Réel</span>
+                        </h3>
+                        <p>
+                            <span lang="en">Get instant help and live chat with owners. No waiting for forum replies - answers in minutes.</span>
+                            <span lang="fr">Obtenez de l'aide instantanée et discutez en direct. Pas d'attente - réponses en minutes.</span>
+                        </p>
+                    </div>
+
+                    <div class="discord-benefit-item">
+                        <h3>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0066CC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="9" cy="7" r="4"></circle>
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                            </svg>
+                            <span lang="en">Active Community</span>
+                            <span lang="fr">Communauté Active</span>
+                        </h3>
+                        <p>
+                            <span lang="en">Join 500+ members with owners always online ready to help and share experiences.</span>
+                            <span lang="fr">Rejoignez 500+ membres avec des propriétaires toujours en ligne prêts à aider.</span>
+                        </p>
+                    </div>
+
+                    <div class="discord-benefit-item">
+                        <h3>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0066CC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                <line x1="9" y1="3" x2="9" y2="21"></line>
+                            </svg>
+                            <span lang="en">Organized Channels</span>
+                            <span lang="fr">Canaux Organisés</span>
+                        </h3>
+                        <p>
+                            <span lang="en">Dedicated spaces for support, technical discussions, regional groups, and more.</span>
+                            <span lang="fr">Espaces dédiés au support, discussions techniques, groupes régionaux et plus.</span>
+                        </p>
+                    </div>
+
+                    <div class="discord-benefit-item">
+                        <h3>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0066CC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+                                <line x1="12" y1="18" x2="12.01" y2="18"></line>
+                            </svg>
+                            <span lang="en">Mobile & Desktop</span>
+                            <span lang="fr">Mobile et Bureau</span>
+                        </h3>
+                        <p>
+                            <span lang="en">Stay connected anywhere with Discord apps for phone, tablet, and computer.</span>
+                            <span lang="fr">Restez connecté partout avec les applications Discord pour téléphone, tablette et ordinateur.</span>
+                        </p>
+                    </div>
+                </div>
+
+                <a href="https://discord.gg/puQqaEZFAQ" class="discord-join-btn" target="_blank" rel="noopener noreferrer">
+                    <svg width="28" height="28" viewBox="0 0 71 55" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M60.1045 4.8978C55.5792 2.8214 50.7265 1.2916 45.6527 0.41542C45.5603 0.39851 45.468 0.440769 45.4204 0.525289C44.7963 1.6353 44.105 3.0834 43.6209 4.2216C38.1637 3.4046 32.7345 3.4046 27.3892 4.2216C26.905 3.0581 26.1886 1.6353 25.5617 0.525289C25.5141 0.443589 25.4218 0.40133 25.3294 0.41542C20.2584 1.2888 15.4057 2.8186 10.8776 4.8978C10.8384 4.9147 10.8048 4.9429 10.7825 4.9795C1.57795 18.7309 -0.943561 32.1443 0.293408 45.3914C0.299005 45.4562 0.335386 45.5182 0.385761 45.5576C6.45866 50.0174 12.3413 52.7249 18.1147 54.5195C18.2071 54.5477 18.305 54.5139 18.3638 54.4378C19.7295 52.5728 20.9469 50.6063 21.9907 48.5383C22.0523 48.4172 21.9935 48.2735 21.8676 48.2256C19.9366 47.4931 18.0979 46.6 16.3292 45.5858C16.1893 45.5041 16.1781 45.304 16.3068 45.2082C16.679 44.9293 17.0513 44.6391 17.4067 44.3461C17.471 44.2926 17.5606 44.2813 17.6362 44.3151C29.2558 49.6202 41.8354 49.6202 53.3179 44.3151C53.3935 44.2785 53.4831 44.2898 53.5502 44.3433C53.9057 44.6363 54.2779 44.9293 54.6529 45.2082C54.7816 45.304 54.7732 45.5041 54.6333 45.5858C52.8646 46.6197 51.0259 47.4931 49.0921 48.2228C48.9662 48.2707 48.9102 48.4172 48.9718 48.5383C50.038 50.6034 51.2554 52.5699 52.5959 54.435C52.6519 54.5139 52.7526 54.5477 52.845 54.5195C58.6464 52.7249 64.529 50.0174 70.6019 45.5576C70.6551 45.5182 70.6887 45.459 70.6943 45.3942C72.1747 30.0791 68.2147 16.7757 60.1968 4.9823C60.1772 4.9429 60.1437 4.9147 60.1045 4.8978ZM23.7259 37.3253C20.2276 37.3253 17.3451 34.1136 17.3451 30.1693C17.3451 26.225 20.1717 23.0133 23.7259 23.0133C27.308 23.0133 30.1626 26.2532 30.1066 30.1693C30.1066 34.1136 27.28 37.3253 23.7259 37.3253ZM47.3178 37.3253C43.8196 37.3253 40.9371 34.1136 40.9371 30.1693C40.9371 26.225 43.7636 23.0133 47.3178 23.0133C50.9 23.0133 53.7545 26.2532 53.6986 30.1693C53.6986 34.1136 50.9 37.3253 47.3178 37.3253Z"/>
+                    </svg>
+                    <span lang="en">Join Discord Now</span>
+                    <span lang="fr">Rejoindre Discord</span>
+                </a>
+            </div>
+
+            <!-- Right Column - Live Discord Widget -->
+            <div class="discord-widget-column">
+                <h3>
+                    <span lang="en">See Who's Online Now</span>
+                    <span lang="fr">Voir Qui Est En Ligne</span>
+                </h3>
+                <div class="discord-widget-frame">
+                    <div class="discord-widget-header">
+                        <svg width="24" height="24" viewBox="0 0 71 55" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M60.1045 4.8978C55.5792 2.8214 50.7265 1.2916 45.6527 0.41542C45.5603 0.39851 45.468 0.440769 45.4204 0.525289C44.7963 1.6353 44.105 3.0834 43.6209 4.2216C38.1637 3.4046 32.7345 3.4046 27.3892 4.2216C26.905 3.0581 26.1886 1.6353 25.5617 0.525289C25.5141 0.443589 25.4218 0.40133 25.3294 0.41542C20.2584 1.2888 15.4057 2.8186 10.8776 4.8978C10.8384 4.9147 10.8048 4.9429 10.7825 4.9795C1.57795 18.7309 -0.943561 32.1443 0.293408 45.3914C0.299005 45.4562 0.335386 45.5182 0.385761 45.5576C6.45866 50.0174 12.3413 52.7249 18.1147 54.5195C18.2071 54.5477 18.305 54.5139 18.3638 54.4378C19.7295 52.5728 20.9469 50.6063 21.9907 48.5383C22.0523 48.4172 21.9935 48.2735 21.8676 48.2256C19.9366 47.4931 18.0979 46.6 16.3292 45.5858C16.1893 45.5041 16.1781 45.304 16.3068 45.2082C16.679 44.9293 17.0513 44.6391 17.4067 44.3461C17.471 44.2926 17.5606 44.2813 17.6362 44.3151C29.2558 49.6202 41.8354 49.6202 53.3179 44.3151C53.3935 44.2785 53.4831 44.2898 53.5502 44.3433C53.9057 44.6363 54.2779 44.9293 54.6529 45.2082C54.7816 45.304 54.7732 45.5041 54.6333 45.5858C52.8646 46.6197 51.0259 47.4931 49.0921 48.2228C48.9662 48.2707 48.9102 48.4172 48.9718 48.5383C50.038 50.6034 51.2554 52.5699 52.5959 54.435C52.6519 54.5139 52.7526 54.5477 52.845 54.5195C58.6464 52.7249 64.529 50.0174 70.6019 45.5576C70.6551 45.5182 70.6887 45.459 70.6943 45.3942C72.1747 30.0791 68.2147 16.7757 60.1968 4.9823C60.1772 4.9429 60.1437 4.9147 60.1045 4.8978ZM23.7259 37.3253C20.2276 37.3253 17.3451 34.1136 17.3451 30.1693C17.3451 26.225 20.1717 23.0133 23.7259 23.0133C27.308 23.0133 30.1626 26.2532 30.1066 30.1693C30.1066 34.1136 27.28 37.3253 23.7259 37.3253ZM47.3178 37.3253C43.8196 37.3253 40.9371 34.1136 40.9371 30.1693C40.9371 26.225 43.7636 23.0133 47.3178 23.0133C50.9 23.0133 53.7545 26.2532 53.6986 30.1693C53.6986 34.1136 50.9 37.3253 47.3178 37.3253Z" fill="#5865F2"/>
+                        </svg>
+                        <span class="server-name">VinFast Owners</span>
+                        <span class="live-indicator">
+                            <span lang="en">Live</span>
+                            <span lang="fr">En Direct</span>
+                        </span>
+                    </div>
+                    <div class="discord-widget-body">
+                        <div class="discord-widget-wrapper">
+                            <iframe src="https://discord.com/widget?id=1306497961248821260&theme=dark" width="100%" height="670" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>AVO</h4>
+                <p lang="en">Association of VinFast Owners North America</p>
+                <p lang="fr">Association des Propriétaires VinFast Amérique du Nord</p>
+            </div>
+
+            <div class="footer-section">
+                <h4>
+                    <span lang="en">Quick Links</span>
+                    <span lang="fr">Liens Rapides</span>
+                </h4>
+                <ul class="footer-links">
+                    <li><a href="/">
+                        <span lang="en">Home</span>
+                        <span lang="fr">Accueil</span>
+                    </a></li>
+                    <li><a href="#community">
+                        <span lang="en">Community</span>
+                        <span lang="fr">Communauté</span>
+                    </a></li>
+                    <li><a href="/#membership">
+                        <span lang="en">Join AVO</span>
+                        <span lang="fr">Rejoindre AVO</span>
+                    </a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>
+                    <span lang="en">Community</span>
+                    <span lang="fr">Communauté</span>
+                </h4>
+                <ul class="footer-links">
+                    <li><a href="discord.html">Discord</a></li>
+                    <li><a href="https://www.facebook.com/share/g/17dH6oZRA4/" target="_blank">Facebook</a></li>
+                    <li><a href="https://vinfasttalk.com" target="_blank">VinFastTalk</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>
+                <span lang="en">© 2025 Association of VinFast Owners (AVO) North America</span>
+                <span lang="fr">© 2025 Association des Propriétaires VinFast (AVO) Amérique du Nord</span>
+            </p>
+            <p>
+                <span lang="en">Independent owner organization | Not affiliated with VinFast Auto</span>
+                <span lang="fr">Organisation indépendante | Non affiliée à VinFast Auto</span>
+            </p>
+        </div>
+    </footer>
+
+    <script src="js/main.js?v=202511181735"></script>
+</body>
+</html>

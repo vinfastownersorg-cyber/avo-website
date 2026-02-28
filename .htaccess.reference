@@ -37,6 +37,11 @@
     Require all denied
 </DirectoryMatch>
 
+# Block access to v1 archive
+<DirectoryMatch "^/.*/archive/">
+    Require all denied
+</DirectoryMatch>
+
 # ==========================================
 # BLOCK ACCESS TO SENSITIVE FILE TYPES
 # ==========================================
@@ -89,15 +94,15 @@
     # Restricts external connections to trusted domains only
     Header always set Content-Security-Policy "\
         default-src 'self'; \
-        script-src 'self' 'unsafe-inline'; \
+        script-src 'self' 'unsafe-inline' https://tally.so; \
         style-src 'self' 'unsafe-inline'; \
         img-src 'self' data: https:; \
         font-src 'self' data:; \
-        connect-src 'self' https://discord.com https://api.nhtsa.gov; \
-        frame-src 'self' https://www.youtube.com; \
+        connect-src 'self' https://discord.com https://api.nhtsa.gov https://tally.so; \
+        frame-src 'self' https://www.youtube.com https://tally.so; \
         object-src 'none'; \
         base-uri 'self'; \
-        form-action 'self'; \
+        form-action 'self' https://tally.so; \
         frame-ancestors 'self';"
 
     # Remove server signature

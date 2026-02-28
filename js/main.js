@@ -1,164 +1,328 @@
-// VinFast Owners North America - Main JavaScript
+// ============================================
+// AVO Website v2 — Main JavaScript
+// Association of VinFast Owners North America
+// ============================================
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
 
     // ========================================
-    // Navigation - Hamburger Menu & Dropdowns
+    // Dark Mode
     // ========================================
 
-    // Hamburger menu toggle for mobile
-    const hamburger = document.querySelector('.hamburger');
-    const navLinks = document.querySelector('.nav-links');
+    initDarkMode();
 
-    if (hamburger) {
-        hamburger.addEventListener('click', function() {
-            hamburger.classList.toggle('active');
-            navLinks.classList.toggle('active');
+    function initDarkMode() {
+        var toggle = document.querySelector('.theme-toggle');
+        var stored = localStorage.getItem('avo-theme');
+
+        if (stored === 'dark') {
+            document.documentElement.classList.add('dark-mode');
+            document.documentElement.classList.remove('light-mode');
+        } else if (stored === 'light') {
+            document.documentElement.classList.add('light-mode');
+            document.documentElement.classList.remove('dark-mode');
+        }
+        // If no stored preference, the CSS @media rule handles it
+
+        updateToggleIcon();
+
+        if (toggle) {
+            toggle.addEventListener('click', function () {
+                var isDark = document.documentElement.classList.contains('dark-mode');
+                var systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+                if (isDark || (!isDark && !document.documentElement.classList.contains('light-mode') && systemDark)) {
+                    // Currently dark → go light
+                    document.documentElement.classList.remove('dark-mode');
+                    document.documentElement.classList.add('light-mode');
+                    localStorage.setItem('avo-theme', 'light');
+                } else {
+                    // Currently light → go dark
+                    document.documentElement.classList.remove('light-mode');
+                    document.documentElement.classList.add('dark-mode');
+                    localStorage.setItem('avo-theme', 'dark');
+                }
+
+                updateToggleIcon();
+            });
+        }
+
+        // Listen for OS theme changes
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function () {
+            if (!localStorage.getItem('avo-theme')) {
+                updateToggleIcon();
+            }
         });
     }
 
-    // Close mobile menu when clicking outside
-    document.addEventListener('click', function(event) {
-        const isClickInsideNav = event.target.closest('nav');
-        if (!isClickInsideNav && navLinks && navLinks.classList.contains('active')) {
-            hamburger.classList.remove('active');
-            navLinks.classList.remove('active');
-        }
-    });
+    function updateToggleIcon() {
+        var toggle = document.querySelector('.theme-toggle');
+        if (!toggle) return;
 
-    // Dropdown menu handling for mobile
-    const dropdowns = document.querySelectorAll('.nav-dropdown');
-    dropdowns.forEach(dropdown => {
-        const dropdownLink = dropdown.querySelector('a');
+        var isDark = document.documentElement.classList.contains('dark-mode');
+        var systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        var effectiveDark = isDark || (!document.documentElement.classList.contains('light-mode') && systemDark);
 
-        // For mobile: toggle dropdown on click
-        dropdownLink.addEventListener('click', function(e) {
-            if (window.innerWidth <= 968) {
-                // ALWAYS prevent default navigation on mobile for dropdown toggles
+        toggle.textContent = effectiveDark ? '\u2600\uFE0F' : '\uD83C\uDF19';
+        toggle.setAttribute('aria-label', effectiveDark ? 'Switch to light mode' : 'Switch to dark mode');
+    }
+
+    // ========================================
+    // Navigation — Unified Hamburger Menu
+    // ========================================
+
+    var hamburger = document.querySelector('.hamburger-v2');
+    var navLinks = document.querySelector('.nav-links-v2');
+
+    // Create backdrop overlay for mobile menu
+    var backdrop = document.createElement('div');
+    backdrop.className = 'nav-backdrop';
+    backdrop.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(backdrop);
+
+    function openMobileNav() {
+        hamburger.classList.add('active');
+        navLinks.classList.add('active');
+        backdrop.classList.add('active');
+        hamburger.setAttribute('aria-expanded', 'true');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeMobileNav() {
+        hamburger.classList.remove('active');
+        navLinks.classList.remove('active');
+        backdrop.classList.remove('active');
+        hamburger.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+    }
+
+    if (hamburger && navLinks) {
+        hamburger.addEventListener('click', function () {
+            if (hamburger.classList.contains('active')) {
+                closeMobileNav();
+            } else {
+                openMobileNav();
+            }
+        });
+
+        // Close when clicking backdrop
+        backdrop.addEventListener('click', closeMobileNav);
+
+        // Close when clicking outside
+        document.addEventListener('click', function (e) {
+            if (!e.target.closest('.nav-v2') && !e.target.closest('.nav-backdrop') && navLinks.classList.contains('active')) {
+                closeMobileNav();
+            }
+        });
+
+        // Close on Escape
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape' && navLinks.classList.contains('active')) {
+                closeMobileNav();
+                hamburger.focus();
+            }
+        });
+    }
+
+    // Dropdown handling for mobile
+    var drops = document.querySelectorAll('.nav-drop');
+    drops.forEach(function (drop) {
+        var trigger = drop.querySelector('a');
+        if (!trigger) return;
+
+        trigger.addEventListener('click', function (e) {
+            // On mobile/tablet (when hamburger is visible), toggle dropdown
+            if (hamburger && window.getComputedStyle(hamburger).display !== 'none') {
                 e.preventDefault();
                 e.stopPropagation();
+                var wasOpen = drop.classList.contains('open');
 
-                const isCurrentlyActive = dropdown.classList.contains('active');
+                // Close all dropdowns
+                drops.forEach(function (d) { d.classList.remove('open'); });
 
-                // Close all dropdowns first
-                dropdowns.forEach(otherDropdown => {
-                    otherDropdown.classList.remove('active');
-                });
-
-                // Toggle current dropdown (if it wasn't active, open it)
-                if (!isCurrentlyActive) {
-                    dropdown.classList.add('active');
+                if (!wasOpen) {
+                    drop.classList.add('open');
                 }
             }
         });
 
-        // Prevent dropdown menu items from closing the parent dropdown on mobile
-        const dropdownMenuLinks = dropdown.querySelectorAll('.dropdown-menu a');
-        dropdownMenuLinks.forEach(menuLink => {
-            menuLink.addEventListener('click', function() {
-                // On mobile, close the entire nav after selecting a dropdown item
-                if (window.innerWidth <= 968 && hamburger && navLinks) {
-                    hamburger.classList.remove('active');
-                    navLinks.classList.remove('active');
-                    // Also close the dropdown
-                    dropdown.classList.remove('active');
+        // Close nav when clicking a dropdown menu item (mobile)
+        var menuLinks = drop.querySelectorAll('.nav-drop-menu a');
+        menuLinks.forEach(function (link) {
+            link.addEventListener('click', function () {
+                if (hamburger && navLinks) {
+                    closeMobileNav();
+                    drop.classList.remove('open');
                 }
             });
         });
     });
 
-    // Close mobile menu when clicking a non-dropdown link
-    const mobileNavLinks = document.querySelectorAll('.nav-links > a:not(.nav-dropdown a)');
-    mobileNavLinks.forEach(link => {
-        link.addEventListener('click', function() {
-            if (window.innerWidth <= 968) {
-                hamburger.classList.remove('active');
-                navLinks.classList.remove('active');
-            }
-        });
-    });
-
-    // Active page highlighting based on current URL
-    highlightActivePage();
-
-    // ========================================
-    // Smooth Scrolling
-    // ========================================
-
-    // Smooth scroll for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            const href = this.getAttribute('href');
-            if (href !== '#' && href !== '') {
-                e.preventDefault();
-                const target = document.querySelector(href);
-                if (target) {
-                    const navbarHeight = document.querySelector('nav').offsetHeight;
-                    const targetPosition = target.offsetTop - navbarHeight;
-                    window.scrollTo({
-                        top: targetPosition,
-                        behavior: 'smooth'
-                    });
-
-                    // Close mobile menu after clicking
-                    if (hamburger && navLinks) {
-                        hamburger.classList.remove('active');
-                        navLinks.classList.remove('active');
-                    }
+    // Close mobile nav when clicking non-dropdown links
+    if (navLinks) {
+        var directLinks = navLinks.querySelectorAll(':scope > a');
+        directLinks.forEach(function (link) {
+            link.addEventListener('click', function () {
+                if (hamburger && hamburger.classList.contains('active')) {
+                    closeMobileNav();
                 }
-            }
-        });
-    });
-
-    // Active navigation highlight on scroll
-    const sections = document.querySelectorAll('section[id]');
-
-    function highlightNavigation() {
-        const scrollY = window.pageYOffset;
-
-        sections.forEach(section => {
-            const sectionHeight = section.offsetHeight;
-            const sectionTop = section.offsetTop - 100;
-            const sectionId = section.getAttribute('id');
-            const navLink = document.querySelector(`.nav-links a[href="#${sectionId}"]`);
-
-            if (navLink && !navLink.classList.contains('btn-join-cta')) {
-                if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
-                    navLink.classList.add('active');
-                } else {
-                    navLink.classList.remove('active');
-                }
-            }
+            });
         });
     }
 
-    window.addEventListener('scroll', highlightNavigation);
+    // Active page highlighting
+    highlightActivePage();
 
     // ========================================
     // Language Toggle
     // ========================================
 
-    // Initialize language from saved preference or browser
-    const savedLang = localStorage.getItem('vinfast-lang');
-    const browserLang = navigator.language.toLowerCase();
+    var savedLang = localStorage.getItem('vinfast-lang');
+    var browserLang = navigator.language.toLowerCase();
     if (savedLang === 'fr' || (!savedLang && browserLang.includes('fr'))) {
-        document.body.className = 'fr';
-        const buttons = document.querySelectorAll('.lang-toggle button');
-        if (buttons.length > 1) {
-            buttons[0].classList.remove('active');
-            buttons[1].classList.add('active');
+        document.body.classList.add('fr');
+        var langBtns = document.querySelectorAll('.lang-switch button');
+        if (langBtns.length > 1) {
+            langBtns[0].classList.remove('active');
+            langBtns[1].classList.add('active');
         }
     }
+
+    // ========================================
+    // Scroll Progress Bar
+    // ========================================
+
+    (function initScrollProgress() {
+        var progressBar = document.querySelector('.scroll-progress');
+        if (!progressBar) return;
+
+        var ticking = false;
+        window.addEventListener('scroll', function () {
+            if (!ticking) {
+                requestAnimationFrame(function () {
+                    var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                    var docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                    var pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+                    progressBar.style.width = pct + '%';
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        }, { passive: true });
+    })();
+
+    // ========================================
+    // Back to Top Button
+    // ========================================
+
+    (function initBackToTop() {
+        var btn = document.querySelector('.back-to-top');
+        if (!btn) return;
+
+        var ticking = false;
+        window.addEventListener('scroll', function () {
+            if (!ticking) {
+                requestAnimationFrame(function () {
+                    if (window.pageYOffset > 500) {
+                        btn.classList.add('visible');
+                    } else {
+                        btn.classList.remove('visible');
+                    }
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        }, { passive: true });
+
+        btn.addEventListener('click', function () {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    })();
+
+    // ========================================
+    // Nav Glass Effect on Scroll
+    // ========================================
+
+    (function initNavScrollEffect() {
+        var nav = document.querySelector('.nav-v2');
+        if (!nav) return;
+
+        var ticking = false;
+        window.addEventListener('scroll', function () {
+            if (!ticking) {
+                requestAnimationFrame(function () {
+                    if (window.pageYOffset > 10) {
+                        nav.classList.add('scrolled');
+                    } else {
+                        nav.classList.remove('scrolled');
+                    }
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        }, { passive: true });
+    })();
+
+    // ========================================
+    // Scroll Animations (IntersectionObserver)
+    // ========================================
+
+    initScrollAnimations();
+
+    // ========================================
+    // Animated Counters
+    // ========================================
+
+    animateCounters();
+
+    // ========================================
+    // Email Deobfuscation
+    // ========================================
+
+    document.querySelectorAll('[data-email]').forEach(deobfuscateEmail);
+
+    // ========================================
+    // Helpful Ratings
+    // ========================================
+
+    initializeHelpfulRatings();
+
+    // ========================================
+    // Smooth Scroll for Anchor Links
+    // ========================================
+
+    document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
+        anchor.addEventListener('click', function (e) {
+            var href = this.getAttribute('href');
+            if (href !== '#' && href !== '') {
+                var target = document.querySelector(href);
+                if (target) {
+                    e.preventDefault();
+                    var nav = document.querySelector('.nav-v2');
+                    var offset = nav ? nav.offsetHeight : 0;
+                    var pos = target.getBoundingClientRect().top + window.pageYOffset - offset;
+                    window.scrollTo({ top: pos, behavior: 'smooth' });
+
+                    // Close mobile menu
+                    if (hamburger && hamburger.classList.contains('active')) {
+                        closeMobileNav();
+                    }
+                }
+            }
+        });
+    });
 });
 
 // ========================================
-// Active Page Highlighting Function
+// Active Page Highlighting
 // ========================================
-function highlightActivePage() {
-    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
 
-    // Map pages to their nav links
-    const pageMap = {
+function highlightActivePage() {
+    var currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    // Map v2 prototype pages to their base names for nav highlighting
+    var normalized = currentPage.replace('-v2', '');
+
+    var pageMap = {
         'index.html': 'index.html',
         '': 'index.html',
         'recalls.html': 'recalls.html',
@@ -166,205 +330,245 @@ function highlightActivePage() {
         'report-issue.html': 'report-issue.html',
         'board.html': 'board.html',
         'documents.html': 'documents.html',
-        'bylaws.html': 'bylaws.html',
         'meeting-minutes.html': 'meeting-minutes.html',
-        'join.html': 'join.html'
+        'join.html': 'join.html',
+        'discord.html': 'discord.html',
+        'links.html': 'links.html',
+        'trip-data.html': 'trip-data.html',
+        'petition.html': 'petition.html',
+        'open-letter.html': 'open-letter.html',
+        'privacy.html': 'privacy.html',
+        'disclaimer.html': 'disclaimer.html',
+        'bylaws.html': 'bylaws.html',
+        'vf8-vf9-user-guide.html': 'vf8-vf9-user-guide.html'
     };
 
-    const targetPage = pageMap[currentPage];
-
-    if (targetPage) {
-        // Find and highlight the matching nav link
-        const navLinks = document.querySelectorAll('.nav-links a, .dropdown-menu a');
-        navLinks.forEach(link => {
-            const href = link.getAttribute('href');
-            if (href === targetPage || href.includes(targetPage)) {
+    var target = pageMap[currentPage] || pageMap[normalized];
+    if (target) {
+        var links = document.querySelectorAll('.nav-links-v2 a, .nav-drop-menu a');
+        links.forEach(function (link) {
+            var href = link.getAttribute('href');
+            if (href === target || (href && href.includes(target))) {
                 link.classList.add('active');
             }
         });
     }
 }
 
-// Language toggle function (called from onclick)
+// ========================================
+// Language Toggle (called from onclick)
+// ========================================
+
 function setLang(lang) {
-    document.body.className = lang === 'fr' ? 'fr' : '';
-    document.querySelectorAll('.lang-toggle button').forEach(btn => {
+    if (lang === 'fr') {
+        document.body.classList.add('fr');
+    } else {
+        document.body.classList.remove('fr');
+    }
+    document.querySelectorAll('.lang-switch button').forEach(function (btn) {
         btn.classList.remove('active');
     });
-    event.target.classList.add('active');
+    if (event && event.target) {
+        event.target.classList.add('active');
+    }
     localStorage.setItem('vinfast-lang', lang);
 }
 
-// Resource category toggle function
-function toggleCategory(button) {
-    console.log('Toggle clicked!'); // Debug
+// ========================================
+// Scroll Animations
+// ========================================
 
-    const category = button.parentElement;
-    const resourcesList = category.querySelector('.resources-list');
-    const toggleIcon = button.querySelector('.toggle-icon');
+function initScrollAnimations() {
+    var gridSelectors = '.bento-grid, .community-grid, .stats-grid, .about-grid';
 
-    console.log('Category:', category);
-    console.log('Resources list:', resourcesList);
+    // Assign staggered delay classes to fade-in elements inside grids
+    document.querySelectorAll('.fade-in').forEach(function (el) {
+        var parentGrid = el.closest(gridSelectors);
+        if (parentGrid) {
+            var siblings = Array.prototype.slice.call(parentGrid.querySelectorAll('.fade-in'));
+            var index = siblings.indexOf(el);
+            if (index !== -1) {
+                el.classList.add('fade-delay-' + ((index % 6) + 1));
+            }
+        }
+    });
 
-    // Toggle expanded state
-    const isExpanded = category.classList.contains('expanded');
-
-    if (isExpanded) {
-        // Collapse
-        category.classList.remove('expanded');
-        toggleIcon.textContent = '▶';
-        resourcesList.style.maxHeight = '0';
-        console.log('Collapsed');
-    } else {
-        // Expand
-        category.classList.add('expanded');
-        toggleIcon.textContent = '▼';
-        // Calculate and set the full height
-        const fullHeight = resourcesList.scrollHeight;
-        resourcesList.style.maxHeight = fullHeight + 'px';
-        console.log('Expanded to:', fullHeight + 'px');
+    // Respect prefers-reduced-motion
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        // Make all elements visible immediately
+        document.querySelectorAll('.fade-in').forEach(function (el) {
+            el.classList.add('visible');
+        });
+        return;
     }
+
+    var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -40px 0px'
+    });
+
+    document.querySelectorAll('.fade-in').forEach(function (el) {
+        observer.observe(el);
+    });
 }
 
-// Email obfuscation/de-obfuscation
-// Decodes ROT13 encoded emails to prevent scraping
+// ========================================
+// Animated Counters
+// ========================================
+
+function animateCounters() {
+    var counters = document.querySelectorAll('.stat-number[data-count]');
+    if (counters.length === 0) return;
+
+    // Respect prefers-reduced-motion
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        counters.forEach(function (el) {
+            var suffix = el.getAttribute('data-suffix') || '';
+            el.textContent = el.getAttribute('data-count') + suffix;
+            el.classList.add('counter-animate', 'visible');
+        });
+        return;
+    }
+
+    var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+                var el = entry.target;
+                observer.unobserve(el);
+
+                var target = parseInt(el.getAttribute('data-count'), 10);
+                var suffix = el.getAttribute('data-suffix') || '';
+                if (isNaN(target)) return;
+
+                el.classList.add('counter-animate', 'visible');
+
+                var duration = 1500; // ms
+                var startTime = null;
+
+                function step(timestamp) {
+                    if (!startTime) startTime = timestamp;
+                    var elapsed = timestamp - startTime;
+                    var progress = Math.min(elapsed / duration, 1);
+
+                    // Ease-out cubic for a smooth deceleration
+                    var eased = 1 - Math.pow(1 - progress, 3);
+                    el.textContent = Math.floor(eased * target) + suffix;
+
+                    if (progress < 1) {
+                        requestAnimationFrame(step);
+                    } else {
+                        el.textContent = target + suffix;
+                    }
+                }
+
+                requestAnimationFrame(step);
+            }
+        });
+    }, {
+        threshold: 0.3
+    });
+
+    counters.forEach(function (el) {
+        observer.observe(el);
+    });
+}
+
+// ========================================
+// Email Obfuscation / Deobfuscation
+// ========================================
+
 function deobfuscateEmail(element) {
-    const encoded = element.getAttribute('data-email');
+    var encoded = element.getAttribute('data-email');
     if (!encoded) return;
 
     // ROT13 decode
-    const decoded = encoded.replace(/[a-zA-Z]/g, function(c) {
+    var decoded = encoded.replace(/[a-zA-Z]/g, function (c) {
         return String.fromCharCode(
             (c <= 'Z' ? 90 : 122) >= (c = c.charCodeAt(0) + 13) ? c : c - 26
         );
     });
 
-    // Validate email format to prevent XSS
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    // Validate email format
+    var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(decoded)) {
         console.error('Invalid email format after decoding:', encoded);
         return;
     }
 
-    // Create clickable mailto link safely (prevents XSS)
-    const link = document.createElement('a');
+    var link = document.createElement('a');
     link.href = 'mailto:' + decoded;
     link.textContent = decoded;
     element.innerHTML = '';
     element.appendChild(link);
 }
 
-// Initialize email deobfuscation on page load
-document.addEventListener('DOMContentLoaded', function() {
-    // Deobfuscate all emails marked with data-email attribute
-    document.querySelectorAll('[data-email]').forEach(deobfuscateEmail);
-
-    // Initialize helpful rating system
-    initializeHelpfulRatings();
-});
-
 // ========================================
 // Resource Helpful Rating System
 // ========================================
 
-// Initialize helpful ratings from localStorage
 function initializeHelpfulRatings() {
-    // Fetch global ratings from JSON file
+    var items = document.querySelectorAll('.resource-item');
+    if (items.length === 0) return;
+
     fetch('data/resource-ratings.json')
-        .then(response => response.json())
-        .then(globalRatings => {
-            const userVotes = JSON.parse(localStorage.getItem('user-votes') || '[]');
-            const pendingVotes = JSON.parse(localStorage.getItem('pending-votes') || '[]');
+        .then(function (response) { return response.json(); })
+        .then(function (globalRatings) {
+            var userVotes = JSON.parse(localStorage.getItem('user-votes') || '[]');
 
-            // Update all helpful buttons with global counts
-            document.querySelectorAll('.resource-item').forEach(item => {
-                const resourceId = item.getAttribute('data-resource-id');
-                if (resourceId) {
-                    const count = globalRatings[resourceId] || 0;
-                    const countElement = item.querySelector('.helpful-count');
-                    const button = item.querySelector('.helpful-btn');
+            items.forEach(function (item) {
+                var resourceId = item.getAttribute('data-resource-id');
+                if (!resourceId) return;
 
-                    if (countElement) {
-                        countElement.textContent = count;
-                    }
+                var count = globalRatings[resourceId] || 0;
+                var countEl = item.querySelector('.helpful-count');
+                var btn = item.querySelector('.helpful-btn');
 
-                    // Mark as voted if user already voted
-                    if (button && userVotes.includes(resourceId)) {
-                        button.classList.add('voted');
-                    }
-                }
+                if (countEl) countEl.textContent = count;
+                if (btn && userVotes.includes(resourceId)) btn.classList.add('voted');
             });
-
-            // Log pending votes for admin reference
-            if (pendingVotes.length > 0) {
-                console.log('📊 Pending votes to aggregate:', pendingVotes);
-            }
         })
-        .catch(error => {
-            console.error('Failed to load global ratings:', error);
-            // Fallback to localStorage if JSON fetch fails
-            const savedRatings = JSON.parse(localStorage.getItem('resource-ratings') || '{}');
-            const userVotes = JSON.parse(localStorage.getItem('user-votes') || '[]');
+        .catch(function () {
+            // Fallback to localStorage
+            var saved = JSON.parse(localStorage.getItem('resource-ratings') || '{}');
+            var userVotes = JSON.parse(localStorage.getItem('user-votes') || '[]');
 
-            document.querySelectorAll('.resource-item').forEach(item => {
-                const resourceId = item.getAttribute('data-resource-id');
-                if (resourceId) {
-                    const count = savedRatings[resourceId] || 0;
-                    const countElement = item.querySelector('.helpful-count');
-                    const button = item.querySelector('.helpful-btn');
+            items.forEach(function (item) {
+                var resourceId = item.getAttribute('data-resource-id');
+                if (!resourceId) return;
 
-                    if (countElement) {
-                        countElement.textContent = count;
-                    }
+                var countEl = item.querySelector('.helpful-count');
+                var btn = item.querySelector('.helpful-btn');
 
-                    if (button && userVotes.includes(resourceId)) {
-                        button.classList.add('voted');
-                    }
-                }
+                if (countEl) countEl.textContent = saved[resourceId] || 0;
+                if (btn && userVotes.includes(resourceId)) btn.classList.add('voted');
             });
         });
 }
 
-// Mark a resource as helpful
 function markHelpful(resourceId) {
-    const userVotes = JSON.parse(localStorage.getItem('user-votes') || '[]');
-    const pendingVotes = JSON.parse(localStorage.getItem('pending-votes') || '[]');
+    var userVotes = JSON.parse(localStorage.getItem('user-votes') || '[]');
+    var pendingVotes = JSON.parse(localStorage.getItem('pending-votes') || '[]');
 
-    // Check if user already voted for this resource
-    if (userVotes.includes(resourceId)) {
-        return; // Already voted
-    }
+    if (userVotes.includes(resourceId)) return;
 
-    // Record the vote
     userVotes.push(resourceId);
+    pendingVotes.push({ resourceId: resourceId, timestamp: new Date().toISOString() });
 
-    // Add to pending votes (for aggregation into JSON file)
-    pendingVotes.push({
-        resourceId: resourceId,
-        timestamp: new Date().toISOString()
-    });
-
-    // Save to localStorage
     localStorage.setItem('user-votes', JSON.stringify(userVotes));
     localStorage.setItem('pending-votes', JSON.stringify(pendingVotes));
 
-    // Update UI immediately (optimistic update)
-    const item = document.querySelector(`[data-resource-id="${resourceId}"]`);
+    var item = document.querySelector('[data-resource-id="' + resourceId + '"]');
     if (item) {
-        const countElement = item.querySelector('.helpful-count');
-        const button = item.querySelector('.helpful-btn');
-
-        if (countElement) {
-            // Increment displayed count optimistically
-            const currentCount = parseInt(countElement.textContent) || 0;
-            countElement.textContent = currentCount + 1;
-        }
-
-        if (button) {
-            button.classList.add('voted');
-        }
+        var countEl = item.querySelector('.helpful-count');
+        var btn = item.querySelector('.helpful-btn');
+        if (countEl) countEl.textContent = (parseInt(countEl.textContent) || 0) + 1;
+        if (btn) btn.classList.add('voted');
     }
-
-    // Log for admin
-    console.log('✅ Vote recorded for:', resourceId, '| Total pending votes:', pendingVotes.length);
 }

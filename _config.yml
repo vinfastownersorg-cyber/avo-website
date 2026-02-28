@@ -2,16 +2,24 @@
 # This file tells GitHub Pages which files/folders to exclude from publishing
 
 # Exclude developer documentation and sensitive files
+# Note: GitHub Pages uses Nginx (not Apache), so .htaccess files are ignored.
+# This _config.yml exclude list is the actual security mechanism on GH Pages.
+# See also: .htaccess.reference for Apache portability documentation.
+# Related: PR #3 (per-directory .htaccess approach won't work on GH Pages)
 exclude:
   - .github/
   - .claude/
   - docs/
   - documents/
+  - archive/
   - README.md
   - youtube_posted.json  # Bot tracking file (keep private)
   - .gitignore
+  - .htaccess*           # Apache config files (not used on GH Pages)
   - CODEOWNERS
   - LICENSE
+  - CONTRIBUTING.md
+  - CHANGELOG.md
 
 # NOTE: data/resource-ratings.json is intentionally NOT excluded
 # It needs to be publicly accessible for the rating system to work

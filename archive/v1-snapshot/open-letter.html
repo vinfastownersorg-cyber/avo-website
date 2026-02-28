@@ -8,6 +8,7 @@
     <title>Open Letter to VinFast Leadership | VinFast Owners Association</title>
     <meta name="title" content="Open Letter to VinFast Leadership | VinFast Owners Association">
     <meta name="description" content="Updates from AVO's ongoing dialogue with VinFast corporate leadership following our community Open Letter signed by 132+ VinFast owners.">
+    <meta name="keywords" content="VinFast owners, VinFast open letter, VinFast corporate dialogue, VinFast leadership, AVO board, VinFast community advocacy, VinFast owner concerns">
     <meta name="robots" content="noindex, nofollow">
 
     <!-- Multilingual SEO - North America (US/Canada) -->
@@ -37,15 +38,30 @@
     <!-- Canonical URL -->
     <link rel="canonical" href="https://vinfastowners.org/open-letter.html" />
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="images/icons/avo-logo.png">
-    <link rel="apple-touch-icon" href="images/icons/avo-logo.png">
-
-    <!-- Stylesheet -->
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/styles.css?v=202511181735">
 
     <style>
         /* Open Letter Page Specific Styles */
+        .open-letter-hero {
+            background: linear-gradient(135deg, var(--vf-vinfast-blue) 0%, var(--vf-deep-ocean) 100%);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .open-letter-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .open-letter-hero .subtitle {
+            font-size: 1.25rem;
+            opacity: 0.95;
+            max-width: 800px;
+            margin: 0 auto 1.5rem;
+        }
+
         .signers-badge {
             display: inline-block;
             background: rgba(255, 255, 255, 0.2);
@@ -216,6 +232,10 @@
 
         /* Mobile Responsive */
         @media (max-width: 768px) {
+            .open-letter-hero h1 {
+                font-size: 2rem;
+            }
+
             .timeline {
                 padding-left: 1.5rem;
             }
@@ -227,162 +247,50 @@
     </style>
 </head>
 <body>
-<div class="scroll-progress" aria-hidden="true"></div>
+    <!-- Language Toggle -->
+    <div class="lang-toggle">
+        <button class="active" onclick="setLang('en')">EN</button>
+        <button onclick="setLang('fr')">FR</button>
+    </div>
 
-    <!-- ===== Glass Navigation ===== -->
-    <nav class="nav-v2" role="navigation" aria-label="Main navigation">
-        <div class="nav-inner">
-            <a href="/" class="nav-logo" aria-label="AVO Home">
-                <img src="images/icons/avo-logo.png" alt="AVO Logo" width="44" height="44">
-                <div class="nav-logo-text">
-                    <span class="nav-logo-name">AVO</span>
-                    <span class="nav-logo-sub">
-                        <span lang="en">North America</span>
-                        <span lang="fr">Amérique du Nord</span>
-                    </span>
-                </div>
-            </a>
-
-            <button class="hamburger-v2" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav-menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-
-            <div class="nav-links-v2" id="nav-menu">
-                <a href="index.html">
-                    <span lang="en">Home</span>
-                    <span lang="fr">Accueil</span>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">
+                <a href="/">
+                    <img src="images/icons/avo-logo.png" alt="AVO Logo" class="logo-img">
+                    <div class="logo-text-container">
+                        <span class="logo-text">AVO</span>
+                        <span class="logo-subtitle">
+                            <span lang="en">North America</span>
+                            <span lang="fr">Amérique du Nord</span>
+                        </span>
+                    </div>
                 </a>
-                <a href="considering-vinfast.html">
-                    <span lang="en">Considering VinFast?</span>
-                    <span lang="fr">Vous Envisagez VinFast?</span>
-                </a>
-                <!-- Community Dropdown -->
-                <div class="nav-drop">
-                    <a href="#community">
-                        <span lang="en">Community</span>
-                        <span lang="fr">Communauté</span>
-                    </a>
-                    <div class="nav-drop-menu">
-                        <a href="discord.html">
-                            <span lang="en">Discord</span>
-                            <span lang="fr">Discord</span>
-                        </a>
-                        <a href="https://www.facebook.com/share/g/17dH6oZRA4/" target="_blank" rel="noopener">
-                            <span lang="en">Facebook Group</span>
-                            <span lang="fr">Groupe Facebook</span>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Governance Dropdown -->
-                <div class="nav-drop">
-                    <a href="#governance">
-                        <span lang="en">Governance</span>
-                        <span lang="fr">Gouvernance</span>
-                    </a>
-                    <div class="nav-drop-menu">
-                        <a href="board.html">
-                            <span lang="en">Board of Directors</span>
-                            <span lang="fr">Conseil d'Administration</span>
-                        </a>
-                        <a href="documents.html">
-                            <span lang="en">Documents & Bylaws</span>
-                            <span lang="fr">Documents et Règlements</span>
-                        </a>
-                        <a href="meeting-minutes.html">
-                            <span lang="en">Meeting Minutes</span>
-                            <span lang="fr">Procès-Verbaux</span>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Resources Dropdown -->
-                <div class="nav-drop">
-                    <a href="#resources">
-                        <span lang="en">Resources</span>
-                        <span lang="fr">Ressources</span>
-                    </a>
-                    <div class="nav-drop-menu">
-                        <a href="recalls.html">
-                            <span lang="en">Recalls & Safety</span>
-                            <span lang="fr">Rappels et Sécurité</span>
-                        </a>
-                        <a href="trip-data.html">
-                            <span lang="en">Trip Data</span>
-                            <span lang="fr">Données de Voyage</span>
-                        </a>
-                        <a href="petition.html">
-                            <span lang="en">Petition</span>
-                            <span lang="fr">Pétition</span>
-                        </a>
-                        <a href="report-issue.html">
-                            <span lang="en">Report an Issue</span>
-                            <span lang="fr">Signaler un Problème</span>
-                        </a>
-                        <a href="vf8-vf9-user-guide.html">
-                            <span lang="en">User Guide</span>
-                            <span lang="fr">Guide d'Utilisation</span>
-                        </a>
-                        <a href="links.html">
-                            <span lang="en">All Links</span>
-                            <span lang="fr">Tous les Liens</span>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Join CTA -->
-                <a href="join.html" class="nav-cta">
-                    <span lang="en">Join</span>
-                    <span lang="fr">Adhérer</span>
-                </a>
-
-                <!-- Mobile-only controls -->
-                <div class="mobile-controls">
-                    <div class="lang-switch">
-                        <button onclick="setLang('en')" class="active" aria-label="English">EN</button>
-                        <button onclick="setLang('fr')" aria-label="Français">FR</button>
-                    </div>
-                    <button class="theme-toggle" aria-label="Toggle dark mode"></button>
-                </div>
             </div>
 
-            <!-- Desktop controls -->
-            <div class="nav-controls">
-                <div class="lang-switch">
-                    <button onclick="setLang('en')" class="active" aria-label="English">EN</button>
-                    <button onclick="setLang('fr')" aria-label="Français">FR</button>
-                </div>
-                <button class="theme-toggle" aria-label="Toggle dark mode"></button>
+            <div class="nav-links">
+                <a href="/">
+                    <span lang="en">← Back to Home</span>
+                    <span lang="fr">← Retour à l'accueil</span>
+                </a>
             </div>
         </div>
     </nav>
 
-    <!-- ===== Page Header ===== -->
-    <section class="page-header-v2">
-        <nav class="breadcrumb" aria-label="Breadcrumb">
-            <a href="index.html">
-                <span lang="en">Home</span>
-                <span lang="fr">Accueil</span>
-            </a>
-            <span aria-hidden="true">/</span>
-            <span aria-current="page">
-                <span lang="en">Open Letter</span>
-                <span lang="fr">Lettre Ouverte</span>
-            </span>
-        </nav>
+    <!-- Hero Section -->
+    <section class="open-letter-hero">
         <h1>
             <span lang="en">Open Letter to VinFast Leadership</span>
             <span lang="fr">Lettre Ouverte à la Direction VinFast</span>
         </h1>
-        <p>
+        <p class="subtitle">
             <span lang="en">Updates from AVO's ongoing dialogue with VinFast corporate leadership</span>
             <span lang="fr">Mises à jour du dialogue continu d'AVO avec la direction de VinFast</span>
         </p>
         <div class="signers-badge">
-            <span lang="en">132+ Owner Signatures</span>
-            <span lang="fr">132+ Signatures de Propriétaires</span>
+            <span lang="en">✍️ 132+ Owner Signatures</span>
+            <span lang="fr">✍️ 132+ Signatures de Propriétaires</span>
         </div>
     </section>
 
@@ -399,7 +307,7 @@
                         box-shadow: 0 4px 12px rgba(0,0,0,0.15);
                         border-left: 5px solid #2e7d32;">
                 <h3 style="margin: 0 0 1rem 0; color: white; display: flex; align-items: center; gap: 0.75rem;">
-                    <span style="font-size: 1.8rem;">&#10003;</span>
+                    <span style="font-size: 1.8rem;">✅</span>
                     <span lang="en">Thank You to All Participants</span>
                     <span lang="fr">Merci à Tous les Participants</span>
                 </h3>
@@ -417,10 +325,10 @@
                 </p>
                 <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.3);">
                     <p lang="en" style="margin: 0; font-size: 0.95rem; opacity: 0.95;">
-                        <strong>Stay Engaged:</strong> Continue submitting feedback using the form below. Your input shapes our ongoing advocacy work.
+                        💬 <strong>Stay Engaged:</strong> Continue submitting feedback using the form below. Your input shapes our ongoing advocacy work.
                     </p>
                     <p lang="fr" style="margin: 0; font-size: 0.95rem; opacity: 0.95;">
-                        <strong>Restez Engagé:</strong> Continuez à soumettre vos commentaires en utilisant le formulaire ci-dessous.
+                        💬 <strong>Restez Engagé:</strong> Continuez à soumettre vos commentaires en utilisant le formulaire ci-dessous.
                     </p>
                 </div>
             </div>
@@ -428,6 +336,7 @@
             <!-- Disclaimer -->
             <div class="disclaimer-box">
                 <h3>
+                    ⚠️
                     <span lang="en">Important Disclaimer</span>
                     <span lang="fr">Avertissement Important</span>
                 </h3>
@@ -451,7 +360,7 @@
                 <!-- DRAFT NOTICE - Remove when ready to publish -->
                 <!--
                 <div class="draft-notice">
-                    <h3>Draft Status - Board Review Required</h3>
+                    <h3>📝 Draft Status - Board Review Required</h3>
                     <p>
                         <strong>This content is currently in draft form and awaiting board approval before publication.</strong>
                     </p>
@@ -490,8 +399,8 @@
 
                         <p style="margin-top: 1.5rem;">
                             <a href="https://forms.gle/utHmsZs5iERJSD7EA" class="btn-primary" target="_blank" rel="noopener noreferrer">
-                                <span lang="en">Read the Full Open Letter</span>
-                                <span lang="fr">Lire la Lettre Complète</span>
+                                <span lang="en">📄 Read the Full Open Letter</span>
+                                <span lang="fr">📄 Lire la Lettre Complète</span>
                             </a>
                         </p>
                     </div>
@@ -557,8 +466,8 @@
 
                         <div style="background: #e8f5e9; padding: 1.5rem; border-radius: 8px; margin-top: 1.5rem; border-left: 4px solid #4CAF50;">
                             <h4 style="color: #2e7d32; margin-top: 0;">
-                                <span lang="en">Current Status</span>
-                                <span lang="fr">Statut Actuel</span>
+                                <span lang="en">✅ Current Status</span>
+                                <span lang="fr">✅ Statut Actuel</span>
                             </h4>
                             <ul style="margin-bottom: 0;">
                                 <li lang="en">VinFast corporate leadership is taking steps to address owner concerns</li>
@@ -604,8 +513,8 @@
 
                         <div class="update-section">
                             <h4>
-                                <span lang="en">Parts & Supply Chain</span>
-                                <span lang="fr">Pièces et Chaîne d'Approvisionnement</span>
+                                <span lang="en">🔧 Parts & Supply Chain</span>
+                                <span lang="fr">🔧 Pièces et Chaîne d'Approvisionnement</span>
                             </h4>
                             <p lang="en"><strong>What's happening with parts delivery delays?</strong></p>
                             <p lang="en">They're opening 2 new parts warehouses on the East Coast to help get parts out faster. Right now they're working from 1 warehouse, so this should make a real difference for repair times.</p>
@@ -616,8 +525,8 @@
 
                         <div class="update-section">
                             <h4>
-                                <span lang="en">Dealer Network</span>
-                                <span lang="fr">Réseau de Concessionnaires</span>
+                                <span lang="en">🏢 Dealer Network</span>
+                                <span lang="fr">🏢 Réseau de Concessionnaires</span>
                             </h4>
                             <p lang="en"><strong>Why are dealerships closing?</strong></p>
                             <p lang="en">Some dealers didn't hit their sales targets and had to close. But it's not all bad news - they're still getting new dealer applications and actively working through the approval process in California and other states.</p>
@@ -631,8 +540,8 @@
 
                         <div class="update-section">
                             <h4>
-                                <span lang="en">Repairwise (California) / NAPA NexDrive (Canada)</span>
-                                <span lang="fr">Repairwise (Californie) / NAPA NexDrive (Canada)</span>
+                                <span lang="en">🔨 Repairwise (California) / NAPA NexDrive (Canada)</span>
+                                <span lang="fr">🔨 Repairwise (Californie) / NAPA NexDrive (Canada)</span>
                             </h4>
                             <p lang="en"><strong>Are mechanics actually getting paid?</strong></p>
                             <p lang="en">Yes. VinFast was very clear on this - mechanics are being paid through both programs, no delays or missing payments.</p>
@@ -643,8 +552,8 @@
 
                         <div class="update-section">
                             <h4>
-                                <span lang="en">Customer Communications</span>
-                                <span lang="fr">Communications Client</span>
+                                <span lang="en">📢 Customer Communications</span>
+                                <span lang="fr">📢 Communications Client</span>
                             </h4>
                             <p lang="en"><strong>How are people finding out about showroom closures and new service locations?</strong></p>
                             <p lang="en">Emails went out, though VinFast admits some probably ended up in spam. They're working on getting this info posted on the VF US Community website so customer care can point people there.</p>
@@ -661,8 +570,8 @@
 
                         <div class="update-section">
                             <h4>
-                                <span lang="en">Community Engagement</span>
-                                <span lang="fr">Engagement Communautaire</span>
+                                <span lang="en">🤝 Community Engagement</span>
+                                <span lang="fr">🤝 Engagement Communautaire</span>
                             </h4>
                             <p lang="en"><strong>Will VinFast support local owner meetups?</strong></p>
                             <p lang="en">Yes, they're into this idea. They even floated the idea of providing a free charging session if meetups happen at charging stations.</p>
@@ -707,8 +616,8 @@
             <!-- Call to Action -->
             <div class="cta-box">
                 <h3>
-                    <span lang="en">We Want to Hear From You</span>
-                    <span lang="fr">Nous Voulons Vous Entendre</span>
+                    <span lang="en">💬 We Want to Hear From You</span>
+                    <span lang="fr">💬 Nous Voulons Vous Entendre</span>
                 </h3>
                 <p lang="en">
                     Your input directly shapes our ongoing conversations with VinFast. Please submit your questions, comments, and feedback using the form below.
@@ -776,8 +685,8 @@
                     </div>
 
                     <button type="submit" class="btn-primary" style="width: 100%; border: none; cursor: pointer;">
-                        <span lang="en">Submit Feedback</span>
-                        <span lang="fr">Soumettre</span>
+                        <span lang="en">📧 Submit Feedback</span>
+                        <span lang="fr">📧 Soumettre</span>
                     </button>
 
                     <div id="formMessage" style="margin-top: 1rem; padding: 1rem; border-radius: 8px; display: none;"></div>
@@ -809,12 +718,12 @@
                     // Build fields array
                     const fields = [
                         {
-                            name: "Name",
+                            name: "👤 Name",
                             value: name,
                             inline: true
                         },
                         {
-                            name: "VinFast Account Email",
+                            name: "📧 VinFast Account Email",
                             value: vinfastEmail,
                             inline: false
                         }
@@ -823,7 +732,7 @@
                     // Add contact email if provided
                     if (contactEmail && contactEmail !== vinfastEmail) {
                         fields.push({
-                            name: "Preferred Contact Email",
+                            name: "📬 Preferred Contact Email",
                             value: contactEmail,
                             inline: false
                         });
@@ -831,20 +740,20 @@
 
                     // Add signer status
                     fields.push({
-                        name: "Open Letter Signer",
-                        value: isSigner ? "Yes" : "No",
+                        name: "✍️ Open Letter Signer",
+                        value: isSigner ? "Yes ✅" : "No",
                         inline: true
                     });
 
                     // Add feedback
                     fields.push({
-                        name: "Feedback",
+                        name: "💬 Feedback",
                         value: message.length > 1024 ? message.substring(0, 1021) + "..." : message
                     });
 
                     // Create Discord embed
                     const embed = {
-                        title: "Open Letter Feedback",
+                        title: "📬 Open Letter Feedback",
                         color: 0x0F4C99, // VinFast blue
                         fields: fields,
                         timestamp: new Date().toISOString(),
@@ -872,7 +781,7 @@
                             formMessage.style.background = '#d4edda';
                             formMessage.style.color = '#155724';
                             formMessage.style.border = '1px solid #c3e6cb';
-                            formMessage.innerHTML = '<span lang="en">Thank you! Your feedback has been submitted successfully.</span><span lang="fr">Merci! Votre commentaire a été soumis avec succès.</span>';
+                            formMessage.innerHTML = '<span lang="en">✅ Thank you! Your feedback has been submitted successfully.</span><span lang="fr">✅ Merci! Votre commentaire a été soumis avec succès.</span>';
 
                             // Reset form
                             e.target.reset();
@@ -885,7 +794,7 @@
                         formMessage.style.background = '#f8d7da';
                         formMessage.style.color = '#721c24';
                         formMessage.style.border = '1px solid #f5c6cb';
-                        formMessage.innerHTML = '<span lang="en">Sorry, there was an error submitting your feedback. Please try again or email board@vinfastowners.org</span><span lang="fr">Désolé, une erreur s\'est produite. Veuillez réessayer ou envoyer un courriel à board@vinfastowners.org</span>';
+                        formMessage.innerHTML = '<span lang="en">❌ Sorry, there was an error submitting your feedback. Please try again or email board@vinfastowners.org</span><span lang="fr">❌ Désolé, une erreur s\'est produite. Veuillez réessayer ou envoyer un courriel à board@vinfastowners.org</span>';
                     } finally {
                         // Re-enable button
                         submitButton.disabled = false;
@@ -897,69 +806,61 @@
         </div>
     </section>
 
-    <!-- ===== Footer ===== -->
-    <footer class="footer-v2">
-        <div class="footer-grid">
-            <div class="footer-brand">
-                <div style="display:flex; align-items:center; gap:var(--space-3); margin-bottom:var(--space-4);">
-                    <img src="images/icons/avo-logo.png" alt="AVO" width="36" height="36">
-                    <strong style="font-size:var(--text-lg); color:white;">AVO</strong>
-                </div>
-                <p lang="en">Association of VinFast Owners North America. Independent owner organization, not affiliated with VinFast Auto.</p>
-                <p lang="fr">Association des Propriétaires VinFast Amérique du Nord. Organisation indépendante, non affiliée à VinFast Auto.</p>
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>AVO</h4>
+                <p lang="en">Association of VinFast Owners North America</p>
+                <p lang="fr">Association des Propriétaires VinFast Amérique du Nord</p>
             </div>
 
-            <div class="footer-col">
+            <div class="footer-section">
                 <h4>
-                    <span lang="en">Navigation</span>
-                    <span lang="fr">Navigation</span>
+                    <span lang="en">Quick Links</span>
+                    <span lang="fr">Liens Rapides</span>
                 </h4>
-                <ul class="footer-links-v2">
-                    <li><a href="index.html"><span lang="en">Home</span><span lang="fr">Accueil</span></a></li>
-                    <li><a href="considering-vinfast.html"><span lang="en">Buyer Guide</span><span lang="fr">Guide d'Achat</span></a></li>
-                    <li><a href="recalls.html"><span lang="en">Recalls</span><span lang="fr">Rappels</span></a></li>
-                    <li><a href="trip-data.html"><span lang="en">Trip Data</span><span lang="fr">Données de Voyage</span></a></li>
-                    <li><a href="report-issue.html"><span lang="en">Report Issue</span><span lang="fr">Signaler</span></a></li>
-                    <li><a href="links.html"><span lang="en">All Links</span><span lang="fr">Tous les Liens</span></a></li>
+                <ul class="footer-links">
+                    <li><a href="/">
+                        <span lang="en">Home</span>
+                        <span lang="fr">Accueil</span>
+                    </a></li>
+                    <li><a href="board.html">
+                        <span lang="en">Board</span>
+                        <span lang="fr">Conseil</span>
+                    </a></li>
+                    <li><a href="join.html">
+                        <span lang="en">Join AVO</span>
+                        <span lang="fr">Rejoindre AVO</span>
+                    </a></li>
                 </ul>
             </div>
 
-            <div class="footer-col">
+            <div class="footer-section">
                 <h4>
                     <span lang="en">Community</span>
                     <span lang="fr">Communauté</span>
                 </h4>
-                <ul class="footer-links-v2">
+                <ul class="footer-links">
                     <li><a href="discord.html">Discord</a></li>
-                    <li><a href="https://www.facebook.com/share/g/17dH6oZRA4/" target="_blank" rel="noopener">Facebook</a></li>
-                    <li><a href="https://vinfasttalk.com" target="_blank" rel="noopener">VinFastTalk</a></li>
-                    <li><a href="https://www.bonfire.com/store/association-of-vinfast-owners/" target="_blank" rel="noopener"><span lang="en">Shop</span><span lang="fr">Boutique</span></a></li>
-                </ul>
-            </div>
-
-            <div class="footer-col">
-                <h4>
-                    <span lang="en">Legal</span>
-                    <span lang="fr">Légal</span>
-                </h4>
-                <ul class="footer-links-v2">
-                    <li><a href="privacy.html"><span lang="en">Privacy Policy</span><span lang="fr">Confidentialité</span></a></li>
-                    <li><a href="disclaimer.html"><span lang="en">Disclaimer</span><span lang="fr">Avertissement</span></a></li>
-                    <li><a href="documents.html"><span lang="en">Governance</span><span lang="fr">Gouvernance</span></a></li>
+                    <li><a href="https://www.facebook.com/share/g/17dH6oZRA4/" target="_blank">Facebook</a></li>
+                    <li><a href="https://vinfasttalk.com" target="_blank">VinFastTalk</a></li>
                 </ul>
             </div>
         </div>
 
-        <div class="footer-bottom-v2">
-            <p lang="en">&copy; 2025–2026 Association of VinFast Owners North America. Independent owner organization, not affiliated with VinFast Auto.</p>
-            <p lang="fr">&copy; 2025–2026 Association des Propriétaires VinFast Amérique du Nord. Organisation indépendante, non affiliée à VinFast Auto.</p>
+        <div class="footer-bottom">
+            <p>
+                <span lang="en">© 2025 Association of VinFast Owners (AVO) North America</span>
+                <span lang="fr">© 2025 Association des Propriétaires VinFast (AVO) Amérique du Nord</span>
+            </p>
+            <p>
+                <span lang="en">Independent owner organization | Not affiliated with VinFast Auto</span>
+                <span lang="fr">Organisation indépendante | Non affiliée à VinFast Auto</span>
+            </p>
         </div>
     </footer>
 
-    <button class="back-to-top" aria-label="Back to top">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
-    </button>
-
-    <script src="js/main.js"></script>
+    <script src="js/main.js?v=202511181735"></script>
 </body>
 </html>
