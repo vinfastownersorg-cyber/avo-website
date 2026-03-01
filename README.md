@@ -28,7 +28,7 @@ The Association of VinFast Owners (AVO) is an independent, member-governed organ
 - **WCAG AA contrast** compliance in both light and dark modes
 - **Schema.org JSON-LD** structured data (Organization, BreadcrumbList, WebPage, Legislation)
 
-### Pages (16 total)
+### Pages (17 total)
 
 | Page | Description |
 |------|-------------|
@@ -37,6 +37,7 @@ The Association of VinFast Owners (AVO) is an independent, member-governed organ
 | `recalls.html` | Live NHTSA + Transport Canada recall data |
 | `trip-data.html` | Trip data and charging insights (Chart.js) |
 | `petition.html` | March 2026 feature request petition (Tally.so embed) |
+| `newsletters.html` | Newsletter archive with EN/FR PDF downloads |
 | `join.html` | Membership signup form (Discord webhook) |
 | `board.html` | Board of Directors with Discord profile cards |
 | `documents.html` | Governance documents hub |
@@ -52,7 +53,7 @@ The Association of VinFast Owners (AVO) is an independent, member-governed organ
 ### Navigation Structure
 - **Home** | **Considering VinFast?** | **Community** (links to homepage #community section)
 - **Governance** dropdown: Board, Documents & Bylaws, Meeting Minutes
-- **Resources** dropdown: Recalls, Trip Data, Petition, Report Issue, User Guide, All Links
+- **Resources** dropdown: Recalls, Trip Data, Petition, Newsletters, Report Issue, User Guide, All Links
 - **Join** CTA button
 
 ---
@@ -91,6 +92,7 @@ avo-website/
 ├── links.html                    # All links
 ├── report-issue.html             # Issue reporting
 ├── vf8-vf9-user-guide.html       # User guide
+├── newsletters.html              # Newsletter archive
 ├── open-letter.html              # Open letter (noindex)
 ├── privacy.html                  # Privacy policy
 ├── disclaimer.html               # Legal disclaimer
@@ -100,8 +102,8 @@ avo-website/
 │   ├── icons/                    # Logo, favicons
 │   └── board/                    # Board member photos
 ├── manuals/                      # VF6/VF7/VF8/VF9 PDFs
+├── newsletters/                  # EN/FR newsletter PDFs
 ├── data/resource-ratings.json    # Rating system data
-├── archive/v1-snapshot/          # V1 site backup
 ├── sitemap.xml                   # Sitemap with hreflang
 ├── _config.yml                   # Jekyll/GH Pages config
 └── .github/workflows/            # GitHub Actions
@@ -173,7 +175,7 @@ Board meetings held quarterly. Minutes published within 7 days.
 
 ## Completed Milestones
 
-- [x] V2 design system migration (all 16 pages) - Feb 2026
+- [x] V2 design system migration (all pages) - Feb 2026
 - [x] Dark mode with WCAG AA contrast compliance
 - [x] Bilingual EN/FR support across all pages
 - [x] Schema.org structured data (Organization, BreadcrumbList, WebPage)
@@ -182,9 +184,10 @@ Board meetings held quarterly. Minutes published within 7 days.
 - [x] Live NHTSA + Transport Canada recall search
 - [x] Portable rating system with GitHub Actions
 - [x] Comprehensive sitemap with hreflang
+- [x] Newsletters page with EN/FR PDF archive - Mar 2026
 
 ---
 
 **Built with care by the VinFast Owner Community**
 
-*Last Updated: February 28, 2026*
+*Last Updated: March 1, 2026*

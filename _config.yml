@@ -33,6 +33,8 @@ exclude:
   - CHANGELOG.md
   - Gemfile
   - Gemfile.lock
+  - Petition/               # Internal petition documents (not for public site)
+  - newsletter-website-updates.md  # Internal planning notes
 
 # NOTE: data/resource-ratings.json is intentionally NOT excluded
 # It needs to be publicly accessible for the rating system to work

@@ -169,6 +169,17 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://vinfastowners.org/disclaimer.html" />
   </url>
 
+  <!-- Newsletters -->
+  <url>
+    <loc>https://vinfastowners.org/newsletters.html</loc>
+    <lastmod>2026-03-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://vinfastowners.org/newsletters.html" />
+    <xhtml:link rel="alternate" hreflang="fr-CA" href="https://vinfastowners.org/newsletters.html?lang=fr" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://vinfastowners.org/newsletters.html" />
+  </url>
+
   <!-- NOTE: open-letter.html intentionally excluded — it has noindex,nofollow meta tag -->
 
 </urlset>
