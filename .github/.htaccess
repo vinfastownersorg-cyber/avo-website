@@ -1,4 +1,0 @@
-AuthType Basic
-AuthName "Password Required"
-AuthUserFile "/domains/vinfastowners.org/htpasswd"
-Require valid-user
