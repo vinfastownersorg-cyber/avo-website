@@ -838,3 +838,288 @@ extra_head: |
             </div>
         </div>
     </main>
+
+    <!-- ===== Trip Data Scripts ===== -->
+    <script>
+        // Set max date to today
+        document.querySelectorAll('input[type="date"]').forEach(function (input) {
+            var today = new Date().toISOString().split('T')[0];
+            input.setAttribute('max', today);
+        });
+
+        // Auto-calculate efficiency for trip form
+        var tripForm = document.getElementById('trip-form');
+        var startSOC = tripForm.querySelector('[name="start_soc"]');
+        var endSOC = tripForm.querySelector('[name="end_soc"]');
+        var distance = tripForm.querySelector('[name="distance"]');
+        var battery = tripForm.querySelector('[name="battery"]');
+        var efficiencyDisplay = tripForm.querySelector('[name="efficiency_display"]');
+
+        function calculateEfficiency() {
+            var start = parseFloat(startSOC.value);
+            var end = parseFloat(endSOC.value);
+            var dist = parseFloat(distance.value);
+            var batterySize = parseFloat(battery.value);
+
+            if (start && end && dist && batterySize && start > end) {
+                var socUsed = start - end;
+                var kwhUsed = (socUsed / 100) * batterySize;
+                var efficiency = dist / kwhUsed;
+                efficiencyDisplay.value = efficiency.toFixed(2) + ' mi/kWh';
+            } else {
+                efficiencyDisplay.value = '';
+            }
+        }
+
+        startSOC.addEventListener('input', calculateEfficiency);
+        endSOC.addEventListener('input', calculateEfficiency);
+        distance.addEventListener('input', calculateEfficiency);
+        battery.addEventListener('change', calculateEfficiency);
+
+        // Tab switching
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(function (tab) {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-button').forEach(function (btn) {
+                btn.classList.remove('active');
+            });
+            document.getElementById(tabName + '-tab').classList.add('active');
+            event.target.classList.add('active');
+
+            if (tabName === 'charts') {
+                loadCharts();
+            }
+        }
+
+        // Trip form submission
+        tripForm.addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            var formData = new FormData(tripForm);
+            var data = Object.fromEntries(formData);
+            data.timestamp = new Date().toISOString();
+
+            var start = parseFloat(data.start_soc);
+            var end = parseFloat(data.end_soc);
+            var dist = parseFloat(data.distance);
+            var batterySize = parseFloat(data.battery);
+            var socUsed = start - end;
+            var kwhUsed = (socUsed / 100) * batterySize;
+            data.efficiency = (dist / kwhUsed).toFixed(2);
+
+            try {
+                // TODO: Replace with actual Discord webhook URL
+                var webhookURL = 'YOUR_DISCORD_WEBHOOK_URL_HERE';
+
+                var discordPayload = {
+                    embeds: [{
+                        title: 'New Trip Data Submission',
+                        color: 0xC8102E,
+                        fields: [
+                            { name: 'Model', value: data.model + ' ' + data.year, inline: true },
+                            { name: 'Battery', value: data.battery, inline: true },
+                            { name: 'Distance', value: data.distance + ' mi', inline: true },
+                            { name: 'Efficiency', value: data.efficiency + ' mi/kWh', inline: true },
+                            { name: 'Drive Mode', value: data.drive_mode, inline: true },
+                            { name: 'Temperature', value: data.outside_temp + '\u00B0F', inline: true }
+                        ],
+                        timestamp: data.timestamp
+                    }]
+                };
+
+                // Uncomment when webhook is configured
+                // await fetch(webhookURL, {
+                //     method: 'POST',
+                //     headers: { 'Content-Type': 'application/json' },
+                //     body: JSON.stringify(discordPayload)
+                // });
+
+                document.getElementById('trip-success').classList.add('show');
+                tripForm.reset();
+                setTimeout(function () {
+                    document.getElementById('trip-success').classList.remove('show');
+                }, 5000);
+
+                console.log('Trip data:', data);
+            } catch (error) {
+                alert('Error submitting data. Please try again.');
+                console.error(error);
+            }
+        });
+
+        // DCFC form submission
+        document.getElementById('dcfc-form').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            var formData = new FormData(e.target);
+            var data = Object.fromEntries(formData);
+            data.timestamp = new Date().toISOString();
+
+            try {
+                // TODO: Replace with actual Discord webhook URL
+                var webhookURL = 'YOUR_DISCORD_WEBHOOK_URL_HERE';
+
+                var discordPayload = {
+                    embeds: [{
+                        title: 'New DCFC Charging Data',
+                        color: 0x1a5490,
+                        fields: [
+                            { name: 'Model', value: data.model + ' ' + data.year, inline: true },
+                            { name: 'Network', value: data.network, inline: true },
+                            { name: 'Peak Speed', value: data.peak_speed + ' kW', inline: true },
+                            { name: 'SOC Range', value: data.start_soc + '% \u2192 ' + data.end_soc + '%', inline: true },
+                            { name: 'Duration', value: data.duration + ' min', inline: true },
+                            { name: 'Location', value: data.location, inline: true }
+                        ],
+                        timestamp: data.timestamp
+                    }]
+                };
+
+                // Uncomment when webhook is configured
+                // await fetch(webhookURL, {
+                //     method: 'POST',
+                //     headers: { 'Content-Type': 'application/json' },
+                //     body: JSON.stringify(discordPayload)
+                // });
+
+                document.getElementById('dcfc-success').classList.add('show');
+                e.target.reset();
+                setTimeout(function () {
+                    document.getElementById('dcfc-success').classList.remove('show');
+                }, 5000);
+
+                console.log('DCFC data:', data);
+            } catch (error) {
+                alert('Error submitting data. Please try again.');
+                console.error(error);
+            }
+        });
+
+        // Charts initialization
+        var chartsInitialized = false;
+
+        function loadCharts() {
+            if (chartsInitialized) return;
+            chartsInitialized = true;
+
+            var sampleTripData = [
+                { model: 'VF8', battery: '87.7kWh', efficiency: 2.8, drive_mode: 'Eco', outside_temp: 72, start_soc: 90, end_soc: 20, distance: 172 },
+                { model: 'VF8', battery: '87.7kWh', efficiency: 2.5, drive_mode: 'Normal', outside_temp: 65, start_soc: 100, end_soc: 25, distance: 164 },
+                { model: 'VF8', battery: '87.7kWh', efficiency: 2.1, drive_mode: 'Sport', outside_temp: 68, start_soc: 95, end_soc: 15, distance: 146 },
+                { model: 'VF8', battery: '82kWh', efficiency: 2.6, drive_mode: 'Eco', outside_temp: 70, start_soc: 100, end_soc: 30, distance: 149 },
+                { model: 'VF8', battery: '82kWh', efficiency: 2.3, drive_mode: 'Normal', outside_temp: 45, start_soc: 90, end_soc: 20, distance: 132 },
+                { model: 'VF9', battery: '123kWh', efficiency: 2.3, drive_mode: 'Eco', outside_temp: 75, start_soc: 100, end_soc: 20, distance: 226 },
+                { model: 'VF9', battery: '123kWh', efficiency: 2.0, drive_mode: 'Normal', outside_temp: 50, start_soc: 95, end_soc: 25, distance: 172 },
+                { model: 'VF9', battery: '123kWh', efficiency: 1.8, drive_mode: 'Sport', outside_temp: 55, start_soc: 100, end_soc: 20, distance: 177 },
+                { model: 'VF8', battery: '87.7kWh', efficiency: 3.0, drive_mode: 'Eco', outside_temp: 68, start_soc: 85, end_soc: 30, distance: 145 },
+                { model: 'VF8', battery: '87.7kWh', efficiency: 1.9, drive_mode: 'Normal', outside_temp: 28, start_soc: 100, end_soc: 35, distance: 109 },
+                { model: 'VF9', battery: '123kWh', efficiency: 2.4, drive_mode: 'Eco', outside_temp: 78, start_soc: 90, end_soc: 15, distance: 221 },
+                { model: 'VF8', battery: '82kWh', efficiency: 2.7, drive_mode: 'Eco', outside_temp: 62, start_soc: 100, end_soc: 25, distance: 151 }
+            ];
+
+            var sampleDCFCData = [
+                { model: 'VF8', network: 'Electrify America', peak_speed: 145, start_soc: 15, end_soc: 80, duration: 32 },
+                { model: 'VF8', network: 'Electrify America', peak_speed: 152, start_soc: 20, end_soc: 75, duration: 28 },
+                { model: 'VF8', network: 'EVgo', peak_speed: 98, start_soc: 25, end_soc: 80, duration: 38 },
+                { model: 'VF8', network: 'ChargePoint', peak_speed: 87, start_soc: 18, end_soc: 75, duration: 42 },
+                { model: 'VF9', network: 'Electrify America', peak_speed: 188, start_soc: 10, end_soc: 80, duration: 45 },
+                { model: 'VF9', network: 'Electrify America', peak_speed: 195, start_soc: 12, end_soc: 75, duration: 41 },
+                { model: 'VF9', network: 'EVgo', peak_speed: 105, start_soc: 22, end_soc: 80, duration: 52 },
+                { model: 'VF8', network: 'Electrify America', peak_speed: 138, start_soc: 30, end_soc: 80, duration: 35 },
+                { model: 'VF8', network: 'ChargePoint', peak_speed: 92, start_soc: 15, end_soc: 70, duration: 40 },
+                { model: 'VF9', network: 'Other', peak_speed: 78, start_soc: 20, end_soc: 75, duration: 55 }
+            ];
+
+            var vf8_82 = sampleTripData.filter(function (d) { return d.model === 'VF8' && d.battery === '82kWh'; });
+            var vf8_877 = sampleTripData.filter(function (d) { return d.model === 'VF8' && d.battery === '87.7kWh'; });
+            var vf9_123 = sampleTripData.filter(function (d) { return d.model === 'VF9' && d.battery === '123kWh'; });
+
+            var avg_vf8_82 = vf8_82.reduce(function (sum, d) { return sum + d.efficiency; }, 0) / vf8_82.length;
+            var avg_vf8_877 = vf8_877.reduce(function (sum, d) { return sum + d.efficiency; }, 0) / vf8_877.length;
+            var avg_vf9_123 = vf9_123.reduce(function (sum, d) { return sum + d.efficiency; }, 0) / vf9_123.length;
+
+            new Chart(document.getElementById('efficiencyByModelChart'), {
+                type: 'bar',
+                data: {
+                    labels: ['VF8 (82kWh)', 'VF8 (87.7kWh)', 'VF9 (123kWh)'],
+                    datasets: [{ label: 'Average Efficiency (mi/kWh)', data: [avg_vf8_82.toFixed(2), avg_vf8_877.toFixed(2), avg_vf9_123.toFixed(2)], backgroundColor: ['#C8102E', '#1a5490', '#FF6B35'] }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, title: { display: true, text: 'mi/kWh' } } } }
+            });
+
+            var eco = sampleTripData.filter(function (d) { return d.drive_mode === 'Eco'; });
+            var normal = sampleTripData.filter(function (d) { return d.drive_mode === 'Normal'; });
+            var sport = sampleTripData.filter(function (d) { return d.drive_mode === 'Sport'; });
+            var avg_eco = eco.reduce(function (sum, d) { return sum + d.efficiency; }, 0) / eco.length;
+            var avg_normal = normal.reduce(function (sum, d) { return sum + d.efficiency; }, 0) / normal.length;
+            var avg_sport = sport.reduce(function (sum, d) { return sum + d.efficiency; }, 0) / sport.length;
+
+            new Chart(document.getElementById('efficiencyByDriveModeChart'), {
+                type: 'bar',
+                data: {
+                    labels: ['Eco', 'Normal', 'Sport'],
+                    datasets: [{ label: 'Average Efficiency (mi/kWh)', data: [avg_eco.toFixed(2), avg_normal.toFixed(2), avg_sport.toFixed(2)], backgroundColor: ['#4CAF50', '#1a5490', '#C8102E'] }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, title: { display: true, text: 'mi/kWh' } } } }
+            });
+
+            var tempData = sampleTripData.map(function (d) { return { x: d.outside_temp, y: d.efficiency }; });
+            new Chart(document.getElementById('efficiencyByTempChart'), {
+                type: 'scatter',
+                data: { datasets: [{ label: 'Trip Efficiency', data: tempData, backgroundColor: '#1a5490', pointRadius: 6, pointHoverRadius: 8 }] },
+                options: { responsive: true, maintainAspectRatio: false, scales: { x: { title: { display: true, text: 'Temperature (\u00B0F)' }, min: 20, max: 85 }, y: { title: { display: true, text: 'Efficiency (mi/kWh)' }, beginAtZero: true, max: 3.5 } } }
+            });
+
+            var ea = sampleDCFCData.filter(function (d) { return d.network === 'Electrify America'; });
+            var evgo = sampleDCFCData.filter(function (d) { return d.network === 'EVgo'; });
+            var cp = sampleDCFCData.filter(function (d) { return d.network === 'ChargePoint'; });
+            var other = sampleDCFCData.filter(function (d) { return d.network === 'Other'; });
+            var avg_ea = ea.reduce(function (sum, d) { return sum + d.peak_speed; }, 0) / ea.length;
+            var avg_evgo = evgo.reduce(function (sum, d) { return sum + d.peak_speed; }, 0) / evgo.length;
+            var avg_cp = cp.reduce(function (sum, d) { return sum + d.peak_speed; }, 0) / cp.length;
+            var avg_other = other.reduce(function (sum, d) { return sum + d.peak_speed; }, 0) / other.length;
+
+            new Chart(document.getElementById('dcfcByNetworkChart'), {
+                type: 'bar',
+                data: {
+                    labels: ['Electrify America', 'EVgo', 'ChargePoint', 'Other'],
+                    datasets: [{ label: 'Average Peak Speed (kW)', data: [avg_ea.toFixed(1), avg_evgo.toFixed(1), avg_cp.toFixed(1), avg_other.toFixed(1)], backgroundColor: '#C8102E' }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, indexAxis: 'y', plugins: { legend: { display: false } }, scales: { x: { beginAtZero: true, title: { display: true, text: 'kW' } } } }
+            });
+
+            var soc_0_20 = sampleDCFCData.filter(function (d) { return d.start_soc <= 20; });
+            var soc_20_40 = sampleDCFCData.filter(function (d) { return d.start_soc > 20 && d.start_soc <= 40; });
+            var avg_0_20 = soc_0_20.length > 0 ? soc_0_20.reduce(function (sum, d) { return sum + d.peak_speed; }, 0) / soc_0_20.length : 150;
+            var avg_20_40 = soc_20_40.length > 0 ? soc_20_40.reduce(function (sum, d) { return sum + d.peak_speed; }, 0) / soc_20_40.length : 140;
+
+            new Chart(document.getElementById('chargingCurveChart'), {
+                type: 'line',
+                data: {
+                    labels: ['0-20%', '20-40%', '40-60%', '60-80%', '80-100%'],
+                    datasets: [{ label: 'Average Peak Speed (kW)', data: [avg_0_20.toFixed(1), avg_20_40.toFixed(1), 100, 60, 35], borderColor: '#1a5490', backgroundColor: 'rgba(26, 84, 144, 0.1)', tension: 0.4, fill: true, pointRadius: 5, pointHoverRadius: 7 }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, scales: { y: { title: { display: true, text: 'Charging Speed (kW)' }, beginAtZero: true, max: 200 } } }
+            });
+
+            loadDataFromJSON();
+        }
+
+        async function loadDataFromJSON() {
+            try {
+                var tripResponse = await fetch('.github/data/trip-data.json');
+                if (tripResponse.ok) {
+                    var tripData = await tripResponse.json();
+                    console.log('Trip data loaded:', tripData);
+                }
+                var dcfcResponse = await fetch('.github/data/dcfc-data.json');
+                if (dcfcResponse.ok) {
+                    var dcfcData = await dcfcResponse.json();
+                    console.log('DCFC data loaded:', dcfcData);
+                }
+            } catch (error) {
+                console.log('No additional data available yet');
+            }
+        }
+    </script>
