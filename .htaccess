@@ -1,0 +1,6 @@
+RedirectMatch 404 ^/\.
+RedirectMatch 404 ^/_config.yml
+RedirectMatch 404 ^/README.md
+RedirectMatch 404 ^/archive/
+RedirectMatch 404 ^/docs/
+RedirectMatch 404 ^/documents/
