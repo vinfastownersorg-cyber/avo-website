@@ -1,0 +1,42 @@
+name: Build and update deploy branch
+
+# Runs on every push to main — builds Jekyll and pushes rendered HTML to the
+# 'deploy' branch. The production Apache server can pull from 'deploy' to get
+# plain HTML with no Jekyll dependency.
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+          bundler-cache: true
+
+      - name: Install dependencies
+        run: |
+          gem install jekyll
+          bundle install || true
+
+      - name: Build site
+        run: bundle exec jekyll build || jekyll build
+
+      - name: Deploy to branch
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./_site
+          publish_branch: deploy
+          force_orphan: true
+          commit_message: "Build from ${{ github.sha }}"
