@@ -1,0 +1,68 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Primary Meta Tags -->
+    <title>{{ page.title }}</title>
+    {% if page.meta_title %}<meta name="title" content="{{ page.meta_title }}">
+    {% endif %}
+    <meta name="description" content="{{ page.description }}">
+    {% if page.robots %}<meta name="robots" content="{{ page.robots }}">
+    {% endif %}
+    {% if page.keywords %}<meta name="keywords" content="{{ page.keywords }}">
+    {% endif %}
+
+    <!-- Multilingual SEO -->
+    {% if page.hreflang_extended %}
+    <link rel="alternate" hreflang="en" href="https://vinfastowners.org/{{ page.hreflang_path }}">
+    <link rel="alternate" hreflang="en-US" href="https://vinfastowners.org/{{ page.hreflang_path }}">
+    <link rel="alternate" hreflang="en-CA" href="https://vinfastowners.org/{{ page.hreflang_path }}">
+    <link rel="alternate" hreflang="fr-CA" href="https://vinfastowners.org/{{ page.hreflang_path }}?lang=fr">
+    <link rel="alternate" hreflang="x-default" href="https://vinfastowners.org/{{ page.hreflang_path }}">
+    {% else %}
+    <link rel="alternate" hreflang="en" href="https://vinfastowners.org/{{ page.hreflang_path }}">
+    <link rel="alternate" hreflang="fr-CA" href="https://vinfastowners.org/{{ page.hreflang_path }}?lang=fr">
+    <link rel="alternate" hreflang="x-default" href="https://vinfastowners.org/{{ page.hreflang_path }}">
+    {% endif %}
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ page.canonical }}">
+    <meta property="og:title" content="{{ page.og_title }}">
+    <meta property="og:description" content="{{ page.og_description }}">
+    <meta property="og:image" content="https://vinfastowners.org/images/icons/avo-logo.png">
+    {% if page.og_locale %}
+    <meta property="og:locale" content="en_US">
+    {% if page.og_locale_extra %}<meta property="og:locale:alternate" content="en_CA">
+    {% endif %}
+    <meta property="og:locale:alternate" content="fr_CA">
+    {% endif %}
+
+    {% if page.twitter_card %}
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="{{ page.canonical }}">
+    <meta name="twitter:title" content="{{ page.og_title }}">
+    <meta name="twitter:description" content="{{ page.og_description }}">
+    <meta name="twitter:image" content="https://vinfastowners.org/images/icons/avo-logo.png">
+    {% endif %}
+
+    <!-- Canonical -->
+    <link rel="canonical" href="{{ page.canonical }}">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/images/icons/avo-logo.png">
+    <link rel="apple-touch-icon" href="/images/icons/avo-logo.png">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="/css/styles.css">
+
+    {% if page.schema_json %}
+    <!-- Schema.org -->
+    <script type="application/ld+json">
+{{ page.schema_json }}
+    </script>
+    {% endif %}
+
+    {{ page.extra_head }}
+</head>

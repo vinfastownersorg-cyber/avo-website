@@ -1,0 +1,126 @@
+<div class="scroll-progress" aria-hidden="true"></div>
+
+    <!-- ===== Glass Navigation ===== -->
+    <nav class="nav-v2" role="navigation" aria-label="Main navigation">
+        <div class="nav-inner">
+            <a href="/" class="nav-logo" aria-label="AVO Home">
+                <img src="/images/icons/avo-logo.png" alt="AVO Logo" width="44" height="44">
+                <div class="nav-logo-text">
+                    <span class="nav-logo-name">AVO</span>
+                    <span class="nav-logo-sub">
+                        <span lang="en">North America</span>
+                        <span lang="fr">Amérique du Nord</span>
+                    </span>
+                </div>
+            </a>
+
+            <button class="hamburger-v2" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <div class="nav-links-v2" id="nav-menu">
+                <a href="/index.html">
+                    <span lang="en">Home</span>
+                    <span lang="fr">Accueil</span>
+                </a>
+                <a href="/considering-vinfast.html">
+                    <span lang="en">Considering VinFast?</span>
+                    <span lang="fr">Vous Envisagez VinFast?</span>
+                </a>
+                {% if page.url == '/index.html' or page.url == '/' %}
+                <a href="#community">
+                {% else %}
+                <a href="/index.html#community">
+                {% endif %}
+                    <span lang="en">Community</span>
+                    <span lang="fr">Communauté</span>
+                </a>
+
+                <!-- Governance Dropdown -->
+                <div class="nav-drop">
+                    <a href="#governance">
+                        <span lang="en">Governance</span>
+                        <span lang="fr">Gouvernance</span>
+                    </a>
+                    <div class="nav-drop-menu">
+                        <a href="/board.html">
+                            <span lang="en">Board of Directors</span>
+                            <span lang="fr">Conseil d'Administration</span>
+                        </a>
+                        <a href="/documents.html">
+                            <span lang="en">Documents & Bylaws</span>
+                            <span lang="fr">Documents et Règlements</span>
+                        </a>
+                        <a href="/meeting-minutes.html">
+                            <span lang="en">Meeting Minutes</span>
+                            <span lang="fr">Procès-Verbaux</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Resources Dropdown -->
+                <div class="nav-drop">
+                    <a href="#resources">
+                        <span lang="en">Resources</span>
+                        <span lang="fr">Ressources</span>
+                    </a>
+                    <div class="nav-drop-menu">
+                        <a href="/recalls.html">
+                            <span lang="en">Recalls & Safety</span>
+                            <span lang="fr">Rappels et Sécurité</span>
+                        </a>
+                        <a href="/trip-data.html">
+                            <span lang="en">Trip Data</span>
+                            <span lang="fr">Données de Voyage</span>
+                        </a>
+                        <a href="/petition.html">
+                            <span lang="en">Petition</span>
+                            <span lang="fr">Pétition</span>
+                        </a>
+                        <a href="/newsletters.html">
+                            <span lang="en">Newsletters</span>
+                            <span lang="fr">Bulletins</span>
+                        </a>
+                        <a href="/report-issue.html">
+                            <span lang="en">Report an Issue</span>
+                            <span lang="fr">Signaler un Problème</span>
+                        </a>
+                        <a href="/vf8-vf9-user-guide.html">
+                            <span lang="en">User Guide</span>
+                            <span lang="fr">Guide d'Utilisation</span>
+                        </a>
+                        <a href="/links.html">
+                            <span lang="en">All Links</span>
+                            <span lang="fr">Tous les Liens</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Join CTA -->
+                <a href="/join.html" class="nav-cta">
+                    <span lang="en">Join</span>
+                    <span lang="fr">Adhérer</span>
+                </a>
+
+                <!-- Mobile-only controls -->
+                <div class="mobile-controls">
+                    <div class="lang-switch">
+                        <button onclick="setLang('en')" class="active" aria-label="English">EN</button>
+                        <button onclick="setLang('fr')" aria-label="Français">FR</button>
+                    </div>
+                    <button class="theme-toggle" aria-label="Toggle dark mode"></button>
+                </div>
+            </div>
+
+            <!-- Desktop controls -->
+            <div class="nav-controls">
+                <div class="lang-switch">
+                    <button onclick="setLang('en')" class="active" aria-label="English">EN</button>
+                    <button onclick="setLang('fr')" aria-label="Français">FR</button>
+                </div>
+                <button class="theme-toggle" aria-label="Toggle dark mode"></button>
+            </div>
+        </div>
+    </nav>

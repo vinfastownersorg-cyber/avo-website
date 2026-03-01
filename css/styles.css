@@ -1184,6 +1184,35 @@ a.community-card {
     color: var(--surface-4);
 }
 
+.breadcrumb-v2 ol {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--space-4);
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+}
+
+.breadcrumb-v2 li:not(:last-child)::after {
+    content: "›";
+    margin-left: var(--space-1);
+    color: var(--surface-4);
+}
+
+.breadcrumb-v2 a {
+    color: var(--text-muted);
+}
+
+.breadcrumb-v2 a:hover {
+    color: var(--brand-primary);
+}
+
+.breadcrumb-v2 li[aria-current="page"] {
+    color: var(--text-primary);
+}
+
 .page-header-v2 h1 {
     font-size: var(--text-3xl);
     font-weight: 800;

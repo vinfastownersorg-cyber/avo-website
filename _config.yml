@@ -1,5 +1,16 @@
 # GitHub Pages Configuration
-# This file tells GitHub Pages which files/folders to exclude from publishing
+# Jekyll layouts/includes used for nav/footer/head templating
+
+url: "https://vinfastowners.org"
+baseurl: ""
+
+# Apply default layout to all pages
+defaults:
+  - scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "default"
 
 # Exclude developer documentation and sensitive files
 # Note: GitHub Pages uses Nginx (not Apache), so .htaccess files are ignored.
@@ -20,9 +31,8 @@ exclude:
   - LICENSE
   - CONTRIBUTING.md
   - CHANGELOG.md
+  - Gemfile
+  - Gemfile.lock
 
 # NOTE: data/resource-ratings.json is intentionally NOT excluded
 # It needs to be publicly accessible for the rating system to work
-
-# Keep Jekyll processing disabled for faster builds
-# (we're using plain HTML/CSS/JS, not Jekyll features)

@@ -1,420 +1,276 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- Primary Meta Tags -->
-    <title>Trip Data | AVO North America</title>
-    <meta name="title" content="Trip Data | AVO North America">
-    <meta name="description" content="Share and explore real-world VinFast trip efficiency and DCFC charging data from the community.">
-
-    <!-- Multilingual SEO -->
-    <link rel="alternate" hreflang="en" href="https://vinfastowners.org/trip-data.html">
-    <link rel="alternate" hreflang="fr-CA" href="https://vinfastowners.org/trip-data.html?lang=fr">
-    <link rel="alternate" hreflang="x-default" href="https://vinfastowners.org/trip-data.html">
-
-    <!-- Open Graph -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://vinfastowners.org/trip-data.html">
-    <meta property="og:title" content="Trip Data | AVO North America">
-    <meta property="og:description" content="Share and explore real-world VinFast trip efficiency and DCFC charging data from the community.">
-    <meta property="og:image" content="https://vinfastowners.org/images/icons/avo-logo.png">
-
-    <!-- Canonical -->
-    <link rel="canonical" href="https://vinfastowners.org/trip-data.html">
-
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="images/icons/avo-logo.png">
-    <link rel="apple-touch-icon" href="images/icons/avo-logo.png">
-
-    <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
-
-    <!-- Stylesheet -->
-    <link rel="stylesheet" href="css/styles.css">
-
-    <style>
-        /* ===== Trip-data-specific inline styles ===== */
-
-        :root {
-            --vinfast-crimson: #C8102E;
-            --vinfast-sunset: #FF6B35;
-            --vinfast-grey: #4A5568;
-            --vinfast-light-grey: #E2E8F0;
-            --success-green: #4CAF50;
-            --warning-orange: #FF9800;
-        }
-
-        /* Privacy Warning */
-        .privacy-warning {
-            background: linear-gradient(135deg, var(--warning-orange) 0%, #f57c00 100%);
-            color: white;
-            padding: 2rem;
-            margin: 2rem;
-            border-radius: 12px;
-            border-left: 5px solid #e65100;
-        }
-
-        .privacy-warning h3 {
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .privacy-warning ul {
-            margin-left: 1.5rem;
-            margin-top: 0.5rem;
-        }
-
-        /* Tab Navigation */
-        .tab-navigation {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            padding: 2rem 2rem 0;
-            flex-wrap: wrap;
-        }
-
-        .tab-button {
-            padding: 1rem 2rem;
-            background: var(--surface-2);
-            border: none;
-            border-radius: 12px 12px 0 0;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            color: var(--text-secondary);
-        }
-
-        .tab-button.active {
-            background: var(--surface-0);
-            color: var(--vinfast-crimson);
-            box-shadow: 0 -4px 12px rgba(0,0,0,0.1);
-        }
-
-        .tab-button:hover:not(.active) {
-            background: var(--surface-2);
-        }
-
-        /* Tab Content */
-        .tab-content {
-            display: none;
-            padding: 2rem;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        /* Forms */
-        .form-section {
-            background: var(--surface-1);
-            border-radius: 12px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .form-section h3 {
-            color: var(--vinfast-blue);
-            margin-bottom: 1.5rem;
-            font-size: 1.5rem;
-        }
-
-        .form-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .form-group label {
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            color: var(--text-secondary);
-        }
-
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            padding: 0.75rem;
-            border: 2px solid var(--surface-3);
-            border-radius: 8px;
-            font-size: 1rem;
-            transition: border-color 0.3s ease;
-            background: var(--surface-0);
-            color: var(--text-primary);
-        }
-
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: var(--vinfast-blue);
-        }
-
-        .form-group small {
-            color: var(--text-secondary);
-            margin-top: 0.25rem;
-            font-size: 0.875rem;
-        }
-
-        .checkbox-group {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .checkbox-group input[type="checkbox"] {
-            width: auto;
-        }
-
-        .submit-button {
-            background: linear-gradient(135deg, var(--vinfast-crimson) 0%, #a00d26 100%);
-            color: white;
-            border: none;
-            padding: 1rem 2rem;
-            font-size: 1.1rem;
-            font-weight: 600;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            width: 100%;
-            margin-top: 1rem;
-        }
-
-        .submit-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(200, 16, 46, 0.3);
-        }
-
-        .submit-button:disabled {
-            background: var(--surface-3);
-            color: var(--text-muted);
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        /* Charts Section */
-        .charts-section {
-            padding: 2rem;
-        }
-
-        .chart-container {
-            background: var(--surface-0);
-            border-radius: 12px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        }
-
-        .chart-container h3 {
-            color: var(--vinfast-blue);
-            margin-bottom: 1.5rem;
-        }
-
-        .chart-wrapper {
-            position: relative;
-            height: 400px;
-        }
-
-        /* Success Message */
-        .success-message {
-            display: none;
-            background: linear-gradient(135deg, var(--success-green) 0%, #45a049 100%);
-            color: white;
-            padding: 1.5rem;
-            border-radius: 8px;
-            margin-bottom: 1.5rem;
-            text-align: center;
-        }
-
-        .success-message.show {
-            display: block;
-        }
-
-        /* Trip data container */
-        .trip-data-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: var(--surface-0);
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
-            overflow: hidden;
-        }
-
-        /* Trip Hero Section */
-        .trip-hero {
-            background: linear-gradient(135deg, var(--vinfast-crimson) 0%, #a00d26 100%);
-            color: white;
-            padding: 3rem 2rem;
-            text-align: center;
-        }
-
-        .trip-hero h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            font-weight: 700;
-        }
-
-        .trip-hero p {
-            font-size: 1.2rem;
-            opacity: 0.95;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        @media (max-width: 768px) {
-            .trip-hero h1 {
-                font-size: 1.8rem;
-            }
-
-            .form-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .chart-wrapper {
-                height: 300px;
-            }
-
-            .tab-navigation {
-                padding: 1rem;
-            }
-
-            .tab-button {
-                padding: 0.75rem 1rem;
-                font-size: 1rem;
-            }
-        }
-    </style>
-</head>
-<body>
-<div class="scroll-progress" aria-hidden="true"></div>
-
-    <!-- ===== Glass Navigation ===== -->
-    <nav class="nav-v2" role="navigation" aria-label="Main navigation">
-        <div class="nav-inner">
-            <a href="/" class="nav-logo" aria-label="AVO Home">
-                <img src="images/icons/avo-logo.png" alt="AVO Logo" width="44" height="44">
-                <div class="nav-logo-text">
-                    <span class="nav-logo-name">AVO</span>
-                    <span class="nav-logo-sub">
-                        <span lang="en">North America</span>
-                        <span lang="fr">Amérique du Nord</span>
-                    </span>
-                </div>
-            </a>
-
-            <button class="hamburger-v2" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav-menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-
-            <div class="nav-links-v2" id="nav-menu">
-                <a href="index.html">
-                    <span lang="en">Home</span>
-                    <span lang="fr">Accueil</span>
-                </a>
-                <a href="considering-vinfast.html">
-                    <span lang="en">Considering VinFast?</span>
-                    <span lang="fr">Vous Envisagez VinFast?</span>
-                </a>
-                <a href="index.html#community">
-                    <span lang="en">Community</span>
-                    <span lang="fr">Communauté</span>
-                </a>
-
-                <!-- Governance Dropdown -->
-                <div class="nav-drop">
-                    <a href="#governance">
-                        <span lang="en">Governance</span>
-                        <span lang="fr">Gouvernance</span>
-                    </a>
-                    <div class="nav-drop-menu">
-                        <a href="board.html">
-                            <span lang="en">Board of Directors</span>
-                            <span lang="fr">Conseil d'Administration</span>
-                        </a>
-                        <a href="documents.html">
-                            <span lang="en">Documents & Bylaws</span>
-                            <span lang="fr">Documents et Règlements</span>
-                        </a>
-                        <a href="meeting-minutes.html">
-                            <span lang="en">Meeting Minutes</span>
-                            <span lang="fr">Procès-Verbaux</span>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Resources Dropdown -->
-                <div class="nav-drop">
-                    <a href="#resources">
-                        <span lang="en">Resources</span>
-                        <span lang="fr">Ressources</span>
-                    </a>
-                    <div class="nav-drop-menu">
-                        <a href="recalls.html">
-                            <span lang="en">Recalls & Safety</span>
-                            <span lang="fr">Rappels et Sécurité</span>
-                        </a>
-                        <a href="trip-data.html">
-                            <span lang="en">Trip Data</span>
-                            <span lang="fr">Données de Voyage</span>
-                        </a>
-                        <a href="petition.html">
-                            <span lang="en">Petition</span>
-                            <span lang="fr">Pétition</span>
-                        </a>
-                        <a href="report-issue.html">
-                            <span lang="en">Report an Issue</span>
-                            <span lang="fr">Signaler un Problème</span>
-                        </a>
-                        <a href="vf8-vf9-user-guide.html">
-                            <span lang="en">User Guide</span>
-                            <span lang="fr">Guide d'Utilisation</span>
-                        </a>
-                        <a href="links.html">
-                            <span lang="en">All Links</span>
-                            <span lang="fr">Tous les Liens</span>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Join CTA -->
-                <a href="join.html" class="nav-cta">
-                    <span lang="en">Join</span>
-                    <span lang="fr">Adhérer</span>
-                </a>
-
-                <!-- Mobile-only controls -->
-                <div class="mobile-controls">
-                    <div class="lang-switch">
-                        <button onclick="setLang('en')" class="active" aria-label="English">EN</button>
-                        <button onclick="setLang('fr')" aria-label="Français">FR</button>
-                    </div>
-                    <button class="theme-toggle" aria-label="Toggle dark mode"></button>
-                </div>
-            </div>
-
-            <!-- Desktop controls -->
-            <div class="nav-controls">
-                <div class="lang-switch">
-                    <button onclick="setLang('en')" class="active" aria-label="English">EN</button>
-                    <button onclick="setLang('fr')" aria-label="Français">FR</button>
-                </div>
-                <button class="theme-toggle" aria-label="Toggle dark mode"></button>
-            </div>
-        </div>
-    </nav>
-
+---
+title: "Trip Data | AVO North America"
+meta_title: "Trip Data | AVO North America"
+description: "Share and explore real-world VinFast trip efficiency and DCFC charging data from the community."
+canonical: "https://vinfastowners.org/trip-data.html"
+hreflang_path: "trip-data.html"
+og_title: "Trip Data | AVO North America"
+og_description: "Share and explore real-world VinFast trip efficiency and DCFC charging data from the community."
+extra_head: |
+  <!-- Chart.js -->
+      <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  
+  <style>
+          /* ===== Trip-data-specific inline styles ===== */
+  
+          :root {
+              --vinfast-crimson: #C8102E;
+              --vinfast-sunset: #FF6B35;
+              --vinfast-grey: #4A5568;
+              --vinfast-light-grey: #E2E8F0;
+              --success-green: #4CAF50;
+              --warning-orange: #FF9800;
+          }
+  
+          /* Privacy Warning */
+          .privacy-warning {
+              background: linear-gradient(135deg, var(--warning-orange) 0%, #f57c00 100%);
+              color: white;
+              padding: 2rem;
+              margin: 2rem;
+              border-radius: 12px;
+              border-left: 5px solid #e65100;
+          }
+  
+          .privacy-warning h3 {
+              margin-bottom: 1rem;
+              display: flex;
+              align-items: center;
+              gap: 0.5rem;
+          }
+  
+          .privacy-warning ul {
+              margin-left: 1.5rem;
+              margin-top: 0.5rem;
+          }
+  
+          /* Tab Navigation */
+          .tab-navigation {
+              display: flex;
+              justify-content: center;
+              gap: 1rem;
+              padding: 2rem 2rem 0;
+              flex-wrap: wrap;
+          }
+  
+          .tab-button {
+              padding: 1rem 2rem;
+              background: var(--surface-2);
+              border: none;
+              border-radius: 12px 12px 0 0;
+              font-size: 1.1rem;
+              font-weight: 600;
+              cursor: pointer;
+              transition: all 0.3s ease;
+              color: var(--text-secondary);
+          }
+  
+          .tab-button.active {
+              background: var(--surface-0);
+              color: var(--vinfast-crimson);
+              box-shadow: 0 -4px 12px rgba(0,0,0,0.1);
+          }
+  
+          .tab-button:hover:not(.active) {
+              background: var(--surface-2);
+          }
+  
+          /* Tab Content */
+          .tab-content {
+              display: none;
+              padding: 2rem;
+          }
+  
+          .tab-content.active {
+              display: block;
+          }
+  
+          /* Forms */
+          .form-section {
+              background: var(--surface-1);
+              border-radius: 12px;
+              padding: 2rem;
+              margin-bottom: 2rem;
+          }
+  
+          .form-section h3 {
+              color: var(--vinfast-blue);
+              margin-bottom: 1.5rem;
+              font-size: 1.5rem;
+          }
+  
+          .form-grid {
+              display: grid;
+              grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+              gap: 1.5rem;
+              margin-bottom: 1.5rem;
+          }
+  
+          .form-group {
+              display: flex;
+              flex-direction: column;
+          }
+  
+          .form-group label {
+              font-weight: 600;
+              margin-bottom: 0.5rem;
+              color: var(--text-secondary);
+          }
+  
+          .form-group input,
+          .form-group select,
+          .form-group textarea {
+              padding: 0.75rem;
+              border: 2px solid var(--surface-3);
+              border-radius: 8px;
+              font-size: 1rem;
+              transition: border-color 0.3s ease;
+              background: var(--surface-0);
+              color: var(--text-primary);
+          }
+  
+          .form-group input:focus,
+          .form-group select:focus,
+          .form-group textarea:focus {
+              outline: none;
+              border-color: var(--vinfast-blue);
+          }
+  
+          .form-group small {
+              color: var(--text-secondary);
+              margin-top: 0.25rem;
+              font-size: 0.875rem;
+          }
+  
+          .checkbox-group {
+              display: flex;
+              align-items: center;
+              gap: 0.5rem;
+          }
+  
+          .checkbox-group input[type="checkbox"] {
+              width: auto;
+          }
+  
+          .submit-button {
+              background: linear-gradient(135deg, var(--vinfast-crimson) 0%, #a00d26 100%);
+              color: white;
+              border: none;
+              padding: 1rem 2rem;
+              font-size: 1.1rem;
+              font-weight: 600;
+              border-radius: 8px;
+              cursor: pointer;
+              transition: all 0.3s ease;
+              width: 100%;
+              margin-top: 1rem;
+          }
+  
+          .submit-button:hover {
+              transform: translateY(-2px);
+              box-shadow: 0 4px 12px rgba(200, 16, 46, 0.3);
+          }
+  
+          .submit-button:disabled {
+              background: var(--surface-3);
+              color: var(--text-muted);
+              cursor: not-allowed;
+              transform: none;
+          }
+  
+          /* Charts Section */
+          .charts-section {
+              padding: 2rem;
+          }
+  
+          .chart-container {
+              background: var(--surface-0);
+              border-radius: 12px;
+              padding: 2rem;
+              margin-bottom: 2rem;
+              box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+          }
+  
+          .chart-container h3 {
+              color: var(--vinfast-blue);
+              margin-bottom: 1.5rem;
+          }
+  
+          .chart-wrapper {
+              position: relative;
+              height: 400px;
+          }
+  
+          /* Success Message */
+          .success-message {
+              display: none;
+              background: linear-gradient(135deg, var(--success-green) 0%, #45a049 100%);
+              color: white;
+              padding: 1.5rem;
+              border-radius: 8px;
+              margin-bottom: 1.5rem;
+              text-align: center;
+          }
+  
+          .success-message.show {
+              display: block;
+          }
+  
+          /* Trip data container */
+          .trip-data-container {
+              max-width: 1200px;
+              margin: 0 auto;
+              background: var(--surface-0);
+              border-radius: 20px;
+              box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+              overflow: hidden;
+          }
+  
+          /* Trip Hero Section */
+          .trip-hero {
+              background: linear-gradient(135deg, var(--vinfast-crimson) 0%, #a00d26 100%);
+              color: white;
+              padding: 3rem 2rem;
+              text-align: center;
+          }
+  
+          .trip-hero h1 {
+              font-size: 2.5rem;
+              margin-bottom: 1rem;
+              font-weight: 700;
+          }
+  
+          .trip-hero p {
+              font-size: 1.2rem;
+              opacity: 0.95;
+              max-width: 800px;
+              margin: 0 auto;
+          }
+  
+          @media (max-width: 768px) {
+              .trip-hero h1 {
+                  font-size: 1.8rem;
+              }
+  
+              .form-grid {
+                  grid-template-columns: 1fr;
+              }
+  
+              .chart-wrapper {
+                  height: 300px;
+              }
+  
+              .tab-navigation {
+                  padding: 1rem;
+              }
+  
+              .tab-button {
+                  padding: 0.75rem 1rem;
+                  font-size: 1rem;
+              }
+          }
+      </style>
+---
     <!-- ===== Page Header with Breadcrumb ===== -->
     <section class="page-header-v2">
         <nav class="breadcrumb-v2" aria-label="Breadcrumb">
@@ -982,496 +838,3 @@
             </div>
         </div>
     </main>
-
-    <!-- ===== Footer ===== -->
-    <footer class="footer-v2">
-        <div class="footer-grid">
-            <div class="footer-brand">
-                <div style="display:flex; align-items:center; gap:var(--space-3); margin-bottom:var(--space-4);">
-                    <img src="images/icons/avo-logo.png" alt="AVO" width="36" height="36">
-                    <strong style="font-size:var(--text-lg); color:white;">AVO</strong>
-                </div>
-                <p lang="en">Association of VinFast Owners North America. Independent owner organization, not affiliated with VinFast Auto.</p>
-                <p lang="fr">Association des Propriétaires VinFast Amérique du Nord. Organisation indépendante, non affiliée à VinFast Auto.</p>
-            </div>
-
-            <div class="footer-col">
-                <h4>
-                    <span lang="en">Navigation</span>
-                    <span lang="fr">Navigation</span>
-                </h4>
-                <ul class="footer-links-v2">
-                    <li><a href="index.html"><span lang="en">Home</span><span lang="fr">Accueil</span></a></li>
-                    <li><a href="considering-vinfast.html"><span lang="en">Buyer Guide</span><span lang="fr">Guide d'Achat</span></a></li>
-                    <li><a href="recalls.html"><span lang="en">Recalls</span><span lang="fr">Rappels</span></a></li>
-                    <li><a href="trip-data.html"><span lang="en">Trip Data</span><span lang="fr">Données de Voyage</span></a></li>
-                    <li><a href="report-issue.html"><span lang="en">Report Issue</span><span lang="fr">Signaler</span></a></li>
-                    <li><a href="links.html"><span lang="en">All Links</span><span lang="fr">Tous les Liens</span></a></li>
-                </ul>
-            </div>
-
-            <div class="footer-col">
-                <h4>
-                    <span lang="en">Community</span>
-                    <span lang="fr">Communauté</span>
-                </h4>
-                <ul class="footer-links-v2">
-                    <li><a href="discord.html">Discord</a></li>
-                    <li><a href="https://www.facebook.com/share/g/17dH6oZRA4/" target="_blank" rel="noopener">Facebook</a></li>
-                    <li><a href="https://vinfasttalk.com" target="_blank" rel="noopener">VinFastTalk</a></li>
-                    <li><a href="https://www.bonfire.com/store/association-of-vinfast-owners/" target="_blank" rel="noopener"><span lang="en">Shop</span><span lang="fr">Boutique</span></a></li>
-                </ul>
-            </div>
-
-            <div class="footer-col">
-                <h4>
-                    <span lang="en">Legal</span>
-                    <span lang="fr">Légal</span>
-                </h4>
-                <ul class="footer-links-v2">
-                    <li><a href="privacy.html"><span lang="en">Privacy Policy</span><span lang="fr">Confidentialité</span></a></li>
-                    <li><a href="disclaimer.html"><span lang="en">Disclaimer</span><span lang="fr">Avertissement</span></a></li>
-                    <li><a href="documents.html"><span lang="en">Governance</span><span lang="fr">Gouvernance</span></a></li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="footer-bottom-v2">
-            <p lang="en">&copy; 2025–2026 Association of VinFast Owners North America. Independent owner organization, not affiliated with VinFast Auto.</p>
-            <p lang="fr">&copy; 2025–2026 Association des Propriétaires VinFast Amérique du Nord. Organisation indépendante, non affiliée à VinFast Auto.</p>
-        </div>
-    </footer>
-
-    <button class="back-to-top" aria-label="Back to top">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
-    </button>
-
-    <script>
-        // Set max date to today
-        document.querySelectorAll('input[type="date"]').forEach(input => {
-            const today = new Date().toISOString().split('T')[0];
-            input.setAttribute('max', today);
-        });
-
-        // Auto-calculate efficiency for trip form
-        const tripForm = document.getElementById('trip-form');
-        const startSOC = tripForm.querySelector('[name="start_soc"]');
-        const endSOC = tripForm.querySelector('[name="end_soc"]');
-        const distance = tripForm.querySelector('[name="distance"]');
-        const battery = tripForm.querySelector('[name="battery"]');
-        const efficiencyDisplay = tripForm.querySelector('[name="efficiency_display"]');
-
-        function calculateEfficiency() {
-            const start = parseFloat(startSOC.value);
-            const end = parseFloat(endSOC.value);
-            const dist = parseFloat(distance.value);
-            const batterySize = parseFloat(battery.value);
-
-            if (start && end && dist && batterySize && start > end) {
-                const socUsed = start - end;
-                const kwhUsed = (socUsed / 100) * batterySize;
-                const efficiency = dist / kwhUsed;
-                efficiencyDisplay.value = efficiency.toFixed(2) + ' mi/kWh';
-            } else {
-                efficiencyDisplay.value = '';
-            }
-        }
-
-        startSOC.addEventListener('input', calculateEfficiency);
-        endSOC.addEventListener('input', calculateEfficiency);
-        distance.addEventListener('input', calculateEfficiency);
-        battery.addEventListener('change', calculateEfficiency);
-
-        // Tab switching
-        function switchTab(tabName) {
-            // Hide all tabs
-            document.querySelectorAll('.tab-content').forEach(tab => {
-                tab.classList.remove('active');
-            });
-            document.querySelectorAll('.tab-button').forEach(btn => {
-                btn.classList.remove('active');
-            });
-
-            // Show selected tab
-            document.getElementById(tabName + '-tab').classList.add('active');
-            event.target.classList.add('active');
-
-            // Load charts if charts tab is selected
-            if (tabName === 'charts') {
-                loadCharts();
-            }
-        }
-
-        // Trip form submission
-        tripForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-
-            const formData = new FormData(tripForm);
-            const data = Object.fromEntries(formData);
-
-            // Add timestamp
-            data.timestamp = new Date().toISOString();
-
-            // Calculate efficiency
-            const start = parseFloat(data.start_soc);
-            const end = parseFloat(data.end_soc);
-            const dist = parseFloat(data.distance);
-            const batterySize = parseFloat(data.battery);
-            const socUsed = start - end;
-            const kwhUsed = (socUsed / 100) * batterySize;
-            data.efficiency = (dist / kwhUsed).toFixed(2);
-
-            try {
-                // TODO: Replace with actual Discord webhook URL
-                const webhookURL = 'YOUR_DISCORD_WEBHOOK_URL_HERE';
-
-                const discordPayload = {
-                    embeds: [{
-                        title: 'New Trip Data Submission',
-                        color: 0xC8102E,
-                        fields: [
-                            { name: 'Model', value: `${data.model} ${data.year}`, inline: true },
-                            { name: 'Battery', value: data.battery, inline: true },
-                            { name: 'Distance', value: `${data.distance} mi`, inline: true },
-                            { name: 'Efficiency', value: `${data.efficiency} mi/kWh`, inline: true },
-                            { name: 'Drive Mode', value: data.drive_mode, inline: true },
-                            { name: 'Temperature', value: `${data.outside_temp}°F`, inline: true },
-                        ],
-                        timestamp: data.timestamp
-                    }]
-                };
-
-                // Uncomment when webhook is configured
-                // await fetch(webhookURL, {
-                //     method: 'POST',
-                //     headers: { 'Content-Type': 'application/json' },
-                //     body: JSON.stringify(discordPayload)
-                // });
-
-                // Show success message
-                document.getElementById('trip-success').classList.add('show');
-                tripForm.reset();
-
-                // Hide success after 5 seconds
-                setTimeout(() => {
-                    document.getElementById('trip-success').classList.remove('show');
-                }, 5000);
-
-                // Store locally (will be committed by GitHub Actions)
-                console.log('Trip data:', data);
-
-            } catch (error) {
-                alert('Error submitting data. Please try again.');
-                console.error(error);
-            }
-        });
-
-        // DCFC form submission
-        document.getElementById('dcfc-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
-
-            const formData = new FormData(e.target);
-            const data = Object.fromEntries(formData);
-
-            // Add timestamp
-            data.timestamp = new Date().toISOString();
-
-            try {
-                // TODO: Replace with actual Discord webhook URL
-                const webhookURL = 'YOUR_DISCORD_WEBHOOK_URL_HERE';
-
-                const discordPayload = {
-                    embeds: [{
-                        title: 'New DCFC Charging Data',
-                        color: 0x1a5490,
-                        fields: [
-                            { name: 'Model', value: `${data.model} ${data.year}`, inline: true },
-                            { name: 'Network', value: data.network, inline: true },
-                            { name: 'Peak Speed', value: `${data.peak_speed} kW`, inline: true },
-                            { name: 'SOC Range', value: `${data.start_soc}% → ${data.end_soc}%`, inline: true },
-                            { name: 'Duration', value: `${data.duration} min`, inline: true },
-                            { name: 'Location', value: data.location, inline: true },
-                        ],
-                        timestamp: data.timestamp
-                    }]
-                };
-
-                // Uncomment when webhook is configured
-                // await fetch(webhookURL, {
-                //     method: 'POST',
-                //     headers: { 'Content-Type': 'application/json' },
-                //     body: JSON.stringify(discordPayload)
-                // });
-
-                // Show success message
-                document.getElementById('dcfc-success').classList.add('show');
-                e.target.reset();
-
-                // Hide success after 5 seconds
-                setTimeout(() => {
-                    document.getElementById('dcfc-success').classList.remove('show');
-                }, 5000);
-
-                // Store locally (will be committed by GitHub Actions)
-                console.log('DCFC data:', data);
-
-            } catch (error) {
-                alert('Error submitting data. Please try again.');
-                console.error(error);
-            }
-        });
-
-        // Charts initialization
-        let chartsInitialized = false;
-
-        function loadCharts() {
-            if (chartsInitialized) return;
-            chartsInitialized = true;
-
-            // Sample data - will be replaced with actual data from JSON files
-            const sampleTripData = [
-                { model: 'VF8', battery: '87.7kWh', efficiency: 2.8, drive_mode: 'Eco', outside_temp: 72, start_soc: 90, end_soc: 20, distance: 172 },
-                { model: 'VF8', battery: '87.7kWh', efficiency: 2.5, drive_mode: 'Normal', outside_temp: 65, start_soc: 100, end_soc: 25, distance: 164 },
-                { model: 'VF8', battery: '87.7kWh', efficiency: 2.1, drive_mode: 'Sport', outside_temp: 68, start_soc: 95, end_soc: 15, distance: 146 },
-                { model: 'VF8', battery: '82kWh', efficiency: 2.6, drive_mode: 'Eco', outside_temp: 70, start_soc: 100, end_soc: 30, distance: 149 },
-                { model: 'VF8', battery: '82kWh', efficiency: 2.3, drive_mode: 'Normal', outside_temp: 45, start_soc: 90, end_soc: 20, distance: 132 },
-                { model: 'VF9', battery: '123kWh', efficiency: 2.3, drive_mode: 'Eco', outside_temp: 75, start_soc: 100, end_soc: 20, distance: 226 },
-                { model: 'VF9', battery: '123kWh', efficiency: 2.0, drive_mode: 'Normal', outside_temp: 50, start_soc: 95, end_soc: 25, distance: 172 },
-                { model: 'VF9', battery: '123kWh', efficiency: 1.8, drive_mode: 'Sport', outside_temp: 55, start_soc: 100, end_soc: 20, distance: 177 },
-                { model: 'VF8', battery: '87.7kWh', efficiency: 3.0, drive_mode: 'Eco', outside_temp: 68, start_soc: 85, end_soc: 30, distance: 145 },
-                { model: 'VF8', battery: '87.7kWh', efficiency: 1.9, drive_mode: 'Normal', outside_temp: 28, start_soc: 100, end_soc: 35, distance: 109 },
-                { model: 'VF9', battery: '123kWh', efficiency: 2.4, drive_mode: 'Eco', outside_temp: 78, start_soc: 90, end_soc: 15, distance: 221 },
-                { model: 'VF8', battery: '82kWh', efficiency: 2.7, drive_mode: 'Eco', outside_temp: 62, start_soc: 100, end_soc: 25, distance: 151 }
-            ];
-
-            const sampleDCFCData = [
-                { model: 'VF8', network: 'Electrify America', peak_speed: 145, start_soc: 15, end_soc: 80, duration: 32 },
-                { model: 'VF8', network: 'Electrify America', peak_speed: 152, start_soc: 20, end_soc: 75, duration: 28 },
-                { model: 'VF8', network: 'EVgo', peak_speed: 98, start_soc: 25, end_soc: 80, duration: 38 },
-                { model: 'VF8', network: 'ChargePoint', peak_speed: 87, start_soc: 18, end_soc: 75, duration: 42 },
-                { model: 'VF9', network: 'Electrify America', peak_speed: 188, start_soc: 10, end_soc: 80, duration: 45 },
-                { model: 'VF9', network: 'Electrify America', peak_speed: 195, start_soc: 12, end_soc: 75, duration: 41 },
-                { model: 'VF9', network: 'EVgo', peak_speed: 105, start_soc: 22, end_soc: 80, duration: 52 },
-                { model: 'VF8', network: 'Electrify America', peak_speed: 138, start_soc: 30, end_soc: 80, duration: 35 },
-                { model: 'VF8', network: 'ChargePoint', peak_speed: 92, start_soc: 15, end_soc: 70, duration: 40 },
-                { model: 'VF9', network: 'Other', peak_speed: 78, start_soc: 20, end_soc: 75, duration: 55 }
-            ];
-
-            // Calculate averages from sample data
-            const vf8_82 = sampleTripData.filter(d => d.model === 'VF8' && d.battery === '82kWh');
-            const vf8_877 = sampleTripData.filter(d => d.model === 'VF8' && d.battery === '87.7kWh');
-            const vf9_123 = sampleTripData.filter(d => d.model === 'VF9' && d.battery === '123kWh');
-
-            const avg_vf8_82 = vf8_82.reduce((sum, d) => sum + d.efficiency, 0) / vf8_82.length;
-            const avg_vf8_877 = vf8_877.reduce((sum, d) => sum + d.efficiency, 0) / vf8_877.length;
-            const avg_vf9_123 = vf9_123.reduce((sum, d) => sum + d.efficiency, 0) / vf9_123.length;
-
-            // Chart 1: Efficiency by Model
-            new Chart(document.getElementById('efficiencyByModelChart'), {
-                type: 'bar',
-                data: {
-                    labels: ['VF8 (82kWh)', 'VF8 (87.7kWh)', 'VF9 (123kWh)'],
-                    datasets: [{
-                        label: 'Average Efficiency (mi/kWh)',
-                        data: [avg_vf8_82.toFixed(2), avg_vf8_877.toFixed(2), avg_vf9_123.toFixed(2)],
-                        backgroundColor: ['#C8102E', '#1a5490', '#FF6B35']
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: { display: false }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            title: { display: true, text: 'mi/kWh' }
-                        }
-                    }
-                }
-            });
-
-            // Chart 2: Efficiency by Drive Mode
-            const eco = sampleTripData.filter(d => d.drive_mode === 'Eco');
-            const normal = sampleTripData.filter(d => d.drive_mode === 'Normal');
-            const sport = sampleTripData.filter(d => d.drive_mode === 'Sport');
-
-            const avg_eco = eco.reduce((sum, d) => sum + d.efficiency, 0) / eco.length;
-            const avg_normal = normal.reduce((sum, d) => sum + d.efficiency, 0) / normal.length;
-            const avg_sport = sport.reduce((sum, d) => sum + d.efficiency, 0) / sport.length;
-
-            new Chart(document.getElementById('efficiencyByDriveModeChart'), {
-                type: 'bar',
-                data: {
-                    labels: ['Eco', 'Normal', 'Sport'],
-                    datasets: [{
-                        label: 'Average Efficiency (mi/kWh)',
-                        data: [avg_eco.toFixed(2), avg_normal.toFixed(2), avg_sport.toFixed(2)],
-                        backgroundColor: ['#4CAF50', '#1a5490', '#C8102E']
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: { display: false }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            title: { display: true, text: 'mi/kWh' }
-                        }
-                    }
-                }
-            });
-
-            // Chart 3: Efficiency vs Temperature
-            const tempData = sampleTripData.map(d => ({
-                x: d.outside_temp,
-                y: d.efficiency
-            }));
-
-            new Chart(document.getElementById('efficiencyByTempChart'), {
-                type: 'scatter',
-                data: {
-                    datasets: [{
-                        label: 'Trip Efficiency',
-                        data: tempData,
-                        backgroundColor: '#1a5490',
-                        pointRadius: 6,
-                        pointHoverRadius: 8
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        x: {
-                            title: { display: true, text: 'Temperature (°F)' },
-                            min: 20,
-                            max: 85
-                        },
-                        y: {
-                            title: { display: true, text: 'Efficiency (mi/kWh)' },
-                            beginAtZero: true,
-                            max: 3.5
-                        }
-                    }
-                }
-            });
-
-            // Chart 4: DCFC by Network
-            const ea = sampleDCFCData.filter(d => d.network === 'Electrify America');
-            const evgo = sampleDCFCData.filter(d => d.network === 'EVgo');
-            const cp = sampleDCFCData.filter(d => d.network === 'ChargePoint');
-            const other = sampleDCFCData.filter(d => d.network === 'Other');
-
-            const avg_ea = ea.reduce((sum, d) => sum + d.peak_speed, 0) / ea.length;
-            const avg_evgo = evgo.reduce((sum, d) => sum + d.peak_speed, 0) / evgo.length;
-            const avg_cp = cp.reduce((sum, d) => sum + d.peak_speed, 0) / cp.length;
-            const avg_other = other.reduce((sum, d) => sum + d.peak_speed, 0) / other.length;
-
-            new Chart(document.getElementById('dcfcByNetworkChart'), {
-                type: 'bar',
-                data: {
-                    labels: ['Electrify America', 'EVgo', 'ChargePoint', 'Other'],
-                    datasets: [{
-                        label: 'Average Peak Speed (kW)',
-                        data: [avg_ea.toFixed(1), avg_evgo.toFixed(1), avg_cp.toFixed(1), avg_other.toFixed(1)],
-                        backgroundColor: '#C8102E'
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    indexAxis: 'y',
-                    plugins: {
-                        legend: { display: false }
-                    },
-                    scales: {
-                        x: {
-                            beginAtZero: true,
-                            title: { display: true, text: 'kW' }
-                        }
-                    }
-                }
-            });
-
-            // Chart 5: Charging Curve
-            // Group by SOC ranges
-            const soc_0_20 = sampleDCFCData.filter(d => d.start_soc <= 20);
-            const soc_20_40 = sampleDCFCData.filter(d => d.start_soc > 20 && d.start_soc <= 40);
-            const soc_40_60 = sampleDCFCData.filter(d => d.start_soc > 40 && d.start_soc <= 60);
-            const soc_60_80 = sampleDCFCData.filter(d => d.start_soc > 60 && d.start_soc <= 80);
-
-            const avg_0_20 = soc_0_20.length > 0 ? soc_0_20.reduce((sum, d) => sum + d.peak_speed, 0) / soc_0_20.length : 150;
-            const avg_20_40 = soc_20_40.length > 0 ? soc_20_40.reduce((sum, d) => sum + d.peak_speed, 0) / soc_20_40.length : 140;
-            const avg_40_60 = soc_40_60.length > 0 ? soc_40_60.reduce((sum, d) => sum + d.peak_speed, 0) / soc_40_60.length : 100;
-            const avg_60_80 = soc_60_80.length > 0 ? soc_60_80.reduce((sum, d) => sum + d.peak_speed, 0) / soc_60_80.length : 60;
-
-            new Chart(document.getElementById('chargingCurveChart'), {
-                type: 'line',
-                data: {
-                    labels: ['0-20%', '20-40%', '40-60%', '60-80%', '80-100%'],
-                    datasets: [{
-                        label: 'Average Peak Speed (kW)',
-                        data: [avg_0_20.toFixed(1), avg_20_40.toFixed(1), avg_40_60.toFixed(1), avg_60_80.toFixed(1), 35],
-                        borderColor: '#1a5490',
-                        backgroundColor: 'rgba(26, 84, 144, 0.1)',
-                        tension: 0.4,
-                        fill: true,
-                        pointRadius: 5,
-                        pointHoverRadius: 7
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        y: {
-                            title: { display: true, text: 'Charging Speed (kW)' },
-                            beginAtZero: true,
-                            max: 200
-                        }
-                    }
-                }
-            });
-
-            // TODO: Load actual data from JSON files and update charts
-            loadDataFromJSON();
-        }
-
-        async function loadDataFromJSON() {
-            try {
-                // Load trip data
-                const tripResponse = await fetch('.github/data/trip-data.json');
-                if (tripResponse.ok) {
-                    const tripData = await tripResponse.json();
-                    updateTripCharts(tripData);
-                }
-
-                // Load DCFC data
-                const dcfcResponse = await fetch('.github/data/dcfc-data.json');
-                if (dcfcResponse.ok) {
-                    const dcfcData = await dcfcResponse.json();
-                    updateDCFCCharts(dcfcData);
-                }
-            } catch (error) {
-                console.log('No data available yet');
-            }
-        }
-
-        function updateTripCharts(data) {
-            // TODO: Process data and update charts
-            console.log('Trip data loaded:', data);
-        }
-
-        function updateDCFCCharts(data) {
-            // TODO: Process data and update charts
-            console.log('DCFC data loaded:', data);
-        }
-    </script>
-    <script src="js/main.js"></script>
-</body>
-</html>
