@@ -2186,6 +2186,13 @@ a.community-card {
     border: 3px solid var(--brand-primary);
 }
 
+.board-card-img {
+    width: 100%;
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--space-4);
+    border: 1px solid var(--surface-3);
+}
+
 .board-card-placeholder {
     width: 120px;
     height: 120px;
