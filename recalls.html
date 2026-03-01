@@ -308,3 +308,151 @@ schema_json: |
             </div>
         </div>
     </section>
+
+    <!-- ===== NHTSA API Integration ===== -->
+    <script>
+        (function () {
+            var recallSearchForm = document.getElementById('recallSearchForm');
+            var nhtsaResults = document.getElementById('nhtsaResults');
+            if (!recallSearchForm || !nhtsaResults) return;
+
+            var isSearching = false;
+
+            recallSearchForm.addEventListener('submit', async function (e) {
+                e.preventDefault();
+
+                if (isSearching) return;
+                isSearching = true;
+
+                var searchButton = recallSearchForm.querySelector('button[type="submit"]');
+                var originalButtonText = searchButton.innerHTML;
+                searchButton.disabled = true;
+
+                var model = document.getElementById('model').value;
+                var year = document.getElementById('year').value;
+                var make = 'VINFAST';
+
+                nhtsaResults.innerHTML = '<div class="loading-v2"><span lang="en">&#128270; Searching NHTSA database across all model years and variations...</span><span lang="fr">&#128270; Recherche dans toutes les années-modèles et variations NHTSA...</span></div>';
+                applyLang(nhtsaResults);
+
+                try {
+                    var years = [2022, 2023, 2024, 2025, 2026];
+                    var modelVariations = [model, model.replace(/(\d)/, ' $1')];
+                    var allRecalls = [];
+                    var seenCampaignNumbers = new Set();
+
+                    for (var qi = 0; qi < years.length; qi++) {
+                        for (var mi = 0; mi < modelVariations.length; mi++) {
+                            var apiUrl = 'https://api.nhtsa.gov/recalls/recallsByVehicle?make=' + make + '&model=' + encodeURIComponent(modelVariations[mi]) + '&modelYear=' + years[qi];
+                            var response = await fetch(apiUrl);
+                            if (!response.ok) continue;
+                            var data = await response.json();
+                            if (data.results && data.results.length > 0) {
+                                data.results.forEach(function (recall) {
+                                    var campaignNum = recall.NHTSACampaignNumber;
+                                    if (!seenCampaignNumbers.has(campaignNum)) {
+                                        seenCampaignNumbers.add(campaignNum);
+                                        allRecalls.push(recall);
+                                    }
+                                });
+                            }
+                        }
+                    }
+
+                    allRecalls.sort(function (a, b) {
+                        var dateA = new Date(a.ReportReceivedDate.split('/').reverse().join('-'));
+                        var dateB = new Date(b.ReportReceivedDate.split('/').reverse().join('-'));
+                        return dateB - dateA;
+                    });
+
+                    displayResults(allRecalls, model);
+                } catch (error) {
+                    console.error('Recall search error:', error);
+                    nhtsaResults.innerHTML =
+                        '<div class="recall-card-v2" style="border-left-color: var(--brand-red);">' +
+                        '<p lang="en"><strong>&#9888;&#65039; Unable to reach the NHTSA database.</strong> The service may be temporarily unavailable. Please visit <a href="https://www.nhtsa.gov/recalls" target="_blank" rel="noopener">NHTSA.gov</a> directly to search for recalls.</p>' +
+                        '<p lang="fr"><strong>&#9888;&#65039; Impossible de joindre la base de données NHTSA.</strong> Le service est peut-être temporairement indisponible. Veuillez visiter <a href="https://www.nhtsa.gov/recalls" target="_blank" rel="noopener">NHTSA.gov</a> directement.</p>' +
+                        '</div>';
+                    applyLang(nhtsaResults);
+                } finally {
+                    isSearching = false;
+                    searchButton.disabled = false;
+                    searchButton.innerHTML = originalButtonText;
+                }
+            });
+
+            function displayResults(recalls, model) {
+                if (!recalls || recalls.length === 0) {
+                    nhtsaResults.innerHTML =
+                        '<div class="no-results-v2">' +
+                        '<div class="no-results-icon">&#9989;</div>' +
+                        '<h3 lang="en">No NHTSA Recalls Found</h3>' +
+                        '<h3 lang="fr">Aucun Rappel NHTSA Trouvé</h3>' +
+                        '<p lang="en">Great news! There are currently no safety recalls listed in the NHTSA database for the <strong>VinFast ' + model + '</strong> (all model years).</p>' +
+                        '<p lang="fr">Bonne nouvelle! Il n\'y a actuellement aucun rappel de sécurité pour le <strong>VinFast ' + model + '</strong> (toutes les années).</p>' +
+                        '<p style="font-size:var(--text-sm); color:var(--text-muted); margin-top:var(--space-4);">' +
+                        '<span lang="en">&#128161; Tip: For the most accurate results, search by your specific VIN on <a href="https://www.nhtsa.gov/recalls" target="_blank" rel="noopener">NHTSA.gov</a></span>' +
+                        '<span lang="fr">&#128161; Astuce: Recherchez par votre NIV sur <a href="https://www.nhtsa.gov/recalls" target="_blank" rel="noopener">NHTSA.gov</a></span>' +
+                        '</p>' +
+                        '</div>';
+                    applyLang(nhtsaResults);
+                    return;
+                }
+
+                var html =
+                    '<h3 class="results-header" lang="en">Found ' + recalls.length + ' Unique Recall' + (recalls.length > 1 ? 's' : '') + ' for VinFast ' + model + ' (All Model Years)</h3>' +
+                    '<h3 class="results-header" lang="fr">Trouvé ' + recalls.length + ' Rappel' + (recalls.length > 1 ? 's' : '') + ' Unique' + (recalls.length > 1 ? 's' : '') + ' pour VinFast ' + model + ' (Toutes Années)</h3>' +
+                    '<p class="results-note" lang="en">This search includes all recalls affecting VinFast ' + model + ' vehicles from 2022-2026. Some recalls may apply to specific model years only.</p>' +
+                    '<p class="results-note" lang="fr">Cette recherche inclut tous les rappels affectant les véhicules VinFast ' + model + ' de 2022 à 2026.</p>';
+
+                recalls.forEach(function (recall) {
+                    var consequence = recall.Consequence || 'Not specified';
+                    var remedy = recall.Remedy || 'Contact your VinFast dealer for service';
+                    var nhtsaId = recall.NHTSACampaignNumber || 'N/A';
+                    var mfrId = recall.ManufacturerCampaignNumber || 'N/A';
+                    var component = recall.Component || 'Various components';
+                    var recallDate = recall.ReportReceivedDate || 'N/A';
+
+                    html +=
+                        '<div class="recall-card-v2">' +
+                        '<div class="recall-header-v2">' +
+                        '<h3 class="recall-title-v2">' + (recall.Summary || 'Safety Recall') + '</h3>' +
+                        '<span class="severity-badge severity-medium">NHTSA ' + nhtsaId + '</span>' +
+                        '</div>' +
+                        '<div class="recall-meta-v2">' +
+                        '<span><strong lang="en">Date:</strong><strong lang="fr">Date:</strong> ' + recallDate + '</span>' +
+                        '<span><strong lang="en">Component:</strong><strong lang="fr">Composant:</strong> ' + component + '</span>' +
+                        '<span><strong lang="en">Mfr ID:</strong><strong lang="fr">ID Fabricant:</strong> ' + mfrId + '</span>' +
+                        '</div>' +
+                        '<div class="recall-detail-box consequence">' +
+                        '<strong><span lang="en">&#9888;&#65039; Potential Consequence:</span><span lang="fr">&#9888;&#65039; Conséquence Potentielle:</span></strong>' +
+                        '<p>' + consequence + '</p>' +
+                        '</div>' +
+                        '<div class="recall-detail-box remedy">' +
+                        '<strong><span lang="en">&#128295; Remedy:</span><span lang="fr">&#128295; Remède:</span></strong>' +
+                        '<p>' + remedy + '</p>' +
+                        '</div>' +
+                        '<p style="font-size:var(--text-sm); color:var(--text-muted); margin-top:var(--space-4);">' +
+                        '<span lang="en">&#128222; <strong>What to do:</strong> Contact VinFast or your local dealer to schedule a FREE repair. Share your experience in our <a href="discord.html">Discord #recalls channel</a>.</span>' +
+                        '<span lang="fr">&#128222; <strong>Que faire:</strong> Contactez VinFast ou votre concessionnaire local pour planifier une réparation GRATUITE. Partagez votre expérience dans notre <a href="discord.html">canal Discord #recalls</a>.</span>' +
+                        '</p>' +
+                        '</div>';
+                });
+
+                nhtsaResults.innerHTML = html;
+                applyLang(nhtsaResults);
+            }
+
+            function applyLang(container) {
+                if (document.body.classList.contains('fr')) {
+                    container.querySelectorAll('[lang="en"]').forEach(function (el) { el.style.display = 'none'; });
+                    container.querySelectorAll('[lang="fr"]').forEach(function (el) { el.style.display = 'inline-block'; });
+                }
+            }
+
+            // Auto-search on page load (single attempt only — no retry or reload on failure)
+            window.addEventListener('load', function () {
+                recallSearchForm.dispatchEvent(new Event('submit'));
+            });
+        })();
+    </script>
