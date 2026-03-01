@@ -2180,6 +2180,11 @@ a.community-card {
     border-color: var(--brand-primary);
 }
 
+.board-card-img-wrap {
+    background: #232428;
+    padding: var(--space-4) var(--space-4) 0;
+}
+
 .board-card-img {
     width: 100%;
     display: block;
