@@ -33,6 +33,31 @@
     <link rel="stylesheet" href="css/styles.css">
 
     <style>
+        /* User Guide Semantic Color Tokens */
+        :root {
+            --guide-warning-bg: #fff3cd;
+            --guide-warning-text: #856404;
+            --guide-danger-bg: #f8d7da;
+            --guide-danger-text: #721c24;
+            --guide-info-bg: #e7f3ff;
+        }
+        @media (prefers-color-scheme: dark) {
+            :root:not(.light-mode) {
+                --guide-warning-bg: #3d2e00;
+                --guide-warning-text: #ffc107;
+                --guide-danger-bg: #3b1014;
+                --guide-danger-text: #f5a0a8;
+                --guide-info-bg: #0d253d;
+            }
+        }
+        :root.dark-mode {
+            --guide-warning-bg: #3d2e00;
+            --guide-warning-text: #ffc107;
+            --guide-danger-bg: #3b1014;
+            --guide-danger-text: #f5a0a8;
+            --guide-info-bg: #0d253d;
+        }
+
         /* User Guide Specific Styles */
         .guide-header {
             background: linear-gradient(135deg, var(--vf-vinfast-blue) 0%, var(--vf-deep-ocean) 100%);
@@ -73,7 +98,7 @@
         }
 
         .update-notice {
-            background: #fff3cd;
+            background: var(--guide-warning-bg);
             border-left: 4px solid var(--vf-sunset-orange);
             padding: 1rem 1.5rem;
             margin: 2rem 0;
@@ -81,12 +106,12 @@
         }
 
         .update-notice h3 {
-            color: #856404;
+            color: var(--guide-warning-text);
             margin-bottom: 0.5rem;
         }
 
         .disclaimer {
-            background: #f8d7da;
+            background: var(--guide-danger-bg);
             border-left: 4px solid var(--vf-crimson-red);
             padding: 1rem 1.5rem;
             margin: 2rem 0;
@@ -94,11 +119,11 @@
         }
 
         .disclaimer strong {
-            color: #721c24;
+            color: var(--guide-danger-text);
         }
 
         .guide-section {
-            background: white;
+            background: var(--surface-0);
             margin: 2rem 0;
             padding: 2rem;
             border-radius: 8px;
@@ -124,7 +149,7 @@
             width: 100%;
             border-collapse: collapse;
             margin: 1.5rem 0;
-            background: white;
+            background: var(--surface-0);
             box-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
 
@@ -138,7 +163,7 @@
 
         .guide-table td {
             padding: 1rem;
-            border-bottom: 1px solid #e0e0e0;
+            border-bottom: 1px solid var(--surface-3);
             vertical-align: top;
         }
 
@@ -176,7 +201,7 @@
         }
 
         .note-box {
-            background: #e7f3ff;
+            background: var(--guide-info-bg);
             border-left: 4px solid var(--vf-vinfast-blue);
             padding: 1rem 1.5rem;
             margin: 1rem 0;
@@ -188,7 +213,7 @@
         }
 
         .warning-box {
-            background: #fff3cd;
+            background: var(--guide-warning-bg);
             border-left: 4px solid var(--vf-sunset-orange);
             padding: 1rem 1.5rem;
             margin: 1rem 0;
@@ -196,7 +221,7 @@
         }
 
         .warning-box strong {
-            color: #856404;
+            color: var(--guide-warning-text);
         }
 
         .error-grid {
@@ -207,7 +232,7 @@
         }
 
         .error-card {
-            background: white;
+            background: var(--surface-0);
             border: 2px solid var(--vf-desat-silver);
             border-radius: 8px;
             padding: 1.5rem;
@@ -261,7 +286,7 @@
         }
 
         .toc a:hover {
-            background: white;
+            background: var(--surface-0);
             color: var(--vf-vinfast-blue);
             padding-left: 1.5rem;
         }

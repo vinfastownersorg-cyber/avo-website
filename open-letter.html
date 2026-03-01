@@ -114,7 +114,7 @@
             height: 15px;
             border-radius: 50%;
             background: var(--vf-vinfast-blue);
-            border: 3px solid white;
+            border: 3px solid var(--surface-0);
             box-shadow: 0 0 0 3px var(--vf-vinfast-blue);
         }
 
@@ -127,7 +127,7 @@
         }
 
         .timeline-content {
-            background: white;
+            background: var(--surface-0);
             padding: 2rem;
             border-radius: 12px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
@@ -161,7 +161,7 @@
         }
 
         .cta-box {
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            background: linear-gradient(135deg, var(--surface-1) 0%, var(--surface-2) 100%);
             padding: 2rem;
             border-radius: 12px;
             text-align: center;
@@ -543,7 +543,7 @@
                         </p>
 
                         <div style="background: #e8f5e9; padding: 1.5rem; border-radius: 8px; margin-top: 1.5rem; border-left: 4px solid #4CAF50;">
-                            <h4 style="color: #2e7d32; margin-top: 0;">
+                            <h4 style="color: var(--text-primary); margin-top: 0;">
                                 <span lang="en">Current Status</span>
                                 <span lang="fr">Statut Actuel</span>
                             </h4>
@@ -711,7 +711,7 @@
                             <span lang="fr">Nom</span>
                         </label>
                         <input type="text" id="name" name="name" required
-                               style="width: 100%; padding: 0.75rem; border: 2px solid #ddd; border-radius: 8px; font-size: 1rem;"
+                               style="width: 100%; padding: 0.75rem; border: 2px solid var(--surface-2); border-radius: 8px; font-size: 1rem;"
                                placeholder="Your name / Votre nom">
                     </div>
 
@@ -721,9 +721,9 @@
                             <span lang="fr">Courriel du Compte VinFast</span>
                         </label>
                         <input type="email" id="vinfastEmail" name="vinfastEmail" required
-                               style="width: 100%; padding: 0.75rem; border: 2px solid #ddd; border-radius: 8px; font-size: 1rem;"
+                               style="width: 100%; padding: 0.75rem; border: 2px solid var(--surface-2); border-radius: 8px; font-size: 1rem;"
                                placeholder="account@example.com">
-                        <small style="display: block; margin-top: 0.5rem; color: #6c757d; font-size: 0.875rem;">
+                        <small style="display: block; margin-top: 0.5rem; color: var(--text-muted); font-size: 0.875rem;">
                             <span lang="en">Required if we escalate your feedback to VinFast corporate</span>
                             <span lang="fr">Requis si nous transmettons vos commentaires à VinFast</span>
                         </small>
@@ -735,9 +735,9 @@
                             <span lang="fr">Courriel de Contact Préféré</span>
                         </label>
                         <input type="email" id="contactEmail" name="contactEmail"
-                               style="width: 100%; padding: 0.75rem; border: 2px solid #ddd; border-radius: 8px; font-size: 1rem;"
+                               style="width: 100%; padding: 0.75rem; border: 2px solid var(--surface-2); border-radius: 8px; font-size: 1rem;"
                                placeholder="contact@example.com">
-                        <small style="display: block; margin-top: 0.5rem; color: #6c757d; font-size: 0.875rem;">
+                        <small style="display: block; margin-top: 0.5rem; color: var(--text-muted); font-size: 0.875rem;">
                             <span lang="en">Optional - if different from VinFast account email</span>
                             <span lang="fr">Optionnel - si différent du courriel du compte VinFast</span>
                         </small>
@@ -749,7 +749,7 @@
                             <span lang="fr">Votre Commentaire</span>
                         </label>
                         <textarea id="message" name="message" required rows="6"
-                                  style="width: 100%; padding: 0.75rem; border: 2px solid #ddd; border-radius: 8px; font-size: 1rem; resize: vertical;"
+                                  style="width: 100%; padding: 0.75rem; border: 2px solid var(--surface-2); border-radius: 8px; font-size: 1rem; resize: vertical;"
                                   placeholder="Share your questions, comments, or feedback..."></textarea>
                     </div>
 

@@ -79,24 +79,24 @@
 
         .tab-button {
             padding: 1rem 2rem;
-            background: var(--vinfast-light-grey);
+            background: var(--surface-2);
             border: none;
             border-radius: 12px 12px 0 0;
             font-size: 1.1rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            color: var(--vinfast-grey);
+            color: var(--text-secondary);
         }
 
         .tab-button.active {
-            background: white;
+            background: var(--surface-0);
             color: var(--vinfast-crimson);
             box-shadow: 0 -4px 12px rgba(0,0,0,0.1);
         }
 
         .tab-button:hover:not(.active) {
-            background: #cbd5e0;
+            background: var(--surface-2);
         }
 
         /* Tab Content */
@@ -111,7 +111,7 @@
 
         /* Forms */
         .form-section {
-            background: #f8f9fa;
+            background: var(--surface-1);
             border-radius: 12px;
             padding: 2rem;
             margin-bottom: 2rem;
@@ -138,17 +138,19 @@
         .form-group label {
             font-weight: 600;
             margin-bottom: 0.5rem;
-            color: var(--vinfast-grey);
+            color: var(--text-secondary);
         }
 
         .form-group input,
         .form-group select,
         .form-group textarea {
             padding: 0.75rem;
-            border: 2px solid var(--vinfast-light-grey);
+            border: 2px solid var(--surface-3);
             border-radius: 8px;
             font-size: 1rem;
             transition: border-color 0.3s ease;
+            background: var(--surface-0);
+            color: var(--text-primary);
         }
 
         .form-group input:focus,
@@ -159,7 +161,7 @@
         }
 
         .form-group small {
-            color: #666;
+            color: var(--text-secondary);
             margin-top: 0.25rem;
             font-size: 0.875rem;
         }
@@ -194,7 +196,8 @@
         }
 
         .submit-button:disabled {
-            background: #ccc;
+            background: var(--surface-3);
+            color: var(--text-muted);
             cursor: not-allowed;
             transform: none;
         }
@@ -205,7 +208,7 @@
         }
 
         .chart-container {
-            background: white;
+            background: var(--surface-0);
             border-radius: 12px;
             padding: 2rem;
             margin-bottom: 2rem;
@@ -241,7 +244,7 @@
         .trip-data-container {
             max-width: 1200px;
             margin: 0 auto;
-            background: white;
+            background: var(--surface-0);
             border-radius: 20px;
             box-shadow: 0 20px 60px rgba(0,0,0,0.1);
             overflow: hidden;
