@@ -2164,33 +2164,32 @@ a.community-card {
 
 .board-card {
     background: var(--surface-0);
-    border: 1px solid var(--surface-3);
+    border: 2px solid var(--surface-3);
     border-radius: var(--radius-xl);
-    padding: var(--space-8);
+    overflow: hidden;
     text-align: center;
     box-shadow: var(--shadow-md);
     transition: all var(--duration-normal) var(--ease-out);
+    display: flex;
+    flex-direction: column;
 }
 
 .board-card:hover {
-    transform: translateY(-3px);
-    box-shadow: var(--shadow-xl);
-}
-
-.board-card-photo {
-    width: 120px;
-    height: 120px;
-    border-radius: var(--radius-full);
-    object-fit: cover;
-    margin: 0 auto var(--space-4);
-    border: 3px solid var(--brand-primary);
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+    border-color: var(--brand-primary);
 }
 
 .board-card-img {
     width: 100%;
-    border-radius: var(--radius-lg);
-    margin-bottom: var(--space-4);
-    border: 1px solid var(--surface-3);
+    display: block;
+    border-radius: 0;
+    border: none;
+    margin: 0;
+}
+
+.board-card-body {
+    padding: var(--space-5) var(--space-6) var(--space-6);
 }
 
 .board-card-placeholder {
@@ -2201,7 +2200,7 @@ a.community-card {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto var(--space-4);
+    margin: var(--space-6) auto var(--space-4);
     font-size: 2.5rem;
     color: var(--text-on-brand);
 }
@@ -2210,7 +2209,7 @@ a.community-card {
     font-size: var(--text-xl);
     font-weight: 700;
     color: var(--text-primary);
-    margin-bottom: var(--space-2);
+    margin-bottom: var(--space-1);
 }
 
 .board-card h3::after {
@@ -2229,7 +2228,7 @@ a.community-card {
 .board-card .board-location {
     font-size: var(--text-sm);
     color: var(--text-muted);
-    margin-bottom: var(--space-4);
+    margin-bottom: var(--space-3);
 }
 
 .board-card .board-bio {
