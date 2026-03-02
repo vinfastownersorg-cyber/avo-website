@@ -318,9 +318,7 @@ schema_json: |
 
             var isSearching = false;
 
-            recallSearchForm.addEventListener('submit', async function (e) {
-                e.preventDefault();
-
+            async function doSearch() {
                 if (isSearching) return;
                 isSearching = true;
 
@@ -379,6 +377,11 @@ schema_json: |
                     searchButton.disabled = false;
                     searchButton.innerHTML = originalButtonText;
                 }
+            }
+
+            recallSearchForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+                doSearch();
             });
 
             function displayResults(recalls, model) {
@@ -450,9 +453,11 @@ schema_json: |
                 }
             }
 
-            // Auto-search on page load (single attempt only — no retry or reload on failure)
+            // Auto-search on page load — call doSearch directly, never dispatchEvent
+            // (synthetic submit events have cancelable:false, so preventDefault fails
+            //  and the form submits to itself, causing an infinite reload loop)
             window.addEventListener('load', function () {
-                recallSearchForm.dispatchEvent(new Event('submit'));
+                doSearch();
             });
         })();
     </script>
