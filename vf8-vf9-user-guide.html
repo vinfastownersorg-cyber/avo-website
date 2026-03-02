@@ -1,0 +1,1454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Primary Meta Tags -->
+    <title>VF8 & VF9 User Guide | AVO North America</title>
+    <meta name="title" content="VF8 & VF9 User Guide | AVO North America">
+    
+    <meta name="description" content="Comprehensive unofficial user guide for VinFast VF8 and VF9 electric vehicles. Startup procedures, troubleshooting, 12V battery management, charging tips, and common solutions.">
+    
+    <meta name="keywords" content="VinFast VF8 guide, VinFast VF9 manual, VF8 troubleshooting, VF9 problems, VinFast 12V battery, VinFast startup, VinFast charging">
+    
+
+    <!-- Multilingual SEO -->
+    
+    <link rel="alternate" hreflang="en" href="https://vinfastowners.org/vf8-vf9-user-guide.html">
+    <link rel="alternate" hreflang="fr-CA" href="https://vinfastowners.org/vf8-vf9-user-guide.html?lang=fr">
+    <link rel="alternate" hreflang="x-default" href="https://vinfastowners.org/vf8-vf9-user-guide.html">
+    
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://vinfastowners.org/vf8-vf9-user-guide.html">
+    <meta property="og:title" content="VF8 & VF9 User Guide | AVO North America">
+    <meta property="og:description" content="Comprehensive unofficial user guide for VinFast VF8 and VF9 electric vehicles. Startup procedures, troubleshooting, 12V battery management, charging tips, and common solutions.">
+    <meta property="og:image" content="https://vinfastowners.org/images/icons/avo-logo.png">
+    
+
+    
+
+    <!-- Canonical -->
+    <link rel="canonical" href="https://vinfastowners.org/vf8-vf9-user-guide.html">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/images/icons/avo-logo.png">
+    <link rel="apple-touch-icon" href="/images/icons/avo-logo.png">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="/css/styles.css">
+
+    
+
+    <style>
+        /* User Guide Semantic Color Tokens */
+        :root {
+            --guide-warning-bg: #fff3cd;
+            --guide-warning-text: #856404;
+            --guide-danger-bg: #f8d7da;
+            --guide-danger-text: #721c24;
+            --guide-info-bg: #e7f3ff;
+        }
+        @media (prefers-color-scheme: dark) {
+            :root:not(.light-mode) {
+                --guide-warning-bg: #3d2e00;
+                --guide-warning-text: #ffc107;
+                --guide-danger-bg: #3b1014;
+                --guide-danger-text: #f5a0a8;
+                --guide-info-bg: #0d253d;
+            }
+        }
+        :root.dark-mode {
+            --guide-warning-bg: #3d2e00;
+            --guide-warning-text: #ffc107;
+            --guide-danger-bg: #3b1014;
+            --guide-danger-text: #f5a0a8;
+            --guide-info-bg: #0d253d;
+        }
+
+        /* User Guide Specific Styles */
+        .guide-header {
+            background: linear-gradient(135deg, var(--vf-vinfast-blue) 0%, var(--vf-deep-ocean) 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .guide-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .guide-meta {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        .guide-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .version-badge {
+            background: var(--vf-sunset-orange);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: bold;
+            display: inline-block;
+            margin-top: 1rem;
+        }
+
+        .update-notice {
+            background: var(--guide-warning-bg);
+            border-left: 4px solid var(--vf-sunset-orange);
+            padding: 1rem 1.5rem;
+            margin: 2rem 0;
+            border-radius: 4px;
+        }
+
+        .update-notice h3 {
+            color: var(--guide-warning-text);
+            margin-bottom: 0.5rem;
+        }
+
+        .disclaimer {
+            background: var(--guide-danger-bg);
+            border-left: 4px solid var(--vf-crimson-red);
+            padding: 1rem 1.5rem;
+            margin: 2rem 0;
+            border-radius: 4px;
+        }
+
+        .disclaimer strong {
+            color: var(--guide-danger-text);
+        }
+
+        .guide-section {
+            background: var(--surface-0);
+            margin: 2rem 0;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .guide-section h2 {
+            color: var(--vf-vinfast-blue);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid var(--vf-vinfast-blue);
+            font-size: 1.8rem;
+        }
+
+        .guide-section h3 {
+            color: var(--vf-deep-ocean);
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .guide-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: var(--surface-0);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .guide-table th {
+            background: var(--vf-vinfast-blue);
+            color: white;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .guide-table td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--surface-3);
+            vertical-align: top;
+        }
+
+        .guide-table tr:hover {
+            background: var(--vf-brahminy-white);
+        }
+
+        .step-list {
+            counter-reset: step-counter;
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .step-list li {
+            counter-increment: step-counter;
+            margin-bottom: 1.5rem;
+            padding-left: 3rem;
+            position: relative;
+        }
+
+        .step-list li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: var(--vf-vinfast-blue);
+            color: white;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .note-box {
+            background: var(--guide-info-bg);
+            border-left: 4px solid var(--vf-vinfast-blue);
+            padding: 1rem 1.5rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+
+        .note-box strong {
+            color: var(--vf-vinfast-blue);
+        }
+
+        .warning-box {
+            background: var(--guide-warning-bg);
+            border-left: 4px solid var(--vf-sunset-orange);
+            padding: 1rem 1.5rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+
+        .warning-box strong {
+            color: var(--guide-warning-text);
+        }
+
+        .error-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .error-card {
+            background: var(--surface-0);
+            border: 2px solid var(--vf-desat-silver);
+            border-radius: 8px;
+            padding: 1.5rem;
+            transition: all 0.3s;
+        }
+
+        .error-card:hover {
+            border-color: var(--vf-vinfast-blue);
+            box-shadow: 0 4px 12px rgba(15, 76, 153, 0.2);
+        }
+
+        .error-card h4 {
+            color: var(--vf-crimson-red);
+            margin-bottom: 0.8rem;
+            font-size: 1.1rem;
+        }
+
+        .error-card .solution {
+            color: var(--vf-deep-ocean);
+            line-height: 1.6;
+        }
+
+        .toc {
+            background: var(--vf-brahminy-white);
+            padding: 2rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+
+        .toc h2 {
+            color: var(--vf-vinfast-blue);
+            margin-bottom: 1rem;
+        }
+
+        .toc ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .toc li {
+            margin: 0.5rem 0;
+        }
+
+        .toc a {
+            color: var(--vf-deep-ocean);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            display: block;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+
+        .toc a:hover {
+            background: var(--surface-0);
+            color: var(--vf-vinfast-blue);
+            padding-left: 1.5rem;
+        }
+
+        .source-credit {
+            text-align: center;
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: var(--vf-brahminy-white);
+            border-radius: 8px;
+        }
+
+        .source-credit a {
+            color: var(--vf-vinfast-blue);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .source-credit a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .guide-header h1 {
+                font-size: 1.8rem;
+            }
+
+            .guide-meta {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .guide-section {
+                padding: 1.5rem 1rem;
+            }
+
+            .step-list li {
+                padding-left: 2.5rem;
+            }
+
+            .error-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+<div class="scroll-progress" aria-hidden="true"></div>
+
+    <!-- ===== Glass Navigation ===== -->
+    <nav class="nav-v2" role="navigation" aria-label="Main navigation">
+        <div class="nav-inner">
+            <a href="/" class="nav-logo" aria-label="AVO Home">
+                <img src="/images/icons/avo-logo.png" alt="AVO Logo" width="44" height="44">
+                <div class="nav-logo-text">
+                    <span class="nav-logo-name">AVO</span>
+                    <span class="nav-logo-sub">
+                        <span lang="en">North America</span>
+                        <span lang="fr">Amérique du Nord</span>
+                    </span>
+                </div>
+            </a>
+
+            <button class="hamburger-v2" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <div class="nav-links-v2" id="nav-menu">
+                <a href="/index.html">
+                    <span lang="en">Home</span>
+                    <span lang="fr">Accueil</span>
+                </a>
+                <a href="/considering-vinfast.html">
+                    <span lang="en">Considering VinFast?</span>
+                    <span lang="fr">Vous Envisagez VinFast?</span>
+                </a>
+                
+                <a href="/index.html#community">
+                
+                    <span lang="en">Community</span>
+                    <span lang="fr">Communauté</span>
+                </a>
+
+                <!-- Governance Dropdown -->
+                <div class="nav-drop">
+                    <a href="#governance">
+                        <span lang="en">Governance</span>
+                        <span lang="fr">Gouvernance</span>
+                    </a>
+                    <div class="nav-drop-menu">
+                        <a href="/board.html">
+                            <span lang="en">Board of Directors</span>
+                            <span lang="fr">Conseil d'Administration</span>
+                        </a>
+                        <a href="/documents.html">
+                            <span lang="en">Documents & Bylaws</span>
+                            <span lang="fr">Documents et Règlements</span>
+                        </a>
+                        <a href="/meeting-minutes.html">
+                            <span lang="en">Meeting Minutes</span>
+                            <span lang="fr">Procès-Verbaux</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Resources Dropdown -->
+                <div class="nav-drop">
+                    <a href="#resources">
+                        <span lang="en">Resources</span>
+                        <span lang="fr">Ressources</span>
+                    </a>
+                    <div class="nav-drop-menu">
+                        <a href="/recalls.html">
+                            <span lang="en">Recalls & Safety</span>
+                            <span lang="fr">Rappels et Sécurité</span>
+                        </a>
+                        <a href="/trip-data.html">
+                            <span lang="en">Trip Data</span>
+                            <span lang="fr">Données de Voyage</span>
+                        </a>
+                        <a href="/petition.html">
+                            <span lang="en">Petition</span>
+                            <span lang="fr">Pétition</span>
+                        </a>
+                        <a href="/newsletters.html">
+                            <span lang="en">Newsletters</span>
+                            <span lang="fr">Bulletins</span>
+                        </a>
+                        <a href="/report-issue.html">
+                            <span lang="en">Report an Issue</span>
+                            <span lang="fr">Signaler un Problème</span>
+                        </a>
+                        <a href="/vf8-vf9-user-guide.html">
+                            <span lang="en">User Guide</span>
+                            <span lang="fr">Guide d'Utilisation</span>
+                        </a>
+                        <a href="/links.html">
+                            <span lang="en">All Links</span>
+                            <span lang="fr">Tous les Liens</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Join CTA -->
+                <a href="/join.html" class="nav-cta">
+                    <span lang="en">Join</span>
+                    <span lang="fr">Adhérer</span>
+                </a>
+
+                <!-- Mobile-only controls -->
+                <div class="mobile-controls">
+                    <div class="lang-switch">
+                        <button onclick="setLang('en')" class="active" aria-label="English">EN</button>
+                        <button onclick="setLang('fr')" aria-label="Français">FR</button>
+                    </div>
+                    <button class="theme-toggle" aria-label="Toggle dark mode"></button>
+                </div>
+            </div>
+
+            <!-- Desktop controls -->
+            <div class="nav-controls">
+                <div class="lang-switch">
+                    <button onclick="setLang('en')" class="active" aria-label="English">EN</button>
+                    <button onclick="setLang('fr')" aria-label="Français">FR</button>
+                </div>
+                <button class="theme-toggle" aria-label="Toggle dark mode"></button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ===== Page Header ===== -->
+    <div class="page-header-v2">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a href="index.html">
+                <span lang="en">Home</span>
+                <span lang="fr">Accueil</span>
+            </a>
+            <span aria-hidden="true">/</span>
+            <a href="#resources">
+                <span lang="en">Resources</span>
+                <span lang="fr">Ressources</span>
+            </a>
+            <span aria-hidden="true">/</span>
+            <span aria-current="page">
+                <span lang="en">User Guide</span>
+                <span lang="fr">Guide d'Utilisation</span>
+            </span>
+        </nav>
+    </div>
+
+    <!-- Header -->
+    <div class="guide-header">
+        <h1>
+            <span lang="en">VinFast VF8/VF9 User Guide</span>
+            <span lang="fr">Guide d'utilisation VinFast VF8/VF9</span>
+        </h1>
+        <p>
+            <span lang="en">Unofficial Comprehensive Manual & Troubleshooting Guide</span>
+            <span lang="fr">Manuel non officiel complet et guide de dépannage</span>
+        </p>
+        <div class="guide-meta">
+            <div class="guide-meta-item">
+                <span>📅</span>
+                <span>
+                    <span lang="en">Last Updated: November 2025</span>
+                    <span lang="fr">Dernière mise à jour : Novembre 2025</span>
+                </span>
+            </div>
+            <div class="guide-meta-item">
+                <span>👤</span>
+                <span>
+                    <span lang="en">Original Author: Thích Xe (YouTube)</span>
+                    <span lang="fr">Auteur original : Thích Xe (YouTube)</span>
+                </span>
+            </div>
+            <div class="guide-meta-item">
+                <span>🌐</span>
+                <span>
+                    <span lang="en">Source: Vietnamese Community Guide</span>
+                    <span lang="fr">Source : Guide communautaire vietnamien</span>
+                </span>
+            </div>
+        </div>
+        <div class="version-badge">
+            <span lang="en">Version 1.0</span>
+            <span lang="fr">Version 1.0</span>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Disclaimer -->
+        <div class="disclaimer">
+            <strong>
+                <span lang="en">⚠️ DISCLAIMER:</span>
+                <span lang="fr">⚠️ AVERTISSEMENT :</span>
+            </strong>
+            <p lang="en">This is an unofficial community guide translated from Vietnamese sources. While we strive for accuracy, always consult official VinFast documentation and authorized service centers for critical issues. Performing modifications or repairs may void your warranty. Use this information at your own risk.</p>
+            <p lang="fr">Il s'agit d'un guide communautaire non officiel traduit de sources vietnamiennes. Bien que nous visions l'exactitude, consultez toujours la documentation officielle VinFast et les centres de service autorisés pour les problèmes critiques. Effectuer des modifications ou des réparations peut annuler votre garantie. Utilisez ces informations à vos propres risques.</p>
+        </div>
+
+        <!-- Update Notice -->
+        <div class="update-notice">
+            <h3>
+                <span lang="en">📢 About Updates</span>
+                <span lang="fr">📢 À propos des mises à jour</span>
+            </h3>
+            <p lang="en">This guide is based on a living document that may receive updates from the community. When significant changes occur, they will be highlighted on this page. Check the version number and last updated date above to ensure you have the most current information.</p>
+            <p lang="fr">Ce guide est basé sur un document évolutif qui peut recevoir des mises à jour de la communauté. Lorsque des changements importants se produisent, ils seront mis en évidence sur cette page. Vérifiez le numéro de version et la date de dernière mise à jour ci-dessus pour vous assurer d'avoir les informations les plus récentes.</p>
+        </div>
+
+        <!-- Table of Contents -->
+        <div class="toc">
+            <h2>
+                <span lang="en">📋 Table of Contents</span>
+                <span lang="fr">📋 Table des matières</span>
+            </h2>
+            <ul>
+                <li><a href="#section-1">
+                    <span lang="en">I. VF8/VF9 Startup Procedure</span>
+                    <span lang="fr">I. Procédure de démarrage VF8/VF9</span>
+                </a></li>
+                <li><a href="#section-2">
+                    <span lang="en">II. "Wrench 10 Universal Fix" Hotfix Procedure</span>
+                    <span lang="fr">II. Procédure de correctif "Clé universelle 10"</span>
+                </a></li>
+                <li><a href="#section-3">
+                    <span lang="en">III. 12V Battery Sensor Reset</span>
+                    <span lang="fr">III. Réinitialisation du capteur de batterie 12V</span>
+                </a></li>
+                <li><a href="#section-4">
+                    <span lang="en">IV. Actions Causing 12V Battery Depletion</span>
+                    <span lang="fr">IV. Actions causant l'épuisement de la batterie 12V</span>
+                </a></li>
+                <li><a href="#section-5">
+                    <span lang="en">V. Common Operating Errors (14 Issues)</span>
+                    <span lang="fr">V. Erreurs courantes de fonctionnement (14 problèmes)</span>
+                </a></li>
+                <li><a href="#section-6">
+                    <span lang="en">VI. Hardware Issues (7 Problems)</span>
+                    <span lang="fr">VI. Problèmes matériels (7 problèmes)</span>
+                </a></li>
+                <li><a href="#section-7">
+                    <span lang="en">VII. Charging Issues (3 Problems)</span>
+                    <span lang="fr">VII. Problèmes de charge (3 problèmes)</span>
+                </a></li>
+                <li><a href="#section-8">
+                    <span lang="en">VIII. YouTube Viewing via Android Auto</span>
+                    <span lang="fr">VIII. Visionnement YouTube via Android Auto</span>
+                </a></li>
+                <li><a href="#section-9">
+                    <span lang="en">IX. LFP 12V Battery Parallel Installation</span>
+                    <span lang="fr">IX. Installation parallèle de batterie LFP 12V</span>
+                </a></li>
+                <li><a href="#section-10">
+                    <span lang="en">X. Recommended Accessories</span>
+                    <span lang="fr">X. Accessoires recommandés</span>
+                </a></li>
+            </ul>
+        </div>
+
+        <!-- Section I: Startup Procedure -->
+        <div class="guide-section" id="section-1">
+            <h2>
+                <span lang="en">I. VF8/VF9 Startup Procedure</span>
+                <span lang="fr">I. Procédure de démarrage VF8/VF9</span>
+            </h2>
+
+            <table class="guide-table">
+                <thead>
+                    <tr>
+                        <th>
+                            <span lang="en">Steps</span>
+                            <span lang="fr">Étapes</span>
+                        </th>
+                        <th>
+                            <span lang="en">Rationale</span>
+                            <span lang="fr">Justification</span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <span lang="en">1. Open key/press door handle button (VF8)<br>
+                            2. Press brake when screen shows "Press brake to begin"<br>
+                            3. Wait for "Ready" to appear before shifting to Drive</span>
+                            <span lang="fr">1. Ouvrir avec la clé/appuyer sur le bouton de la poignée de porte (VF8)<br>
+                            2. Appuyer sur le frein lorsque l'écran affiche "Appuyez sur le frein pour commencer"<br>
+                            3. Attendre que "Ready" apparaisse avant de passer en mode Drive</span>
+                        </td>
+                        <td>
+                            <span lang="en">During the initial 30 seconds, many modules load simultaneously, causing a 12V battery voltage drop. Forcing electrical system closure through brake depression before stabilization can freeze the contactor, preventing proper motor engagement and causing continuous battery drain without charging capability.</span>
+                            <span lang="fr">Pendant les 30 premières secondes, de nombreux modules se chargent simultanément, provoquant une chute de tension de la batterie 12V. Forcer la fermeture du système électrique en appuyant sur le frein avant la stabilisation peut bloquer le contacteur, empêchant l'engagement approprié du moteur et causant une décharge continue de la batterie sans capacité de charge.</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <div class="note-box">
+                                <strong>
+                                    <span lang="en">UPDATE:</span>
+                                    <span lang="fr">MISE À JOUR :</span>
+                                </strong>
+                                <span lang="en">VF8 Firmware 8.7.9 and VF9 Firmware 8.5.5 allow braking at any time, but it's still recommended to wait for the main interface to fully load before shifting to Drive.</span>
+                                <span lang="fr">Le micrologiciel VF8 8.7.9 et le micrologiciel VF9 8.5.5 permettent de freiner à tout moment, mais il est toujours recommandé d'attendre que l'interface principale se charge complètement avant de passer en mode Drive.</span>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Section II: Wrench 10 Universal Fix -->
+        <div class="guide-section" id="section-2">
+            <h2>
+                <span lang="en">II. "Wrench 10 Universal Fix" Hotfix Procedure</span>
+                <span lang="fr">II. Procédure de correctif "Clé universelle 10"</span>
+            </h2>
+
+            <p lang="en">This procedure is a community-discovered reset method that resolves many common electrical and sensor issues.</p>
+            <p lang="fr">Cette procédure est une méthode de réinitialisation découverte par la communauté qui résout de nombreux problèmes électriques et de capteurs courants.</p>
+
+            <ol class="step-list">
+                <li>
+                    <span lang="en"><strong>Disconnect negative battery terminal</strong> - Locate and carefully disconnect the negative (-) terminal from the 12V battery.</span>
+                    <span lang="fr"><strong>Déconnecter la borne négative de la batterie</strong> - Localiser et déconnecter soigneusement la borne négative (-) de la batterie 12V.</span>
+                </li>
+                <li>
+                    <span lang="en"><strong>Remove 30A fuse</strong> - Remove the designated 30A fuse (see manual for location) for 5-10 seconds until the vehicle fully powers down, then reinstall it.</span>
+                    <span lang="fr"><strong>Retirer le fusible 30A</strong> - Retirer le fusible 30A désigné (voir le manuel pour l'emplacement) pendant 5-10 secondes jusqu'à ce que le véhicule s'éteigne complètement, puis le réinstaller.</span>
+                </li>
+                <li>
+                    <span lang="en"><strong>Wait period</strong> - Wait 5-10 minutes before reconnecting the negative terminal (10+ minutes for VF8 v8.7.9).</span>
+                    <span lang="fr"><strong>Période d'attente</strong> - Attendre 5-10 minutes avant de reconnecter la borne négative (10+ minutes pour VF8 v8.7.9).</span>
+                </li>
+                <li>
+                    <span lang="en"><strong>Recalibration run</strong> - Start the vehicle to "Ready" mode and maintain it for 12-15 minutes in camping mode or while driving. Avoid shutting down during this period to allow sensor recalibration.</span>
+                    <span lang="fr"><strong>Recalibrage</strong> - Démarrer le véhicule en mode "Ready" et le maintenir pendant 12-15 minutes en mode camping ou en conduisant. Éviter de l'éteindre pendant cette période pour permettre le recalibrage des capteurs.</span>
+                </li>
+            </ol>
+
+            <h3>
+                <span lang="en">Post-Hotfix Settings Reset</span>
+                <span lang="fr">Réinitialisation des paramètres après le correctif</span>
+            </h3>
+
+            <table class="guide-table">
+                <thead>
+                    <tr>
+                        <th>
+                            <span lang="en">Feature</span>
+                            <span lang="fr">Fonctionnalité</span>
+                        </th>
+                        <th>
+                            <span lang="en">Reset Procedure</span>
+                            <span lang="fr">Procédure de réinitialisation</span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <span lang="en">Window Auto-Raise</span>
+                            <span lang="fr">Montée automatique des vitres</span>
+                        </td>
+                        <td>
+                            <span lang="en">Pull windows fully up, then hold the raise button for 3 seconds</span>
+                            <span lang="fr">Remonter complètement les vitres, puis maintenir le bouton de montée pendant 3 secondes</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span lang="en">Trunk Opening Height</span>
+                            <span lang="fr">Hauteur d'ouverture du coffre</span>
+                        </td>
+                        <td>
+                            <span lang="en">Open trunk, pull to desired height, then hold the lower button until you hear a beep</span>
+                            <span lang="fr">Ouvrir le coffre, tirer à la hauteur désirée, puis maintenir le bouton d'abaissement jusqu'à entendre un bip</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Section III: 12V Battery Sensor Reset -->
+        <div class="guide-section" id="section-3">
+            <h2>
+                <span lang="en">III. 12V Battery Sensor Reset</span>
+                <span lang="fr">III. Réinitialisation du capteur de batterie 12V</span>
+            </h2>
+
+            <div class="warning-box">
+                <strong>
+                    <span lang="en">⚠️ When to Use:</span>
+                    <span lang="fr">⚠️ Quand utiliser :</span>
+                </strong>
+                <span lang="en">This procedure is particularly useful for firmware 8.7.8 which experienced widespread sensor hanging or false readings, preventing battery charging or causing continuous 12V charging at the main battery's expense.</span>
+                <span lang="fr">Cette procédure est particulièrement utile pour le micrologiciel 8.7.8 qui a connu des blocages généralisés de capteurs ou des lectures erronées, empêchant la charge de la batterie ou causant une charge continue de 12V aux dépens de la batterie principale.</span>
+            </div>
+
+            <ol class="step-list">
+                <li>
+                    <span lang="en">Keep the vehicle in "READY" mode with camping mode engaged or parking brake set</span>
+                    <span lang="fr">Maintenir le véhicule en mode "READY" avec le mode camping activé ou le frein de stationnement serré</span>
+                </li>
+                <li>
+                    <span lang="en">Disconnect the battery sensor connector located at the negative post</span>
+                    <span lang="fr">Déconnecter le connecteur du capteur de batterie situé sur la borne négative</span>
+                </li>
+                <li>
+                    <span lang="en">Wait 1 minute (10 minutes for VF8 FW8.7.9+ and VF9), then reconnect the connector</span>
+                    <span lang="fr">Attendre 1 minute (10 minutes pour VF8 FW8.7.9+ et VF9), puis reconnecter le connecteur</span>
+                </li>
+                <li>
+                    <span lang="en">Check the battery percentage and charge current on the main display to verify proper operation</span>
+                    <span lang="fr">Vérifier le pourcentage de batterie et le courant de charge sur l'écran principal pour confirmer le bon fonctionnement</span>
+                </li>
+            </ol>
+        </div>
+
+        <!-- Section IV: Battery Depletion Causes -->
+        <div class="guide-section" id="section-4">
+            <h2>
+                <span lang="en">IV. Actions Causing 12V Battery Depletion</span>
+                <span lang="fr">IV. Actions causant l'épuisement de la batterie 12V</span>
+            </h2>
+
+            <table class="guide-table">
+                <thead>
+                    <tr>
+                        <th>
+                            <span lang="en">Common Error</span>
+                            <span lang="fr">Erreur courante</span>
+                        </th>
+                        <th>
+                            <span lang="en">Solution</span>
+                            <span lang="fr">Solution</span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <span lang="en">Opening doors/trunk repeatedly without starting vehicle</span>
+                            <span lang="fr">Ouvrir les portes/coffre à répétition sans démarrer le véhicule</span>
+                        </td>
+                        <td>
+                            <span lang="en">Minimize door/trunk operations and remote window controls. Each action consumes power equivalent to a full startup cycle.</span>
+                            <span lang="fr">Minimiser les opérations des portes/coffre et les commandes à distance des vitres. Chaque action consomme une puissance équivalente à un cycle de démarrage complet.</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span lang="en">Washing vehicle without camping mode</span>
+                            <span lang="fr">Laver le véhicule sans mode camping</span>
+                        </td>
+                        <td>
+                            <span lang="en">Always activate camping mode or set the parking brake during washing to prevent excessive power draw.</span>
+                            <span lang="fr">Toujours activer le mode camping ou serrer le frein de stationnement pendant le lavage pour éviter une consommation excessive d'énergie.</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span lang="en">Placing heavy objects on seats</span>
+                            <span lang="fr">Placer des objets lourds sur les sièges</span>
+                        </td>
+                        <td>
+                            <span lang="en">The vehicle detects child presence and triggers alarms with continuous power draw. Remove heavy objects from seats when parked.</span>
+                            <span lang="fr">Le véhicule détecte une présence d'enfant et déclenche des alarmes avec une consommation d'énergie continue. Retirer les objets lourds des sièges lorsque garé.</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Section V: Common Operating Errors -->
+        <div class="guide-section" id="section-5">
+            <h2>
+                <span lang="en">V. Common Operating Errors (14 Issues)</span>
+                <span lang="fr">V. Erreurs courantes de fonctionnement (14 problèmes)</span>
+            </h2>
+
+            <div class="error-grid">
+                <!-- Error 1 -->
+                <div class="error-card">
+                    <h4>
+                        <span lang="en">1. No "READY" Despite Pressing Brake</span>
+                        <span lang="fr">1. Pas de "READY" malgré l'appui sur le frein</span>
+                    </h4>
+                    <div class="solution">
+                        <span lang="en">Remove parking brake → Lock all doors → Wait for screen to shut down → Unlock via remote → Retry (wait 30 seconds between attempts)</span>
+                        <span lang="fr">Retirer le frein de stationnement → Verrouiller toutes les portes → Attendre l'extinction de l'écran → Déverrouiller avec la télécommande → Réessayer (attendre 30 secondes entre les tentatives)</span>
+                    </div>
+                </div>
+
+                <!-- Error 2 -->
+                <div class="error-card">
+                    <h4>
+                        <span lang="en">2. System/Battery Error Warnings</span>
+                        <span lang="fr">2. Avertissements d'erreur système/batterie</span>
+                    </h4>
+                    <div class="solution">
+                        <span lang="en">Exit vehicle → Lock it → Wait 5 minutes outside remote range → Restart. For FW8.7.9, may require battery terminal disconnection.</span>
+                        <span lang="fr">Sortir du véhicule → Le verrouiller → Attendre 5 minutes hors de portée de la télécommande → Redémarrer. Pour FW8.7.9, peut nécessiter la déconnexion de la borne de batterie.</span>
+                    </div>
+                </div>
+
+                <!-- Error 3 -->
+                <div class="error-card">
+                    <h4>
+                        <span lang="en">3. Vehicle Won't Sleep When Parked</span>
+                        <span lang="fr">3. Le véhicule ne se met pas en veille lorsque garé</span>
+                    </h4>
+                    <div class="solution">
+                        <span lang="en">Check for weak battery (<70-75%), upgrade to LFP battery, perform "Wrench 10" hotfix, or reset battery sensor.</span>
+                        <span lang="fr">Vérifier la faiblesse de la batterie (<70-75%), passer à une batterie LFP, effectuer le correctif "Clé 10", ou réinitialiser le capteur de batterie.</span>
+                    </div>
+                </div>
+
+                <!-- Error 4 -->
+                <div class="error-card">
+                    <h4>
+                        <span lang="en">4. Steering Wheel Buttons Frozen</span>
+                        <span lang="fr">4. Boutons du volant gelés</span>
+                    </h4>
+                    <div class="solution">
+                        <span lang="en">Execute the "Wrench 10 Universal Fix" hotfix procedure (see Section II).</span>
+                        <span lang="fr">Exécuter la procédure de correctif "Clé universelle 10" (voir Section II).</span>
+                    </div>
+                </div>
+
+                <!-- Error 5 -->
+                <div class="error-card">
+                    <h4>
+                        <span lang="en">5. Flickering Central Display</span>
+                        <span lang="fr">5. Écran central vacillant</span>
+                    </h4>
+                    <div class="solution">
+                        <span lang="en">Perform the "Wrench 10" hotfix procedure to reset display systems.</span>
+                        <span lang="fr">Effectuer la procédure de correctif "Clé 10" pour réinitialiser les systèmes d'affichage.</span>
+                    </div>
+                </div>
+
+                <!-- Error 6 -->
+                <div class="error-card">
+                    <h4>
+                        <span lang="en">6. Unresponsive Touchscreen</span>
+                        <span lang="fr">6. Écran tactile ne répondant pas</span>
+                    </h4>
+                    <div class="solution">
+                        <span lang="en">Hold the power button for 30 seconds to 1 minute to force a system reboot.</span>
+                        <span lang="fr">Maintenir le bouton d'alimentation pendant 30 secondes à 1 minute pour forcer un redémarrage du système.</span>
+                    </div>
+                </div>
+
+                <!-- Error 7 -->
+                <div class="error-card">
+                    <h4>
+                        <span lang="en">7. Battery Drains During Charging</span>
+                        <span lang="fr">7. La batterie se décharge pendant la charge</span>
+                    </h4>
+                    <div class="solution">
+                        <span lang="en">Dealership firmware update required. Contact your VinFast service center.</span>
+                        <span lang="fr">Mise à jour du micrologiciel chez le concessionnaire requise. Contacter votre centre de service VinFast.</span>
+                    </div>
+                </div>
+
+                <!-- Error 8 -->
+                <div class="error-card">
+                    <h4>
+                        <span lang="en">8. 12V Not Charging Despite Vehicle Running</span>
+                        <span lang="fr">8. 12V ne charge pas malgré le véhicule en marche</span>
+                    </h4>
+                    <div class="solution">
+                        <span lang="en">Disconnect battery when parking long-term, or install a parallel LFP battery for improved reliability.</span>
+                        <span lang="fr">Déconnecter la batterie lors de stationnement prolongé, ou installer une batterie LFP parallèle pour une meilleure fiabilité.</span>
+                    </div>
+                </div>
+
+                <!-- Error 9 -->
+                <div class="error-card">
+                    <h4>
+                        <span lang="en">9. 360 Camera Malfunction</span>
+                        <span lang="fr">9. Dysfonctionnement de la caméra 360</span>
+                    </h4>
+                    <div class="solution">
+                        <span lang="en">Dealership ADAS reset (1 hour procedure) or hardware replacement if reset fails.</span>
+                        <span lang="fr">Réinitialisation ADAS chez le concessionnaire (procédure d'1 heure) ou remplacement matériel si la réinitialisation échoue.</span>
+                    </div>
+                </div>
+
+                <!-- Error 10 -->
+                <div class="error-card">
+                    <h4>
+                        <span lang="en">10. Frequent Camera/Phantom Errors</span>
+                        <span lang="fr">10. Erreurs fréquentes de caméra/fantômes</span>
+                    </h4>
+                    <div class="solution">
+                        <span lang="en">Upgrade to LFP battery or reset via battery terminal disconnection procedure.</span>
+                        <span lang="fr">Passer à une batterie LFP ou réinitialiser via la procédure de déconnexion de la borne de batterie.</span>
+                    </div>
+                </div>
+
+                <!-- Error 11 -->
+                <div class="error-card">
+                    <h4>
+                        <span lang="en">11. Shifting to "N" (Neutral) While Driving</span>
+                        <span lang="fr">11. Passage en "N" (Neutre) pendant la conduite</span>
+                    </h4>
+                    <div class="solution">
+                        <span lang="en">⚠️ EMERGENCY: Call VinFast roadside assistance immediately. Do not attempt to fix while driving.</span>
+                        <span lang="fr">⚠️ URGENCE : Appeler l'assistance routière VinFast immédiatement. Ne pas tenter de réparer en conduisant.</span>
+                    </div>
+                </div>
+
+                <!-- Error 12 -->
+                <div class="error-card">
+                    <h4>
+                        <span lang="en">12. Complete 12V Battery Depletion</span>
+                        <span lang="fr">12. Épuisement complet de la batterie 12V</span>
+                    </h4>
+                    <div class="solution">
+                        <span lang="en">Jump-start using another vehicle or battery. Avoid portable chargers designed for gasoline vehicles as they may be incompatible.</span>
+                        <span lang="fr">Démarrer avec des câbles en utilisant un autre véhicule ou une batterie. Éviter les chargeurs portables conçus pour les véhicules à essence car ils peuvent être incompatibles.</span>
+                    </div>
+                </div>
+
+                <!-- Error 13 -->
+                <div class="error-card">
+                    <h4>
+                        <span lang="en">13. False Warnings (FW 8.7.9.1)</span>
+                        <span lang="fr">13. Faux avertissements (FW 8.7.9.1)</span>
+                    </h4>
+                    <div class="solution">
+                        <span lang="en">Lock vehicle for 5 minutes to allow automatic clearing of phantom battery/charging alerts.</span>
+                        <span lang="fr">Verrouiller le véhicule pendant 5 minutes pour permettre l'effacement automatique des alertes fantômes de batterie/charge.</span>
+                    </div>
+                </div>
+
+                <!-- Error 14 -->
+                <div class="error-card">
+                    <h4>
+                        <span lang="en">14. "Turtle" Mode (Thermal Throttling)</span>
+                        <span lang="fr">14. Mode "Tortue" (limitation thermique)</span>
+                    </h4>
+                    <div class="solution">
+                        <span lang="en">Park in shaded area for 15-20 minutes. Verify coolant level is above minimum mark. Perform hotfix if condition persists.</span>
+                        <span lang="fr">Garer dans une zone ombragée pendant 15-20 minutes. Vérifier que le niveau de liquide de refroidissement est au-dessus du minimum. Effectuer le correctif si la condition persiste.</span>
+                    </div>
+                </div>
+
+                <!-- Error 15 - No Remote Response -->
+                <div class="error-card">
+                    <h4>
+                        <span lang="en">15. No Remote Response</span>
+                        <span lang="fr">15. Pas de réponse de la télécommande</span>
+                    </h4>
+                    <div class="solution">
+                        <span lang="en">Check for dead 12V battery or module malfunction. Use mechanical key to access vehicle if needed.</span>
+                        <span lang="fr">Vérifier si la batterie 12V est déchargée ou dysfonctionnement du module. Utiliser la clé mécanique pour accéder au véhicule si nécessaire.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section VI: Hardware Issues -->
+        <div class="guide-section" id="section-6">
+            <h2>
+                <span lang="en">VI. Hardware Issues (7 Problems)</span>
+                <span lang="fr">VI. Problèmes matériels (7 problèmes)</span>
+            </h2>
+
+            <table class="guide-table">
+                <thead>
+                    <tr>
+                        <th>
+                            <span lang="en">Problem</span>
+                            <span lang="fr">Problème</span>
+                        </th>
+                        <th>
+                            <span lang="en">Solution</span>
+                            <span lang="fr">Solution</span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <span lang="en">Loud braking/steering noise during movement</span>
+                            <span lang="fr">Bruit de freinage/direction fort pendant le mouvement</span>
+                        </td>
+                        <td>
+                            <span lang="en">Switch to high regenerative braking mode. Noise typically resolves within 3-5 days of regular use.</span>
+                            <span lang="fr">Passer en mode de freinage régénératif élevé. Le bruit se résout généralement dans les 3-5 jours d'utilisation régulière.</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span lang="en">Front mudguard scraping curbs/bumper damage</span>
+                            <span lang="fr">Garde-boue avant raclant les bordures/dommages au pare-chocs</span>
+                        </td>
+                        <td>
+                            <span lang="en">Remove or trim mudguard. Note that rear guard has similar issues on curbs.</span>
+                            <span lang="fr">Retirer ou couper le garde-boue. Noter que le garde arrière a des problèmes similaires sur les bordures.</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span lang="en">Rear suspension clicking/clunking</span>
+                            <span lang="fr">Cliquetis/bruit sourd de la suspension arrière</span>
+                        </td>
+                        <td>
+                            <span lang="en">Trim plastic contact points on spring. Apply MoS₂ (molybdenum disulfide) lubricant. Consider upgrading shock absorber pads.</span>
+                            <span lang="fr">Couper les points de contact en plastique sur le ressort. Appliquer du lubrifiant MoS₂ (disulfure de molybdène). Envisager la mise à niveau des coussinets d'amortisseur.</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span lang="en">Rough/loud rear suspension ride</span>
+                            <span lang="fr">Conduite rude/bruyante de la suspension arrière</span>
+                        </td>
+                        <td>
+                            <span lang="en">Install thicker suspension pads (1.5-3cm elevation). Consider aftermarket rear shock absorbers for improved comfort.</span>
+                            <span lang="fr">Installer des coussinets de suspension plus épais (élévation de 1,5-3 cm). Envisager des amortisseurs arrière de rechange pour un meilleur confort.</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span lang="en">Heavy/hard door closing</span>
+                            <span lang="fr">Fermeture de porte lourde/difficile</span>
+                        </td>
+                        <td>
+                            <span lang="en">Apply RP7 lubricant to hinge contact points. Apply long-lasting grease to plastic door retention mechanisms.</span>
+                            <span lang="fr">Appliquer du lubrifiant RP7 aux points de contact de la charnière. Appliquer de la graisse longue durée aux mécanismes de rétention de porte en plastique.</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span lang="en">Electrical/battery faults during rain/flooding</span>
+                            <span lang="fr">Défauts électriques/de batterie pendant la pluie/inondation</span>
+                        </td>
+                        <td>
+                            <span lang="en">Avoid flooded roads. Inspect high-voltage seals during regular maintenance to ensure water resistance.</span>
+                            <span lang="fr">Éviter les routes inondées. Inspecter les joints haute tension lors de l'entretien régulier pour assurer la résistance à l'eau.</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span lang="en">Weak 12V battery inadequate for operation</span>
+                            <span lang="fr">Batterie 12V faible inadéquate pour le fonctionnement</span>
+                        </td>
+                        <td>
+                            <span lang="en">⚠️ Upgrade to LFP (Lithium Iron Phosphate) battery immediately for improved reliability and longevity.</span>
+                            <span lang="fr">⚠️ Passer immédiatement à une batterie LFP (phosphate de fer-lithium) pour une fiabilité et une longévité améliorées.</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Section VII: Charging Issues -->
+        <div class="guide-section" id="section-7">
+            <h2>
+                <span lang="en">VII. Charging Issues (3 Problems)</span>
+                <span lang="fr">VII. Problèmes de charge (3 problèmes)</span>
+            </h2>
+
+            <table class="guide-table">
+                <thead>
+                    <tr>
+                        <th>
+                            <span lang="en">Issue</span>
+                            <span lang="fr">Problème</span>
+                        </th>
+                        <th>
+                            <span lang="en">Resolution</span>
+                            <span lang="fr">Résolution</span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <span lang="en">Charging gun stuck/won't disconnect</span>
+                            <span lang="fr">Pistolet de charge coincé/ne se déconnecte pas</span>
+                        </td>
+                        <td>
+                            <span lang="en">Method 1: Lock vehicle → Unlock → Press brake for "READY" → Wait 10 seconds → Remove gun.<br><br>
+                            Method 2: Pull the safety cable beneath the front hood (red plastic-wrapped wire near charging port) to manually release.</span>
+                            <span lang="fr">Méthode 1 : Verrouiller le véhicule → Déverrouiller → Appuyer sur le frein pour "READY" → Attendre 10 secondes → Retirer le pistolet.<br><br>
+                            Méthode 2 : Tirer le câble de sécurité sous le capot avant (fil enveloppé de plastique rouge près du port de charge) pour libérer manuellement.</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span lang="en">Charging gun won't extract from station</span>
+                            <span lang="fr">Pistolet de charge ne se retire pas de la station</span>
+                        </td>
+                        <td>
+                            <span lang="en">Two connector types exist:<br>
+                            • Type 1: Press locking pin before removal<br>
+                            • Type 2: Lift handle and pull upward<br><br>
+                            Identify your station type and use appropriate method.</span>
+                            <span lang="fr">Deux types de connecteurs existent :<br>
+                            • Type 1 : Appuyer sur la goupille de verrouillage avant le retrait<br>
+                            • Type 2 : Soulever la poignée et tirer vers le haut<br><br>
+                            Identifier le type de votre station et utiliser la méthode appropriée.</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span lang="en">Charge won't initiate (functioning station)</span>
+                            <span lang="fr">La charge ne démarre pas (station fonctionnelle)</span>
+                        </td>
+                        <td>
+                            <span lang="en">Observe the "V" indicator light at the charging port:<br>
+                            • Green blinking = Charging active ✓<br>
+                            • Red = Fault detected ✗<br>
+                            • Yellow = Authentication pending ⏳<br><br>
+                            If red, disconnect and retry. If yellow persists, check app authentication.</span>
+                            <span lang="fr">Observer le voyant indicateur "V" au port de charge :<br>
+                            • Vert clignotant = Charge active ✓<br>
+                            • Rouge = Défaut détecté ✗<br>
+                            • Jaune = Authentification en attente ⏳<br><br>
+                            Si rouge, déconnecter et réessayer. Si jaune persiste, vérifier l'authentification de l'application.</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Section VIII: YouTube via Android Auto -->
+        <div class="guide-section" id="section-8">
+            <h2>
+                <span lang="en">VIII. YouTube Viewing via Android Auto</span>
+                <span lang="fr">VIII. Visionnement YouTube via Android Auto</span>
+            </h2>
+
+            <div class="warning-box">
+                <strong>
+                    <span lang="en">⚠️ SAFETY WARNING:</span>
+                    <span lang="fr">⚠️ AVERTISSEMENT DE SÉCURITÉ :</span>
+                </strong>
+                <span lang="en">Use this feature only when parked. Watching videos while driving is illegal and dangerous.</span>
+                <span lang="fr">Utilisez cette fonctionnalité uniquement lorsque vous êtes garé. Regarder des vidéos en conduisant est illégal et dangereux.</span>
+            </div>
+
+            <div class="note-box">
+                <p lang="en"><strong>Installation Instructions:</strong></p>
+                <p lang="fr"><strong>Instructions d'installation :</strong></p>
+
+                <p lang="en">Install files in the following sequence:</p>
+                <p lang="fr">Installer les fichiers dans l'ordre suivant :</p>
+
+                <ol class="step-list">
+                    <li>
+                        <span lang="en">Install Kinginstaller (File 1) on your Android device</span>
+                        <span lang="fr">Installer Kinginstaller (Fichier 1) sur votre appareil Android</span>
+                    </li>
+                    <li>
+                        <span lang="en">Use Kinginstaller to install additional apps (Files 2-3)</span>
+                        <span lang="fr">Utiliser Kinginstaller pour installer les applications supplémentaires (Fichiers 2-3)</span>
+                    </li>
+                    <li>
+                        <span lang="en">Connect your device to the vehicle via Android Auto</span>
+                        <span lang="fr">Connecter votre appareil au véhicule via Android Auto</span>
+                    </li>
+                </ol>
+
+                <p lang="en"><strong>Download Link:</strong> <a href="https://drive.google.com/drive/folders/1-EKYN3nxxN9-ENXHSPXk1HikPIIQIxoD" target="_blank" rel="noopener noreferrer">Google Drive Folder</a></p>
+                <p lang="fr"><strong>Lien de téléchargement :</strong> <a href="https://drive.google.com/drive/folders/1-EKYN3nxxN9-ENXHSPXk1HikPIIQIxoD" target="_blank" rel="noopener noreferrer">Dossier Google Drive</a></p>
+            </div>
+        </div>
+
+        <!-- Section IX: LFP Battery Installation -->
+        <div class="guide-section" id="section-9">
+            <h2>
+                <span lang="en">IX. LFP 12V Battery Parallel Installation</span>
+                <span lang="fr">IX. Installation parallèle de batterie LFP 12V</span>
+            </h2>
+
+            <p lang="en">Installing a Lithium Iron Phosphate (LFP) battery in parallel with the factory 12V lead-acid battery significantly improves reliability and addresses many common electrical issues.</p>
+            <p lang="fr">L'installation d'une batterie au phosphate de fer-lithium (LFP) en parallèle avec la batterie plomb-acide 12V d'origine améliore considérablement la fiabilité et résout de nombreux problèmes électriques courants.</p>
+
+            <h3>
+                <span lang="en">Operating Principles</span>
+                <span lang="fr">Principes de fonctionnement</span>
+            </h3>
+
+            <ul style="line-height: 1.8; margin: 1rem 0;">
+                <li lang="en"><strong>Startup Support:</strong> Provides high current during engine start, preventing voltage sag</li>
+                <li lang="fr"><strong>Support au démarrage :</strong> Fournit un courant élevé pendant le démarrage du moteur, empêchant la chute de tension</li>
+
+                <li lang="en"><strong>Rapid Charging:</strong> Charges quickly from main battery once vehicle reaches "Ready" mode</li>
+                <li lang="fr"><strong>Charge rapide :</strong> Se charge rapidement à partir de la batterie principale une fois que le véhicule atteint le mode "Ready"</li>
+
+                <li lang="en"><strong>Extended Parking:</strong> 21Ah usable capacity during sleep mode (vs. 1-5Ah from standard 45Ah lead-acid), enabling 4-5 days of parking without main battery drain</li>
+                <li lang="fr"><strong>Stationnement prolongé :</strong> Capacité utilisable de 21Ah en mode veille (contre 1-5Ah pour le plomb-acide standard de 45Ah), permettant 4-5 jours de stationnement sans décharge de la batterie principale</li>
+
+                <li lang="en"><strong>Self-Balancing:</strong> Automatically maintains and preserves lead-acid battery health during sleep cycles</li>
+                <li lang="fr"><strong>Auto-équilibrage :</strong> Maintient et préserve automatiquement la santé de la batterie plomb-acide pendant les cycles de veille</li>
+
+                <li lang="en"><strong>Emergency Protection:</strong> Cuts off at 9.2V to prevent complete discharge during system malfunction</li>
+                <li lang="fr"><strong>Protection d'urgence :</strong> Se coupe à 9,2V pour éviter une décharge complète lors d'un dysfonctionnement du système</li>
+
+                <li lang="en"><strong>Manual Override:</strong> Can be manually disconnected if vehicle malfunction prevents normal shutdown</li>
+                <li lang="fr"><strong>Dérogation manuelle :</strong> Peut être déconnectée manuellement si un dysfonctionnement du véhicule empêche l'arrêt normal</li>
+            </ul>
+
+            <h3>
+                <span lang="en">When to Consider Installation</span>
+                <span lang="fr">Quand envisager l'installation</span>
+            </h3>
+
+            <div class="error-grid">
+                <div class="error-card">
+                    <h4>
+                        <span lang="en">Indicator 1</span>
+                        <span lang="fr">Indicateur 1</span>
+                    </h4>
+                    <div class="solution">
+                        <span lang="en">Frequent 12V charging cycles during parking, indicating the factory battery cannot maintain adequate charge</span>
+                        <span lang="fr">Cycles de charge 12V fréquents pendant le stationnement, indiquant que la batterie d'origine ne peut pas maintenir une charge adéquate</span>
+                    </div>
+                </div>
+
+                <div class="error-card">
+                    <h4>
+                        <span lang="en">Indicator 2</span>
+                        <span lang="fr">Indicateur 2</span>
+                    </h4>
+                    <div class="solution">
+                        <span lang="en">Multiple phantom errors during startup, suggesting voltage instability</span>
+                        <span lang="fr">Plusieurs erreurs fantômes au démarrage, suggérant une instabilité de tension</span>
+                    </div>
+                </div>
+
+                <div class="error-card">
+                    <h4>
+                        <span lang="en">Indicator 3</span>
+                        <span lang="fr">Indicateur 3</span>
+                    </h4>
+                    <div class="solution">
+                        <span lang="en">Slow 360 camera initialization or frequent camera malfunctions due to insufficient power</span>
+                        <span lang="fr">Initialisation lente de la caméra 360 ou dysfonctionnements fréquents de la caméra en raison d'une puissance insuffisante</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="warning-box">
+                <strong>
+                    <span lang="en">⚠️ Professional Installation Recommended:</span>
+                    <span lang="fr">⚠️ Installation professionnelle recommandée :</span>
+                </strong>
+                <span lang="en">While this modification is safe when properly installed, we recommend having it performed by a qualified automotive electrician to ensure correct wiring, fusing, and connection polarity.</span>
+                <span lang="fr">Bien que cette modification soit sûre lorsqu'elle est correctement installée, nous recommandons de la faire effectuer par un électricien automobile qualifié pour garantir un câblage, des fusibles et une polarité de connexion corrects.</span>
+            </div>
+        </div>
+
+        <!-- Section X: Recommended Accessories -->
+        <div class="guide-section" id="section-10">
+            <h2>
+                <span lang="en">X. Recommended Accessories</span>
+                <span lang="fr">X. Accessoires recommandés</span>
+            </h2>
+
+            <p lang="en">The original guide includes 17 recommended accessories with purchase links. Since these are specific to the Vietnamese market and may not be applicable to North American owners, we've omitted the detailed product list.</p>
+            <p lang="fr">Le guide original inclut 17 accessoires recommandés avec des liens d'achat. Comme ceux-ci sont spécifiques au marché vietnamien et peuvent ne pas être applicables aux propriétaires nord-américains, nous avons omis la liste détaillée des produits.</p>
+
+            <h3>
+                <span lang="en">General Categories</span>
+                <span lang="fr">Catégories générales</span>
+            </h3>
+
+            <ul style="line-height: 1.8; margin: 1rem 0;">
+                <li lang="en">LCD key fobs for improved remote functionality</li>
+                <li lang="fr">Télécommandes LCD pour une fonctionnalité améliorée</li>
+
+                <li lang="en">Cabin air filters (activated charcoal and standard types)</li>
+                <li lang="fr">Filtres à air d'habitacle (charbon activé et types standard)</li>
+
+                <li lang="en">Specialized lubricants (RP7, MoS₂) for suspension and door mechanisms</li>
+                <li lang="fr">Lubrifiants spécialisés (RP7, MoS₂) pour la suspension et les mécanismes de porte</li>
+
+                <li lang="en">Battery monitoring devices</li>
+                <li lang="fr">Dispositifs de surveillance de batterie</li>
+
+                <li lang="en">Charging adapters and accessories</li>
+                <li lang="fr">Adaptateurs de charge et accessoires</li>
+
+                <li lang="en">Door seals and weatherstripping</li>
+                <li lang="fr">Joints de porte et joints d'étanchéité</li>
+
+                <li lang="en">Wheel decals and cosmetic accessories</li>
+                <li lang="fr">Décalcomanies de roue et accessoires cosmétiques</li>
+
+                <li lang="en">Rodent repellent systems</li>
+                <li lang="fr">Systèmes de répulsion des rongeurs</li>
+
+                <li lang="en">Grounding terminals for improved electrical stability</li>
+                <li lang="fr">Bornes de mise à la terre pour une stabilité électrique améliorée</li>
+
+                <li lang="en">Electric tire pumps</li>
+                <li lang="fr">Pompes à pneus électriques</li>
+
+                <li lang="en">Dashcams (front and rear)</li>
+                <li lang="fr">Caméras embarquées (avant et arrière)</li>
+
+                <li lang="en">Premium floor mats and TPE floor liners</li>
+                <li lang="fr">Tapis de sol premium et revêtements de sol TPE</li>
+
+                <li lang="en">Battery disconnect switches for long-term storage</li>
+                <li lang="fr">Interrupteurs de déconnexion de batterie pour stockage à long terme</li>
+            </ul>
+
+            <div class="note-box">
+                <p lang="en"><strong>For North American Owners:</strong> Consult local VinFast dealers, EV specialty shops, or general automotive retailers for equivalent products suitable for your market.</p>
+                <p lang="fr"><strong>Pour les propriétaires nord-américains :</strong> Consulter les concessionnaires VinFast locaux, les magasins spécialisés VE ou les détaillants automobiles généraux pour des produits équivalents adaptés à votre marché.</p>
+            </div>
+        </div>
+
+        <!-- Source Credit -->
+        <div class="source-credit">
+            <p>
+                <span lang="en"><strong>Original Source:</strong> This guide is translated from the Vietnamese community resource "Cẩm nang sử dụng xe điện Vinfast VF8/VF9"</span>
+                <span lang="fr"><strong>Source originale :</strong> Ce guide est traduit de la ressource communautaire vietnamienne "Cẩm nang sử dụng xe điện Vinfast VF8/VF9"</span>
+            </p>
+            <p>
+                <span lang="en"><strong>Editor:</strong> Thích Xe | <strong>YouTube:</strong> <a href="https://www.youtube.com/channel/UCIHR-OeB10voVDaIeQhgkHg" target="_blank" rel="noopener noreferrer">Thích Xe Channel</a> | <strong>Hotline:</strong> 0986666351</span>
+                <span lang="fr"><strong>Éditeur :</strong> Thích Xe | <strong>YouTube :</strong> <a href="https://www.youtube.com/channel/UCIHR-OeB10voVDaIeQhgkHg" target="_blank" rel="noopener noreferrer">Chaîne Thích Xe</a> | <strong>Ligne directe :</strong> 0986666351</span>
+            </p>
+            <p>
+                <span lang="en"><strong>Translation & Adaptation:</strong> VinFast Owners Association (AVO) | Community effort to make Vietnamese knowledge accessible to English and French speaking owners</span>
+                <span lang="fr"><strong>Traduction et adaptation :</strong> Association des propriétaires VinFast (AVO) | Effort communautaire pour rendre les connaissances vietnamiennes accessibles aux propriétaires anglophones et francophones</span>
+            </p>
+            <p style="margin-top: 1rem;">
+                <span lang="en">📧 Have corrections or updates? Contact us through our main website.</span>
+                <span lang="fr">📧 Avez-vous des corrections ou des mises à jour? Contactez-nous via notre site Web principal.</span>
+            </p>
+        </div>
+
+    </div>
+
+    <!-- ===== Footer ===== -->
+    <footer class="footer-v2">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <div style="display:flex; align-items:center; gap:var(--space-3); margin-bottom:var(--space-4);">
+                    <img src="/images/icons/avo-logo.png" alt="AVO" width="36" height="36">
+                    <strong style="font-size:var(--text-lg); color:white;">AVO</strong>
+                </div>
+                <p lang="en">Association of VinFast Owners North America. Independent owner organization, not affiliated with VinFast Auto.</p>
+                <p lang="fr">Association des Propriétaires VinFast Amérique du Nord. Organisation indépendante, non affiliée à VinFast Auto.</p>
+            </div>
+
+            <div class="footer-col">
+                <h4>
+                    <span lang="en">Navigation</span>
+                    <span lang="fr">Navigation</span>
+                </h4>
+                <ul class="footer-links-v2">
+                    <li><a href="/index.html"><span lang="en">Home</span><span lang="fr">Accueil</span></a></li>
+                    <li><a href="/considering-vinfast.html"><span lang="en">Buyer Guide</span><span lang="fr">Guide d'Achat</span></a></li>
+                    <li><a href="/recalls.html"><span lang="en">Recalls</span><span lang="fr">Rappels</span></a></li>
+                    <li><a href="/trip-data.html"><span lang="en">Trip Data</span><span lang="fr">Données de Voyage</span></a></li>
+                    <li><a href="/report-issue.html"><span lang="en">Report Issue</span><span lang="fr">Signaler</span></a></li>
+                    <li><a href="/links.html"><span lang="en">All Links</span><span lang="fr">Tous les Liens</span></a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4>
+                    <span lang="en">Community</span>
+                    <span lang="fr">Communauté</span>
+                </h4>
+                <ul class="footer-links-v2">
+                    <li><a href="/discord.html">Discord</a></li>
+                    <li><a href="https://www.facebook.com/share/g/17dH6oZRA4/" target="_blank" rel="noopener">Facebook</a></li>
+                    <li><a href="https://vinfasttalk.com" target="_blank" rel="noopener">VinFastTalk</a></li>
+                    <li><a href="https://www.bonfire.com/store/association-of-vinfast-owners/" target="_blank" rel="noopener"><span lang="en">Shop</span><span lang="fr">Boutique</span></a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4>
+                    <span lang="en">Legal</span>
+                    <span lang="fr">Légal</span>
+                </h4>
+                <ul class="footer-links-v2">
+                    <li><a href="/privacy.html"><span lang="en">Privacy Policy</span><span lang="fr">Confidentialité</span></a></li>
+                    <li><a href="/disclaimer.html"><span lang="en">Disclaimer</span><span lang="fr">Avertissement</span></a></li>
+                    <li><a href="/documents.html"><span lang="en">Governance</span><span lang="fr">Gouvernance</span></a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom-v2">
+            <p lang="en">&copy; 2025&ndash;2026 Association of VinFast Owners North America. Independent owner organization, not affiliated with VinFast Auto.</p>
+            <p lang="fr">&copy; 2025&ndash;2026 Association des Propriétaires VinFast Amérique du Nord. Organisation indépendante, non affiliée à VinFast Auto.</p>
+        </div>
+    </footer>
+
+    <button class="back-to-top" aria-label="Back to top">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+    </button>
+
+    <script src="/js/main.js"></script>
+
+    
+
+</body>
+</html>

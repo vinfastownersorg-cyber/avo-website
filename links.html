@@ -1,0 +1,1191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Primary Meta Tags -->
+    <title>Links & Resources | AVO North America</title>
+    
+    <meta name="description" content="All VinFast owner community links in one place — Discord, Facebook groups, official VinFast resources, safety recalls, owner manuals, YouTube channels, and more.">
+    
+    
+
+    <!-- Multilingual SEO -->
+    
+    <link rel="alternate" hreflang="en" href="https://vinfastowners.org/links.html">
+    <link rel="alternate" hreflang="fr-CA" href="https://vinfastowners.org/links.html?lang=fr">
+    <link rel="alternate" hreflang="x-default" href="https://vinfastowners.org/links.html">
+    
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://vinfastowners.org/links.html">
+    <meta property="og:title" content="Links & Resources | AVO North America">
+    <meta property="og:description" content="All VinFast owner community links in one place — Discord, Facebook, forums, official resources, and more.">
+    <meta property="og:image" content="https://vinfastowners.org/images/icons/avo-logo.png">
+    
+
+    
+
+    <!-- Canonical -->
+    <link rel="canonical" href="https://vinfastowners.org/links.html">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/images/icons/avo-logo.png">
+    <link rel="apple-touch-icon" href="/images/icons/avo-logo.png">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="/css/styles.css">
+
+    
+
+    <style>
+        .linktree-hero {
+            background: linear-gradient(135deg, #0a3d7a 0%, var(--brand-primary) 40%, var(--brand-deep) 100%);
+            color: var(--text-on-brand);
+            text-align: center;
+            padding: var(--space-12) var(--space-6) var(--space-8);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .linktree-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse at 20% 40%, rgba(0,163,255,0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 60%, rgba(255,107,53,0.1) 0%, transparent 45%),
+                url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            pointer-events: none;
+        }
+
+        .linktree-hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(to right,
+                var(--brand-red) 0%, var(--brand-red) 14.28%,
+                #7A8691 14.28%, #7A8691 28.56%,
+                var(--brand-primary) 28.56%, var(--brand-primary) 42.84%,
+                var(--brand-warm) 42.84%, var(--brand-warm) 57.12%,
+                var(--brand-deep) 57.12%, var(--brand-deep) 71.4%,
+                #F8F8F8 71.4%, #F8F8F8 85.68%,
+                #1C1C1C 85.68%, #1C1C1C 100%
+            );
+        }
+
+        .linktree-hero > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .linktree-hero img {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto var(--space-4);
+            filter: drop-shadow(0 4px 12px rgba(0,0,0,0.3));
+        }
+
+        .linktree-hero h1 {
+            font-size: var(--text-2xl);
+            font-weight: 900;
+            margin-bottom: var(--space-2);
+        }
+
+        .linktree-hero p {
+            opacity: 0.9;
+            font-size: var(--text-base);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        /* Category sections */
+        .link-category {
+            max-width: 720px;
+            margin: 0 auto var(--space-8);
+        }
+
+        .link-category-header {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            margin-bottom: var(--space-4);
+            padding-bottom: var(--space-3);
+            border-bottom: 2px solid var(--surface-3);
+        }
+
+        .link-category-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .link-category-header h2 {
+            font-size: var(--text-lg);
+            font-weight: 700;
+            color: var(--text-primary);
+            margin: 0;
+        }
+
+        .link-category-header h2::after {
+            display: none;
+        }
+
+        /* Link items */
+        .link-list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-3);
+        }
+
+        .link-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-4);
+            padding: var(--space-4) var(--space-5);
+            background: var(--surface-0);
+            border: 1px solid var(--surface-3);
+            border-radius: var(--radius-lg);
+            text-decoration: none;
+            color: inherit;
+            transition: transform var(--duration-normal) var(--ease-out),
+                        box-shadow var(--duration-normal) var(--ease-out),
+                        border-color var(--duration-fast) ease;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .link-item:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--brand-accent);
+            color: inherit;
+        }
+
+        .link-item-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .link-item-text {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .link-item-title {
+            font-weight: 600;
+            font-size: var(--text-base);
+            color: var(--text-primary);
+            line-height: var(--leading-tight);
+        }
+
+        .link-item-desc {
+            font-size: var(--text-sm);
+            color: var(--text-muted);
+            line-height: var(--leading-normal);
+            margin-top: 2px;
+        }
+
+        .link-item-arrow {
+            color: var(--text-muted);
+            flex-shrink: 0;
+            transition: transform var(--duration-fast) ease, color var(--duration-fast) ease;
+        }
+
+        .link-item:hover .link-item-arrow {
+            transform: translateX(3px);
+            color: var(--brand-accent);
+        }
+
+        /* Featured link (bigger, gradient border) */
+        .link-item.featured {
+            border: 2px solid transparent;
+            background-image: linear-gradient(var(--surface-0), var(--surface-0)),
+                              linear-gradient(135deg, var(--brand-primary), var(--brand-accent), var(--brand-warm));
+            background-origin: border-box;
+            background-clip: padding-box, border-box;
+            padding: var(--space-5) var(--space-6);
+        }
+
+        .link-item.featured:hover {
+            box-shadow: 0 8px 24px rgba(15, 76, 153, 0.15);
+        }
+
+        /* Subgrid for smaller grouped links */
+        .link-subgrid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+            gap: var(--space-3);
+        }
+
+        .link-subgrid .link-item {
+            padding: var(--space-3) var(--space-4);
+        }
+
+        .link-subgrid .link-item-icon {
+            width: 36px;
+            height: 36px;
+        }
+
+        .link-subgrid .link-item-title {
+            font-size: var(--text-sm);
+        }
+
+        .link-subgrid .link-item-desc {
+            font-size: var(--text-xs);
+        }
+
+        /* Color classes for icons */
+        .bg-discord { background: #5865F2; }
+        .bg-facebook { background: #1877F2; }
+        .bg-youtube { background: #FF0000; }
+        .bg-reddit { background: #FF4500; }
+        .bg-vinfast { background: var(--brand-primary); }
+        .bg-warm { background: linear-gradient(135deg, var(--brand-warm), #d93f0b); }
+        .bg-deep { background: linear-gradient(135deg, var(--brand-deep), #2d7359); }
+        .bg-accent { background: linear-gradient(135deg, var(--brand-primary), var(--brand-accent)); }
+        .bg-red { background: linear-gradient(135deg, var(--brand-red), #d02f3d); }
+        .bg-gray { background: #6B7280; }
+        .bg-twitter { background: #000000; }
+        .bg-instagram { background: linear-gradient(135deg, #833AB4, #FD1D1D, #F77737); }
+        .bg-linkedin { background: #0A66C2; }
+        .bg-green { background: #059669; }
+        .bg-ship { background: #0369A1; }
+        .bg-apple { background: #000000; }
+        .bg-google { background: #34A853; }
+
+        /* Quick-nav at top */
+        .link-quick-nav {
+            display: flex;
+            gap: var(--space-2);
+            flex-wrap: wrap;
+            justify-content: center;
+            max-width: 720px;
+            margin: 0 auto var(--space-8);
+        }
+
+        .link-quick-nav a {
+            padding: var(--space-2) var(--space-4);
+            border-radius: var(--radius-full);
+            font-size: var(--text-sm);
+            font-weight: 600;
+            color: var(--text-secondary);
+            background: var(--surface-1);
+            border: 1px solid var(--surface-3);
+            text-decoration: none;
+            transition: all var(--duration-fast) ease;
+            white-space: nowrap;
+        }
+
+        .link-quick-nav a:hover {
+            background: var(--brand-primary);
+            color: var(--text-on-brand);
+            border-color: var(--brand-primary);
+        }
+
+        /* Dark mode adjustments */
+        :root.dark-mode .link-item.featured {
+            background-image: linear-gradient(var(--surface-1), var(--surface-1)),
+                              linear-gradient(135deg, var(--brand-primary), var(--brand-accent), var(--brand-warm));
+        }
+
+        :root.dark-mode .link-item {
+            background: var(--surface-1);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root:not(.light-mode) .link-item.featured {
+                background-image: linear-gradient(var(--surface-1), var(--surface-1)),
+                                  linear-gradient(135deg, var(--brand-primary), var(--brand-accent), var(--brand-warm));
+            }
+
+            :root:not(.light-mode) .link-item {
+                background: var(--surface-1);
+            }
+        }
+
+        /* Mobile */
+        @media (max-width: 767px) {
+            .link-subgrid {
+                grid-template-columns: 1fr;
+            }
+
+            .link-item-desc {
+                display: none;
+            }
+
+            .link-subgrid .link-item-desc {
+                display: none;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+<div class="scroll-progress" aria-hidden="true"></div>
+
+    <!-- ===== Glass Navigation ===== -->
+    <nav class="nav-v2" role="navigation" aria-label="Main navigation">
+        <div class="nav-inner">
+            <a href="/" class="nav-logo" aria-label="AVO Home">
+                <img src="/images/icons/avo-logo.png" alt="AVO Logo" width="44" height="44">
+                <div class="nav-logo-text">
+                    <span class="nav-logo-name">AVO</span>
+                    <span class="nav-logo-sub">
+                        <span lang="en">North America</span>
+                        <span lang="fr">Amérique du Nord</span>
+                    </span>
+                </div>
+            </a>
+
+            <button class="hamburger-v2" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <div class="nav-links-v2" id="nav-menu">
+                <a href="/index.html">
+                    <span lang="en">Home</span>
+                    <span lang="fr">Accueil</span>
+                </a>
+                <a href="/considering-vinfast.html">
+                    <span lang="en">Considering VinFast?</span>
+                    <span lang="fr">Vous Envisagez VinFast?</span>
+                </a>
+                
+                <a href="/index.html#community">
+                
+                    <span lang="en">Community</span>
+                    <span lang="fr">Communauté</span>
+                </a>
+
+                <!-- Governance Dropdown -->
+                <div class="nav-drop">
+                    <a href="#governance">
+                        <span lang="en">Governance</span>
+                        <span lang="fr">Gouvernance</span>
+                    </a>
+                    <div class="nav-drop-menu">
+                        <a href="/board.html">
+                            <span lang="en">Board of Directors</span>
+                            <span lang="fr">Conseil d'Administration</span>
+                        </a>
+                        <a href="/documents.html">
+                            <span lang="en">Documents & Bylaws</span>
+                            <span lang="fr">Documents et Règlements</span>
+                        </a>
+                        <a href="/meeting-minutes.html">
+                            <span lang="en">Meeting Minutes</span>
+                            <span lang="fr">Procès-Verbaux</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Resources Dropdown -->
+                <div class="nav-drop">
+                    <a href="#resources">
+                        <span lang="en">Resources</span>
+                        <span lang="fr">Ressources</span>
+                    </a>
+                    <div class="nav-drop-menu">
+                        <a href="/recalls.html">
+                            <span lang="en">Recalls & Safety</span>
+                            <span lang="fr">Rappels et Sécurité</span>
+                        </a>
+                        <a href="/trip-data.html">
+                            <span lang="en">Trip Data</span>
+                            <span lang="fr">Données de Voyage</span>
+                        </a>
+                        <a href="/petition.html">
+                            <span lang="en">Petition</span>
+                            <span lang="fr">Pétition</span>
+                        </a>
+                        <a href="/newsletters.html">
+                            <span lang="en">Newsletters</span>
+                            <span lang="fr">Bulletins</span>
+                        </a>
+                        <a href="/report-issue.html">
+                            <span lang="en">Report an Issue</span>
+                            <span lang="fr">Signaler un Problème</span>
+                        </a>
+                        <a href="/vf8-vf9-user-guide.html">
+                            <span lang="en">User Guide</span>
+                            <span lang="fr">Guide d'Utilisation</span>
+                        </a>
+                        <a href="/links.html">
+                            <span lang="en">All Links</span>
+                            <span lang="fr">Tous les Liens</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Join CTA -->
+                <a href="/join.html" class="nav-cta">
+                    <span lang="en">Join</span>
+                    <span lang="fr">Adhérer</span>
+                </a>
+
+                <!-- Mobile-only controls -->
+                <div class="mobile-controls">
+                    <div class="lang-switch">
+                        <button onclick="setLang('en')" class="active" aria-label="English">EN</button>
+                        <button onclick="setLang('fr')" aria-label="Français">FR</button>
+                    </div>
+                    <button class="theme-toggle" aria-label="Toggle dark mode"></button>
+                </div>
+            </div>
+
+            <!-- Desktop controls -->
+            <div class="nav-controls">
+                <div class="lang-switch">
+                    <button onclick="setLang('en')" class="active" aria-label="English">EN</button>
+                    <button onclick="setLang('fr')" aria-label="Français">FR</button>
+                </div>
+                <button class="theme-toggle" aria-label="Toggle dark mode"></button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ===== Hero ===== -->
+    <div class="linktree-hero">
+        <img src="images/icons/avo-logo.png" alt="" aria-hidden="true">
+        <h1>
+            <span lang="en">Links & Resources</span>
+            <span lang="fr">Liens et Ressources</span>
+        </h1>
+        <p>
+            <span lang="en">Everything VinFast owners need — community, official resources, safety tools, and more.</span>
+            <span lang="fr">Tout ce dont les propriétaires VinFast ont besoin — communauté, ressources officielles, outils de sécurité, et plus.</span>
+        </p>
+    </div>
+
+    <!-- ===== Quick Jump ===== -->
+    <section class="section-v2" style="padding-bottom: 0;">
+        <nav class="link-quick-nav" aria-label="Jump to section">
+            <a href="#community">
+                <span lang="en">Community</span>
+                <span lang="fr">Communauté</span>
+            </a>
+            <a href="#avo-resources">
+                <span lang="en">AVO Resources</span>
+                <span lang="fr">Ressources AVO</span>
+            </a>
+            <a href="#vinfast-official">
+                <span lang="en">VinFast Official</span>
+                <span lang="fr">VinFast Officiel</span>
+            </a>
+            <a href="#safety">
+                <span lang="en">Safety & Recalls</span>
+                <span lang="fr">Sécurité et Rappels</span>
+            </a>
+            <a href="#facebook-groups">
+                <span lang="en">Facebook Groups</span>
+                <span lang="fr">Groupes Facebook</span>
+            </a>
+            <a href="#youtube">YouTube</a>
+            <a href="#social">
+                <span lang="en">Social Media</span>
+                <span lang="fr">Réseaux Sociaux</span>
+            </a>
+            <a href="#apps">
+                <span lang="en">Mobile Apps</span>
+                <span lang="fr">Applications</span>
+            </a>
+        </nav>
+    </section>
+
+    <!-- ===== Main Content ===== -->
+    <section class="section-v2" style="padding-top: var(--space-4);">
+
+        <!-- ── Community ── -->
+        <div id="community" class="link-category fade-in">
+            <div class="link-category-header">
+                <div class="link-category-icon bg-accent">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                </div>
+                <h2>
+                    <span lang="en">Community</span>
+                    <span lang="fr">Communauté</span>
+                </h2>
+            </div>
+            <div class="link-list">
+                <a href="discord.html" class="link-item featured">
+                    <div class="link-item-icon bg-discord">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                    </div>
+                    <div class="link-item-text">
+                        <div class="link-item-title">AVO Discord Server</div>
+                        <div class="link-item-desc">
+                            <span lang="en">600+ members — real-time chat, support channels, community events</span>
+                            <span lang="fr">600+ membres — chat en temps réel, canaux de support, événements communautaires</span>
+                        </div>
+                    </div>
+                    <svg class="link-item-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                </a>
+
+                <a href="https://www.facebook.com/share/g/17dH6oZRA4/" target="_blank" rel="noopener" class="link-item">
+                    <div class="link-item-icon bg-facebook">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    </div>
+                    <div class="link-item-text">
+                        <div class="link-item-title">
+                            <span lang="en">AVO Facebook Group</span>
+                            <span lang="fr">Groupe Facebook AVO</span>
+                        </div>
+                        <div class="link-item-desc">
+                            <span lang="en">Official AVO owner discussions, photos, and community updates</span>
+                            <span lang="fr">Discussions officielles AVO, photos et mises à jour communautaires</span>
+                        </div>
+                    </div>
+                    <svg class="link-item-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                </a>
+
+                <a href="https://vinfasttalk.com" target="_blank" rel="noopener" class="link-item">
+                    <div class="link-item-icon bg-warm">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+                    </div>
+                    <div class="link-item-text">
+                        <div class="link-item-title">VinFastTalk Forums</div>
+                        <div class="link-item-desc">
+                            <span lang="en">In-depth owner forums and technical discussions</span>
+                            <span lang="fr">Forums approfondis et discussions techniques entre propriétaires</span>
+                        </div>
+                    </div>
+                    <svg class="link-item-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                </a>
+
+                <a href="https://community.vinfastauto.us/forums/" target="_blank" rel="noopener" class="link-item">
+                    <div class="link-item-icon bg-vinfast">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+                    </div>
+                    <div class="link-item-text">
+                        <div class="link-item-title">
+                            <span lang="en">VinFast Official Community Forums</span>
+                            <span lang="fr">Forums Officiels de la Communauté VinFast</span>
+                        </div>
+                        <div class="link-item-desc">
+                            <span lang="en">VinFast-operated community discussion boards</span>
+                            <span lang="fr">Forums de discussion gérés par VinFast</span>
+                        </div>
+                    </div>
+                    <svg class="link-item-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                </a>
+            </div>
+        </div>
+
+        <!-- ── AVO Resources ── -->
+        <div id="avo-resources" class="link-category fade-in">
+            <div class="link-category-header">
+                <div class="link-category-icon bg-deep">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                </div>
+                <h2>
+                    <span lang="en">AVO Resources</span>
+                    <span lang="fr">Ressources AVO</span>
+                </h2>
+            </div>
+            <div class="link-list">
+                <a href="petition.html" class="link-item featured">
+                    <div class="link-item-icon bg-red">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                    </div>
+                    <div class="link-item-text">
+                        <div class="link-item-title">
+                            <span lang="en">Community Feature Request Petition</span>
+                            <span lang="fr">Pétition de Demande de Fonctionnalités</span>
+                        </div>
+                        <div class="link-item-desc">
+                            <span lang="en">Sign the petition for Dashcam, Sentry Mode, One-Pedal Driving, and more — shared with VinFast Corporate</span>
+                            <span lang="fr">Signez la pétition pour Dashcam, mode Sentinelle, conduite à une pédale, et plus — partagée avec VinFast</span>
+                        </div>
+                    </div>
+                    <svg class="link-item-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                </a>
+
+                <a href="recalls.html" class="link-item">
+                    <div class="link-item-icon bg-accent">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                    </div>
+                    <div class="link-item-text">
+                        <div class="link-item-title">
+                            <span lang="en">Recalls & Safety</span>
+                            <span lang="fr">Rappels et Sécurité</span>
+                        </div>
+                        <div class="link-item-desc">
+                            <span lang="en">Live NHTSA and Transport Canada recall data for VF8 and VF9</span>
+                            <span lang="fr">Données de rappels en direct de la NHTSA et de Transports Canada</span>
+                        </div>
+                    </div>
+                    <svg class="link-item-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                </a>
+
+                <a href="considering-vinfast.html" class="link-item">
+                    <div class="link-item-icon bg-deep">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                    </div>
+                    <div class="link-item-text">
+                        <div class="link-item-title">
+                            <span lang="en">Considering VinFast? Buyer's Guide</span>
+                            <span lang="fr">Vous Envisagez VinFast? Guide d'Achat</span>
+                        </div>
+                        <div class="link-item-desc">
+                            <span lang="en">Honest guide with pros, cons, and real owner perspectives</span>
+                            <span lang="fr">Guide honnête avec avantages, inconvénients et perspectives réelles</span>
+                        </div>
+                    </div>
+                    <svg class="link-item-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                </a>
+
+                <a href="trip-data.html" class="link-item">
+                    <div class="link-item-icon bg-warm">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><polyline points="18 17 12 11 8 15 3 10"/></svg>
+                    </div>
+                    <div class="link-item-text">
+                        <div class="link-item-title">
+                            <span lang="en">Trip Data & Range</span>
+                            <span lang="fr">Données de Voyage et Autonomie</span>
+                        </div>
+                        <div class="link-item-desc">
+                            <span lang="en">Real-world range and efficiency data from VinFast owners</span>
+                            <span lang="fr">Données réelles d'autonomie et d'efficacité des propriétaires</span>
+                        </div>
+                    </div>
+                    <svg class="link-item-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                </a>
+
+                <a href="report-issue.html" class="link-item">
+                    <div class="link-item-icon bg-red">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                    </div>
+                    <div class="link-item-text">
+                        <div class="link-item-title">
+                            <span lang="en">Report an Issue</span>
+                            <span lang="fr">Signaler un Problème</span>
+                        </div>
+                        <div class="link-item-desc">
+                            <span lang="en">Document vehicle issues and help the community</span>
+                            <span lang="fr">Documentez les problèmes et aidez la communauté</span>
+                        </div>
+                    </div>
+                    <svg class="link-item-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                </a>
+
+                <a href="manuals/" class="link-item">
+                    <div class="link-item-icon bg-gray">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                    </div>
+                    <div class="link-item-text">
+                        <div class="link-item-title">
+                            <span lang="en">Owner Manuals (VF6/VF7/VF8/VF9)</span>
+                            <span lang="fr">Manuels du Propriétaire (VF6/VF7/VF8/VF9)</span>
+                        </div>
+                        <div class="link-item-desc">
+                            <span lang="en">Condensed PDF quick-reference guides</span>
+                            <span lang="fr">Guides de référence rapide PDF condensés</span>
+                        </div>
+                    </div>
+                    <svg class="link-item-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                </a>
+
+                <a href="https://www.bonfire.com/store/association-of-vinfast-owners/" target="_blank" rel="noopener" class="link-item">
+                    <div class="link-item-icon bg-warm">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+                    </div>
+                    <div class="link-item-text">
+                        <div class="link-item-title">
+                            <span lang="en">AVO Shop — Official Merch</span>
+                            <span lang="fr">Boutique AVO — Marchandise Officielle</span>
+                        </div>
+                        <div class="link-item-desc">
+                            <span lang="en">T-shirts, stickers, and more on Bonfire</span>
+                            <span lang="fr">T-shirts, autocollants et plus sur Bonfire</span>
+                        </div>
+                    </div>
+                    <svg class="link-item-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                </a>
+            </div>
+        </div>
+
+        <!-- ── VinFast Official ── -->
+        <div id="vinfast-official" class="link-category fade-in">
+            <div class="link-category-header">
+                <div class="link-category-icon bg-vinfast">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                </div>
+                <h2>
+                    <span lang="en">VinFast Official</span>
+                    <span lang="fr">VinFast Officiel</span>
+                </h2>
+            </div>
+            <div class="link-list">
+                <a href="https://vinfastauto.us/" target="_blank" rel="noopener" class="link-item">
+                    <div class="link-item-icon bg-vinfast">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                    </div>
+                    <div class="link-item-text">
+                        <div class="link-item-title">VinFast US</div>
+                        <div class="link-item-desc"><span lang="en">Official US website — vinfastauto.us</span><span lang="fr">Site officiel US — vinfastauto.us</span></div>
+                    </div>
+                    <svg class="link-item-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                </a>
+
+                <a href="https://vinfastauto.ca/en" target="_blank" rel="noopener" class="link-item">
+                    <div class="link-item-icon bg-vinfast">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                    </div>
+                    <div class="link-item-text">
+                        <div class="link-item-title">VinFast Canada</div>
+                        <div class="link-item-desc"><span lang="en">Official Canada website — vinfastauto.ca</span><span lang="fr">Site officiel Canada — vinfastauto.ca</span></div>
+                    </div>
+                    <svg class="link-item-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                </a>
+
+                <a href="https://om.vinfastauto.com/" target="_blank" rel="noopener" class="link-item">
+                    <div class="link-item-icon bg-deep">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                    </div>
+                    <div class="link-item-text">
+                        <div class="link-item-title">
+                            <span lang="en">VinFast Owner's Manual Portal</span>
+                            <span lang="fr">Portail des Manuels du Propriétaire VinFast</span>
+                        </div>
+                        <div class="link-item-desc"><span lang="en">Official digital owner's manuals — om.vinfastauto.com</span><span lang="fr">Manuels numériques officiels — om.vinfastauto.com</span></div>
+                    </div>
+                    <svg class="link-item-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                </a>
+
+                <a href="https://vinfastauto.us/support" target="_blank" rel="noopener" class="link-item">
+                    <div class="link-item-icon bg-gray">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                    </div>
+                    <div class="link-item-text">
+                        <div class="link-item-title">
+                            <span lang="en">VinFast US Support</span>
+                            <span lang="fr">Support VinFast US</span>
+                        </div>
+                    </div>
+                    <svg class="link-item-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                </a>
+
+                <a href="https://community.vinfastauto.us/member-benefits/" target="_blank" rel="noopener" class="link-item">
+                    <div class="link-item-icon bg-warm">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                    </div>
+                    <div class="link-item-text">
+                        <div class="link-item-title">
+                            <span lang="en">VinFast Member Benefits</span>
+                            <span lang="fr">Avantages Membres VinFast</span>
+                        </div>
+                    </div>
+                    <svg class="link-item-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                </a>
+            </div>
+        </div>
+
+        <!-- ── Safety & Recalls ── -->
+        <div id="safety" class="link-category fade-in">
+            <div class="link-category-header">
+                <div class="link-category-icon bg-red">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                </div>
+                <h2>
+                    <span lang="en">Safety & Recalls</span>
+                    <span lang="fr">Sécurité et Rappels</span>
+                </h2>
+            </div>
+            <div class="link-list">
+                <a href="https://www.nhtsa.gov/recalls" target="_blank" rel="noopener" class="link-item">
+                    <div class="link-item-icon bg-accent">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
+                    </div>
+                    <div class="link-item-text">
+                        <div class="link-item-title">
+                            <span lang="en">NHTSA Recall Search (US)</span>
+                            <span lang="fr">Recherche de Rappels NHTSA (US)</span>
+                        </div>
+                        <div class="link-item-desc">
+                            <span lang="en">Search by VIN on the official US government database</span>
+                            <span lang="fr">Recherchez par NIV dans la base de données officielle du gouvernement US</span>
+                        </div>
+                    </div>
+                    <svg class="link-item-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                </a>
+
+                <a href="https://wwwapps.tc.gc.ca/Saf-Sec-Sur/7/VRDB-BDRV/search-recherche/menu.aspx?lang=eng" target="_blank" rel="noopener" class="link-item">
+                    <div class="link-item-icon bg-red">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
+                    </div>
+                    <div class="link-item-text">
+                        <div class="link-item-title">
+                            <span lang="en">Transport Canada Recall Search</span>
+                            <span lang="fr">Recherche de Rappels Transports Canada</span>
+                        </div>
+                        <div class="link-item-desc">
+                            <span lang="en">Search by VIN on the official Canadian government database</span>
+                            <span lang="fr">Recherchez par NIV dans la base de données officielle du gouvernement canadien</span>
+                        </div>
+                    </div>
+                    <svg class="link-item-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                </a>
+
+                <a href="https://www.nhtsa.gov/report-a-safety-problem" target="_blank" rel="noopener" class="link-item">
+                    <div class="link-item-icon bg-gray">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                    </div>
+                    <div class="link-item-text">
+                        <div class="link-item-title">
+                            <span lang="en">Report a Safety Problem to NHTSA</span>
+                            <span lang="fr">Signaler un Problème de Sécurité à la NHTSA</span>
+                        </div>
+                    </div>
+                    <svg class="link-item-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                </a>
+            </div>
+        </div>
+
+        <!-- ── Facebook Groups ── -->
+        <div id="facebook-groups" class="link-category fade-in">
+            <div class="link-category-header">
+                <div class="link-category-icon bg-facebook">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                </div>
+                <h2>
+                    <span lang="en">Facebook Owner Groups</span>
+                    <span lang="fr">Groupes Facebook de Propriétaires</span>
+                </h2>
+            </div>
+            <div class="link-subgrid">
+                <a href="https://www.facebook.com/groups/1948970065435256/" target="_blank" rel="noopener" class="link-item">
+                    <div class="link-item-icon bg-facebook">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                    </div>
+                    <div class="link-item-text">
+                        <div class="link-item-title">VinFast Owners</div>
+                        <div class="link-item-desc"><span lang="en">General owner group</span><span lang="fr">Groupe général</span></div>
+                    </div>
+                    <svg class="link-item-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                </a>
+
+                <a href="https://www.facebook.com/groups/3063392110495331/" target="_blank" rel="noopener" class="link-item">
+                    <div class="link-item-icon bg-facebook">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                    </div>
+                    <div class="link-item-text">
+                        <div class="link-item-title">VinFast EV Owners</div>
+                        <div class="link-item-desc"><span lang="en">EV-focused group</span><span lang="fr">Groupe axé VÉ</span></div>
+                    </div>
+                    <svg class="link-item-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                </a>
+
+                <a href="https://www.facebook.com/groups/766813804552862/" target="_blank" rel="noopener" class="link-item">
+                    <div class="link-item-icon bg-facebook">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                    </div>
+                    <div class="link-item-text">
+                        <div class="link-item-title">VinFast Community</div>
+                        <div class="link-item-desc"><span lang="en">Community group</span><span lang="fr">Groupe communautaire</span></div>
+                    </div>
+                    <svg class="link-item-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                </a>
+
+                <a href="https://www.facebook.com/groups/970009023658000/" target="_blank" rel="noopener" class="link-item">
+                    <div class="link-item-icon bg-facebook">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                    </div>
+                    <div class="link-item-text">
+                        <div class="link-item-title">VinFast Owners Group</div>
+                        <div class="link-item-desc"><span lang="en">Owners group</span><span lang="fr">Groupe de propriétaires</span></div>
+                    </div>
+                    <svg class="link-item-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                </a>
+
+                <a href="https://www.facebook.com/groups/vinfastquebec/" target="_blank" rel="noopener" class="link-item">
+                    <div class="link-item-icon bg-facebook">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                    </div>
+                    <div class="link-item-text">
+                        <div class="link-item-title">VinFast Québec</div>
+                        <div class="link-item-desc"><span lang="en">Quebec owner group</span><span lang="fr">Groupe propriétaires Québec</span></div>
+                    </div>
+                    <svg class="link-item-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                </a>
+            </div>
+        </div>
+
+        <!-- ── YouTube ── -->
+        <div id="youtube" class="link-category fade-in">
+            <div class="link-category-header">
+                <div class="link-category-icon bg-youtube">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                </div>
+                <h2>
+                    <span lang="en">YouTube Channels</span>
+                    <span lang="fr">Chaînes YouTube</span>
+                </h2>
+            </div>
+            <div class="link-subgrid">
+                <a href="https://www.youtube.com/@vinfastauto.official" target="_blank" rel="noopener" class="link-item">
+                    <div class="link-item-icon bg-youtube">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                    </div>
+                    <div class="link-item-text">
+                        <div class="link-item-title">VinFast Official</div>
+                        <div class="link-item-desc"><span lang="en">Official channel</span><span lang="fr">Chaîne officielle</span></div>
+                    </div>
+                    <svg class="link-item-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                </a>
+
+                <a href="https://www.youtube.com/@vinfastunitedstates" target="_blank" rel="noopener" class="link-item">
+                    <div class="link-item-icon bg-youtube">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                    </div>
+                    <div class="link-item-text">
+                        <div class="link-item-title">VinFast US</div>
+                        <div class="link-item-desc"><span lang="en">US channel</span><span lang="fr">Chaîne US</span></div>
+                    </div>
+                    <svg class="link-item-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                </a>
+
+                <a href="https://www.youtube.com/@vinfastcanada" target="_blank" rel="noopener" class="link-item">
+                    <div class="link-item-icon bg-youtube">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                    </div>
+                    <div class="link-item-text">
+                        <div class="link-item-title">VinFast Canada</div>
+                        <div class="link-item-desc"><span lang="en">Canada channel</span><span lang="fr">Chaîne Canada</span></div>
+                    </div>
+                    <svg class="link-item-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                </a>
+
+                <a href="https://www.youtube.com/@OutofSpecBITS/search?query=vinfast" target="_blank" rel="noopener" class="link-item">
+                    <div class="link-item-icon bg-youtube">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                    </div>
+                    <div class="link-item-text">
+                        <div class="link-item-title">Out of Spec</div>
+                        <div class="link-item-desc"><span lang="en">VinFast reviews & testing</span><span lang="fr">Tests et critiques VinFast</span></div>
+                    </div>
+                    <svg class="link-item-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                </a>
+            </div>
+        </div>
+
+        <!-- ── Social Media ── -->
+        <div id="social" class="link-category fade-in">
+            <div class="link-category-header">
+                <div class="link-category-icon bg-twitter">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                </div>
+                <h2>
+                    <span lang="en">VinFast on Social Media</span>
+                    <span lang="fr">VinFast sur les Réseaux Sociaux</span>
+                </h2>
+            </div>
+            <div class="link-subgrid">
+                <a href="https://x.com/vinfastofficial" target="_blank" rel="noopener" class="link-item">
+                    <div class="link-item-icon bg-twitter"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l11.733 16h4.267l-11.733 -16z"/><path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772"/></svg></div>
+                    <div class="link-item-text"><div class="link-item-title">@vinfastofficial</div><div class="link-item-desc">X / Twitter</div></div>
+                    <svg class="link-item-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                </a>
+                <a href="https://x.com/VinFastUS" target="_blank" rel="noopener" class="link-item">
+                    <div class="link-item-icon bg-twitter"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l11.733 16h4.267l-11.733 -16z"/><path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772"/></svg></div>
+                    <div class="link-item-text"><div class="link-item-title">@VinFastUS</div><div class="link-item-desc">X / Twitter</div></div>
+                    <svg class="link-item-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                </a>
+                <a href="https://x.com/VinFastCanada" target="_blank" rel="noopener" class="link-item">
+                    <div class="link-item-icon bg-twitter"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l11.733 16h4.267l-11.733 -16z"/><path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772"/></svg></div>
+                    <div class="link-item-text"><div class="link-item-title">@VinFastCanada</div><div class="link-item-desc">X / Twitter</div></div>
+                    <svg class="link-item-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                </a>
+                <a href="https://www.instagram.com/vinfastus/" target="_blank" rel="noopener" class="link-item">
+                    <div class="link-item-icon bg-instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></div>
+                    <div class="link-item-text"><div class="link-item-title">@vinfastus</div><div class="link-item-desc">Instagram</div></div>
+                    <svg class="link-item-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                </a>
+                <a href="https://www.instagram.com/vinfastcanada/" target="_blank" rel="noopener" class="link-item">
+                    <div class="link-item-icon bg-instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></div>
+                    <div class="link-item-text"><div class="link-item-title">@vinfastcanada</div><div class="link-item-desc">Instagram</div></div>
+                    <svg class="link-item-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                </a>
+                <a href="https://www.linkedin.com/company/vinfast-us" target="_blank" rel="noopener" class="link-item">
+                    <div class="link-item-icon bg-linkedin"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></div>
+                    <div class="link-item-text"><div class="link-item-title">VinFast US</div><div class="link-item-desc">LinkedIn</div></div>
+                    <svg class="link-item-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                </a>
+            </div>
+        </div>
+
+        <!-- ── Mobile Apps ── -->
+        <div id="apps" class="link-category fade-in">
+            <div class="link-category-header">
+                <div class="link-category-icon bg-green">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+                </div>
+                <h2>
+                    <span lang="en">VinFast Mobile App</span>
+                    <span lang="fr">Application Mobile VinFast</span>
+                </h2>
+            </div>
+            <div class="link-subgrid">
+                <a href="https://apps.apple.com/us/app/vinfast/id6444273385" target="_blank" rel="noopener" class="link-item">
+                    <div class="link-item-icon bg-apple"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></div>
+                    <div class="link-item-text"><div class="link-item-title">App Store (US)</div><div class="link-item-desc">iPhone / iPad</div></div>
+                    <svg class="link-item-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                </a>
+                <a href="https://apps.apple.com/ca/app/vinfast/id6447723223" target="_blank" rel="noopener" class="link-item">
+                    <div class="link-item-icon bg-apple"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></div>
+                    <div class="link-item-text"><div class="link-item-title">App Store (Canada)</div><div class="link-item-desc">iPhone / iPad</div></div>
+                    <svg class="link-item-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                </a>
+                <a href="https://play.google.com/store/apps/details?id=com.vinfast.us" target="_blank" rel="noopener" class="link-item">
+                    <div class="link-item-icon bg-google"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></div>
+                    <div class="link-item-text"><div class="link-item-title">Google Play (US)</div><div class="link-item-desc">Android</div></div>
+                    <svg class="link-item-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                </a>
+                <a href="https://play.google.com/store/apps/details?id=com.vinfast.ca" target="_blank" rel="noopener" class="link-item">
+                    <div class="link-item-icon bg-google"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></div>
+                    <div class="link-item-text"><div class="link-item-title">Google Play (Canada)</div><div class="link-item-desc">Android</div></div>
+                    <svg class="link-item-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                </a>
+            </div>
+        </div>
+
+        <!-- ── Ship Tracking ── -->
+        <div id="tracking" class="link-category fade-in">
+            <div class="link-category-header">
+                <div class="link-category-icon bg-ship">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+                </div>
+                <h2>
+                    <span lang="en">Delivery Ship Tracking</span>
+                    <span lang="fr">Suivi des Navires de Livraison</span>
+                </h2>
+            </div>
+            <div class="link-subgrid">
+                <a href="https://www.marinetraffic.com/en/ais/details/ships/shipid:758927" target="_blank" rel="noopener" class="link-item">
+                    <div class="link-item-icon bg-ship"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+                    <div class="link-item-text"><div class="link-item-title">MarineTraffic</div><div class="link-item-desc"><span lang="en">Live ship position</span><span lang="fr">Position en direct</span></div></div>
+                    <svg class="link-item-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                </a>
+                <a href="https://www.myshiptracking.com/?mmsi=352001162" target="_blank" rel="noopener" class="link-item">
+                    <div class="link-item-icon bg-ship"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+                    <div class="link-item-text"><div class="link-item-title">MyShipTracking</div><div class="link-item-desc"><span lang="en">Alternate tracker</span><span lang="fr">Suivi alternatif</span></div></div>
+                    <svg class="link-item-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                </a>
+                <a href="https://www.vesselfinder.com/?mmsi=352001162" target="_blank" rel="noopener" class="link-item">
+                    <div class="link-item-icon bg-ship"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+                    <div class="link-item-text"><div class="link-item-title">VesselFinder</div><div class="link-item-desc"><span lang="en">Alternate tracker</span><span lang="fr">Suivi alternatif</span></div></div>
+                    <svg class="link-item-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                </a>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- ===== Join CTA ===== -->
+    <section class="join-cta-v2 fade-in">
+        <div class="join-cta-inner">
+            <h2>
+                <span lang="en">Join the Community</span>
+                <span lang="fr">Rejoignez la Communauté</span>
+            </h2>
+            <p>
+                <span lang="en">Free membership in the Association of VinFast Owners. Advocacy, support, and a growing community of 600+ VinFast owners across North America.</span>
+                <span lang="fr">Adhésion gratuite à l'Association des Propriétaires VinFast. Défense, support et une communauté croissante de 600+ propriétaires VinFast en Amérique du Nord.</span>
+            </p>
+            <div style="display:flex; gap:var(--space-4); justify-content:center; flex-wrap:wrap;">
+                <a href="join.html" class="btn-v2 btn-white btn-lg">
+                    <span lang="en">Join AVO — Free</span>
+                    <span lang="fr">Rejoindre AVO — Gratuit</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== Footer ===== -->
+    <footer class="footer-v2">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <div style="display:flex; align-items:center; gap:var(--space-3); margin-bottom:var(--space-4);">
+                    <img src="/images/icons/avo-logo.png" alt="AVO" width="36" height="36">
+                    <strong style="font-size:var(--text-lg); color:white;">AVO</strong>
+                </div>
+                <p lang="en">Association of VinFast Owners North America. Independent owner organization, not affiliated with VinFast Auto.</p>
+                <p lang="fr">Association des Propriétaires VinFast Amérique du Nord. Organisation indépendante, non affiliée à VinFast Auto.</p>
+            </div>
+
+            <div class="footer-col">
+                <h4>
+                    <span lang="en">Navigation</span>
+                    <span lang="fr">Navigation</span>
+                </h4>
+                <ul class="footer-links-v2">
+                    <li><a href="/index.html"><span lang="en">Home</span><span lang="fr">Accueil</span></a></li>
+                    <li><a href="/considering-vinfast.html"><span lang="en">Buyer Guide</span><span lang="fr">Guide d'Achat</span></a></li>
+                    <li><a href="/recalls.html"><span lang="en">Recalls</span><span lang="fr">Rappels</span></a></li>
+                    <li><a href="/trip-data.html"><span lang="en">Trip Data</span><span lang="fr">Données de Voyage</span></a></li>
+                    <li><a href="/report-issue.html"><span lang="en">Report Issue</span><span lang="fr">Signaler</span></a></li>
+                    <li><a href="/links.html"><span lang="en">All Links</span><span lang="fr">Tous les Liens</span></a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4>
+                    <span lang="en">Community</span>
+                    <span lang="fr">Communauté</span>
+                </h4>
+                <ul class="footer-links-v2">
+                    <li><a href="/discord.html">Discord</a></li>
+                    <li><a href="https://www.facebook.com/share/g/17dH6oZRA4/" target="_blank" rel="noopener">Facebook</a></li>
+                    <li><a href="https://vinfasttalk.com" target="_blank" rel="noopener">VinFastTalk</a></li>
+                    <li><a href="https://www.bonfire.com/store/association-of-vinfast-owners/" target="_blank" rel="noopener"><span lang="en">Shop</span><span lang="fr">Boutique</span></a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4>
+                    <span lang="en">Legal</span>
+                    <span lang="fr">Légal</span>
+                </h4>
+                <ul class="footer-links-v2">
+                    <li><a href="/privacy.html"><span lang="en">Privacy Policy</span><span lang="fr">Confidentialité</span></a></li>
+                    <li><a href="/disclaimer.html"><span lang="en">Disclaimer</span><span lang="fr">Avertissement</span></a></li>
+                    <li><a href="/documents.html"><span lang="en">Governance</span><span lang="fr">Gouvernance</span></a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom-v2">
+            <p lang="en">&copy; 2025&ndash;2026 Association of VinFast Owners North America. Independent owner organization, not affiliated with VinFast Auto.</p>
+            <p lang="fr">&copy; 2025&ndash;2026 Association des Propriétaires VinFast Amérique du Nord. Organisation indépendante, non affiliée à VinFast Auto.</p>
+        </div>
+    </footer>
+
+    <button class="back-to-top" aria-label="Back to top">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+    </button>
+
+    <script src="/js/main.js"></script>
+
+    
+
+</body>
+</html>

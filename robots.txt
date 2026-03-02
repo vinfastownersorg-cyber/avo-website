@@ -1,0 +1,11 @@
+# robots.txt for vinfastowners.org
+# Association of VinFast Owners North America
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://vinfastowners.org/sitemap.xml
+
+# Crawl-delay for polite crawling
+Crawl-delay: 1
