@@ -180,9 +180,10 @@ document.addEventListener('DOMContentLoaded', function () {
     // Language Toggle
     // ========================================
 
+    var urlLang = new URLSearchParams(window.location.search).get('lang');
     var savedLang = localStorage.getItem('vinfast-lang');
     var browserLang = navigator.language.toLowerCase();
-    if (savedLang === 'fr' || (!savedLang && browserLang.includes('fr'))) {
+    if (urlLang === 'fr' || savedLang === 'fr' || (!savedLang && browserLang.includes('fr'))) {
         document.body.classList.add('fr');
         var langBtns = document.querySelectorAll('.lang-switch button');
         if (langBtns.length > 1) {
