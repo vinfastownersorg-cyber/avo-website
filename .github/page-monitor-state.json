@@ -8,31 +8,31 @@
   "US Newsroom": {
     "url": "https://vinfastauto.us/newsroom",
     "hash": "c879f5c9a88df9f7c60e88ef8da0542e51bbc51a0840acecebc108b4e4f92b46",
-    "last_checked": "2026-03-03T01:13:58.227992",
+    "last_checked": "2026-03-04T01:09:54.165192",
     "content_length": 16760
   },
   "CA Newsroom (EN)": {
     "url": "https://vinfastauto.ca/en/newsroom",
     "hash": "765212ec5dff0a2ce170fd631b58f66faf6d4c3a3792b578001d5ec85792b09f",
-    "last_checked": "2026-03-03T01:13:58.656887",
+    "last_checked": "2026-03-04T01:09:54.556358",
     "content_length": 7637
   },
   "US Homepage": {
     "url": "https://vinfastauto.us/",
     "hash": "e1d0f7a39708487791d8b9ea67dbc7b5c3dc497ecde1cf26f0d3b7281a034a4f",
-    "last_checked": "2026-03-03T01:13:59.299589",
+    "last_checked": "2026-03-04T01:09:55.154232",
     "content_length": 14120
   },
   "CA Homepage": {
     "url": "https://vinfastauto.ca/en",
     "hash": "7a06ba0a1f6eaa8dd2d175acaa459eeb51fee9d63acbb29ff08cd2d79b6a2c2b",
-    "last_checked": "2026-03-03T01:13:59.849013",
+    "last_checked": "2026-03-04T01:09:55.800974",
     "content_length": 5232
   },
   "VinFast Owners": {
     "url": "https://vinfastowners.org",
     "hash": "8dc8e8a767f043b2586e8b5618ed0f5d5743c223575d5c25437834d7a6b5a863",
-    "last_checked": "2026-03-03T01:14:00.747558",
+    "last_checked": "2026-03-04T01:09:56.815174",
     "content_length": 6870
   }
 }
