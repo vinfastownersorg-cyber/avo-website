@@ -123,7 +123,7 @@
       },
       {
         "loc": "http://vinfastauto.ca/en/vinfriends-referral-rewards-program-terms-and-conditions",
-        "lastmod": "2025-11-12T01:22:43+07:00"
+        "lastmod": "2026-03-05T02:11:18+07:00"
       },
       {
         "loc": "http://vinfastauto.ca/en/vinfriends-referral-rewards-program-customer-faqs",
@@ -131,7 +131,7 @@
       },
       {
         "loc": "http://vinfastauto.ca/fr/conditions-du-programme-de-parrainage-vinfriends",
-        "lastmod": "2025-11-12T01:27:59+07:00"
+        "lastmod": "2026-03-05T02:12:20+07:00"
       },
       {
         "loc": "http://vinfastauto.ca/fr/programme-de-parrainage-vinfriends-foire-aux-questions-clients",
@@ -359,11 +359,11 @@
       },
       {
         "loc": "http://vinfastauto.ca/en/service",
-        "lastmod": null
+        "lastmod": "2026-03-05T02:04:06+07:00"
       },
       {
         "loc": "http://vinfastauto.ca/fr/service",
-        "lastmod": null
+        "lastmod": "2026-03-05T02:04:06+07:00"
       },
       {
         "loc": "http://vinfastauto.ca/en/charging",
@@ -399,6 +399,6 @@
       }
     ],
     "count": 99,
-    "last_checked": "2026-03-04T01:09:52.350631"
+    "last_checked": "2026-03-05T01:12:10.200755"
   }
 }
