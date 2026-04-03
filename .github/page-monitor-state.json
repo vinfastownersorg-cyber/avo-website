@@ -1,38 +1,38 @@
 {
   "US Investor Relations": {
     "url": "https://vinfastauto.us/investor-relations/",
-    "hash": "41d705ea24d94986c4689253e19a9bf0643f5382da7bb9ff0dc86e08e9010590",
-    "last_checked": "2026-04-02T01:19:04.920338",
-    "content_length": 9837
+    "hash": "0efea4369b041700706af4bfc8028d576964e08d67bab97200864e543e625a84",
+    "last_checked": "2026-04-03T01:21:23.128817",
+    "content_length": 9792
   },
   "US Newsroom": {
     "url": "https://vinfastauto.us/newsroom",
     "hash": "d9ade383e7964226269000a0cbb4d2f19891b37cd56e6250d6bcc0b6759f3686",
-    "last_checked": "2026-04-02T01:19:05.404121",
+    "last_checked": "2026-04-03T01:21:23.390670",
     "content_length": 17557
   },
   "CA Newsroom (EN)": {
     "url": "https://vinfastauto.ca/en/newsroom",
-    "hash": "765212ec5dff0a2ce170fd631b58f66faf6d4c3a3792b578001d5ec85792b09f",
-    "last_checked": "2026-04-02T01:19:06.138212",
-    "content_length": 7637
+    "hash": "a85bd4c08f9c6a24fdb0d2a31f299fd4602b072bfdb45d719bd3f3982b0f3387",
+    "last_checked": "2026-04-03T01:21:24.008628",
+    "content_length": 7660
   },
   "US Homepage": {
     "url": "https://vinfastauto.us/",
     "hash": "1e38ff339c6364e38448838881e1bbaef1eef200ee65137ea03a32e710cd15d8",
-    "last_checked": "2026-04-02T01:19:06.665799",
+    "last_checked": "2026-04-03T01:21:24.337594",
     "content_length": 14476
   },
   "CA Homepage": {
     "url": "https://vinfastauto.ca/en",
-    "hash": "7a06ba0a1f6eaa8dd2d175acaa459eeb51fee9d63acbb29ff08cd2d79b6a2c2b",
-    "last_checked": "2026-04-02T01:19:07.589136",
-    "content_length": 5232
+    "hash": "f891eff3f315056067a712b322739f1b09fa4ad0a3974e48bf3580968244e18f",
+    "last_checked": "2026-04-03T01:21:25.305312",
+    "content_length": 5214
   },
   "VinFast Owners": {
     "url": "https://vinfastowners.org",
     "hash": "8dc8e8a767f043b2586e8b5618ed0f5d5743c223575d5c25437834d7a6b5a863",
-    "last_checked": "2026-04-02T01:19:08.492125",
+    "last_checked": "2026-04-03T01:21:26.296963",
     "content_length": 6870
   }
 }
