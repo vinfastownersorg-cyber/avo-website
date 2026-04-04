@@ -75,8 +75,8 @@ og_description: "Submit your VinFast warranty or service issue for review and po
                 <div class="form-group-v2">
                     <fieldset style="border: none; padding: 0; margin: 0;">
                         <legend style="font-weight: 600; font-size: var(--text-sm); color: var(--text-primary); margin-bottom: var(--space-2);">
-                            <span lang="en">1. Have you contacted VinFast Customer Support at these numbers? <span style="color: var(--error, #d32f2f);" aria-hidden="true">*</span></span>
-                            <span lang="fr">1. Avez-vous contacté le service client VinFast à ces numéros&nbsp;? <span style="color: var(--error, #d32f2f);" aria-hidden="true">*</span></span>
+                            <span lang="en">Have you contacted VinFast Customer Support at these numbers? <span style="color: var(--error, #d32f2f);" aria-hidden="true">*</span></span>
+                            <span lang="fr">Avez-vous contacté le service client VinFast à ces numéros&nbsp;? <span style="color: var(--error, #d32f2f);" aria-hidden="true">*</span></span>
                         </legend>
                         <p class="form-helper">
                             <span lang="en"><strong>US:</strong> (833) 503-0600 | <strong>Canada:</strong> (833) 503-0601 — Available 24/7</span>
@@ -136,20 +136,20 @@ og_description: "Submit your VinFast warranty or service issue for review and po
                     <!-- Q2: Case Number (conditional) -->
                     <div id="q2Section" class="form-group-v2 form-section-hidden">
                         <label for="caseNumber">
-                            <span lang="en">2. VinFast case number <span style="color: var(--error, #d32f2f);" aria-hidden="true">*</span></span>
-                            <span lang="fr">2. Numéro de dossier VinFast <span style="color: var(--error, #d32f2f);" aria-hidden="true">*</span></span>
+                            <span lang="en">VinFast case number <span style="color: var(--error, #d32f2f);" aria-hidden="true">*</span></span>
+                            <span lang="fr">Numéro de dossier VinFast <span style="color: var(--error, #d32f2f);" aria-hidden="true">*</span></span>
                         </label>
                         <input type="text" id="caseNumber" name="case_number"
                             placeholder="Enter your VinFast case number"
                             autocomplete="off">
                     </div>
 
-                    <!-- Q3: Where did you access this form? -->
+                    <!-- Q3: Where did you learn about this form? -->
                     <div class="form-group-v2">
                         <fieldset style="border: none; padding: 0; margin: 0;">
                             <legend style="font-weight: 600; font-size: var(--text-sm); color: var(--text-primary); margin-bottom: var(--space-2);">
-                                <span lang="en">3. Where did you access this form from? <span style="color: var(--error, #d32f2f);" aria-hidden="true">*</span></span>
-                                <span lang="fr">3. D'où avez-vous accédé à ce formulaire&nbsp;? <span style="color: var(--error, #d32f2f);" aria-hidden="true">*</span></span>
+                                <span lang="en">Where did you learn about this form? <span style="color: var(--error, #d32f2f);" aria-hidden="true">*</span></span>
+                                <span lang="fr">Comment avez-vous entendu parler de ce formulaire&nbsp;? <span style="color: var(--error, #d32f2f);" aria-hidden="true">*</span></span>
                             </legend>
                             <div class="radio-group-v2">
                                 <input type="radio" id="q3-fb" name="q3_source" value="Facebook group — VFFS" required>
@@ -172,13 +172,30 @@ og_description: "Submit your VinFast warranty or service issue for review and po
                                     <span lang="fr">Site Web VinFast Owners (vinfastowners.org)</span>
                                 </label>
                             </div>
+                            <div class="radio-group-v2">
+                                <input type="radio" id="q3-talk" name="q3_source" value="VinFastTalk.com">
+                                <label for="q3-talk">
+                                    <span lang="en">VinFastTalk.com</span>
+                                    <span lang="fr">VinFastTalk.com</span>
+                                </label>
+                            </div>
+                            <div class="radio-group-v2">
+                                <input type="radio" id="q3-other" name="q3_source" value="Other">
+                                <label for="q3-other">
+                                    <span lang="en">Other</span>
+                                    <span lang="fr">Autre</span>
+                                </label>
+                            </div>
+                            <div id="q3OtherField" class="form-section-hidden" style="margin-top: var(--space-2); padding-left: 32px;">
+                                <input type="text" id="q3OtherText" name="q3_source_other" placeholder="Please specify / Veuillez préciser" style="max-width: 340px;">
+                            </div>
                         </fieldset>
                     </div>
                     <!-- Q4: Full Name -->
                     <div class="form-group-v2">
                         <label for="fullName">
-                            <span lang="en">4. Your full name <span style="color: var(--error, #d32f2f);" aria-hidden="true">*</span></span>
-                            <span lang="fr">4. Votre nom complet <span style="color: var(--error, #d32f2f);" aria-hidden="true">*</span></span>
+                            <span lang="en">Your full name <span style="color: var(--error, #d32f2f);" aria-hidden="true">*</span></span>
+                            <span lang="fr">Votre nom complet <span style="color: var(--error, #d32f2f);" aria-hidden="true">*</span></span>
                         </label>
                         <input type="text" id="fullName" name="full_name" required
                             autocomplete="name"
@@ -188,8 +205,8 @@ og_description: "Submit your VinFast warranty or service issue for review and po
                     <!-- Q5: Last 4 of VIN -->
                     <div class="form-group-v2">
                         <label for="vinLast4">
-                            <span lang="en">5. Last 4 digits of your VIN <span style="color: var(--error, #d32f2f);" aria-hidden="true">*</span></span>
-                            <span lang="fr">5. 4 derniers chiffres de votre NIV <span style="color: var(--error, #d32f2f);" aria-hidden="true">*</span></span>
+                            <span lang="en">Last 4 digits of your VIN <span style="color: var(--error, #d32f2f);" aria-hidden="true">*</span></span>
+                            <span lang="fr">4 derniers chiffres de votre NIV <span style="color: var(--error, #d32f2f);" aria-hidden="true">*</span></span>
                         </label>
                         <input type="text" id="vinLast4" name="vin_last4" required
                             maxlength="4" pattern="[A-Za-z0-9]{4}"
@@ -205,14 +222,11 @@ og_description: "Submit your VinFast warranty or service issue for review and po
                     <!-- Q6: Vehicle Model -->
                     <div class="form-group-v2">
                         <label for="vehicleModel">
-                            <span lang="en">6. Vehicle model <span style="color: var(--error, #d32f2f);" aria-hidden="true">*</span></span>
-                            <span lang="fr">6. Modèle de véhicule <span style="color: var(--error, #d32f2f);" aria-hidden="true">*</span></span>
+                            <span lang="en">Vehicle model <span style="color: var(--error, #d32f2f);" aria-hidden="true">*</span></span>
+                            <span lang="fr">Modèle de véhicule <span style="color: var(--error, #d32f2f);" aria-hidden="true">*</span></span>
                         </label>
                         <select id="vehicleModel" name="vehicle_model" required style="max-width: 200px;">
                             <option value="">-- Select / Sélectionner --</option>
-                            <option value="VF 3">VF 3</option>
-                            <option value="VF 5">VF 5</option>
-                            <option value="VF 6">VF 6</option>
                             <option value="VF 7">VF 7</option>
                             <option value="VF 8">VF 8</option>
                             <option value="VF 9">VF 9</option>
@@ -223,8 +237,8 @@ og_description: "Submit your VinFast warranty or service issue for review and po
                     <!-- Q7: Dealership / Service Center Name -->
                     <div class="form-group-v2">
                         <label for="dealerName">
-                            <span lang="en">7. Dealership / Service Center name <span style="color: var(--error, #d32f2f);" aria-hidden="true">*</span></span>
-                            <span lang="fr">7. Nom du concessionnaire / centre de service <span style="color: var(--error, #d32f2f);" aria-hidden="true">*</span></span>
+                            <span lang="en">Dealership / Service Center name <span style="color: var(--error, #d32f2f);" aria-hidden="true">*</span></span>
+                            <span lang="fr">Nom du concessionnaire / centre de service <span style="color: var(--error, #d32f2f);" aria-hidden="true">*</span></span>
                         </label>
                         <input type="text" id="dealerName" name="dealer_name" required
                             placeholder="e.g. VinFast Dallas, VinFast Vancouver">
@@ -237,22 +251,25 @@ og_description: "Submit your VinFast warranty or service issue for review and po
                     <!-- Q8: Service Center Location -->
                     <div class="form-group-v2">
                         <label>
-                            <span lang="en">8. Service center location <span style="color:var(--error,#d32f2f);" aria-hidden="true">*</span></span>
-                            <span lang="fr">8. Emplacement du centre de service <span style="color:var(--error,#d32f2f);" aria-hidden="true">*</span></span>
+                            <span lang="en">Service center location <span style="color:var(--error,#d32f2f);" aria-hidden="true">*</span></span>
+                            <span lang="fr">Emplacement du centre de service <span style="color:var(--error,#d32f2f);" aria-hidden="true">*</span></span>
                         </label>
                         <div class="location-row-v2">
                             <div>
-                                <label for="cityField" style="font-size:var(--text-xs);color:var(--text-muted);">
-                                    <span lang="en">City</span><span lang="fr">Ville</span>
+                                <label for="countryField" style="font-size:var(--text-xs);color:var(--text-muted);">
+                                    <span lang="en">Country</span><span lang="fr">Pays</span>
                                 </label>
-                                <input type="text" id="cityField" name="city" required placeholder="City / Ville" autocomplete="address-level2">
+                                <select id="countryField" name="country" required>
+                                    <option value="United States" selected>United States</option>
+                                    <option value="Canada">Canada</option>
+                                </select>
                             </div>
                             <div>
-                                <label for="stateField" style="font-size:var(--text-xs);color:var(--text-muted);">
-                                    <span lang="en">State / Province</span><span lang="fr">État / Province</span>
+                                <label for="stateField" id="stateLabel" style="font-size:var(--text-xs);color:var(--text-muted);">
+                                    <span lang="en">State</span><span lang="fr">État</span>
                                 </label>
                                 <select id="stateField" name="state_province" required>
-                                    <option value="">-- State/Province --</option>
+                                    <option value="">-- Select --</option>
                                     <optgroup label="United States">
                                         <option>Alabama</option><option>Alaska</option><option>Arizona</option>
                                         <option>Arkansas</option><option>California</option><option>Colorado</option>
@@ -282,13 +299,10 @@ og_description: "Submit your VinFast warranty or service issue for review and po
                                 </select>
                             </div>
                             <div>
-                                <label for="countryField" style="font-size:var(--text-xs);color:var(--text-muted);">
-                                    <span lang="en">Country</span><span lang="fr">Pays</span>
+                                <label for="cityField" style="font-size:var(--text-xs);color:var(--text-muted);">
+                                    <span lang="en">City</span><span lang="fr">Ville</span>
                                 </label>
-                                <select id="countryField" name="country" required>
-                                    <option value="United States" selected>United States</option>
-                                    <option value="Canada">Canada</option>
-                                </select>
+                                <input type="text" id="cityField" name="city" required placeholder="City / Ville" autocomplete="address-level2">
                             </div>
                         </div>
                     </div>
@@ -296,8 +310,8 @@ og_description: "Submit your VinFast warranty or service issue for review and po
                     <div class="form-group-v2">
                         <fieldset style="border:none;padding:0;margin:0;">
                             <legend style="font-weight:600;font-size:var(--text-sm);color:var(--text-primary);margin-bottom:var(--space-2);">
-                                <span lang="en">9. How long has your vehicle been in service? <span style="color:var(--error,#d32f2f);" aria-hidden="true">*</span></span>
-                                <span lang="fr">9. Depuis combien de temps votre véhicule est-il en service? <span style="color:var(--error,#d32f2f);" aria-hidden="true">*</span></span>
+                                <span lang="en">How long has your vehicle been in service? <span style="color:var(--error,#d32f2f);" aria-hidden="true">*</span></span>
+                                <span lang="fr">Depuis combien de temps votre véhicule est-il en service? <span style="color:var(--error,#d32f2f);" aria-hidden="true">*</span></span>
                             </legend>
                             <div class="radio-group-v2">
                                 <input type="radio" id="q9-30" name="q9_duration" value="Less than 30 days" required>
@@ -329,8 +343,8 @@ og_description: "Submit your VinFast warranty or service issue for review and po
                     <div class="form-group-v2">
                         <fieldset style="border:none;padding:0;margin:0;">
                             <legend style="font-weight:600;font-size:var(--text-sm);color:var(--text-primary);margin-bottom:var(--space-2);">
-                                <span lang="en">10. What best describes your issue? (Select all that apply) <span style="color:var(--error,#d32f2f);" aria-hidden="true">*</span></span>
-                                <span lang="fr">10. Qu'est-ce qui décrit le mieux votre problème? (Sélectionnez tout ce qui s'applique) <span style="color:var(--error,#d32f2f);" aria-hidden="true">*</span></span>
+                                <span lang="en">What best describes your issue? (Select all that apply) <span style="color:var(--error,#d32f2f);" aria-hidden="true">*</span></span>
+                                <span lang="fr">Qu'est-ce qui décrit le mieux votre problème? (Sélectionnez tout ce qui s'applique) <span style="color:var(--error,#d32f2f);" aria-hidden="true">*</span></span>
                             </legend>
                             <div class="checkbox-group-v2"><input type="checkbox" id="iss-drive" name="issues" value="Drivetrain/Powertrain"><label for="iss-drive"><span lang="en">Drivetrain / Powertrain</span><span lang="fr">Groupe motopropulseur</span></label></div>
                             <div class="checkbox-group-v2"><input type="checkbox" id="iss-batt" name="issues" value="Battery/Charging"><label for="iss-batt"><span lang="en">Battery / Charging</span><span lang="fr">Batterie / Recharge</span></label></div>
@@ -350,8 +364,8 @@ og_description: "Submit your VinFast warranty or service issue for review and po
                     <!-- Q11: Describe the issue -->
                     <div class="form-group-v2">
                         <label for="issueDetail">
-                            <span lang="en">11. Please describe your issue in detail <span style="color:var(--error,#d32f2f);" aria-hidden="true">*</span></span>
-                            <span lang="fr">11. Veuillez décrire votre problème en détail <span style="color:var(--error,#d32f2f);" aria-hidden="true">*</span></span>
+                            <span lang="en">Please describe your issue in detail <span style="color:var(--error,#d32f2f);" aria-hidden="true">*</span></span>
+                            <span lang="fr">Veuillez décrire votre problème en détail <span style="color:var(--error,#d32f2f);" aria-hidden="true">*</span></span>
                         </label>
                         <textarea id="issueDetail" name="issue_detail" required rows="6"
                             placeholder="Please include: what the issue is, when it started, what the dealership has communicated, and any relevant dates or repair order numbers."></textarea>
@@ -365,8 +379,8 @@ og_description: "Submit your VinFast warranty or service issue for review and po
                     <div class="form-group-v2">
                         <fieldset style="border:none;padding:0;margin:0;">
                             <legend style="font-weight:600;font-size:var(--text-sm);color:var(--text-primary);margin-bottom:var(--space-2);">
-                                <span lang="en">12. Can VFFS &amp; AVO admins contact you for further assistance? <span style="color:var(--error,#d32f2f);" aria-hidden="true">*</span></span>
-                                <span lang="fr">12. Les administrateurs VFFS et AVO peuvent-ils vous contacter pour une assistance supplémentaire? <span style="color:var(--error,#d32f2f);" aria-hidden="true">*</span></span>
+                                <span lang="en">Can VFFS &amp; AVO admins contact you for further assistance? <span style="color:var(--error,#d32f2f);" aria-hidden="true">*</span></span>
+                                <span lang="fr">Les administrateurs VFFS et AVO peuvent-ils vous contacter pour une assistance supplémentaire? <span style="color:var(--error,#d32f2f);" aria-hidden="true">*</span></span>
                             </legend>
                             <div class="radio-group-v2">
                                 <input type="radio" id="q12-yes" name="q12_contact" value="Yes" required>
@@ -379,11 +393,33 @@ og_description: "Submit your VinFast warranty or service issue for review and po
                         </fieldset>
                     </div>
 
-                    <!-- Q13: Anything else? (optional) -->
+                    <!-- Q13: Preferred language -->
+                    <div class="form-group-v2">
+                        <fieldset style="border:none;padding:0;margin:0;">
+                            <legend style="font-weight:600;font-size:var(--text-sm);color:var(--text-primary);margin-bottom:var(--space-2);">
+                                <span lang="en">Preferred language for follow-up <span style="color:var(--error,#d32f2f);" aria-hidden="true">*</span></span>
+                                <span lang="fr">Langue préférée pour le suivi <span style="color:var(--error,#d32f2f);" aria-hidden="true">*</span></span>
+                            </legend>
+                            <div class="radio-group-v2">
+                                <input type="radio" id="lang-en" name="pref_language" value="English" required>
+                                <label for="lang-en"><span lang="en">English</span><span lang="fr">Anglais</span></label>
+                            </div>
+                            <div class="radio-group-v2">
+                                <input type="radio" id="lang-fr" name="pref_language" value="French / Français">
+                                <label for="lang-fr"><span lang="en">French / Français</span><span lang="fr">Français / French</span></label>
+                            </div>
+                            <div class="radio-group-v2">
+                                <input type="radio" id="lang-either" name="pref_language" value="No preference">
+                                <label for="lang-either"><span lang="en">No preference</span><span lang="fr">Aucune préférence</span></label>
+                            </div>
+                        </fieldset>
+                    </div>
+
+                    <!-- Q14: Anything else? (optional) -->
                     <div class="form-group-v2">
                         <label for="additionalInfo">
-                            <span lang="en">13. Anything else we should know? <em style="font-weight:normal;">(Optional)</em></span>
-                            <span lang="fr">13. Y a-t-il autre chose que nous devrions savoir? <em style="font-weight:normal;">(Facultatif)</em></span>
+                            <span lang="en">Anything else we should know? <em style="font-weight:normal;">(Optional)</em></span>
+                            <span lang="fr">Y a-t-il autre chose que nous devrions savoir? <em style="font-weight:normal;">(Facultatif)</em></span>
                         </label>
                         <textarea id="additionalInfo" name="additional_info" rows="4"
                             placeholder="Any additional context, timeline details, or documents you'd like to reference."></textarea>
@@ -460,6 +496,7 @@ og_description: "Submit your VinFast warranty or service issue for review and po
         var errorMsg = document.getElementById('formErrorMsg');
         var submitBtn = document.getElementById('submitBtn');
 
+        // Q1 gate logic
         document.querySelectorAll('input[name="q1_contacted"]').forEach(function (radio) {
             radio.addEventListener('change', function () {
                 var val = this.value;
@@ -481,21 +518,46 @@ og_description: "Submit your VinFast warranty or service issue for review and po
             });
         });
 
+        // Q3 Other field toggle
+        document.querySelectorAll('input[name="q3_source"]').forEach(function (radio) {
+            radio.addEventListener('change', function () {
+                var otherField = document.getElementById('q3OtherField');
+                if (this.value === 'Other') {
+                    otherField.classList.remove('form-section-hidden');
+                } else {
+                    otherField.classList.add('form-section-hidden');
+                    document.getElementById('q3OtherText').value = '';
+                }
+            });
+        });
+
+        // Country → State/Province label update
+        document.getElementById('countryField').addEventListener('change', function () {
+            var label = document.getElementById('stateLabel');
+            if (this.value === 'Canada') {
+                label.innerHTML = '<span lang="en">Province / Territory</span><span lang="fr">Province / Territoire</span>';
+            } else {
+                label.innerHTML = '<span lang="en">State</span><span lang="fr">État</span>';
+            }
+        });
+
         form.addEventListener('submit', async function (e) {
             e.preventDefault();
             errorBox.style.display = 'none';
 
             var q1Val = (document.querySelector('input[name="q1_contacted"]:checked') || {}).value || '';
-            var q3Val = (document.querySelector('input[name="q3_source"]:checked') || {}).value || 'Not provided';
+            var q3Radio = (document.querySelector('input[name="q3_source"]:checked') || {}).value || 'Not provided';
+            var q3Val = q3Radio === 'Other' ? ('Other: ' + (document.getElementById('q3OtherText').value || 'not specified')) : q3Radio;
             var q9Val = (document.querySelector('input[name="q9_duration"]:checked') || {}).value || 'Not provided';
             var q12Val = (document.querySelector('input[name="q12_contact"]:checked') || {}).value || 'Not provided';
+            var prefLang = (document.querySelector('input[name="pref_language"]:checked') || {}).value || 'Not provided';
             var issues = Array.from(document.querySelectorAll('input[name="issues"]:checked')).map(function (c) { return c.value; });
             var q1Label = q1Val === 'yes-case' ? 'Yes — has case number' : 'Yes — no case number';
 
             var fields = [
                 { name: 'Contacted VinFast?', value: q1Label, inline: true },
                 { name: 'Case Number', value: caseNumber.value || 'N/A', inline: true },
-                { name: 'Source', value: q3Val, inline: false },
+                { name: 'Learned from', value: q3Val, inline: false },
                 { name: 'Name', value: document.getElementById('fullName').value || 'Not provided', inline: true },
                 { name: 'VIN (last 4)', value: document.getElementById('vinLast4').value || 'Not provided', inline: true },
                 { name: 'Vehicle', value: document.getElementById('vehicleModel').value || 'Not provided', inline: true },
@@ -505,6 +567,7 @@ og_description: "Submit your VinFast warranty or service issue for review and po
                 { name: 'Issues', value: issues.length ? issues.join(', ') : 'Not provided', inline: false },
                 { name: 'Issue Detail', value: (document.getElementById('issueDetail').value || 'Not provided').substring(0, 1024), inline: false },
                 { name: 'Admins may contact?', value: q12Val, inline: true },
+                { name: 'Preferred Language', value: prefLang, inline: true },
                 { name: 'Additional Info', value: (document.getElementById('additionalInfo').value || 'None').substring(0, 512), inline: false }
             ];
 
