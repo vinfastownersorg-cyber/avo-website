@@ -376,6 +376,15 @@ function setLang(lang) {
         event.target.classList.add('active');
     }
     localStorage.setItem('vinfast-lang', lang);
+
+    // Update URL so copied links preserve language choice
+    var url = new URL(window.location);
+    if (lang === 'fr') {
+        url.searchParams.set('lang', 'fr');
+    } else {
+        url.searchParams.delete('lang');
+    }
+    history.replaceState(null, '', url);
 }
 
 // ========================================
