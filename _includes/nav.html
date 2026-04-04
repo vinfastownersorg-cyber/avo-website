@@ -3,8 +3,8 @@
     <!-- ===== Glass Navigation ===== -->
     <nav class="nav-v2" role="navigation" aria-label="Main navigation">
         <div class="nav-inner">
-            <a href="/" class="nav-logo" aria-label="AVO Home">
-                <img src="/images/icons/avo-logo.png" alt="AVO Logo" width="44" height="44">
+            <a href="{{ site.baseurl }}/" class="nav-logo" aria-label="AVO Home">
+                <img src="{{ site.baseurl }}/images/icons/avo-logo.png" alt="AVO Logo" width="44" height="44">
                 <div class="nav-logo-text">
                     <span class="nav-logo-name">AVO</span>
                     <span class="nav-logo-sub">
@@ -21,18 +21,18 @@
             </button>
 
             <div class="nav-links-v2" id="nav-menu">
-                <a href="/index.html">
+                <a href="{{ site.baseurl }}/index.html">
                     <span lang="en">Home</span>
                     <span lang="fr">Accueil</span>
                 </a>
-                <a href="/considering-vinfast.html">
+                <a href="{{ site.baseurl }}/considering-vinfast.html">
                     <span lang="en">Considering VinFast?</span>
                     <span lang="fr">Vous Envisagez VinFast?</span>
                 </a>
                 {% if page.url == '/index.html' or page.url == '/' %}
                 <a href="#community">
                 {% else %}
-                <a href="/index.html#community">
+                <a href="{{ site.baseurl }}/index.html#community">
                 {% endif %}
                     <span lang="en">Community</span>
                     <span lang="fr">Communauté</span>
@@ -45,15 +45,15 @@
                         <span lang="fr">Gouvernance</span>
                     </a>
                     <div class="nav-drop-menu">
-                        <a href="/board.html">
+                        <a href="{{ site.baseurl }}/board.html">
                             <span lang="en">Board of Directors</span>
                             <span lang="fr">Conseil d'Administration</span>
                         </a>
-                        <a href="/documents.html">
+                        <a href="{{ site.baseurl }}/documents.html">
                             <span lang="en">Documents & Bylaws</span>
                             <span lang="fr">Documents et Règlements</span>
                         </a>
-                        <a href="/meeting-minutes.html">
+                        <a href="{{ site.baseurl }}/meeting-minutes.html">
                             <span lang="en">Meeting Minutes</span>
                             <span lang="fr">Procès-Verbaux</span>
                         </a>
@@ -67,35 +67,35 @@
                         <span lang="fr">Ressources</span>
                     </a>
                     <div class="nav-drop-menu">
-                        <a href="/recalls.html">
+                        <a href="{{ site.baseurl }}/recalls.html">
                             <span lang="en">Recalls & Safety</span>
                             <span lang="fr">Rappels et Sécurité</span>
                         </a>
-                        <a href="/trip-data.html">
+                        <a href="{{ site.baseurl }}/trip-data.html">
                             <span lang="en">Trip Data</span>
                             <span lang="fr">Données de Voyage</span>
                         </a>
-                        <a href="/petition.html">
+                        <a href="{{ site.baseurl }}/petition.html">
                             <span lang="en">Petition</span>
                             <span lang="fr">Pétition</span>
                         </a>
-                        <a href="/newsletters.html">
+                        <a href="{{ site.baseurl }}/newsletters.html">
                             <span lang="en">Newsletters</span>
                             <span lang="fr">Bulletins</span>
                         </a>
-                        <a href="/report-issue.html">
+                        <a href="{{ site.baseurl }}/report-issue.html">
                             <span lang="en">Report an Issue</span>
                             <span lang="fr">Signaler un Problème</span>
                         </a>
-                        <a href="/warranty-survey.html">
+                        <a href="{{ site.baseurl }}/warranty-survey.html">
                             <span lang="en">Warranty Survey</span>
                             <span lang="fr">Sondage Garantie</span>
                         </a>
-                        <a href="/vf8-vf9-user-guide.html">
+                        <a href="{{ site.baseurl }}/vf8-vf9-user-guide.html">
                             <span lang="en">User Guide</span>
                             <span lang="fr">Guide d'Utilisation</span>
                         </a>
-                        <a href="/links.html">
+                        <a href="{{ site.baseurl }}/links.html">
                             <span lang="en">All Links</span>
                             <span lang="fr">Tous les Liens</span>
                         </a>
@@ -103,7 +103,7 @@
                 </div>
 
                 <!-- Join CTA -->
-                <a href="/join.html" class="nav-cta">
+                <a href="{{ site.baseurl }}/join.html" class="nav-cta">
                     <span lang="en">Join</span>
                     <span lang="fr">Adhérer</span>
                 </a>
