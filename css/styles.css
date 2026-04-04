@@ -2612,6 +2612,18 @@ a.community-card {
     font-weight: 600;
 }
 
+/* ---------- Survey section headers ---------- */
+.survey-section-header {
+    font-size: var(--text-sm);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--brand-primary);
+    border-bottom: 2px solid var(--brand-primary);
+    padding-bottom: var(--space-2);
+    margin: var(--space-8) 0 var(--space-5);
+}
+
 /* ---------- Hidden form sections (conditional logic) ---------- */
 .form-section-hidden {
     display: none;
