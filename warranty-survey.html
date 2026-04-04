@@ -278,35 +278,7 @@ og_description: "Submit your VinFast warranty or service issue for review and po
                                 <label for="stateField" id="stateLabel" style="font-size:var(--text-xs);color:var(--text-muted);">
                                     <span lang="en">State</span><span lang="fr">État</span>
                                 </label>
-                                <select id="stateField" name="state_province" required>
-                                    <option value="">-- Select --</option>
-                                    <optgroup label="United States">
-                                        <option>Alabama</option><option>Alaska</option><option>Arizona</option>
-                                        <option>Arkansas</option><option>California</option><option>Colorado</option>
-                                        <option>Connecticut</option><option>Delaware</option><option>District of Columbia</option>
-                                        <option>Florida</option><option>Georgia</option><option>Hawaii</option>
-                                        <option>Idaho</option><option>Illinois</option><option>Indiana</option>
-                                        <option>Iowa</option><option>Kansas</option><option>Kentucky</option>
-                                        <option>Louisiana</option><option>Maine</option><option>Maryland</option>
-                                        <option>Massachusetts</option><option>Michigan</option><option>Minnesota</option>
-                                        <option>Mississippi</option><option>Missouri</option><option>Montana</option>
-                                        <option>Nebraska</option><option>Nevada</option><option>New Hampshire</option>
-                                        <option>New Jersey</option><option>New Mexico</option><option>New York</option>
-                                        <option>North Carolina</option><option>North Dakota</option><option>Ohio</option>
-                                        <option>Oklahoma</option><option>Oregon</option><option>Pennsylvania</option>
-                                        <option>Rhode Island</option><option>South Carolina</option><option>South Dakota</option>
-                                        <option>Tennessee</option><option>Texas</option><option>Utah</option>
-                                        <option>Vermont</option><option>Virginia</option><option>Washington</option>
-                                        <option>West Virginia</option><option>Wisconsin</option><option>Wyoming</option>
-                                    </optgroup>
-                                    <optgroup label="Canada">
-                                        <option>Alberta</option><option>British Columbia</option><option>Manitoba</option>
-                                        <option>New Brunswick</option><option>Newfoundland and Labrador</option>
-                                        <option>Northwest Territories</option><option>Nova Scotia</option><option>Nunavut</option>
-                                        <option>Ontario</option><option>Prince Edward Island</option><option>Quebec</option>
-                                        <option>Saskatchewan</option><option>Yukon</option>
-                                    </optgroup>
-                                </select>
+                                <input type="text" id="stateField" name="state_province" required placeholder="e.g. California, Ontario" autocomplete="address-level1">
                             </div>
                             <div>
                                 <label for="cityField" style="font-size:var(--text-xs);color:var(--text-muted);">
@@ -554,22 +526,12 @@ og_description: "Submit your VinFast warranty or service issue for review and po
             });
         });
 
-        // Country → State/Province label + optgroup filter
+        // Country → State/Province label update
         document.getElementById('countryField').addEventListener('change', function () {
             var label = document.getElementById('stateLabel');
-            var stateField = document.getElementById('stateField');
-            var isCanada = this.value === 'Canada';
-            label.innerHTML = isCanada
+            label.innerHTML = this.value === 'Canada'
                 ? '<span lang="en">Province / Territory</span><span lang="fr">Province / Territoire</span>'
                 : '<span lang="en">State</span><span lang="fr">État</span>';
-            stateField.querySelectorAll('optgroup').forEach(function (og) {
-                var isCanadaGroup = og.label === 'Canada';
-                og.style.display = (isCanada === isCanadaGroup) ? '' : 'none';
-                og.querySelectorAll('option').forEach(function (opt) {
-                    opt.disabled = (isCanada !== isCanadaGroup);
-                });
-            });
-            stateField.value = '';
         });
 
         // Character counter for issue detail
