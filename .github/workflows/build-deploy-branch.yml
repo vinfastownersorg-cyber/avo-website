@@ -30,7 +30,7 @@ jobs:
           bundle install || true
 
       - name: Build site
-        run: bundle exec jekyll build || jekyll build
+        run: bundle exec jekyll build --config _config.yml,_config_production.yml || jekyll build --config _config.yml,_config_production.yml
 
       - name: Deploy to branch
         uses: peaceiris/actions-gh-pages@v4

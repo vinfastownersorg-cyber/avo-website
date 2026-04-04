@@ -1,0 +1,3 @@
+# Production overrides — used by build-deploy-branch.yml
+# Overrides baseurl back to "" so paths resolve correctly on the Apache server
+baseurl: ""

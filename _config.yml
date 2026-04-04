@@ -2,7 +2,7 @@
 # Jekyll layouts/includes used for nav/footer/head templating
 
 url: "https://vinfastowners.org"
-baseurl: ""
+baseurl: "/avo-website"
 
 # Apply default layout to all pages
 defaults:
@@ -35,6 +35,8 @@ exclude:
   - Gemfile.lock
   - Petition/               # Internal petition documents (not for public site)
   - newsletter-website-updates.md  # Internal planning notes
+  - _config_production.yml         # Production build override (not a page)
+  - WARRANTY-SURVEY-BUILD.md       # Build instructions (not a page)
 
 # NOTE: data/resource-ratings.json is intentionally NOT excluded
 # It needs to be publicly accessible for the rating system to work
