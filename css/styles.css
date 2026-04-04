@@ -2514,6 +2514,122 @@ a.community-card {
     flex-wrap: wrap;
 }
 
+/* ---------- Radio Group (matches checkbox-group-v2 pattern) ---------- */
+.radio-group-v2 {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+    margin-bottom: var(--space-3);
+}
+
+.radio-group-v2 input[type="radio"] {
+    width: 20px;
+    height: 20px;
+    margin-top: 2px;
+    accent-color: var(--brand-primary);
+    min-height: auto;
+    flex-shrink: 0;
+}
+
+.radio-group-v2 label {
+    font-size: var(--text-sm);
+    color: var(--text-secondary);
+    line-height: var(--leading-normal);
+    font-weight: normal;
+    cursor: pointer;
+}
+
+/* ---------- Form Helper Text ---------- */
+.form-helper {
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+    margin-top: var(--space-1);
+    line-height: var(--leading-normal);
+}
+
+/* ---------- Gate Message (shown when Q1 = No) ---------- */
+.gate-message {
+    background: var(--surface-1);
+    border: 2px solid var(--electric, #0099e5);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    margin-top: var(--space-5);
+    display: none;
+}
+
+.gate-message h3 {
+    color: var(--text-primary);
+    margin-bottom: var(--space-3);
+    font-size: var(--text-lg);
+}
+
+.gate-message p {
+    color: var(--text-secondary);
+    margin-bottom: var(--space-3);
+}
+
+.gate-message .phone-numbers {
+    background: var(--surface-0);
+    border-radius: var(--radius-md);
+    padding: var(--space-4);
+    margin: var(--space-4) 0;
+    font-weight: 600;
+}
+
+/* ---------- Survey Confirmation ---------- */
+.survey-confirmation {
+    background: var(--surface-1);
+    border: 2px solid #28a745;
+    border-radius: var(--radius-lg);
+    padding: var(--space-8);
+    text-align: center;
+    display: none;
+}
+
+.survey-confirmation h2 {
+    color: var(--text-primary);
+    margin-bottom: var(--space-4);
+}
+
+.survey-confirmation p {
+    color: var(--text-secondary);
+    margin-bottom: var(--space-3);
+}
+
+.survey-confirmation ul {
+    text-align: left;
+    display: inline-block;
+    color: var(--text-secondary);
+    margin: var(--space-3) 0 var(--space-5);
+}
+
+.survey-confirmation .phone-numbers {
+    background: var(--surface-0);
+    border-radius: var(--radius-md);
+    padding: var(--space-4);
+    margin: var(--space-4) auto;
+    max-width: 320px;
+    font-weight: 600;
+}
+
+/* ---------- Hidden form sections (conditional logic) ---------- */
+.form-section-hidden {
+    display: none;
+}
+
+/* ---------- 3-column location row ---------- */
+.location-row-v2 {
+    display: grid;
+    grid-template-columns: 2fr 2fr 1.5fr;
+    gap: var(--space-4);
+}
+
+@media (max-width: 600px) {
+    .location-row-v2 {
+        grid-template-columns: 1fr;
+    }
+}
+
 /* ---------- Membership Benefits Grid ---------- */
 .benefits-grid-v2 {
     display: grid;
