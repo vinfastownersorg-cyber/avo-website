@@ -70,6 +70,10 @@ og_description: "Submit your VinFast warranty or service issue for review and po
             </div>
             <!-- ===== Survey Form ===== -->
             <form id="warrantyForm" class="form-v2" novalidate>
+                <p class="form-helper" style="margin-bottom:var(--space-5);">
+                    <span lang="en"><span style="color:var(--error,#d32f2f);">*</span> Required fields</span>
+                    <span lang="fr"><span style="color:var(--error,#d32f2f);">*</span> Champs obligatoires</span>
+                </p>
 
                 <!-- Q1: Gate Question -->
                 <div class="form-group-v2">
@@ -117,8 +121,8 @@ og_description: "Submit your VinFast warranty or service issue for review and po
                         <span lang="fr">Beaucoup de problèmes peuvent être résolus en parlant directement avec VinFast. Veuillez appeler le numéro de votre région ci-dessous et demander un numéro de dossier&nbsp;:</span>
                     </p>
                     <div class="phone-numbers">
-                        <p><strong>US:</strong> (833) 503-0600</p>
-                        <p><strong>Canada:</strong> (833) 503-0601</p>
+                        <p><strong>US:</strong> <a href="tel:+18335030600">(833) 503-0600</a></p>
+                        <p><strong>Canada:</strong> <a href="tel:+18335030601">(833) 503-0601</a></p>
                         <p>
                             <span lang="en">Available 24/7</span>
                             <span lang="fr">Disponible 24h/24, 7j/7</span>
@@ -132,6 +136,12 @@ og_description: "Submit your VinFast warranty or service issue for review and po
 
                 <!-- ===== Rest of form (hidden until Q1 = Yes) ===== -->
                 <div id="formMain" class="form-section-hidden">
+
+                    <!-- Section 2 header -->
+                    <div class="survey-section-header">
+                        <span lang="en">About You &amp; Your Vehicle</span>
+                        <span lang="fr">À propos de vous et de votre véhicule</span>
+                    </div>
 
                     <!-- Q2: Case Number (conditional) -->
                     <div id="q2Section" class="form-group-v2 form-section-hidden">
@@ -214,8 +224,8 @@ og_description: "Submit your VinFast warranty or service issue for review and po
                             placeholder="e.g. 7A3B"
                             style="max-width: 140px;">
                         <p class="form-helper">
-                            <span lang="en">Last 4 alphanumeric characters only. Full VIN numbers are never collected.</span>
-                            <span lang="fr">4 derniers caractères alphanumériques seulement. Les NIV complets ne sont jamais collectés.</span>
+                            <span lang="en">Last 4 alphanumeric characters only — found on your dashboard, door jamb sticker, or insurance card. Full VIN numbers are never collected.</span>
+                            <span lang="fr">4 derniers caractères alphanumériques seulement — trouvés sur votre tableau de bord, l'autocollant du montant de porte ou votre carte d'assurance. Les NIV complets ne sont jamais collectés.</span>
                         </p>
                     </div>
 
@@ -306,12 +316,18 @@ og_description: "Submit your VinFast warranty or service issue for review and po
                             </div>
                         </div>
                     </div>
+                    <!-- Section 3 header -->
+                    <div class="survey-section-header">
+                        <span lang="en">About the Issue</span>
+                        <span lang="fr">À propos du problème</span>
+                    </div>
+
                     <!-- Q9: Service Duration -->
                     <div class="form-group-v2">
                         <fieldset style="border:none;padding:0;margin:0;">
                             <legend style="font-weight:600;font-size:var(--text-sm);color:var(--text-primary);margin-bottom:var(--space-2);">
-                                <span lang="en">How long has your vehicle been in service? <span style="color:var(--error,#d32f2f);" aria-hidden="true">*</span></span>
-                                <span lang="fr">Depuis combien de temps votre véhicule est-il en service? <span style="color:var(--error,#d32f2f);" aria-hidden="true">*</span></span>
+                                <span lang="en">How long has your vehicle been at the service center / in for repairs? <span style="color:var(--error,#d32f2f);" aria-hidden="true">*</span></span>
+                                <span lang="fr">Depuis combien de temps votre véhicule est-il au centre de service / en réparation? <span style="color:var(--error,#d32f2f);" aria-hidden="true">*</span></span>
                             </legend>
                             <div class="radio-group-v2">
                                 <input type="radio" id="q9-30" name="q9_duration" value="Less than 30 days" required>
@@ -370,8 +386,9 @@ og_description: "Submit your VinFast warranty or service issue for review and po
                         <textarea id="issueDetail" name="issue_detail" required rows="6"
                             placeholder="Please include: what the issue is, when it started, what the dealership has communicated, and any relevant dates or repair order numbers."></textarea>
                         <p class="form-helper">
-                            <span lang="en">Minimum 50 characters suggested.</span>
-                            <span lang="fr">Minimum 50 caractères suggéré.</span>
+                            <span id="charCount" style="font-weight:600; color:var(--text-muted);">0</span>
+                            <span lang="en"> characters (50 minimum suggested)</span>
+                            <span lang="fr"> caractères (50 minimum suggéré)</span>
                         </p>
                     </div>
 
@@ -391,6 +408,12 @@ og_description: "Submit your VinFast warranty or service issue for review and po
                                 <label for="q12-no"><span lang="en">No</span><span lang="fr">Non</span></label>
                             </div>
                         </fieldset>
+                    </div>
+
+                    <!-- Section 4 header -->
+                    <div class="survey-section-header">
+                        <span lang="en">Follow-Up Preferences</span>
+                        <span lang="fr">Préférences de suivi</span>
                     </div>
 
                     <!-- Q13: Preferred language -->
@@ -468,8 +491,8 @@ og_description: "Submit your VinFast warranty or service issue for review and po
                     <span lang="fr">Si ce n'est pas déjà fait, nous vous recommandons également d'ouvrir un dossier directement auprès du service client VinFast&nbsp;:</span>
                 </p>
                 <div class="phone-numbers">
-                    <p><strong>US:</strong> (833) 503-0600</p>
-                    <p><strong>Canada:</strong> (833) 503-0601</p>
+                    <p><strong>US:</strong> <a href="tel:+18335030600">(833) 503-0600</a></p>
+                    <p><strong>Canada:</strong> <a href="tel:+18335030601">(833) 503-0601</a></p>
                     <p><span lang="en">Available 24/7</span><span lang="fr">Disponible 24h/24, 7j/7</span></p>
                 </div>
                 <p>
@@ -531,15 +554,81 @@ og_description: "Submit your VinFast warranty or service issue for review and po
             });
         });
 
-        // Country → State/Province label update
+        // Country → State/Province label + optgroup filter
         document.getElementById('countryField').addEventListener('change', function () {
             var label = document.getElementById('stateLabel');
-            if (this.value === 'Canada') {
-                label.innerHTML = '<span lang="en">Province / Territory</span><span lang="fr">Province / Territoire</span>';
-            } else {
-                label.innerHTML = '<span lang="en">State</span><span lang="fr">État</span>';
-            }
+            var stateField = document.getElementById('stateField');
+            var isCanada = this.value === 'Canada';
+            label.innerHTML = isCanada
+                ? '<span lang="en">Province / Territory</span><span lang="fr">Province / Territoire</span>'
+                : '<span lang="en">State</span><span lang="fr">État</span>';
+            stateField.querySelectorAll('optgroup').forEach(function (og) {
+                var isCanadaGroup = og.label === 'Canada';
+                og.style.display = (isCanada === isCanadaGroup) ? '' : 'none';
+                og.querySelectorAll('option').forEach(function (opt) {
+                    opt.disabled = (isCanada !== isCanadaGroup);
+                });
+            });
+            stateField.value = '';
         });
+
+        // Character counter for issue detail
+        var issueTextarea = document.getElementById('issueDetail');
+        var charCount = document.getElementById('charCount');
+        issueTextarea.addEventListener('input', function () {
+            var len = this.value.length;
+            charCount.textContent = len;
+            charCount.style.color = len >= 50 ? 'var(--success, #28a745)' : 'var(--text-muted)';
+        });
+
+        // localStorage draft save/restore
+        var DRAFT_KEY = 'avo_warranty_draft';
+        var draftFields = ['caseNumber', 'fullName', 'vinLast4', 'vehicleModel', 'dealerName', 'cityField', 'stateField', 'countryField', 'issueDetail', 'additionalInfo'];
+
+        function saveDraft() {
+            var draft = {};
+            draftFields.forEach(function (id) {
+                var el = document.getElementById(id);
+                if (el) draft[id] = el.value;
+            });
+            ['q1_contacted', 'q3_source', 'q9_duration', 'q12_contact', 'pref_language'].forEach(function (name) {
+                var checked = document.querySelector('input[name="' + name + '"]:checked');
+                if (checked) draft[name] = checked.value;
+            });
+            draft['issues'] = Array.from(document.querySelectorAll('input[name="issues"]:checked')).map(function (c) { return c.value; });
+            draft['q3_other'] = document.getElementById('q3OtherText').value;
+            try { localStorage.setItem(DRAFT_KEY, JSON.stringify(draft)); } catch (e) {}
+        }
+
+        function restoreDraft() {
+            var raw;
+            try { raw = localStorage.getItem(DRAFT_KEY); } catch (e) {}
+            if (!raw) return;
+            var draft;
+            try { draft = JSON.parse(raw); } catch (e) { return; }
+            draftFields.forEach(function (id) {
+                var el = document.getElementById(id);
+                if (el && draft[id] !== undefined) el.value = draft[id];
+            });
+            ['q1_contacted', 'q3_source', 'q9_duration', 'q12_contact', 'pref_language'].forEach(function (name) {
+                if (draft[name]) {
+                    var radio = document.querySelector('input[name="' + name + '"][value="' + draft[name] + '"]');
+                    if (radio) { radio.checked = true; radio.dispatchEvent(new Event('change')); }
+                }
+            });
+            if (draft['issues']) {
+                draft['issues'].forEach(function (val) {
+                    var cb = document.querySelector('input[name="issues"][value="' + val + '"]');
+                    if (cb) cb.checked = true;
+                });
+            }
+            if (draft['q3_other']) document.getElementById('q3OtherText').value = draft['q3_other'];
+            if (draft['issueDetail']) { charCount.textContent = draft['issueDetail'].length; }
+        }
+
+        form.addEventListener('input', saveDraft);
+        form.addEventListener('change', saveDraft);
+        restoreDraft();
 
         form.addEventListener('submit', async function (e) {
             e.preventDefault();
@@ -586,6 +675,7 @@ og_description: "Submit your VinFast warranty or service issue for review and po
                     body: JSON.stringify(payload)
                 });
                 if (res.ok) {
+                    try { localStorage.removeItem(DRAFT_KEY); } catch (e) {}
                     form.style.display = 'none';
                     confirmation.style.display = 'block';
                     confirmation.scrollIntoView({ behavior: 'smooth', block: 'start' });
