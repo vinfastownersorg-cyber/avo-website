@@ -508,17 +508,28 @@ jobs:
               # Check if this is an official VinFast channel
               is_official = video.get('is_official', False)
 
-              # Official channels bypass most filters (always post their content)
+              # Official channels bypass all filters (always post their content)
               if is_official:
                   print(f"   🏢 OFFICIAL CHANNEL: {video['title'][:50]}...")
                   video['is_credible'] = True
-                  video['credibility_boost'] = 200  # High boost for official content
-                  video['engagement_score'] = 1.0  # Default engagement
+                  video['credibility_boost'] = 200
+                  video['engagement_score'] = 1.0
                   video['quality_score'] = 201.0
                   quality_videos.append(video)
                   continue
 
-              # For non-official channels, apply standard filters:
+              # Priority owner channels bypass keyword/engagement filters — we already trust them
+              is_priority_owner = video.get('is_priority_owner', False)
+              if is_priority_owner:
+                  print(f"   ⭐ PRIORITY OWNER: {video['title'][:50]}...")
+                  video['is_credible'] = True
+                  video['credibility_boost'] = 100
+                  video['engagement_score'] = 1.0
+                  video['quality_score'] = 101.0
+                  quality_videos.append(video)
+                  continue
+
+              # For all other channels, apply standard filters:
 
               # Filter 1: Check for spam keywords
               has_spam = any(spam in title_lower or spam in desc_lower for spam in SPAM_KEYWORDS)
