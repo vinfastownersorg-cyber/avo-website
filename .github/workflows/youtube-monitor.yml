@@ -234,6 +234,13 @@ jobs:
               'Jana Askeland': 'UCufYC6AKV1c6gDv6DhHcKvQ',  # @JanaAskeland - A Real Mom Review VF9
           }
 
+          # Out of Spec channels — directly monitored, any VinFast content passes
+          OUT_OF_SPEC_CHANNELS = {
+              'Out of Spec Reviews': 'UCyIzTVZNIAMY9JhzKc-rriQ',   # @OutofSpecReviews
+              'Out of Spec Motoring': 'UCVRZKu68-4tQIk7_3CJ_wKA',  # @OutofSpecMotoring
+              'Out of Spec Testing': 'UCpcFK_-rVieNCJUPLFSop3w',   # @OutofSpecTesting
+          }
+
           # Official VinFast channels (from vinfastowners.org resources)
           OFFICIAL_CHANNELS = {
               'VinFast US': 'UCzKjl-p7WlKBVMxR6eCBpMw',  # @vinfastunitedstates
@@ -242,8 +249,8 @@ jobs:
               'VinFast IR': 'UC1eDzQrPuUFUARM3H7KEvlQ'  # @VinFastIR (Investor Relations)
           }
 
-          # Combine all priority channels (owners + official)
-          ALL_PRIORITY_CHANNELS = {**PRIORITY_OWNER_CHANNELS, **OFFICIAL_CHANNELS}
+          # Combine all priority channels (owners + official + Out of Spec)
+          ALL_PRIORITY_CHANNELS = {**PRIORITY_OWNER_CHANNELS, **OFFICIAL_CHANNELS, **OUT_OF_SPEC_CHANNELS}
 
           # Search queries (English and French)
           search_queries = [
@@ -310,12 +317,13 @@ jobs:
                   print(f"   ⚠️  Skipping {channel_name} - No channel ID configured")
                   continue
 
-              # Determine if this is an official channel or owner channel
+              # Determine channel type
               is_official_channel = channel_id in OFFICIAL_CHANNELS.values()
               is_owner_channel = channel_id in PRIORITY_OWNER_CHANNELS.values()
+              is_oos_channel = channel_id in OUT_OF_SPEC_CHANNELS.values()
 
               try:
-                  channel_type = "🏢 OFFICIAL" if is_official_channel else "⭐ OWNER"
+                  channel_type = "🏢 OFFICIAL" if is_official_channel else ("🎬 OUT OF SPEC" if is_oos_channel else "⭐ OWNER")
                   print(f"\n📺 Checking: {channel_name} ({channel_type}) (ID: {channel_id[:15]}...)")
 
                   # Search for recent videos from this specific channel (using extended 7-day window)
@@ -342,8 +350,8 @@ jobs:
 
                       snippet = item['snippet']
 
-                      # For Simply Gregster, check if video mentions VinFast
-                      if channel_name == 'SimplyGregster':
+                      # For non-owner channels, require VinFast in title or description
+                      if channel_name == 'SimplyGregster' or is_oos_channel:
                           title_lower = snippet['title'].lower()
                           desc_lower = snippet['description'].lower()
                           if 'vinfast' not in title_lower and 'vinfast' not in desc_lower:
@@ -358,8 +366,9 @@ jobs:
                           'description': snippet['description'],
                           'published_at': snippet['publishedAt'],
                           'thumbnail': snippet['thumbnails']['high']['url'] if 'high' in snippet['thumbnails'] else snippet['thumbnails']['default']['url'],
-                          'is_official': is_official_channel,  # Only mark OFFICIAL channels as official
-                          'is_priority_owner': is_owner_channel  # Mark owner channels separately
+                          'is_official': is_official_channel,
+                          'is_priority_owner': is_owner_channel,
+                          'is_oos': is_oos_channel
                       }
 
                       all_videos.append(video_data)
@@ -531,7 +540,17 @@ jobs:
                   quality_videos.append(video)
                   continue
 
-              # Credible review channels (e.g. Out of Spec) bypass filters if VinFast is in title/description
+              # Out of Spec channels bypass all filters (VinFast check already done at collection time)
+              if video.get('is_oos', False):
+                  print(f"   🎬 OUT OF SPEC: {video['title'][:50]}...")
+                  video['is_credible'] = True
+                  video['credibility_boost'] = 100
+                  video['engagement_score'] = 1.0
+                  video['quality_score'] = 100.0
+                  quality_videos.append(video)
+                  continue
+
+              # Other credible review channels bypass filters if VinFast is in title/description
               is_credible_channel = any(credible in channel_lower for credible in CREDIBLE_CHANNELS)
               vinfast_mentioned = 'vinfast' in title_lower or 'vinfast' in desc_lower[:500]
               if is_credible_channel and vinfast_mentioned:
