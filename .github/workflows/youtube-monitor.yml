@@ -74,6 +74,8 @@ jobs:
               'throttle house',
               'out of spec reviews',
               'out of spec motoring',
+              'out of spec studios',
+              'out of spec',
               'insideevs',
               'fully charged show',
               'engineering explained',
@@ -526,6 +528,18 @@ jobs:
                   video['credibility_boost'] = 100
                   video['engagement_score'] = 1.0
                   video['quality_score'] = 101.0
+                  quality_videos.append(video)
+                  continue
+
+              # Credible review channels (e.g. Out of Spec) bypass filters if VinFast is in title/description
+              is_credible_channel = any(credible in channel_lower for credible in CREDIBLE_CHANNELS)
+              vinfast_mentioned = 'vinfast' in title_lower or 'vinfast' in desc_lower[:500]
+              if is_credible_channel and vinfast_mentioned:
+                  print(f"   🎬 CREDIBLE REVIEW: {video['title'][:50]}...")
+                  video['is_credible'] = True
+                  video['credibility_boost'] = 100
+                  video['engagement_score'] = 1.0
+                  video['quality_score'] = 100.0
                   quality_videos.append(video)
                   continue
 
