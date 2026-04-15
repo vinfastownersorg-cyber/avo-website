@@ -794,14 +794,25 @@
                 embeds: [{ color: 0x00539C, title: 'Warranty / Service Issue Report', fields: fields, timestamp: new Date().toISOString(), footer: { text: 'AVO Warranty Survey' } }]
             };
 
+            // Build CSV with same fields as embed
+            var csvEscape = function (v) { return '"' + String(v).replace(/"/g, '""') + '"'; };
+            var csvHeaders = fields.map(function (f) { return csvEscape(f.name); }).join(',');
+            var csvValues  = fields.map(function (f) { return csvEscape(f.value); }).join(',');
+            var csvContent = csvHeaders + '\r\n' + csvValues + '\r\n';
+            var csvBlob = new Blob([csvContent], { type: 'text/csv' });
+            var csvFilename = 'warranty-survey-' + new Date().toISOString().slice(0, 19).replace(/[:T]/g, '-') + '.csv';
+
+            var formData = new FormData();
+            formData.append('payload_json', JSON.stringify(payload));
+            formData.append('files[0]', csvBlob, csvFilename);
+
             submitBtn.disabled = true;
             submitBtn.innerHTML = '<span lang="en">Submitting\u2026</span><span lang="fr">Envoi en cours\u2026</span>';
 
             try {
                 var res = await fetch('https://discord.com/api/webhooks/1437665226014199868/URTf_d_QHRGHb3i7IXyj-UaejQT0DR7UXOo62hbRRKd1vEL6VM16d2y5Dn0zc65S6LFb', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
+                    body: formData
                 });
                 if (res.ok) {
                     try { localStorage.removeItem(DRAFT_KEY); } catch (e) {}
