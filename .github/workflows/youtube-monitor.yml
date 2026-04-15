@@ -2,10 +2,9 @@ name: YouTube VinFast Content Monitor
 
 on:
   schedule:
-    # Runs three times daily during North American waking hours (both coasts)
-    - cron: '0 17 * * *'  # 12:00 PM EST / 9:00 AM PST (noon/morning)
-    - cron: '0 21 * * *'  # 4:00 PM EST / 1:00 PM PST (afternoon)
-    - cron: '0 1 * * *'   # 8:00 PM EST / 5:00 PM PST (evening)
+    # Runs twice daily — quota budget: ~716 units/run × 2 = ~1,432/day (limit: 10,000)
+    - cron: '0 14 * * *'  # 10:00 AM EST / 7:00 AM PST (morning)
+    - cron: '0 22 * * *'  # 6:00 PM EST / 3:00 PM PST (afternoon)
   workflow_dispatch: # Allows manual trigger for testing
   push:
     branches:
@@ -202,6 +201,7 @@ jobs:
           print("🔍 Starting YouTube VinFast content monitor...")
           print(f"⏰ Searching for videos from last {THRESHOLDS['max_video_age_hours']} hours (general)")
           print(f"⏰ Priority channels: last {THRESHOLDS['priority_max_age_hours']} hours (7 days)")
+          print(f"💡 Quota strategy: playlistItems (1 unit/channel) + 7 searches (100 units each)")
 
           # Initialize YouTube API
           try:
@@ -217,7 +217,9 @@ jobs:
 
           # Extended time threshold for priority channels (7 days)
           priority_time_threshold = datetime.utcnow() - timedelta(hours=THRESHOLDS['priority_max_age_hours'])
-          priority_time_threshold_rfc3339 = priority_time_threshold.strftime('%Y-%m-%dT%H:%M:%SZ')
+
+          # Quota guard — set to True on first 403 quotaExceeded; skips further API calls
+          quota_exceeded = False
 
           # Priority VinFast Owner Channels (TOP PRIORITY - always post)
           # To find channel IDs: Go to YouTube channel -> View Page Source -> Search for "channelId"
@@ -252,69 +254,41 @@ jobs:
           # Combine all priority channels (owners + official + Out of Spec)
           ALL_PRIORITY_CHANNELS = {**PRIORITY_OWNER_CHANNELS, **OFFICIAL_CHANNELS, **OUT_OF_SPEC_CHANNELS}
 
-          # Search queries (English and French)
+          # Search queries — consolidated from 35 to 7 to stay within API quota.
+          # Priority channels are handled via playlistItems (1 unit each), so these
+          # searches are purely for discovering new/unknown creators.
+          # Cost: 7 queries × 100 units × 2 runs/day = 1,400 units/day
           search_queries = [
-              # English - Model-specific reviews
-              ('VinFast VF8 review', 'en'),
-              ('VinFast VF9 review', 'en'),
-              ('VinFast VF6 review', 'en'),
-              ('VinFast VF7 review', 'en'),
-              ('VinFast VF3 review', 'en'),
-
-              # English - Ownership & long-term content
-              ('VinFast ownership experience', 'en'),
-              ('VinFast 6 month review', 'en'),
-              ('VinFast one year review', 'en'),
-              ('living with VinFast', 'en'),
-              ('VinFast test drive', 'en'),
-
-              # English - Technical & comparisons
-              ('VinFast vs Tesla', 'en'),
-              ('VinFast vs Ioniq', 'en'),
-              ('VinFast range test', 'en'),
-              ('VinFast charging test', 'en'),
-              ('VinFast software update', 'en'),
-
-              # English - Tips & problems
-              ('VinFast tips and tricks', 'en'),
-              ('VinFast problems fixed', 'en'),
-
-              # English - General & news
-              ('VinFast 2025', 'en'),
-              ('VinFast 2026', 'en'),
-              ('VinFast news', 'en'),
-              ('VinFast announcement', 'en'),
-
-              # French queries
-              ('VinFast VF8 essai', 'fr'),
-              ('VinFast VF9 essai', 'fr'),
-              ('VinFast avis', 'fr'),
-              ('VinFast actualités', 'fr'),
-
-              # India-specific queries (English)
+              # English — broad review catch (covers all VF models in one query)
+              ('VinFast review', 'en'),
+              # English — ownership & long-term experience content
+              ('VinFast ownership test drive', 'en'),
+              # English — news, announcements, comparison & technical tests
+              ('VinFast news 2026', 'en'),
+              # English — North American discovery catch-all
+              ('VinFast EV 2026', 'en'),
+              # English — India market (7 prior queries → 1)
               ('VinFast India', 'en'),
-              ('VinFast VF6 India', 'en'),
-              ('VinFast VF7 India', 'en'),
-              ('VinFast Chennai', 'en'),
-              ('VinFast Tamil Nadu', 'en'),
-              ('VinFast India launch', 'en'),
-              ('VinFast India review', 'en'),
-
-              # Hindi queries (India)
-              ('VinFast India review', 'hi'),
-              ('VinFast VF6 review', 'hi'),
-              ('VinFast VF7 review', 'hi'),
+              # French — covers essai, avis, actualités
+              ('VinFast essai', 'fr'),
+              # Hindi — India regional language content
+              ('VinFast', 'hi'),
           ]
 
           all_videos = []
           video_ids_seen = set()
 
-          # PART 1: Monitor priority channels (VinFast owners + official channels)
-          print("\n⭐ Checking priority VinFast channels...")
+          # PART 1: Monitor priority channels via playlistItems.list (1 unit each, vs 100 for search)
+          # Each channel's uploads playlist ID = channel ID with "UC" prefix replaced by "UU"
+          print("\n⭐ Checking priority VinFast channels (playlistItems — 1 unit each)...")
           for channel_name, channel_id in ALL_PRIORITY_CHANNELS.items():
               # Skip placeholder IDs
               if channel_id == 'CHANNEL_ID_HERE':
                   print(f"   ⚠️  Skipping {channel_name} - No channel ID configured")
+                  continue
+
+              if quota_exceeded:
+                  print(f"   ⛔ Quota exceeded — skipping {channel_name}")
                   continue
 
               # Determine channel type
@@ -322,33 +296,37 @@ jobs:
               is_owner_channel = channel_id in PRIORITY_OWNER_CHANNELS.values()
               is_oos_channel = channel_id in OUT_OF_SPEC_CHANNELS.values()
 
+              # Derive uploads playlist ID: UC... → UU...
+              uploads_playlist_id = 'UU' + channel_id[2:]
+
               try:
                   channel_type = "🏢 OFFICIAL" if is_official_channel else ("🎬 OUT OF SPEC" if is_oos_channel else "⭐ OWNER")
-                  print(f"\n📺 Checking: {channel_name} ({channel_type}) (ID: {channel_id[:15]}...)")
+                  print(f"\n📺 Checking: {channel_name} ({channel_type}) [1 unit]")
 
-                  # Search for recent videos from this specific channel (using extended 7-day window)
-                  channel_response = youtube.search().list(
-                      channelId=channel_id,
-                      type='video',
+                  # playlistItems.list costs 1 unit (vs 100 for search.list)
+                  # Returns most-recent videos; we filter by publish date in Python
+                  playlist_response = youtube.playlistItems().list(
+                      playlistId=uploads_playlist_id,
                       part='id,snippet',
-                      publishedAfter=priority_time_threshold_rfc3339,
-                      order='date',
                       maxResults=10
                   ).execute()
 
-                  items_count = len(channel_response.get('items', []))
-                  print(f"   Found {items_count} recent videos in last 7 days")
+                  items = playlist_response.get('items', [])
+                  recent_items = [
+                      item for item in items
+                      if datetime.strptime(item['snippet']['publishedAt'], '%Y-%m-%dT%H:%M:%SZ') >= priority_time_threshold
+                  ]
+                  print(f"   Found {len(recent_items)} video(s) in last 7 days (of {len(items)} fetched)")
 
-                  for item in channel_response.get('items', []):
-                      video_id = item['id']['videoId']
+                  for item in recent_items:
+                      snippet = item['snippet']
+                      video_id = snippet['resourceId']['videoId']
 
                       if video_id in video_ids_seen:
                           print(f"   ⏭️  Already seen: {video_id}")
                           continue
 
                       video_ids_seen.add(video_id)
-
-                      snippet = item['snippet']
 
                       # For non-owner channels, require VinFast in title or description
                       if channel_name == 'SimplyGregster' or is_oos_channel:
@@ -358,14 +336,20 @@ jobs:
                               print(f"   ⏭️  SKIP (no VinFast mention): {snippet['title'][:60]}...")
                               continue
 
+                      thumbnails = snippet.get('thumbnails', {})
+                      thumbnail_url = (
+                          thumbnails.get('high', {}).get('url') or
+                          thumbnails.get('default', {}).get('url', '')
+                      )
+
                       video_data = {
                           'video_id': video_id,
                           'title': snippet['title'],
                           'channel_title': snippet['channelTitle'],
                           'channel_id': snippet['channelId'],
-                          'description': snippet['description'],
+                          'description': snippet.get('description', ''),
                           'published_at': snippet['publishedAt'],
-                          'thumbnail': snippet['thumbnails']['high']['url'] if 'high' in snippet['thumbnails'] else snippet['thumbnails']['default']['url'],
+                          'thumbnail': thumbnail_url,
                           'is_official': is_official_channel,
                           'is_priority_owner': is_owner_channel,
                           'is_oos': is_oos_channel
@@ -375,14 +359,22 @@ jobs:
                       print(f"   ✅ Found: {video_data['title'][:60]}... (published: {snippet['publishedAt']})")
 
               except HttpError as e:
-                  print(f"   ⚠️  YouTube API error for {channel_name}: {e}")
+                  if e.resp.status == 403 and 'quotaExceeded' in str(e):
+                      quota_exceeded = True
+                      print(f"   ⛔ QUOTA EXCEEDED — halting further API calls")
+                  else:
+                      print(f"   ⚠️  YouTube API error for {channel_name}: {e}")
               except Exception as e:
                   print(f"   ⚠️  Error checking {channel_name}: {e}")
 
-          # PART 2: General VinFast content search
+          # PART 2: General VinFast content search (7 queries × 100 units = 700 units)
 
           # Search for videos
           for query, language in search_queries:
+              if quota_exceeded:
+                  print(f"\n⛔ Quota exceeded — skipping search: '{query}'")
+                  continue
+
               try:
                   lang_labels = {
                       'en': "🇺🇸 English",
@@ -390,7 +382,7 @@ jobs:
                       'hi': "🇮🇳 Hindi"
                   }
                   lang_label = lang_labels.get(language, language)
-                  print(f"\n🔎 Searching ({lang_label}): '{query}'")
+                  print(f"\n🔎 Searching ({lang_label}): '{query}' [100 units]")
 
                   search_response = youtube.search().list(
                       q=query,
@@ -429,7 +421,11 @@ jobs:
                   print(f"   ✅ Found {len(search_response.get('items', []))} videos")
 
               except HttpError as e:
-                  print(f"   ⚠️  YouTube API error: {e}")
+                  if e.resp.status == 403 and 'quotaExceeded' in str(e):
+                      quota_exceeded = True
+                      print(f"   ⛔ QUOTA EXCEEDED — halting further searches")
+                  else:
+                      print(f"   ⚠️  YouTube API error: {e}")
               except Exception as e:
                   print(f"   ⚠️  Error: {e}")
 
