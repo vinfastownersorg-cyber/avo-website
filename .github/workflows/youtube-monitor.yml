@@ -328,8 +328,9 @@ jobs:
 
                       video_ids_seen.add(video_id)
 
-                      # For non-owner channels, require VinFast in title or description
-                      if channel_name == 'SimplyGregster' or is_oos_channel:
+                      # All non-official channels must mention VinFast in title or description.
+                      # Owner channels post general life content too (restaurants, other cars, etc.)
+                      if not is_official_channel:
                           title_lower = snippet['title'].lower()
                           desc_lower = snippet['description'].lower()
                           if 'vinfast' not in title_lower and 'vinfast' not in desc_lower:
