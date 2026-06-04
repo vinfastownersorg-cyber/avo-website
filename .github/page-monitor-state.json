@@ -1,38 +1,38 @@
 {
   "US Investor Relations": {
     "url": "https://vinfastauto.us/investor-relations/",
-    "hash": "43121314efc4e07eaaab89d465369187de9f243ec1b0192282e473dfb2f48d33",
-    "last_checked": "2026-06-03T02:46:35.639103",
-    "content_length": 9801
+    "hash": "4356aa14a7ba731f46e8857b4b96364ae28e0341d98f1b72082f9d521a5a72a9",
+    "last_checked": "2026-06-04T02:41:34.926503",
+    "content_length": 9874
   },
   "US Newsroom": {
     "url": "https://vinfastauto.us/newsroom",
-    "hash": "5e47d1c8cd6047aa0e67c9d890ac45b7fe69638a6cf43f990947a4118928cf81",
-    "last_checked": "2026-06-03T02:46:35.944439",
-    "content_length": 17561
+    "hash": "57f406a433c87070aec65d6558abb06c36405dc605532f33fa27ae3b0273e6a1",
+    "last_checked": "2026-06-04T02:41:35.391056",
+    "content_length": 17742
   },
   "CA Newsroom (EN)": {
     "url": "https://vinfastauto.ca/en/newsroom",
     "hash": "a85bd4c08f9c6a24fdb0d2a31f299fd4602b072bfdb45d719bd3f3982b0f3387",
-    "last_checked": "2026-06-03T02:46:36.256668",
+    "last_checked": "2026-06-04T02:41:35.759175",
     "content_length": 7660
   },
   "US Homepage": {
     "url": "https://vinfastauto.us/",
-    "hash": "2f11a086165d597b78685996ff8f1e50c1eea7290bc1ad8a1f6a4fa10df72007",
-    "last_checked": "2026-06-03T02:46:36.676597",
-    "content_length": 16478
+    "hash": "751b9d3efc85ec74ba0b9ac1808eb1bcbdda75c4635af398b4c03d94f018dd0d",
+    "last_checked": "2026-06-04T02:41:36.135418",
+    "content_length": 16469
   },
   "CA Homepage": {
     "url": "https://vinfastauto.ca/en",
     "hash": "f891eff3f315056067a712b322739f1b09fa4ad0a3974e48bf3580968244e18f",
-    "last_checked": "2026-06-03T02:46:37.062042",
+    "last_checked": "2026-06-04T02:41:36.572874",
     "content_length": 5214
   },
   "VinFast Owners": {
     "url": "https://vinfastowners.org",
     "hash": "e2a99edc3a4073da14816c15ca11cc91a5a7b3ff12e3e03e32920a5277bb544a",
-    "last_checked": "2026-06-03T02:46:37.850238",
+    "last_checked": "2026-06-04T02:41:38.262908",
     "content_length": 6888
   }
 }
