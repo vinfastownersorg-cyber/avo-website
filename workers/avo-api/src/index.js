@@ -91,11 +91,11 @@ async function handleFormSubmit(request, env) {
 
   const ip = request.headers.get('CF-Connecting-IP') || 'unknown';
   const rateLimitKey = `rate:${formType}:${ip}`;
-  const existing = await env.SESSIONS.get(rateLimitKey);
+  const existing = await env.sessions.get(rateLimitKey);
   if (existing) {
     return jsonResponse({ error: 'Please wait before submitting again' }, 429, env);
   }
-  await env.SESSIONS.put(rateLimitKey, '1', { expirationTtl: 30 });
+  await env.sessions.put(rateLimitKey, '1', { expirationTtl: 30 });
 
   const webhookUrl = env[webhookVar];
   const resp = await fetch(webhookUrl, {
@@ -127,7 +127,7 @@ function discordAuthUrl(env, state) {
 
 async function handleAuthStart(request, env) {
   const state = crypto.randomUUID();
-  await env.SESSIONS.put(`oauth_state:${state}`, '1', { expirationTtl: 600 });
+  await env.sessions.put(`oauth_state:${state}`, '1', { expirationTtl: 600 });
 
   return new Response(null, {
     status: 302,
@@ -145,11 +145,11 @@ async function handleAuthCallback(request, env) {
     return Response.redirect(`${env.SITE_URL}?auth_error=denied`, 302);
   }
 
-  const stateValid = await env.SESSIONS.get(`oauth_state:${state}`);
+  const stateValid = await env.sessions.get(`oauth_state:${state}`);
   if (!stateValid) {
     return Response.redirect(`${env.SITE_URL}?auth_error=invalid_state`, 302);
   }
-  await env.SESSIONS.delete(`oauth_state:${state}`);
+  await env.sessions.delete(`oauth_state:${state}`);
 
   const callbackUrl = `${url.origin}/auth/callback`;
 
@@ -216,7 +216,7 @@ async function handleAuthCallback(request, env) {
     createdAt: Date.now(),
   };
 
-  await env.SESSIONS.put(`session:${sessionId}`, JSON.stringify(session), {
+  await env.sessions.put(`session:${sessionId}`, JSON.stringify(session), {
     expirationTtl: 86400 * 7,
   });
 
@@ -246,7 +246,7 @@ async function handleAuthMe(request, env) {
     return jsonResponse({ authenticated: false }, 401, env);
   }
 
-  const sessionData = await env.SESSIONS.get(`session:${payload.sid}`);
+  const sessionData = await env.sessions.get(`session:${payload.sid}`);
   if (!sessionData) {
     return jsonResponse({ authenticated: false }, 401, env);
   }
@@ -268,7 +268,7 @@ async function handleAuthLogout(request, env) {
   if (token) {
     const payload = await verifyToken(token, env.SESSION_SECRET);
     if (payload?.sid) {
-      await env.SESSIONS.delete(`session:${payload.sid}`);
+      await env.sessions.delete(`session:${payload.sid}`);
     }
   }
 

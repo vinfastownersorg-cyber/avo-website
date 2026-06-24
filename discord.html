@@ -175,6 +175,20 @@
 
             <!-- Desktop controls -->
             <div class="nav-controls">
+                <!-- Auth -->
+                <a id="auth-login" href="https://avo-api.vinfastownersorg.workers.dev/auth/discord" class="auth-btn">
+                    <span lang="en">Login</span>
+                    <span lang="fr">Connexion</span>
+                </a>
+                <div id="auth-user" class="auth-user-info" style="display:none;">
+                    <img id="auth-avatar" class="auth-avatar" src="" alt="">
+                    <span id="auth-display-name" class="auth-display-name"></span>
+                </div>
+                <a id="auth-logout" href="https://avo-api.vinfastownersorg.workers.dev/auth/logout" class="auth-btn" style="display:none;">
+                    <span lang="en">Logout</span>
+                    <span lang="fr">Déconnexion</span>
+                </a>
+
                 <div class="lang-switch">
                     <button onclick="setLang('en')" class="active" aria-label="English">EN</button>
                     <button onclick="setLang('fr')" aria-label="Français">FR</button>
@@ -412,5 +426,6 @@
 
     
 
+<script src="/js/auth.js"></script>
 </body>
 </html>
