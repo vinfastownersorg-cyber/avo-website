@@ -1,0 +1,19 @@
+name = "avo-api"
+main = "src/index.js"
+compatibility_date = "2024-12-01"
+
+[vars]
+SITE_URL = "https://vinfastowners.org"
+DISCORD_CLIENT_ID = "1519179116916510752"
+DISCORD_GUILD_ID = "1306497961248821260"
+DISCORD_VERIFIED_ROLE_ID = "1306500290824114207"
+
+# Secrets (set via `wrangler secret put <NAME>`):
+# DISCORD_CLIENT_SECRET
+# DISCORD_WEBHOOK_MEMBERSHIP
+# DISCORD_WEBHOOK_OPEN_LETTER
+# SESSION_SECRET (random 64-char hex string for signing cookies)
+
+[[kv_namespaces]]
+binding = "SESSIONS"
+id = "6d11a66b4d45485da3a8d4b94296966f"
