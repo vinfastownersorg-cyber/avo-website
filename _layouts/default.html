@@ -2,8 +2,14 @@
 <html lang="en">
 {% include head.html %}
 <body>
+<a href="#main-content" class="skip-to-content">
+    <span lang="en">Skip to content</span>
+    <span lang="fr">Aller au contenu</span>
+</a>
 {% include nav.html %}
+<main id="main-content">
 {{ content }}
+</main>
 {% include footer.html %}
 </body>
 </html>

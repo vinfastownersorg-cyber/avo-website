@@ -141,6 +141,10 @@ schema_json: |
                             <span lang="fr">Prénom *</span>
                         </label>
                         <input type="text" id="firstName" name="firstName" required>
+                        <span class="form-error">
+                            <span lang="en">First name is required</span>
+                            <span lang="fr">Le prénom est requis</span>
+                        </span>
                     </div>
                     <div class="form-group-v2">
                         <label for="lastName">
@@ -148,6 +152,10 @@ schema_json: |
                             <span lang="fr">Nom *</span>
                         </label>
                         <input type="text" id="lastName" name="lastName" required>
+                        <span class="form-error">
+                            <span lang="en">Last name is required</span>
+                            <span lang="fr">Le nom est requis</span>
+                        </span>
                     </div>
                 </div>
 
@@ -157,6 +165,10 @@ schema_json: |
                         <span lang="fr">Adresse Email *</span>
                     </label>
                     <input type="email" id="email" name="email" required>
+                    <span class="form-error">
+                        <span lang="en">A valid email address is required</span>
+                        <span lang="fr">Une adresse email valide est requise</span>
+                    </span>
                 </div>
 
                 <div class="form-row-v2">
@@ -236,6 +248,11 @@ schema_json: |
                     </label>
                 </div>
 
+                <div class="hp-field" aria-hidden="true">
+                    <label for="website">Website</label>
+                    <input type="text" id="website" name="website" autocomplete="off" tabindex="-1">
+                </div>
+
                 <div class="form-actions">
                     <button type="submit" class="btn-v2 btn-primary btn-lg">
                         <span lang="en">Join AVO — Free</span>
@@ -248,6 +265,38 @@ schema_json: |
                     <p lang="fr">* Champs requis. Vos informations ne seront utilisées qu'à des fins d'adhésion à AVO et ne seront jamais partagées avec des tiers. Voir notre <a href="privacy.html">Politique de Confidentialité</a>.</p>
                 </div>
             </form>
+
+            <!-- Error Box -->
+            <div id="join-error" class="notice-box-v2 notice-error" style="display:none; margin-top:var(--space-6);">
+                <p lang="en">There was an error submitting your membership request. Please try again or contact us directly on <a href="discord.html">Discord</a>.</p>
+                <p lang="fr">Une erreur s'est produite lors de la soumission de votre demande d'adhésion. Veuillez réessayer ou nous contacter directement sur <a href="discord.html">Discord</a>.</p>
+            </div>
+
+            <!-- Confirmation Panel -->
+            <div id="join-confirmation" class="highlight-section" style="display:none;">
+                <h2>
+                    <span lang="en">Welcome to AVO!</span>
+                    <span lang="fr">Bienvenue chez AVO!</span>
+                </h2>
+                <p>
+                    <span lang="en">Your membership request has been submitted. We'll contact you within 24 hours. In the meantime, here are your next steps:</span>
+                    <span lang="fr">Votre demande d'adhésion a été soumise. Nous vous contacterons dans les 24 heures. En attendant, voici vos prochaines étapes:</span>
+                </p>
+                <div style="display:flex; gap:var(--space-4); justify-content:center; flex-wrap:wrap; margin-top:var(--space-4);">
+                    <a href="discord.html" class="btn-v2 btn-white">
+                        <span lang="en">Join Discord</span>
+                        <span lang="fr">Rejoindre Discord</span>
+                    </a>
+                    <a href="newsletters.html" class="btn-v2 btn-outline-white">
+                        <span lang="en">Read Newsletters</span>
+                        <span lang="fr">Lire les Bulletins</span>
+                    </a>
+                    <a href="considering-vinfast.html" class="btn-v2 btn-outline-white">
+                        <span lang="en">Buyer's Guide</span>
+                        <span lang="fr">Guide d'Achat</span>
+                    </a>
+                </div>
+            </div>
 
             <!-- Alternative Signup Options -->
             <div class="section-header centered fade-in" style="margin-top: var(--space-8);">
@@ -275,8 +324,32 @@ schema_json: |
 
     <!-- ===== Membership Form Handler ===== -->
     <script>
-        document.getElementById('membershipForm').addEventListener('submit', async function (e) {
+        var membershipForm = document.getElementById('membershipForm');
+        membershipForm.setAttribute('novalidate', '');
+
+        membershipForm.addEventListener('submit', async function (e) {
             e.preventDefault();
+
+            // Inline validation
+            var requiredFields = this.querySelectorAll('[required]');
+            var valid = true;
+            requiredFields.forEach(function (field) {
+                if (!field.checkValidity()) {
+                    field.classList.add('invalid');
+                    valid = false;
+                } else {
+                    field.classList.remove('invalid');
+                }
+            });
+            if (!valid) return;
+
+            // Honeypot check
+            if (document.getElementById('website').value) return;
+
+            var submitBtn = this.querySelector('button[type="submit"]');
+            var originalBtnHTML = submitBtn.innerHTML;
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span lang="en">Submitting\u2026</span><span lang="fr">Envoi en cours\u2026</span>';
 
             var firstName = document.getElementById('firstName')?.value || '';
             var lastName = document.getElementById('lastName')?.value || '';
@@ -310,6 +383,7 @@ schema_json: |
             };
 
             try {
+                // TODO: Replace with Cloudflare Worker proxy endpoint (e.g. https://api.vinfastowners.org/submit-form?type=membership)
                 var response = await fetch('https://discord.com/api/webhooks/1437665226014199868/URTf_d_QHRGHb3i7IXyj-UaejQT0DR7UXOo62hbRRKd1vEL6VM16d2y5Dn0zc65S6LFb', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -317,17 +391,18 @@ schema_json: |
                 });
 
                 if (response.ok) {
-                    alert('Thank you for joining AVO! Your membership request has been submitted. We will contact you at ' + formData.email + ' within 24 hours.');
-                    this.reset();
-                    setTimeout(function () {
-                        window.location.href = 'index.html';
-                    }, 2000);
+                    this.style.display = 'none';
+                    document.getElementById('join-confirmation').style.display = 'block';
+                    document.getElementById('join-confirmation').scrollIntoView({ behavior: 'smooth', block: 'start' });
                 } else {
                     throw new Error('Failed to submit');
                 }
             } catch (error) {
                 console.error('Error:', error);
-                alert('There was an error submitting your membership request. Please try again or contact us directly on Discord (see discord.html)');
+                document.getElementById('join-error').style.display = 'block';
+                document.getElementById('join-error').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalBtnHTML;
             }
         });
     </script>
