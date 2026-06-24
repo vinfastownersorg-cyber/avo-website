@@ -424,6 +424,11 @@ og_description: "Submit your VinFast warranty or service issue for review and po
                     <div id="formError" class="notice-box-v2 notice-error" style="display:none;" role="alert">
                         <p id="formErrorMsg"></p>
                     </div>
+                    <div class="hp-field" aria-hidden="true">
+                        <label for="ws_website">Website</label>
+                        <input type="text" id="ws_website" name="ws_website" autocomplete="off" tabindex="-1">
+                    </div>
+
                     <!-- Submit -->
                     <div class="form-actions-v2">
                         <button type="submit" id="submitBtn" class="btn-v2 btn-primary btn-lg">
@@ -596,6 +601,9 @@ og_description: "Submit your VinFast warranty or service issue for review and po
             e.preventDefault();
             errorBox.style.display = 'none';
 
+            // Honeypot check
+            if (document.getElementById('ws_website').value) return;
+
             var q1Val = (document.querySelector('input[name="q1_contacted"]:checked') || {}).value || '';
             var q3Radio = (document.querySelector('input[name="q3_source"]:checked') || {}).value || 'Not provided';
             var q3Val = q3Radio === 'Other' ? ('Other: ' + (document.getElementById('q3OtherText').value || 'not specified')) : q3Radio;
@@ -643,6 +651,7 @@ og_description: "Submit your VinFast warranty or service issue for review and po
             submitBtn.innerHTML = '<span lang="en">Submitting\u2026</span><span lang="fr">Envoi en cours\u2026</span>';
 
             try {
+                // TODO: Replace with Cloudflare Worker proxy endpoint (e.g. https://api.vinfastowners.org/submit-form?type=warranty-survey)
                 var res = await fetch('https://discord.com/api/webhooks/1437665226014199868/URTf_d_QHRGHb3i7IXyj-UaejQT0DR7UXOo62hbRRKd1vEL6VM16d2y5Dn0zc65S6LFb', {
                     method: 'POST',
                     body: formData

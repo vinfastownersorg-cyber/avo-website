@@ -610,6 +610,11 @@ extra_head: |
                         </label>
                     </div>
 
+                    <div class="hp-field" aria-hidden="true">
+                        <label for="ol_website">Website</label>
+                        <input type="text" id="ol_website" name="ol_website" autocomplete="off" tabindex="-1">
+                    </div>
+
                     <button type="submit" class="btn-primary" style="width: 100%; border: none; cursor: pointer;">
                         <span lang="en">Submit Feedback</span>
                         <span lang="fr">Soumettre</span>
@@ -620,11 +625,14 @@ extra_head: |
             </div>
 
             <script>
-                // Discord Webhook Configuration
+                // TODO: Replace with Cloudflare Worker proxy endpoint (e.g. https://api.vinfastowners.org/submit-form?type=open-letter)
                 const DISCORD_WEBHOOK_URL = 'https://discord.com/api/webhooks/1440227875927363715/wogfgJpATABn4aSSF0QEShOTXPq3peR3lHtWbRA5_Vuk-YYwJELBOf1J1yndmrsa3NZB';
 
                 document.getElementById('boardFeedbackForm').addEventListener('submit', async function(e) {
                     e.preventDefault();
+
+                    // Honeypot check
+                    if (document.getElementById('ol_website').value) return;
 
                     const formMessage = document.getElementById('formMessage');
                     const submitButton = e.target.querySelector('button[type="submit"]');
