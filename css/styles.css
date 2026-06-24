@@ -3039,6 +3039,59 @@ a.community-card {
     }
 }
 
+/* ---------- Auth Tiers ---------- */
+.member-only,
+.verified-only {
+    display: none;
+}
+
+html[data-auth-tier="member"] .member-only,
+html[data-auth-tier="verified"] .member-only,
+html[data-auth-tier="verified"] .verified-only {
+    display: block;
+}
+
+html[data-auth-tier="member"] .public-only,
+html[data-auth-tier="verified"] .public-only {
+    display: none;
+}
+
+.auth-user-info {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.auth-avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: var(--radius-full);
+}
+
+.auth-display-name {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.auth-btn {
+    padding: var(--space-2) var(--space-4);
+    border: 1px solid var(--brand-primary);
+    border-radius: var(--radius-md);
+    background: transparent;
+    color: var(--brand-primary);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all var(--duration-fast) ease;
+}
+
+.auth-btn:hover {
+    background: var(--brand-primary);
+    color: var(--text-on-brand);
+}
+
 /* ---------- Form Validation ---------- */
 .form-error {
     color: var(--brand-red);
