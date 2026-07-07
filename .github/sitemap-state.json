@@ -3,19 +3,19 @@
     "urls": [
       {
         "loc": "http://vinfastauto.ca/en",
-        "lastmod": "2026-07-01T11:40:09+07:00"
+        "lastmod": "2026-07-07T02:40:22+07:00"
       },
       {
         "loc": "http://vinfastauto.ca/fr",
-        "lastmod": "2026-07-01T11:40:09+07:00"
+        "lastmod": "2026-07-07T02:40:22+07:00"
       },
       {
         "loc": "http://vinfastauto.ca/en/frontpage",
-        "lastmod": "2026-07-01T11:40:09+07:00"
+        "lastmod": "2026-07-07T02:40:22+07:00"
       },
       {
         "loc": "http://vinfastauto.ca/fr/frontpage",
-        "lastmod": "2026-07-01T11:40:09+07:00"
+        "lastmod": "2026-07-07T02:40:22+07:00"
       },
       {
         "loc": "http://vinfastauto.ca/en/terms-of-use",
@@ -399,6 +399,6 @@
       }
     ],
     "count": 99,
-    "last_checked": "2026-07-06T02:08:19.396569"
+    "last_checked": "2026-07-07T02:03:41.414451"
   }
 }
