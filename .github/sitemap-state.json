@@ -2,8 +2,8 @@
   "vinfastauto.ca": {
     "urls": [
       {
-        "loc": "http://vinfastauto.ca/fr",
-        "lastmod": "2026-07-17T10:16:22+07:00"
+        "loc": "http://vinfastauto.ca/en",
+        "lastmod": "2026-07-17T10:15:57+07:00"
       },
       {
         "loc": "http://vinfastauto.ca/en/frontpage",
@@ -395,6 +395,6 @@
       }
     ],
     "count": 98,
-    "last_checked": "2026-07-18T01:26:25.590442"
+    "last_checked": "2026-07-19T01:43:25.002780"
   }
 }
