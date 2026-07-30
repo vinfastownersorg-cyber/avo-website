@@ -1,38 +1,38 @@
 {
   "US Investor Relations": {
     "url": "https://vinfastauto.us/investor-relations/",
-    "hash": "2a11d1ea1222083062fb142c2f6ecbe79693b8a9cfff3035f67b88819f056234",
-    "last_checked": "2026-07-29T01:41:07.422592",
-    "content_length": 8318
+    "hash": "dcac26e95c974c64935855cf73b240309a665c95de9953834a5ea42497764645",
+    "last_checked": "2026-07-30T01:23:40.924804",
+    "content_length": 8288
   },
   "US Newsroom": {
     "url": "https://vinfastauto.us/newsroom",
-    "hash": "350290384fd48a9ce36194700daa16941cfd718b9e850220076cf463d26a081a",
-    "last_checked": "2026-07-29T01:41:07.688440",
-    "content_length": 17860
+    "hash": "b2a8c35366d4954ed549fd81050e75e946580a683dbac6bef2e7ddd6a95bf659",
+    "last_checked": "2026-07-30T01:23:41.366134",
+    "content_length": 17908
   },
   "CA Newsroom (EN)": {
     "url": "https://vinfastauto.ca/en/newsroom",
-    "hash": "a85bd4c08f9c6a24fdb0d2a31f299fd4602b072bfdb45d719bd3f3982b0f3387",
-    "last_checked": "2026-07-29T01:41:08.246245",
-    "content_length": 7660
+    "hash": "673adf89c826e3240fbfbdf0654c75f004f0262aafe4c09b0212e237cdd7ed88",
+    "last_checked": "2026-07-30T01:23:41.971845",
+    "content_length": 7708
   },
   "US Homepage": {
     "url": "https://vinfastauto.us/",
-    "hash": "d15346c12d0711bfe1a98d46868080553fc51fe360a4284a04fe6d01d1b4ddc3",
-    "last_checked": "2026-07-29T01:41:08.820786",
-    "content_length": 16399
+    "hash": "fbea886c2c5b6bef46bad9debce3f44afddf7c7a1c75faa4f4fa15af7eeb7d2d",
+    "last_checked": "2026-07-30T01:23:42.341595",
+    "content_length": 16447
   },
   "CA Homepage": {
     "url": "https://vinfastauto.ca/en",
-    "hash": "32c09c2a475354679bb6bf4899c6d7bc8e8ce831b5a69b0ac3454901b87afedd",
-    "last_checked": "2026-07-29T01:41:09.535448",
-    "content_length": 5174
+    "hash": "153609c8a7ef5e023ebea54933fb9c22389220d4ba5fcc02c80703edca92e1f3",
+    "last_checked": "2026-07-30T01:23:43.225281",
+    "content_length": 5222
   },
   "VinFast Owners": {
     "url": "https://vinfastowners.org",
     "hash": "e2a99edc3a4073da14816c15ca11cc91a5a7b3ff12e3e03e32920a5277bb544a",
-    "last_checked": "2026-07-29T01:41:10.325944",
+    "last_checked": "2026-07-30T01:23:44.223773",
     "content_length": 6888
   }
 }

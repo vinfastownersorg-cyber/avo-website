@@ -392,9 +392,17 @@
       {
         "loc": "http://vinfastauto.ca/fr/contact",
         "lastmod": null
+      },
+      {
+        "loc": "http://vinfastauto.ca/en/total-cost-of-ownership",
+        "lastmod": null
+      },
+      {
+        "loc": "http://vinfastauto.ca/fr/total-cost-of-ownership",
+        "lastmod": null
       }
     ],
-    "count": 98,
-    "last_checked": "2026-07-29T01:41:06.714010"
+    "count": 100,
+    "last_checked": "2026-07-30T01:23:38.616136"
   }
 }
