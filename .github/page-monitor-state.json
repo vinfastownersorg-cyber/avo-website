@@ -2,37 +2,37 @@
   "US Investor Relations": {
     "url": "https://vinfastauto.us/investor-relations/",
     "hash": "13d47289088bd2c0ec39ecdf8f325e3abf4244addb4a32b7b190a4831067f3c4",
-    "last_checked": "2026-08-19T00:37:31.337000",
+    "last_checked": "2026-08-20T00:37:41.925694",
     "content_length": 8279
   },
   "US Newsroom": {
     "url": "https://vinfastauto.us/newsroom",
-    "hash": "5d635cc3addb84922cb506f558ebd76ae331ac16739a7d00a7fc2e3f2af7ac38",
-    "last_checked": "2026-08-19T00:37:31.888543",
-    "content_length": 17894
+    "hash": "babff29bbb82c016018bc84a31e80ba2e10f2048f90bf76f5041eceb8dc9a46a",
+    "last_checked": "2026-08-20T00:37:42.427610",
+    "content_length": 17908
   },
   "CA Newsroom (EN)": {
     "url": "https://vinfastauto.ca/en/newsroom",
-    "hash": "92acd7e034c51163fb8669af072c63ee03e7a2bad9db3840caffec15251cf70f",
-    "last_checked": "2026-08-19T00:37:32.506595",
-    "content_length": 7701
+    "hash": "aad095a1f15df40b828268598e228c29d7aab7132fd5f3f0180790e1384f0cef",
+    "last_checked": "2026-08-20T00:37:43.787651",
+    "content_length": 7715
   },
   "US Homepage": {
     "url": "https://vinfastauto.us/",
-    "hash": "01931acf398a5a34bec2189d5924d10a7479cc097c4a5a553f6576802c1b1dc7",
-    "last_checked": "2026-08-19T00:37:33.221679",
-    "content_length": 16570
+    "hash": "503ae21dc9928744ea69fd5af41593b93255331d589907b41aa7ba55aa585fcd",
+    "last_checked": "2026-08-20T00:37:44.476635",
+    "content_length": 16584
   },
   "CA Homepage": {
     "url": "https://vinfastauto.ca/en",
-    "hash": "a0ca7ebe9b2b413f27aac2ac7b02b69b6e1c4b908f97ceec3e8ac6e7675689a1",
-    "last_checked": "2026-08-19T00:37:33.793574",
-    "content_length": 5179
+    "hash": "a14e6c41ca8ff01ad48cfdd547e400216a8565675910611d1bf92d91cac5bba1",
+    "last_checked": "2026-08-20T00:37:44.974461",
+    "content_length": 5193
   },
   "VinFast Owners": {
     "url": "https://vinfastowners.org",
     "hash": "e2a99edc3a4073da14816c15ca11cc91a5a7b3ff12e3e03e32920a5277bb544a",
-    "last_checked": "2026-08-19T00:37:34.644073",
+    "last_checked": "2026-08-20T00:37:46.118739",
     "content_length": 6888
   }
 }
