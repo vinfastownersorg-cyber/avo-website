@@ -15,5 +15,5 @@ DISCORD_VERIFIED_ROLE_ID = "1306500290824114207"
 # SESSION_SECRET (random 64-char hex string for signing cookies)
 
 [[kv_namespaces]]
-binding = "SESSIONS"
+binding = "sessions"
 id = "6d11a66b4d45485da3a8d4b94296966f"

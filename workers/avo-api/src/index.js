@@ -5,8 +5,15 @@ const CORS_HEADERS = {
   'Access-Control-Allow-Credentials': 'true',
 };
 
+// The site is served from the custom domain and the GitHub Pages mirror.
+const EXTRA_ALLOWED_ORIGINS = ['https://vinfastownersorg-cyber.github.io'];
+
 function corsHeaders(env) {
-  return { ...CORS_HEADERS, 'Access-Control-Allow-Origin': env.SITE_URL };
+  return {
+    ...CORS_HEADERS,
+    'Access-Control-Allow-Origin': env.ALLOWED_ORIGIN || env.SITE_URL,
+    'Vary': 'Origin',
+  };
 }
 
 function jsonResponse(data, status, env) {
@@ -78,16 +85,39 @@ async function handleFormSubmit(request, env) {
     return jsonResponse({ error: 'Invalid form type' }, 400, env);
   }
 
-  let body;
-  try {
-    body = await request.json();
-  } catch {
-    return jsonResponse({ error: 'Invalid JSON' }, 400, env);
+  // Discord accepts JSON, or multipart with a payload_json field for file uploads
+  // (the warranty survey attaches a CSV).
+  const contentType = request.headers.get('Content-Type') || '';
+  let payload;
+  let files = null;
+
+  if (contentType.includes('multipart/form-data')) {
+    let form;
+    try {
+      form = await request.formData();
+    } catch {
+      return jsonResponse({ error: 'Invalid form data' }, 400, env);
+    }
+    try {
+      payload = JSON.parse(form.get('payload_json'));
+    } catch {
+      return jsonResponse({ error: 'Invalid JSON' }, 400, env);
+    }
+    files = [...form.entries()].filter(([key]) => key !== 'payload_json');
+  } else {
+    try {
+      payload = await request.json();
+    } catch {
+      return jsonResponse({ error: 'Invalid JSON' }, 400, env);
+    }
   }
 
-  if (!body.embeds && !body.content) {
+  if (!payload || (!payload.embeds && !payload.content)) {
     return jsonResponse({ error: 'Missing payload' }, 400, env);
   }
+
+  // Webhooks bypass member permissions, so never forward mentions from a public form.
+  payload.allowed_mentions = { parse: [] };
 
   const ip = request.headers.get('CF-Connecting-IP') || 'unknown';
   const rateLimitKey = `rate:${formType}:${ip}`;
@@ -98,11 +128,19 @@ async function handleFormSubmit(request, env) {
   await env.sessions.put(rateLimitKey, '1', { expirationTtl: 30 });
 
   const webhookUrl = env[webhookVar];
-  const resp = await fetch(webhookUrl, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(body),
-  });
+  let resp;
+  if (files) {
+    const outbound = new FormData();
+    outbound.append('payload_json', JSON.stringify(payload));
+    for (const [key, value] of files) outbound.append(key, value);
+    resp = await fetch(webhookUrl, { method: 'POST', body: outbound });
+  } else {
+    resp = await fetch(webhookUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+  }
 
   if (!resp.ok) {
     return jsonResponse({ error: 'Submission failed' }, 502, env);
@@ -286,6 +324,11 @@ async function handleAuthLogout(request, env) {
 
 export default {
   async fetch(request, env) {
+    const origin = request.headers.get('Origin');
+    if (origin && (origin === env.SITE_URL || EXTRA_ALLOWED_ORIGINS.includes(origin))) {
+      env = { ...env, ALLOWED_ORIGIN: origin };
+    }
+
     const url = new URL(request.url);
     const path = url.pathname;
 

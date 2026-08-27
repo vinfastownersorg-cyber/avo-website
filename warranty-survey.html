@@ -651,8 +651,7 @@ og_description: "Submit your VinFast warranty or service issue for review and po
             submitBtn.innerHTML = '<span lang="en">Submitting\u2026</span><span lang="fr">Envoi en cours\u2026</span>';
 
             try {
-                // TODO: Replace with Cloudflare Worker proxy endpoint (e.g. https://api.vinfastowners.org/submit-form?type=warranty-survey)
-                var res = await fetch('https://discord.com/api/webhooks/1437665226014199868/URTf_d_QHRGHb3i7IXyj-UaejQT0DR7UXOo62hbRRKd1vEL6VM16d2y5Dn0zc65S6LFb', {
+                var res = await fetch('https://avo-api.vinfastownersorg.workers.dev/submit-form?type=warranty-survey', {
                     method: 'POST',
                     body: formData
                 });
