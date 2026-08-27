@@ -61,9 +61,9 @@ cd workers/avo-api
 wrangler secret put DISCORD_CLIENT_ID
 wrangler secret put DISCORD_CLIENT_SECRET
 
-# Discord webhook URLs (copy from your current site code)
-wrangler secret put DISCORD_WEBHOOK_MEMBERSHIP
-wrangler secret put DISCORD_WEBHOOK_OPEN_LETTER
+# Discord webhook URL (create in Discord: Server Settings > Integrations > Webhooks;
+# never paste it into site code or commit it)
+wrangler secret put DISCORD_WEBHOOK_FORMS
 
 # Session signing key (generate a random string)
 # On Mac/Linux: openssl rand -hex 32

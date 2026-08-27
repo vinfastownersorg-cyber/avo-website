@@ -10,8 +10,7 @@ DISCORD_VERIFIED_ROLE_ID = "1306500290824114207"
 
 # Secrets (set via `wrangler secret put <NAME>`):
 # DISCORD_CLIENT_SECRET
-# DISCORD_WEBHOOK_MEMBERSHIP
-# DISCORD_WEBHOOK_OPEN_LETTER
+# DISCORD_WEBHOOK_FORMS
 # SESSION_SECRET (random 64-char hex string for signing cookies)
 
 [[kv_namespaces]]
