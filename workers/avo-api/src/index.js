@@ -62,10 +62,11 @@ function sessionCookie(token, maxAge = 86400 * 7) {
 
 // --- Route: Form Proxy ---
 
+// All three forms post to the same channel, so they share one webhook.
 const FORM_TYPES = {
-  membership: 'DISCORD_WEBHOOK_MEMBERSHIP',
-  'warranty-survey': 'DISCORD_WEBHOOK_MEMBERSHIP',
-  'open-letter': 'DISCORD_WEBHOOK_OPEN_LETTER',
+  membership: 'DISCORD_WEBHOOK_FORMS',
+  'warranty-survey': 'DISCORD_WEBHOOK_FORMS',
+  'open-letter': 'DISCORD_WEBHOOK_FORMS',
 };
 
 async function handleFormSubmit(request, env) {
