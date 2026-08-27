@@ -2,11 +2,11 @@
   "vinfastauto.ca": {
     "urls": [
       {
-        "loc": "http://vinfastauto.ca/en/terms-of-use",
+        "loc": "http://vinfastauto.ca/en/legal/terms-of-use",
         "lastmod": "2023-10-18T15:04:44+07:00"
       },
       {
-        "loc": "http://vinfastauto.ca/fr/terms-of-use",
+        "loc": "http://vinfastauto.ca/fr/conditions-utilisation",
         "lastmod": "2023-10-18T15:04:44+07:00"
       },
       {
@@ -26,7 +26,7 @@
         "lastmod": "2024-11-29T03:36:08+07:00"
       },
       {
-        "loc": "http://vinfastauto.ca/en/connected-services-agreement",
+        "loc": "http://vinfastauto.ca/en/legal/connected-services-agreement",
         "lastmod": "2025-03-20T11:03:14+07:00"
       },
       {
@@ -34,7 +34,7 @@
         "lastmod": "2025-03-20T11:03:14+07:00"
       },
       {
-        "loc": "http://vinfastauto.ca/en/account-terms-of-use",
+        "loc": "http://vinfastauto.ca/en/legal/account-terms-of-use",
         "lastmod": "2025-03-20T11:03:50+07:00"
       },
       {
@@ -42,7 +42,7 @@
         "lastmod": "2025-03-20T11:03:50+07:00"
       },
       {
-        "loc": "http://vinfastauto.ca/en/vinfast-app-terms-and-conditions",
+        "loc": "http://vinfastauto.ca/en/legal/app-terms-and-conditions",
         "lastmod": "2023-10-18T15:04:44+07:00"
       },
       {
@@ -50,7 +50,7 @@
         "lastmod": "2023-10-18T15:04:44+07:00"
       },
       {
-        "loc": "http://vinfastauto.ca/en/privacy-policy",
+        "loc": "http://vinfastauto.ca/en/legal/privacy-policy",
         "lastmod": "2024-10-29T14:38:30+07:00"
       },
       {
@@ -78,7 +78,7 @@
         "lastmod": "2026-01-08T10:40:54+07:00"
       },
       {
-        "loc": "http://vinfastauto.ca/en/LegalAndCompliance",
+        "loc": "http://vinfastauto.ca/en/legal/legal-and-compliance",
         "lastmod": "2026-06-22T11:13:54+07:00"
       },
       {
@@ -94,7 +94,7 @@
         "lastmod": "2026-07-03T01:49:25+07:00"
       },
       {
-        "loc": "http://vinfastauto.ca/en/2025-vinfast-vf-9-warranty-manual",
+        "loc": "http://vinfastauto.ca/en/owners/manuals/2025-vf-9-warranty",
         "lastmod": "2025-07-31T21:53:32+07:00"
       },
       {
@@ -126,7 +126,7 @@
         "lastmod": "2026-06-18T01:47:55+07:00"
       },
       {
-        "loc": "http://vinfastauto.ca/fr/vinfast-doccasion-certifies",
+        "loc": "http://vinfastauto.ca/fr/vehicules-occasion-certifies",
         "lastmod": "2026-06-18T01:47:55+07:00"
       },
       {
@@ -134,7 +134,7 @@
         "lastmod": "2023-10-18T15:04:44+07:00"
       },
       {
-        "loc": "http://vinfastauto.ca/fr/newsroom/press-release/vinfast-canadian-roadshow-tour-release",
+        "loc": "http://vinfastauto.ca/fr/presse/communique/tournee-canadienne-vinfast",
         "lastmod": "2023-10-18T15:04:44+07:00"
       },
       {
@@ -142,7 +142,7 @@
         "lastmod": "2023-10-18T15:04:44+07:00"
       },
       {
-        "loc": "http://vinfastauto.ca/fr/newsroom/press-release/win-a-trip-to-vietnam",
+        "loc": "http://vinfastauto.ca/fr/presse/communique/gagnez-un-voyage-au-vietnam",
         "lastmod": "2023-10-18T15:04:44+07:00"
       },
       {
@@ -150,7 +150,7 @@
         "lastmod": "2023-10-18T15:04:44+07:00"
       },
       {
-        "loc": "http://vinfastauto.ca/fr/newsroom/press-release/vinfast-presents-a-state-of-the-art-multimedia-show-for-the-return-of-the",
+        "loc": "http://vinfastauto.ca/fr/presse/communique/vinfast-spectacle-multimedia-retour-vietnam",
         "lastmod": "2023-10-18T15:04:44+07:00"
       },
       {
@@ -214,7 +214,7 @@
         "lastmod": "2023-10-18T15:04:44+07:00"
       },
       {
-        "loc": "http://vinfastauto.ca/en/newsroom/press-release/the-first-vinfast-vf-8-batch-arrived-at-the-port-in-canada-vinfast-is-ready",
+        "loc": "http://vinfastauto.ca/en/newsroom/press-release/first-vinfast-vf-8-batch-arrives-canada",
         "lastmod": "2023-10-18T15:04:44+07:00"
       },
       {
@@ -247,66 +247,66 @@
       },
       {
         "loc": "http://vinfastauto.ca/en/newsroom/press-release/vinfast-electrifies-vancouver-with-presence-at-2023-fully-charged-live-event",
-        "lastmod": "2023-10-18T15:04:44+07:00"
+        "lastmod": "2026-08-27T09:36:40+07:00"
       },
       {
         "loc": "http://vinfastauto.ca/en/newsroom/press-release/vinfast-mirrorsense-honored-with-innovation-award-honoree-at-ces-2024",
-        "lastmod": "2024-01-09T10:01:58+07:00"
+        "lastmod": "2026-08-27T09:37:35+07:00"
       },
       {
         "loc": "http://vinfastauto.ca/en/newsroom/press-release/vinfast-globally-launches-the-vf-3-a-green-mobility-solution-for-everyone",
-        "lastmod": "2024-01-10T07:38:32+07:00"
+        "lastmod": "2026-08-27T09:38:22+07:00"
       },
       {
         "loc": "http://vinfastauto.ca/en/newsroom/press-release/vinfast-unveils-new-electric-pickup-truck-concept-vf-wild",
-        "lastmod": "2024-01-10T09:43:22+07:00"
+        "lastmod": "2026-08-27T09:39:52+07:00"
       },
       {
-        "loc": "http://vinfastauto.ca/en/newsroom/press-release/vinfast-officially-introduces-the-vf-3-and-vf-wild-in-canada",
+        "loc": "http://vinfastauto.ca/en/newsroom/press-release/vf-3-vf-wild-canada",
         "lastmod": "2024-01-19T17:18:27+07:00"
       },
       {
-        "loc": "http://vinfastauto.ca/en/newsroom/press-release/vinfast-to-attend-the-2024-canadian-international-auto-show",
+        "loc": "http://vinfastauto.ca/en/newsroom/press-release/canadian-international-auto-show-2024",
         "lastmod": "2024-02-06T16:49:24+07:00"
       },
       {
-        "loc": "http://vinfastauto.ca/en/newsroom/press-release/vinfast-to-attend-vancouver-international-auto-show-2024",
+        "loc": "http://vinfastauto.ca/en/newsroom/press-release/vancouver-international-auto-show-2024",
         "lastmod": "2024-03-14T17:49:23+07:00"
       },
       {
-        "loc": "http://vinfastauto.ca/en/newsroom/press-release/vinfast-to-attend-montreal-electric-vehicle-show-2024",
+        "loc": "http://vinfastauto.ca/en/newsroom/press-release/montreal-electric-vehicle-show-2024",
         "lastmod": "2024-04-16T10:41:51+07:00"
       },
       {
-        "loc": "http://vinfastauto.ca/en/newsroom/press-release/vinfast-becomes-worlds-first-to-launch-sonys-in-car-entertainment-service",
+        "loc": "http://vinfastauto.ca/en/newsroom/press-release/vinfast-sony-ridevu-canada",
         "lastmod": "2024-05-11T17:19:33+07:00"
       },
       {
-        "loc": "http://vinfastauto.ca/en/newsroom/press-release/vinfast-returns-to-vancouver-for-everything-electric-ev-show",
+        "loc": "http://vinfastauto.ca/en/newsroom/press-release/everything-electric-vancouver",
         "lastmod": "2024-09-06T01:15:19+07:00"
       },
       {
-        "loc": "http://vinfastauto.ca/fr/newsroom/press-release/vinfast-revient-a-vancouver-pour-le-salon-everything-electric-ev",
+        "loc": "http://vinfastauto.ca/fr/presse/communique/vinfast-revient-a-vancouver-pour-le-salon-everything-electric-ev",
         "lastmod": "2024-09-06T01:15:19+07:00"
       },
       {
         "loc": "http://vinfastauto.ca/en/newsroom/press-release/vinfast-drives-community-support-with-food-bank-initiative-test-drive-a",
-        "lastmod": "2024-11-22T21:20:25+07:00"
+        "lastmod": "2026-08-27T09:44:06+07:00"
       },
       {
-        "loc": "http://vinfastauto.ca/fr/newsroom/press-release/vinfast-soutient-la-communaute-avec-linitiative-banques-alimentaires-canada",
-        "lastmod": "2024-11-22T21:20:25+07:00"
+        "loc": "http://vinfastauto.ca/fr/presse/communique/vinfast-soutient-la-communaute-avec-linitiative-banques-alimentaires-canada",
+        "lastmod": "2026-08-27T09:44:06+07:00"
       },
       {
-        "loc": "http://vinfastauto.ca/en/newsroom/press-release/warning-beware-of-scams-and-fraudulent-websites",
+        "loc": "http://vinfastauto.ca/en/newsroom/press-release/scam-fraudulent-website-warning",
         "lastmod": "2024-12-17T15:56:39+07:00"
       },
       {
-        "loc": "http://vinfastauto.ca/en/newsroom/press-release/vinfast-concludes-limted-time-special-aftersales-policy",
+        "loc": "http://vinfastauto.ca/en/newsroom/press-release/limited-time-aftersales-policy",
         "lastmod": "2024-12-26T09:36:52+07:00"
       },
       {
-        "loc": "http://vinfastauto.ca/fr/newsroom/press-release/vinfast-termine-la-politique-speciale-de-service-apres-vente-a-duree-limitee",
+        "loc": "http://vinfastauto.ca/fr/presse/communique/vinfast-termine-la-politique-speciale-de-service-apres-vente-a-duree-limitee",
         "lastmod": "2024-12-26T09:36:52+07:00"
       },
       {
@@ -314,7 +314,7 @@
         "lastmod": "2025-11-12T00:03:11+07:00"
       },
       {
-        "loc": "http://vinfastauto.ca/fr/newsroom/press-release/essayez-un-vehicule-electrique-vinfast-et-aidez-a-fournir-200-000-repas-aux",
+        "loc": "http://vinfastauto.ca/fr/presse/communique/essayez-un-vehicule-electrique-vinfast-et-aidez-a-fournir-200-000-repas-aux",
         "lastmod": "2025-11-12T00:30:39+07:00"
       },
       {
@@ -330,7 +330,7 @@
         "lastmod": null
       },
       {
-        "loc": "http://vinfastauto.ca/fr/store-locator",
+        "loc": "http://vinfastauto.ca/fr/trouver-un-concessionnaire",
         "lastmod": null
       },
       {
@@ -338,7 +338,7 @@
         "lastmod": null
       },
       {
-        "loc": "http://vinfastauto.ca/fr/find-us",
+        "loc": "http://vinfastauto.ca/fr/trouvez-nous",
         "lastmod": null
       },
       {
@@ -366,11 +366,11 @@
         "lastmod": null
       },
       {
-        "loc": "http://vinfastauto.ca/en/story",
+        "loc": "http://vinfastauto.ca/en/about-vinfast",
         "lastmod": null
       },
       {
-        "loc": "http://vinfastauto.ca/fr/story",
+        "loc": "http://vinfastauto.ca/fr/a-propos-de-vinfast",
         "lastmod": null
       },
       {
@@ -399,6 +399,6 @@
       }
     ],
     "count": 99,
-    "last_checked": "2026-08-26T00:39:49.557039"
+    "last_checked": "2026-08-27T05:43:09.042944"
   }
 }
