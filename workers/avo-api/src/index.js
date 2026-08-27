@@ -126,7 +126,8 @@ async function handleFormSubmit(request, env) {
   if (existing) {
     return jsonResponse({ error: 'Please wait before submitting again' }, 429, env);
   }
-  await env.sessions.put(rateLimitKey, '1', { expirationTtl: 30 });
+  // KV requires a minimum TTL of 60 seconds.
+  await env.sessions.put(rateLimitKey, '1', { expirationTtl: 60 });
 
   const webhookUrl = env[webhookVar];
   let resp;
