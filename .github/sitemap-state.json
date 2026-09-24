@@ -382,11 +382,11 @@
         "lastmod": null
       },
       {
-        "loc": "http://vinfastauto.ca/en/energy-cost-savings-calculator",
+        "loc": "http://vinfastauto.ca/en/electric-vehicle-ownership-energy-cost-savings-calculator",
         "lastmod": null
       },
       {
-        "loc": "http://vinfastauto.ca/fr/energy-cost-savings-calculator",
+        "loc": "http://vinfastauto.ca/fr/calculateur-deconomies-sur-les-couts-energetiques-dun-vehicule-electrique",
         "lastmod": null
       },
       {
@@ -399,6 +399,6 @@
       }
     ],
     "count": 99,
-    "last_checked": "2026-09-23T02:22:48.484836"
+    "last_checked": "2026-09-24T02:10:47.348892"
   }
 }
