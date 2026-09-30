@@ -343,11 +343,11 @@
       },
       {
         "loc": "http://vinfastauto.ca/en/service",
-        "lastmod": "2026-08-26T15:14:34+07:00"
+        "lastmod": "2026-09-29T22:34:54+07:00"
       },
       {
         "loc": "http://vinfastauto.ca/fr/service",
-        "lastmod": "2026-08-26T15:14:34+07:00"
+        "lastmod": "2026-09-29T22:34:54+07:00"
       },
       {
         "loc": "http://vinfastauto.ca/en/charging",
@@ -399,6 +399,6 @@
       }
     ],
     "count": 99,
-    "last_checked": "2026-09-29T03:14:54.858923"
+    "last_checked": "2026-09-30T02:57:16.264925"
   }
 }
