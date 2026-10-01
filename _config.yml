@@ -25,6 +25,10 @@ exclude:
   - archive/
   - README.md
   - youtube_posted.json  # Bot tracking file (keep private)
+  - nhtsa_posted.json    # Bot tracking file (keep private)
+  - workers/             # Cloudflare Worker source (deployed separately)
+  - update-ratings.py    # Ratings maintenance script
+  - RATINGS-GUIDE.md     # Ratings maintenance docs
   - .gitignore
   - .htaccess*           # Apache config files (not used on GH Pages)
   - CODEOWNERS
