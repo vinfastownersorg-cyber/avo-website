@@ -2,37 +2,37 @@
   "US Investor Relations": {
     "url": "https://vinfastauto.us/investor-relations/",
     "hash": "fca6645ec3d64ff504b99bff566679c3518a4fed3cfb5713f794a6c9b39a15f5",
-    "last_checked": "2026-10-10T03:18:24.226811",
+    "last_checked": "2026-10-11T02:51:31.993823",
     "content_length": 8298
   },
   "US Newsroom": {
     "url": "https://vinfastauto.us/newsroom",
     "hash": "7d6d9336c076b8a4f64a9ca8ef35feaeb122bdf762e186604105aceacf1e5ff5",
-    "last_checked": "2026-10-10T03:18:24.640088",
+    "last_checked": "2026-10-11T02:51:32.430185",
     "content_length": 17453
   },
   "CA Newsroom (EN)": {
     "url": "https://vinfastauto.ca/en/newsroom",
-    "hash": "ffeb79c2a873e8cb0831892d61374a4cbb71eec24e619bd4af1d2039268c00df",
-    "last_checked": "2026-10-10T03:18:25.339507",
-    "content_length": 7751
+    "hash": "acb09b106cd9f4bb78c8acc63039144359a1a109c9540763b51e51bd864cc30d",
+    "last_checked": "2026-10-11T02:51:33.172045",
+    "content_length": 7767
   },
   "US Homepage": {
     "url": "https://vinfastauto.us/",
     "hash": "fc4813ec211fce8500a083ca6836083fe742f6b3729af82caad76b8ac62f0967",
-    "last_checked": "2026-10-10T03:18:25.972318",
+    "last_checked": "2026-10-11T02:51:33.584131",
     "content_length": 16449
   },
   "CA Homepage": {
     "url": "https://vinfastauto.ca/en",
-    "hash": "9cb1f0c0dcdb416b2813ecc238c7564a8a695b325116b3ef83524334e6ce9e09",
-    "last_checked": "2026-10-10T03:18:26.915991",
-    "content_length": 5244
+    "hash": "c8860af8fdd84bdce3bda80ff9aa298b7e1786f8b921ad45cf3248012e61d004",
+    "last_checked": "2026-10-11T02:51:34.515416",
+    "content_length": 5260
   },
   "VinFast Owners": {
     "url": "https://vinfastowners.org",
     "hash": "04089f4e7b268ba3d7e8453d523dd3696508d053ce0491a788b8a050a4ce1bfc",
-    "last_checked": "2026-10-10T03:18:27.944381",
+    "last_checked": "2026-10-11T02:51:35.937718",
     "content_length": 6957
   }
 }
