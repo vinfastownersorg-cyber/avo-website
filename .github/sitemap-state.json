@@ -326,6 +326,14 @@
         "lastmod": "2026-08-26T15:19:42+07:00"
       },
       {
+        "loc": "http://vinfastauto.ca/en/newsroom/press-release/canada-and-vingroupvinfast-strengthen-dialogue-on-investment-collaboration",
+        "lastmod": "2026-10-22T05:13:39+07:00"
+      },
+      {
+        "loc": "http://vinfastauto.ca/fr/presse/communique/le-canada-et-vingroupvinfast-renforcent-leur-dialogue-sur-linvestissement-la",
+        "lastmod": "2026-10-22T05:13:39+07:00"
+      },
+      {
         "loc": "http://vinfastauto.ca/en/promotions",
         "lastmod": null
       },
@@ -390,11 +398,7 @@
         "lastmod": null
       },
       {
-        "loc": "http://vinfastauto.ca/en/electric-vehicle-ownership-energy-cost-savings-calculator",
-        "lastmod": null
-      },
-      {
-        "loc": "http://vinfastauto.ca/fr/calculateur-deconomies-sur-les-couts-energetiques-dun-vehicule-electrique",
+        "loc": "http://vinfastauto.ca/electric-vehicle-ownership-energy-cost-savings-calculator",
         "lastmod": null
       },
       {
@@ -406,7 +410,7 @@
         "lastmod": "2026-10-08T09:44:10+07:00"
       }
     ],
-    "count": 101,
-    "last_checked": "2026-10-21T02:29:07.961922"
+    "count": 102,
+    "last_checked": "2026-10-22T02:25:09.168198"
   }
 }
